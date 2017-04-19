@@ -73,6 +73,7 @@ public class MoneyBookController {
 				response.put("result", false);
 			}
 		}
+		System.out.println(response.get("msg"));
 		return response;
 	}
 	
