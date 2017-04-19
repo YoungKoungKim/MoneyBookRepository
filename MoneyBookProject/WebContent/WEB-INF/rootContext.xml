@@ -13,7 +13,7 @@
 		<property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
 		<property name="username" value="root"></property>
 		<property name="password" value="mysql"></property>
-		<property name="url" value="jdbc:mysql://localhost/board_db2"></property>
+		<property name="url" value="jdbc:mysql://localhost/moneybook_db"></property>
 	</bean>
 
 	<bean class="org.mybatis.spring.SqlSessionFactoryBean" id="sqlSessionFactory">
@@ -22,18 +22,28 @@
 		<property name="mapperLocations" value="classpath*:mapper/*.xml"></property>
 	</bean>
 
-	<bean class="org.mybatis.spring.mapper.MapperFactoryBean" id="mapperBoard">
+	<bean class="org.mybatis.spring.mapper.MapperFactoryBean" id="boardDao">
 		<property name="mapperInterface" value="dao.IBoardDao"></property>
 		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
 	</bean>
-
-	<bean class="org.mybatis.spring.mapper.MapperFactoryBean" id="mapperMember">
-		<property name="mapperInterface" value="dao.IMemberDao"></property>
+	
+	<bean class="org.mybatis.spring.mapper.MapperFactoryBean" id="bookMarkDao">
+		<property name="mapperInterface" value="dao.IBookMarkDao"></property>
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+	</bean>
+	
+	<bean class="org.mybatis.spring.mapper.MapperFactoryBean" id="commentDao">
+		<property name="mapperInterface" value="dao.ICommentDao"></property>
 		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
 	</bean>
 
-	<bean class="org.mybatis.spring.mapper.MapperFactoryBean" id="mapperBoardFile">
-		<property name="mapperInterface" value="dao.IBoardFileDao"></property>
+	<bean class="org.mybatis.spring.mapper.MapperFactoryBean" id="memberDao">
+		<property name="mapperInterface" value="dao.IMemberDao"></property>
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+	</bean>
+	
+	<bean class="org.mybatis.spring.mapper.MapperFactoryBean" id="moneyBookDao">
+		<property name="mapperInterface" value="dao.IMoneyBookDao"></property>
 		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
 	</bean>
 

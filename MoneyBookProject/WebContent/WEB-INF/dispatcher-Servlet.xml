@@ -17,7 +17,7 @@
 
 	<context:component-scan base-package="controller"></context:component-scan>
 
-<!-- 	<mvc:interceptors>
+ 	<mvc:interceptors>
 		<mvc:interceptor>
 			<mvc:mapping path="/*.do" />
 			<mvc:exclude-mapping path="/main.do" />
@@ -31,6 +31,6 @@
 			<mvc:mapping path="/**" />
 			<bean id="logInterceptor" class="controller.LogInterceptor"></bean>
 		</mvc:interceptor>
-	</mvc:interceptors> -->
+	</mvc:interceptors>
 
 </beans>
