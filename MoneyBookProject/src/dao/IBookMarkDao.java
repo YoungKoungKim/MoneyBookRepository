@@ -9,5 +9,6 @@ public interface IBookMarkDao {
 	public int insertBookmark(HashMap<String, Object> params);			
 	public int updateBookmark(HashMap<String, Object> params);		
 	public int deleteBookmark(HashMap<String, Object> params);
-	public List<HashMap<String, Object>> selectOneBookmark(HashMap<String, Object> params);			
+	public List<HashMap<String, Object>> selectOneBookmark(HashMap<String, Object> params);		
+	public int selectIdBookmark(int id_index);
 }

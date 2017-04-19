@@ -11,7 +11,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<update id="updateBookmark" parameterType="java.util.HashMap">
 		update bookmark set
 		category = #{category}, detail = #{detail}, price = #{price}
-		Where bookmarkNo = #{bookmarkNo} And id_index = #{id_index}
+		Where
+		bookmarkNo = #{bookmarkNo} And id_index = #{id_index}
 	</update>
 
 	<delete id="deleteBookmark" parameterType="java.util.HashMap">
@@ -21,8 +22,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</delete>
 
 	<select id="selectOneBookmark" parameterType="java.util.HashMap"
-	resultType="java.util.HashMap">
-		select * from bookmark 
-		where bookmarkNo = #{bookmarkNo} and id_index = #{id_index};
+		resultType="java.util.HashMap">
+		select * from bookmark
+		where bookmarkNo = #{bookmarkNo} and
+		id_index = #{id_index};
+	</select>
+
+	<select id="selectIdBookmark" parameterType="int" resultType="int">
+		select count(*) from bookmark WHERE id_index = #{id_index}
 	</select>
 </mapper>
