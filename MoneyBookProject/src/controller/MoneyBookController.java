@@ -89,7 +89,7 @@ public class MoneyBookController {
 	
 	@RequestMapping("moneyBookDelete.do")
 	public 
-	@ResponseBody HashMap<String, Object> moneyBookDelete(int id_index, Date date, int moneyBookNo) {
+	@ResponseBody HashMap<String, Object> moneyBookDelete(int id_index, int moneyBookNo) {
 		HashMap<String, Object> response = new HashMap<>();
 		int result = moneyBookService.moneyBookDelete(moneyBookNo, id_index);
 		

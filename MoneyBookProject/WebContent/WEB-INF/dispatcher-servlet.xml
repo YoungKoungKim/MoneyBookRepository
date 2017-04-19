@@ -18,14 +18,14 @@
 	<context:component-scan base-package="controller"></context:component-scan>
 
  	<mvc:interceptors>
-		<mvc:interceptor>
+		<!-- <mvc:interceptor>
 			<mvc:mapping path="/*.do" />
 			<mvc:exclude-mapping path="/main.do" />
 			<mvc:exclude-mapping path="/login.do" />
 			<mvc:exclude-mapping path="/join.do" />
 			<mvc:exclude-mapping path="/joinForm.do" />
 			<ref bean="loginCheckInterceptor"></ref>
-		</mvc:interceptor>
+		</mvc:interceptor> -->
 
 		<mvc:interceptor>
 			<mvc:mapping path="/**" />
