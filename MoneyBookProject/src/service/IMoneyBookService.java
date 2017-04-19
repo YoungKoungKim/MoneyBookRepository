@@ -2,7 +2,6 @@ package service;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-
 import model.MoneyBook;
 
 public interface IMoneyBookService {
@@ -15,7 +14,6 @@ public interface IMoneyBookService {
 	public int moneyBookRegist(MoneyBook mb);
 	public MoneyBook moneyBookSelectOne(int moneyBookNo, int id_index, Date date);
 	public int moneyBookDelete(int moneyBookNo, int id_index);
-	public int moneyBookUpdate(String category, String detail,
-			int price, int moneyBookNo, int id_index);
+	public int moneyBookUpdate(MoneyBook mb);
 
 }

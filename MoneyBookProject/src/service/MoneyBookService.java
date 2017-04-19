@@ -212,14 +212,8 @@ public class MoneyBookService implements IMoneyBookService {
 	}
 
 	@Override
-	public int moneyBookUpdate(String category, String detail, int price, int moneyBookNo, int id_index) {
-		HashMap<String, Object> params = new HashMap<>();
-		params.put("category", category);
-		params.put("detail", detail);
-		params.put("price", price);
-		params.put("moneyBookNo", moneyBookNo);
-		params.put("id_index", id_index);
-		int result = moneyBookDao.updateMoneyBook(moneyBook);
+	public int moneyBookUpdate(MoneyBook mb) {
+		int result = moneyBookDao.updateMoneyBook(mb);
 		if (result > 0)
 			return 4201; //성공
 		else

@@ -10,7 +10,7 @@ import model.MoneyBook;
 
 public interface IMoneyBookDao {
 	int insertMoneyBook(MoneyBook mb);
-	int updateMoneyBook(HashMap<String, Object> params);
+	int updateMoneyBook(MoneyBook mb);
 	int deleteMoneyBook(HashMap<String, Object> params);
 	List<MoneyBook> selectByDate(HashMap<String, Object> params);
 	List<MoneyBook> selectOneMonth(HashMap<String, Object> params);

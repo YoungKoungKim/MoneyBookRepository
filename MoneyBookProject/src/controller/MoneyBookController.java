@@ -102,22 +102,20 @@ public class MoneyBookController {
 		return response;
 	}
 	
-	@RequestMapping("moeneyBookUpdate.do")
+	@RequestMapping("moneyBookUpdate.do")
 	public
-	@ResponseBody HashMap<String, Object> moneyBookUpdate(int id_index, Date date, String category, String detail, int price, int moneyBookNo) {
-		HashMap<String, Object> params = new HashMap<>();
-		MoneyBook moneyBook = new MoneyBook();
-		moneyBook.setId_index(id_index);
-		moneyBook.setDate(date);
-		moneyBook.setCategory(category);
-		moneyBook.setDetail(detail);
-		moneyBook.setPrice(price);
-		moneyBook.setMoneyBookNo(moneyBookNo);
-		params.put("moneyBook", moneyBook);
-		
+	@ResponseBody HashMap<String, Object> moneyBookUpdate(MoneyBook moneyBook) {
 		HashMap<String, Object> response = new HashMap<>();
+		int result = moneyBookService.moneyBookUpdate(moneyBook);
 		
-		
+		if (result == 4201) {
+			response.put("msg", "내역 수정 성공");
+			response.put("result", true);
+		} else {
+			response.put("msg", "내역 수정 실패");
+			response.put("result", false);
+		}
+		return response;
 	}
 
 }
