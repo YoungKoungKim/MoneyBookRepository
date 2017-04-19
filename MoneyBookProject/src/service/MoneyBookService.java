@@ -219,7 +219,7 @@ public class MoneyBookService implements IMoneyBookService {
 		params.put("price", price);
 		params.put("moneyBookNo", moneyBookNo);
 		params.put("id_index", id_index);
-		int result = moneyBookDao.updateMoneyBook(params);
+		int result = moneyBookDao.updateMoneyBook(moneyBook);
 		if (result > 0)
 			return 4201; //성공
 		else
