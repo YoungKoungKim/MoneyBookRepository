@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.IMemberDao">
+	<insert id="insertMember" parameterType="member">
+		insert into member
+		values(0, #{id}, #{nick}, #{pwd})
+	</insert>
+	<update id="updateMember" parameterType="member">
+		update member set nick =
+		#{nick}, pwd = #{pwd} where id_index = #{id_index}
+	</update>
+	<delete id="deleteMember" parameterType="int">
+		delete from member where
+		id_index = #{id_index}
+	</delete>
+	<select id="selectAllMember" resultType="member">
+		select * from member
+	</select>
+	<select id="selectOneMember" resultType="member" parameterType="int">
+		select * from member where id_index = #{id_index}
+	</select>
+	<select id="selectIdIndex" resultType="int" parameterType="String">
+		select id_index from member where id = #{id}
+	</select>
+</mapper>

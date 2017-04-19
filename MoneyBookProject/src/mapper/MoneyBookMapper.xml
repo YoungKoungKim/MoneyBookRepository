@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="dao.IMoneyBookDao">
+	<insert id="insertMoneyBook" parameterType="moneyBook">
+		insert into moneybook values(0, #{id_index}, #{category}, #{detail}, #{price}, #{date})
+	</insert>
+	
+	<update id="updateMoneyBook" parameterType="java.util.HashMap">
+		update moneybook set category = #{category}, detail = #{detail}, price=#{price} where moneyBookNo = #{moneyBookNo} and id_index=#{id_index}
+	</update>
+	
+	<delete id="deleteMoneyBook" parameterType="java.util.HashMap">
+		delete from moneybook where moneyBookNo = #{moneyBookNo} and id_index=#{id_index}
+	</delete>
+	
+	<select id="selectByDate" parameterType="java.util.HashMap" resultType="moneyBook">
+		select * from moneybook where DATE(date)=#{date} and id_index=#{id_index}
+	</select>
+	
+	<select id="selectOneMonth" parameterType="java.util.HashMap" resultType="moneyBook">
+		select * from moneybook where DATE(date) between #{startMonth} and #{endMonth} and id_index =#{id_index}
+	</select>
+
+</mapper>
