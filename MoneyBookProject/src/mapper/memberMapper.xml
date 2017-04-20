@@ -15,13 +15,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		delete from member where
 		id_index = #{id_index}
 	</delete>
-	<select id="selectAllMember" resultType="member">
-		select * from member
-	</select>
+	<!-- <select id="selectAllMember" resultType="member"> -->
+	<!-- select * from member -->
+	<!-- </select> -->
 	<select id="selectOneMember" resultType="member" parameterType="int">
 		select * from member where id_index = #{id_index}
 	</select>
 	<select id="selectIdIndex" resultType="int" parameterType="String">
 		select id_index from member where id = #{id}
+	</select>
+	<select id="selectNick" resultType="String" parameterType="String">
+		select nick from member WHERE nick = #{nick}
 	</select>
 </mapper>
