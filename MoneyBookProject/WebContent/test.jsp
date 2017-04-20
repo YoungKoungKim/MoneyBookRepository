@@ -14,7 +14,7 @@
 			$.ajax({
 				url : 'moneyBookDelete.do',
 				type : 'GET',
-				data : 'id_index=10&moneyBookNo=14',
+				data : 'id_index=9&moneyBookNo=13',
 				dataType : 'json',
 				success : function(data) {
 					alert(data.result);
