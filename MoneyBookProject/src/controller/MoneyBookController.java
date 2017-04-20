@@ -121,6 +121,8 @@ public class MoneyBookController {
 		}
 		return response;
 	}
+	
+	//혜리언니
 	@RequestMapping("viewMyPage.do")
 	public ModelAndView viewMyPage(int id_index, Date date){
 		ModelAndView mav = new ModelAndView();
