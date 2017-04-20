@@ -15,7 +15,7 @@ public class ExtraBoardService implements IExtraService{
 	
 	@Autowired
 	private IExtraBoardDao dao;
-	
+	 
 	@Override
 	public int boardWrite(ExtraBoard eBoard) {
 		// TODO Auto-generated method stub

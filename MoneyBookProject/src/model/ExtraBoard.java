@@ -1,7 +1,7 @@
 package model;
 
 import java.util.Date;
-
+ 
 public class ExtraBoard {
 	private int id_index;
 	private int boardNo;

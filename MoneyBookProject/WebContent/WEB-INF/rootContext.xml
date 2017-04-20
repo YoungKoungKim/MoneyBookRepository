@@ -55,7 +55,7 @@
 		id="txManager">
 		<property name="dataSource" ref="dataSource"></property>
 	</bean>
-
+ 
 	<tx:advice transaction-manager="txManager" id="mytx">
 		<tx:attributes>
 			<tx:method name="*" />

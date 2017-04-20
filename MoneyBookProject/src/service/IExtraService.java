@@ -3,7 +3,7 @@ package service;
 import java.util.List;
 
 import model.ExtraBoard;
-
+ 
 public interface IExtraService {
 	public int boardWrite(ExtraBoard eBoard);
 	public int boardUpdate(ExtraBoard eBoard);
