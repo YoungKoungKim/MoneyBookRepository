@@ -5,13 +5,13 @@ import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import commons.BookMark;
 import model.MoneyBook;
+import service.IBoardService;
 import service.IBookMarkService;
 import service.IMoneyBookService;
 
@@ -22,6 +22,9 @@ public class MoneyBookController {
 	private IMoneyBookService moneyBookService;
 	@Autowired
 	private IBookMarkService bookMarkService;
+	
+	@Autowired
+	private IBoardService boardService;
 	
 	@RequestMapping("bookMarkDelete.do")
 	public 
@@ -117,6 +120,52 @@ public class MoneyBookController {
 			response.put("result", false);
 		}
 		return response;
+	}
+	@RequestMapping("viewMyPage.do")
+	public ModelAndView viewMyPage(int id_index, Date date){
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("monthContent" ,moneyBookService.getMonthContent(id_index, date));
+		mav.addObject("monthAmount" ,moneyBookService.totalMonthAmount(id_index, date));
+		mav.addObject("dayContent" ,moneyBookService.getDayContent(date, id_index));
+		mav.addObject("dayAmount" ,moneyBookService.totalMonthAmount(id_index, date));
+		mav.setViewName("moneyBookView.jsp");
+		return mav;
+	}
+	
+	@RequestMapping("boardWriteForm.do")
+	public ModelAndView boardWriteForm(int id_index, Date date){
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("monthContent" ,moneyBookService.getMonthContent(id_index, date));
+		mav.addObject("monthAmount" ,moneyBookService.totalMonthAmount(id_index, date));
+		mav.addObject("date", moneyBookService.searchDate(date));
+		mav.setViewName("boardWrite.jsp");
+		return mav;
+	}
+	
+	
+	@RequestMapping("moneyBookWriteForm.do")
+	public ModelAndView moneyBookWriteForm(HashMap<String, Object> parmas){
+		ModelAndView mav = new ModelAndView();
+		//HashMap<String, Object> parmas = new HashMap<>();
+		mav.addAllObjects(bookMarkService.bookMarkSearch(parmas));
+		mav.setViewName("moneyBookAdd.jsp");
+		return mav;
+	}
+	
+	@RequestMapping("moneyBookDetailView.do")
+	public ModelAndView moneyBookDetailView(int id_index, Date date){
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("dayContent" ,moneyBookService.getDayContent(date, id_index));
+		mav.setViewName("moneyBookView.jsp");
+		return mav;
+	}
+	
+	@RequestMapping("moneyBookRegist.do")
+	public ModelAndView  moneyBookRegist(MoneyBook mb){
+		ModelAndView mav = new ModelAndView();
+		mav.addObject(moneyBookService.moneyBookRegist(mb));
+		mav.setViewName("moneyBookView.jsp");
+		return mav;
 	}
 
 }
