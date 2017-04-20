@@ -1,5 +1,6 @@
 package service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import model.Board;
@@ -13,5 +14,5 @@ public interface IBoardService {
 	public Board searchText(int boardNo);
 	public Board bestView();
 	public int boardWrite(Board board);
-
+	public HashMap<String, Object> getboardList(int page, String ageType);
 }
