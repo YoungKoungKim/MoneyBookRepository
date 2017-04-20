@@ -103,6 +103,7 @@ public class MoneyBookController {
 			response.put("msg", "상세내역 삭제 실패");
 			response.put("result", false);
 		}
+		System.out.println(response.get("msg"));
 		return response;
 	}
 	
