@@ -30,18 +30,21 @@ public class MemberController {
 	}
 
 	// id_check
+	//ajax
 	@RequestMapping("id_Check.do")
 	public @ResponseBody int idCheck(String id) {
 		return memberService.idCheck(id);
 	}
 
 	// nick_check
+	//ajax
 	@RequestMapping("nick_Check.do")
 	public @ResponseBody int nickCheck(HttpServletResponse resp, String nick) {
 		return memberService.nickCheck(nick);
 	}
 
 	// join_Success
+	//ajax
 	@RequestMapping(method = RequestMethod.POST, value = "join_Success.do")
 	public @ResponseBody int joinSuccess(Member m) {
 		return memberService.joinSuccess(m);
@@ -54,6 +57,7 @@ public class MemberController {
 	}
 
 	// login_Success
+	//ajax
 	@RequestMapping("login_Success.do")
 	public @ResponseBody int loginSuccess(HttpSession session, String id, String pwd, String beforePage) {
 		Member member = memberService.login(id, pwd);
@@ -74,7 +78,7 @@ public class MemberController {
 	}
 
 	// password_Check
-	// 회원 정보 수정할 때 비번 확인인가??
+	//ajax
 	@RequestMapping("password_Check.do")
 	public @ResponseBody int passwordCheck(int id_index, String pwd) {
 		return memberService.IdpwdCheck(pwd, id_index);
@@ -92,6 +96,7 @@ public class MemberController {
 	}
 
 	// inform_Update
+	//ajax
 	@RequestMapping("inform_Update.do")
 	public @ResponseBody int infromUpdate(Member member) {
 		return memberService.updateMember(member);
