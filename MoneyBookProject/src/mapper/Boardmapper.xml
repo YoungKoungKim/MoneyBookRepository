@@ -2,9 +2,9 @@
 <!DOCTYPE mapper
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-  <mapper namespace="dao.IBoardDao">
-<sql id='annotation'>
-<choose>
+<mapper namespace="dao.IBoardDao">
+	<sql id='annotation'>
+		<choose>
 			<when test="annotation != null">
 				#{content}
 			</when>
@@ -12,8 +12,8 @@
 				''
 			</otherwise>
 		</choose>
-</sql>
-  <insert id="insertBoard" parameterType="board">
+	</sql>
+	 	<insert id="insertBoard" parameterType="board" useGeneratedKeys="true" keyProperty="boardno">
   		insert into board values(0, #{title},#{content},
   		<include refid="annotation"></include>
   		,sysdate(),#{ageType},#{nick},#{id_index},0,0)
@@ -45,7 +45,8 @@
   	</select>
   	
   	<select id="selectByTitle" parameterType="java.util.HashMap" resultType="board">
-  		select * from board where title like '%${title}%'
+  		select * from board where title like '%${params}%' 
+		order by boardNo desc limit #{skip}, #{count};	
   	</select>
   	
   	<select id="selectByAgeType" parameterType="String" resultType="board">
@@ -53,18 +54,24 @@
   	</select>
   	
   	<select id="selectBest" resultType="board">
-  		select * from board where recommend = (select max(recommend) from board)
-  	</select>
+	select * from board order by recommend desc limit 0,{count};
+	</select>
   	
   	<select id="selectboardLimit" parameterType="java.util.HashMap" resultType="board">
   		select * from board 
-  		<if test="#{ageType} != 0">
+  		<if test="#{ageType} != '0'">
   		where ageType = #{ageType}
   		</if> 
   		order by boardNo desc limit #{skip}, #{count}
   	</select>
   	
-  	<select id="getBoardCount" resultType="int">
-  		select count(*) from board
+  	<select id="getBoardCount" resultType="int" parameterType="java.util.HashMap">
+  		select count(*) from board 
+  		<if test="#{category} == 'title'">
+  			where title like '%${content}%'
+  		</if>
+  		<if test="#{category} == 'nick'">
+	  		where nick like '%${content}%'
+  		</if>
   	</select>
-  </mapper>
+</mapper>
