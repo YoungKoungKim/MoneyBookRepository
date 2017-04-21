@@ -33,7 +33,7 @@
 							}	
 						},
 						error : function(e) {
-								alert(e);
+							alert("전송 실패");
 						}
 					});
 				} else {
@@ -59,7 +59,7 @@
 								}
 							},
 							error : function(e) {
-								alert(e);
+								alert("전송 실패");
 							}
 						});
 				} else {
@@ -134,14 +134,14 @@
 							}
 						},
 						error : function(e) {
-							alert(e);
+							alert("전송 실패");
 						}
 					})
 				}
 			})
 			
 			$("#cancelBtn").on("click", function() {
-				
+				self.close();
 			})
 		})
 </script>
