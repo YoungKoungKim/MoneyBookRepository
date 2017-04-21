@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import dao.IBoardDao;
 import dao.IExtraBoardDao;
@@ -14,7 +15,7 @@ import model.Board;
 import model.ExtraBoard;
 import model.Member;
 
-@Component
+@Service
 public class BoardService implements IBoardService {
 	@Autowired
 	private IBoardDao bDao;

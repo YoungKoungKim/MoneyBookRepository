@@ -53,23 +53,23 @@ section {
 /*================================
   HEADER STYLES
 ==================================*/
-header {
+#header {
 	background-color: #91D4B5;
 	color: #fff;
 	padding-top: 30px;
 	padding-bottom: 10px;
 }
 
-header .logo-wrapper img {
+#header .logo-wrapper img {
 	max-height: 55px;
 	padding-bottom: 3px;
 }
 
-header .menu-links {
+#header .menu-links {
 	padding-top: 30px;
 }
 
-header .menu-links a {
+#header .menu-links a {
 	font-family:'Amatic SC', cursive;
 	color: #ffffff;
 	font-weight: 300;
@@ -77,7 +77,7 @@ header .menu-links a {
 	font-size: 25px;
 }
 
-header .menu-links a:hover, header .menu-links a:focus {
+#header .menu-links a:hover, #header .menu-links a:focus {
 	text-decoration: none;
 	-webkit-transform: scale(1.5);
 	-moz-transform: scale(1.5);
