@@ -9,10 +9,12 @@ import model.Member;
 public interface IBoardService {
 	public int boardRecommand(int boardNo);
 	public int boardUpdate(Board board);
+	public void boardReadCount(int boardNo);
 	public List<Board> boardSearch(String type, String search_content);
 	public boolean checkMyText(Member member, int id_index);
-	public Board searchText(int boardNo);
-	public Board bestView();
+	public HashMap<String, Object> searchText(int boardNo);
+	public List<Board> bestView(int count);
 	public int boardWrite(Board board);
-	public HashMap<String, Object> getboardList(int page, String ageType);
+	public HashMap<String, Object> getboardList(int page, String ageType, String category,
+			String content);
 }
