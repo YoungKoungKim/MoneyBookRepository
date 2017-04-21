@@ -19,8 +19,10 @@ public class MemberService implements IMemberService {
 		try {
 			// 반환값은 아이디 인덱스 결과값이 있다면 에러가 안남.
 			memberDao.selectIdIndex(id);
+			// 있을 경우
 			result = 1001;
 		} catch (BindingException e) {
+			// 검색값이 없을 경우
 			result = 1002;
 		}
 		return result;
@@ -29,19 +31,21 @@ public class MemberService implements IMemberService {
 	@Override
 	public int nickCheck(String nick) {// 1100번대
 		int result;
-		try {
-			String selectNick = memberDao.selectNick(nick);
+		String selectNick = memberDao.selectNick(nick);
+		
+		if(selectNick != null) {
 			result = 1101;
-		} catch (BindingException e) {
+		} else {
 			result = 1102;
 		}
+		
 		return result;
 	}
 
 	@Override
 	public int joinSuccess(Member member) {// 2000번대
-		// TODO Auto-generated method stub
 		int result = memberDao.insertMember(member);
+		
 		if (result > 0)
 			return 2001;
 		else

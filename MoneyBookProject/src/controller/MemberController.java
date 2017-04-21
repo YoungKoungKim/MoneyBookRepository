@@ -1,6 +1,5 @@
 package controller;
 
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +38,7 @@ public class MemberController {
 	// nick_check
 	//ajax
 	@RequestMapping("nick_Check.do")
-	public @ResponseBody int nickCheck(HttpServletResponse resp, String nick) {
+	public @ResponseBody int nickCheck(String nick) {
 		return memberService.nickCheck(nick);
 	}
 
