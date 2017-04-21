@@ -1,17 +1,12 @@
 package controller;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-
-import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -25,17 +20,16 @@ import model.ExtraBoard;
 import model.MoneyBook;
 import service.BoardService;
 import service.ExtraBoardService;
-import service.MoneyBookService;
 
 @Controller
 public class BoardController {
 
-	@Autowired
-	private BoardService boardservice;
-	@Autowired
-	private ExtraBoardService extraboardservice;
+//	@Autowired
+//	private BoardService boardservice;
+//	@Autowired
+//	private ExtraBoardService extraboardservice;
 	
-	@RequestMapping("boardList.do")
+/*	@RequestMapping("boardList.do")
 	public ModelAndView boardList(@RequestParam(defaultValue="1")int page,
 			@RequestParam(defaultValue="0")String ageType,
 			@RequestParam(defaultValue="0")String category,
@@ -145,5 +139,5 @@ public class BoardController {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		binder.registerCustomEditor(Date.class, new CustomDateEditor(sdf, true));
 
-	}
+	}*/
 }

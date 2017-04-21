@@ -13,7 +13,7 @@ import service.MemberService;
 
 @Controller
 public class CommentController {
-
+/*
 	@Autowired
 	private CommentService commentservice;
 	
@@ -40,5 +40,5 @@ public class CommentController {
 	public String commentDelete(int commentNo){
 		commentservice.commentDelete(commentNo);
 		return "redirect:boardDetailView.do";
-	}
+	}*/
 }
