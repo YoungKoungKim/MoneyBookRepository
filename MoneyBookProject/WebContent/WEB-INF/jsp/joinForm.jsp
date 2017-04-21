@@ -127,7 +127,8 @@
 						dataType : "json",
 						success : function(data) {	
 							if(data == 2001) {
-								location.href = "hdfh.jsp";
+								opener.parent.location.reload();
+								self.close();
 							} else if (data == 2002) {
 								alert("가입 실패, 다시 시도해주세요.");
 							}
