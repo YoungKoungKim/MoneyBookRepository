@@ -15,5 +15,6 @@ public interface IBoardDao {
 	public List<Board> selectByNick(String nick);
 	public List<Board> selectByTitle(HashMap<String, Object> params);			
 	public List<Board> selectByAgeType(String ageType);
-	
+	public List<Board> selectboardLimit(HashMap<String, Object> params);
+	public int getBoardCount();
 }

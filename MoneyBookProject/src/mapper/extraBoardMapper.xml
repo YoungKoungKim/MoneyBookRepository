@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.IExtraBoardDao">
+ 
+	<insert id="insertExtraBoard" parameterType="extraBoard">
+		insert into extraboard values(0, #{id_index}, #{boardNo}, #{category}, #{price}, #{month})
+	</insert>
+
+	<update id="updateExtraBoard" parameterType="extraBoard">
+		update extraboard set
+		category = #{category}, price=#{price}, month = sysdate()
+		where boardNo = #{boardNo} and id_index = #{id_index}
+	</update>
+
+	<delete id="deleteExtraBoard" parameterType="int">
+		delete from extraboard where boardNo = #{boardNo}
+	</delete>
+
+	<select id="selectOne" parameterType="int" resultType="extraBoard">
+		select * from extraboard where boardNo = #{boardNo}
+		 
+	</select>
+</mapper>
