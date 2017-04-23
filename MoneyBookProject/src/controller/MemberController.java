@@ -85,9 +85,11 @@ public class MemberController {
 
 	// inform_Update_Form
 	@RequestMapping("inform_Update_Form.do")
-	public ModelAndView informUpdateForm(Member member) {
+	public ModelAndView informUpdateForm(int id_index) {
 		ModelAndView mav = new ModelAndView();
 
+		Member member = memberService.memberInfo(id_index);
+		
 		mav.addObject("member", member);
 		mav.setViewName("informUpdateForm");
 

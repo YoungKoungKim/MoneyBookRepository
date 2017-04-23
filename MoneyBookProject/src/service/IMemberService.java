@@ -21,4 +21,6 @@ public interface IMemberService {
 	// 로그인 할 때는?
 	// 받는 건 아이디랑 비번
 	public Member login(String id, String pwd);
+	
+	public Member memberInfo(int id_index);
 }
