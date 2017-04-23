@@ -32,20 +32,20 @@ public class MemberService implements IMemberService {
 	public int nickCheck(String nick) {// 1100번대
 		int result;
 		String selectNick = memberDao.selectNick(nick);
-		
-		if(selectNick != null) {
+
+		if (selectNick != null) {
 			result = 1101;
 		} else {
 			result = 1102;
 		}
-		
+
 		return result;
 	}
 
 	@Override
 	public int joinSuccess(Member member) {// 2000번대
 		int result = memberDao.insertMember(member);
-		
+
 		if (result > 0)
 			return 2001;
 		else
@@ -83,17 +83,21 @@ public class MemberService implements IMemberService {
 
 	@Override
 	public Member login(String id, String pwd) {
-		int id_index = memberDao.selectIdIndex(id);
-
-		Member member = memberDao.selectOneMember(id_index);
-
-		if (member != null) {
-			if (member.getPwd().equals(pwd)) {
-				return member;
+		//mysql문에서 select값이 인트인데 결과값이 없다면 BindingException이 나와서 예외처리.
+		try {
+			int id_index = memberDao.selectIdIndex(id);
+			Member member = memberDao.selectOneMember(id_index);
+			
+			if (member != null) {
+				if (member.getPwd().equals(pwd)) {
+					return member;
+				} else {
+					return null;
+				}
 			} else {
 				return null;
 			}
-		} else {
+		} catch (BindingException e) {
 			return null;
 		}
 

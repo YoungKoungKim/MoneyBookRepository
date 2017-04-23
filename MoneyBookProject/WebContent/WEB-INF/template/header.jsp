@@ -20,7 +20,7 @@
 					<!-- 가계부 -->
 					<a href="#moneyBook" title="가계부">MyMoneyBook</a>
 					<!-- 로그인 -->
-					<a href="#about" title="로그인">Login</a>
+					<a href="login_Form.do" title="로그인">Login</a>
 					<!-- 회원가입 -->
 					<a href="join_Form.do" title="회원가입">Join</a>
 				</div>

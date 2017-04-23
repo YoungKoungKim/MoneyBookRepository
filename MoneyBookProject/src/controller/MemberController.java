@@ -57,8 +57,8 @@ public class MemberController {
 
 	// login_Success
 	//ajax
-	@RequestMapping("login_Success.do")
-	public @ResponseBody int loginSuccess(HttpSession session, String id, String pwd, String beforePage) {
+	@RequestMapping(method = RequestMethod.POST, value = "login_Success.do")
+	public @ResponseBody int loginSuccess(HttpSession session, String id, String pwd) {
 		Member member = memberService.login(id, pwd);
 
 		if (member != null) {
