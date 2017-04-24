@@ -30,7 +30,7 @@ public class MoneyBookController {
 	@Autowired
 	private IBoardService boardService;
 
-	@RequestMapping("bookMarkDelete.do")
+/*	@RequestMapping("bookMarkDelete.do")
 	public @ResponseBody HashMap<String, Object> bookMarkDelete(int id_index, int bookmarkNo) {
 		HashMap<String, Object> params = new HashMap<>();
 		params.put(BM.BOOKMARKNO, bookmarkNo);
@@ -169,7 +169,7 @@ public class MoneyBookController {
 		mav.addObject(moneyBookService.moneyBookRegist(mb));
 		mav.setViewName("moneyBookView.jsp");
 		return mav;
-	}
+	}*/
 
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
