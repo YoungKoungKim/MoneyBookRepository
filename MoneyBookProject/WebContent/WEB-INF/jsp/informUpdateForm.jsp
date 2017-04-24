@@ -13,7 +13,7 @@
 		$("#nick").on("blur", function() {
 			if (nickPattern.test($(this).val())) {
 					$.ajax({
-						url : "nick_Check.do",
+						url : "nickCheck.do",
 						type : "get",
 						data : "nick=" + $(this).val(),
 						dataType : "json",
@@ -91,7 +91,7 @@
 				return;
 			} else {
 				$.ajax({
-					url : "inform_Update.do",
+					url : "informUpdate.do",
 					type : "post",
 					data : "id_index=${member.id_index}&id=" + $("#id").val() + "&nick=" + $("#nick").val() + "&pwd=" + $("#nowPwd").val() + "&newPwd=" + $("#newPwd").val(),
 					dataType : "json",
