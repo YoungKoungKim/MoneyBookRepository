@@ -65,7 +65,7 @@
 		<table>
 			<tr align="center">
 				<td>아이디</td>
-				<td><input type="text" id="id" name="id" class="form-control"
+				<td><input type="text" id="id" class="form-control"
 					placeholder="이메일을 입력하세요."></td>
 			</tr>
 			<tr>
@@ -74,8 +74,8 @@
 			</tr>
 			<tr align="center">
 				<td>비밀번호</td>
-				<td><input type="password" id="pwd" name="pwd"
-					class="form-control" placeholder="비밀번호를 입력해주세요."></td>
+				<td><input type="password" id="pwd" class="form-control"
+					placeholder="비밀번호를 입력해주세요."></td>
 			</tr>
 			<tr>
 				<td></td>

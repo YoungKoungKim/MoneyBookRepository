@@ -164,30 +164,30 @@
 		<table>
 			<tr align="center">
 				<td>아이디</td>
-				<td><input type="text" id="id" name="id" class="form-control"
+				<td><input type="text" id="id" class="form-control"
 					placeholder="이메일을 입력하세요."></td>
 			</tr>
 			<tr>
 				<td></td>
-				<td><span id="idCheck"></span></td>
+				<td><span id="idCheck" style="color: red;"></span></td>
 			</tr>
 			<tr align="center">
 				<td>닉네임</td>
-				<td><input type="text" id="nick" name="nick"
+				<td><input type="text" id="nick"
 					class="form-control" placeholder="닉네임을 입력하세요."></td>
 			</tr>
 			<tr>
 				<td></td>
-				<td><span id="nickCheck"></span></td>
+				<td><span id="nickCheck" style="color: red;"></span></td>
 			</tr>
 			<tr align="center">
 				<td>비밀번호</td>
-				<td><input type="password" id="pwd" name="pwd"
+				<td><input type="password" id="pwd"
 					class="form-control" placeholder="비밀번호를 입력해주세요."></td>
 			</tr>
 			<tr>
 				<td></td>
-				<td><span id="pwdCheck"></span></td>
+				<td><span id="pwdCheck" style="color: red;"></span></td>
 			</tr>
 			<tr align="center">
 				<td>비밀번호 확인</td>
@@ -196,7 +196,7 @@
 			</tr>
 			<tr>
 				<td></td>
-				<td><span id="pwdOkCheck"></span></td>
+				<td><span id="pwdOkCheck" style="color: red;"></span></td>
 			</tr>
 				<tr align="center">
 				<td colspan="2"><input type="button" value="확인"

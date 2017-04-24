@@ -161,48 +161,51 @@
 		<table>
 			<tr align="center">
 				<td>아이디</td>
-				<td><input type="text" id="id" name="id" class="form-control"
-					placeholder="이메일을 입력하세요."></td>
-			</tr>
-			<tr>
-				<td></td>
-				<td><span id="idCheck"></span></td>
+				<td>${member.id }</td>
 			</tr>
 			<tr align="center">
 				<td>닉네임</td>
-				<td><input type="text" id="nick" name="nick"
+				<td><input type="text" id="nick" name="nick" value="${member.nick }"
 					class="form-control" placeholder="닉네임을 입력하세요."></td>
 			</tr>
 			<tr>
 				<td></td>
-				<td><span id="nickCheck"></span></td>
+				<td><span id="nickCheck" style="color: red;"></span></td>
 			</tr>
 			<tr align="center">
-				<td>비밀번호</td>
-				<td><input type="password" id="pwd" name="pwd"
+				<td>현재 비밀번호</td>
+				<td><input type="password" id="nowPwd"
 					class="form-control" placeholder="비밀번호를 입력해주세요."></td>
 			</tr>
 			<tr>
 				<td></td>
-				<td><span id="pwdCheck"></span></td>
+				<td><span id="nowPwdCheck" style="color: red;"></span></td>
 			</tr>
 			<tr align="center">
-				<td>비밀번호 확인</td>
-				<td><input type="password" id="pwdOk" class="form-control"
+				<td>새 비밀번호</td>
+				<td><input type="password" id="newPwd"
+					class="form-control" placeholder="비밀번호를 입력해주세요."></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td><span id="newPwdCheck" style="color: red;"></span></td>
+			</tr>
+			<tr align="center">
+				<td>새 비밀번호 확인</td>
+				<td><input type="password" id="newPwdOk" class="form-control"
 					placeholder="다시 한번 입력해주세요."></td>
 			</tr>
 			<tr>
 				<td></td>
-				<td><span id="pwdOkCheck"></span></td>
+				<td><span id="newPwdOkCheck" style="color: red;"></span></td>
 			</tr>
 				<tr align="center">
-				<td colspan="2"><input type="button" value="확인"
+				<td colspan="2"><input type="button" value="수정"
 				class="btn btn-primary" id="submitBtn">
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="button" value="취소"
 				class="btn btn-danger" id="cancelBtn"></td>
 			</tr>
 		</table>
-		<input type="hidden" value="false" id="idTest">
 		<input type="hidden" value="false" id="nickTest">
 		<input type="hidden" value="false" id="pwdTest">
 		<input type="hidden" value="false" id="pwdOkTest">
