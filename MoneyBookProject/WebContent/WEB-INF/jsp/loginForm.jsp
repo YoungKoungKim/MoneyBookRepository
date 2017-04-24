@@ -44,6 +44,10 @@
 				})
 			}
 		})
+		
+		$("#cancelBtn").on("click", function() {
+			self.close();
+		})
 	})
 </script>
 
