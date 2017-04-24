@@ -97,7 +97,7 @@
 					dataType : "json",
 					success : function(data) {	
 						if(data == 4101) {
-// 							location.href = "viewMyPage.do?id_index=${member.id_index}&date=" + new Date().getDate();
+							location.href = "viewMyPage.do?id_index=${member.id_index}&date=" + new Date();
 						} else if (data == 4102) {
 							$("#nowPwd").val("");
 							$("#nowPwdCheck").text("비밀번호가 틀렸습니다.");
