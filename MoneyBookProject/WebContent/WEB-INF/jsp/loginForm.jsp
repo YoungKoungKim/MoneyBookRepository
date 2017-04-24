@@ -23,7 +23,7 @@
 				$("#pwd").focus();
 			} else {
 				$.ajax({
-					url : "login_Success.do",
+					url : "loginSuccess.do",
 					type : "post",
 					data : "id=" + $("#id").val() + "&pwd=" + $("#pwd").val(),
 					dataType : "json",
