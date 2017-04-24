@@ -1,6 +1,7 @@
 package service;
 
 import java.util.HashMap;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -16,8 +17,8 @@ public class BookMarkService implements IBookMarkService {
 
 	// 즐겨찾기 가져오기
 	@Override
-	public HashMap<String, Object> bookMarkSearch(HashMap<String, Object> params) {
-		return (HashMap<String, Object>) dao.selectOneBookmark(params);
+	public List<HashMap<String, Object>> bookMarkSearch(HashMap<String, Object> params) {
+		return dao.selectOneBookmark(params);
 	}
 
 	// 북마크 테이블에서 삭제
