@@ -98,8 +98,8 @@ public class MemberController {
 
 	// inform_Update
 	//ajax
-	@RequestMapping("inform_Update.do")
-	public @ResponseBody int infromUpdate(Member member) {
-		return memberService.updateMember(member);
+	@RequestMapping(method = RequestMethod.POST, value = "inform_Update.do")
+	public @ResponseBody int infromUpdate(Member member, String newPwd) {
+		return memberService.updateMember(member, newPwd);
 	}
 }

@@ -69,25 +69,35 @@ public class MemberService implements IMemberService {
 	}
 
 	@Override
-	public int updateMember(Member member) { // 4100번대
-		// TODO Auto-generated method stub
-		int result = memberDao.updateMember(member);
+	public int updateMember(Member member, String newPwd) { // 4100번대
+		int result;
 
-		if (result > 0)
-			result = 4101;
-		else
+		if (member.getPwd().equals(memberDao.selectOneMember(member.getId_index()).getPwd())) {
+			member.setPwd(newPwd);
+			
+			result = memberDao.updateMember(member);
+
+			if (result > 0)
+				//성공
+				result = 4101;
+			else
+				//db수정 실패
+				result = 4103;
+		} else {
+			//현재 비번이랑 입력한 비번이랑 다를때
 			result = 4102;
+		}
 
 		return result;
 	}
 
 	@Override
 	public Member login(String id, String pwd) {
-		//mysql문에서 select값이 인트인데 결과값이 없다면 BindingException이 나와서 예외처리.
+		// mysql문에서 select값이 인트인데 결과값이 없다면 BindingException이 나와서 예외처리.
 		try {
 			int id_index = memberDao.selectIdIndex(id);
 			Member member = memberDao.selectOneMember(id_index);
-			
+
 			if (member != null) {
 				if (member.getPwd().equals(pwd)) {
 					return member;
@@ -104,7 +114,7 @@ public class MemberService implements IMemberService {
 
 	@Override
 	public Member memberInfo(int id_index) {
-		//id_index는 세션에서 끄내쓸거라 검색값이 없을리가 없을거라서 그냥 리턴
+		// id_index는 세션에서 끄내쓸거라 검색값이 없을리가 없을거라서 그냥 리턴
 		Member member = memberDao.selectOneMember(id_index);
 		
 		return member;
