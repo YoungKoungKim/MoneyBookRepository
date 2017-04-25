@@ -52,7 +52,7 @@ public class BoardService implements IBoardService {
 		} else if (type.equals("title")) {
 			HashMap<String, Object> params = new HashMap<>();
 			params.put("title", search_content);
-			list = bDao.selectByTitle(params);
+			list = bDao.selectByWhat(params);
 
 		} else if (type.equals("ageType")) {
 			list = bDao.selectByAgeType(search_content);
@@ -115,7 +115,7 @@ public class BoardService implements IBoardService {
 		params.put("count", count);
 		List<Board> list;
 		if (!category.equals("0")) {
-			list = bDao.selectByTitle(params);
+			list = bDao.selectByWhat(params);
 		} else {
 			list = bDao.selectboardLimit(params);
 		}
@@ -128,7 +128,7 @@ public class BoardService implements IBoardService {
 		result.put("last", last);
 		result.put("current", page);
 		result.put("boardList", list);
-
+		System.out.println(list);
 		return result;
 	}
 

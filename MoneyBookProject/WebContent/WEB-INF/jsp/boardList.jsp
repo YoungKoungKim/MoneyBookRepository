@@ -77,6 +77,21 @@
 					</c:if>
 				</td>
 			</tr>
+			<br>
+			<form action="boardList.do">
+				<tr align="center" >
+					<td>
+						<select name="category">
+							<option value="title">제목</option>
+							<option value="nick">작성자</option>
+						</select>
+					</td>
+					<td>
+						<input type="text" name="content">
+						<input type="submit" id="searchWhat" value="검색">
+					</td>
+				</tr>
+			</form>
 		</table>
 	</div>
 
