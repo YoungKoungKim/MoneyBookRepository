@@ -45,7 +45,10 @@
 				<tr>
 					<td>${board.boardNo }</td>
 					<td>${board.ageType }</td>
-					<td>${board.title }</td>
+					<td>
+					<a href="boardDetailView.do?boardNo=${board.boardNo}
+					&id_index=${board.id_index}">${board.title }</a>
+					</td>
 					<td>${board.nick }</td>
 					<td>${board.viewNo }</td>
 					<td>${board.recommend }</td>

@@ -64,7 +64,6 @@ public class BoardController {
 	public ModelAndView boardDetailView(int boardNo,int id_index){
 		boardservice.boardReadCount(boardNo);
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("boardBest", boardservice.bestView(3));
 		mav.addAllObjects(boardservice.searchText(boardNo));
 		mav.setViewName("boardDetailView");
 		return mav;
