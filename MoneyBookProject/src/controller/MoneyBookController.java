@@ -14,9 +14,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import commons.BookMark;
+import model.Board;
+import model.ExtraBoard;
 import model.MoneyBook;
 import service.IBoardService;
 import service.IBookMarkService;
+import service.IExtraService;
 import service.IMoneyBookService;
 
 @Controller
@@ -26,11 +29,12 @@ public class MoneyBookController {
 	private IMoneyBookService moneyBookService;
 	@Autowired
 	private IBookMarkService bookMarkService;
-
 	@Autowired
 	private IBoardService boardService;
+	@Autowired
+	private IExtraService extraService;
 
-/*	@RequestMapping("bookMarkDelete.do")
+	@RequestMapping("bookMarkDelete.do")
 	public @ResponseBody HashMap<String, Object> bookMarkDelete(int id_index, int bookmarkNo) {
 		HashMap<String, Object> params = new HashMap<>();
 		params.put(BM.BOOKMARKNO, bookmarkNo);
@@ -139,9 +143,10 @@ public class MoneyBookController {
 	@RequestMapping("boardWriteForm.do")
 	public ModelAndView boardWriteForm(int id_index, Date date) {
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("monthContent", moneyBookService.getMonthContent(id_index, date));
+		mav.addObject("monthContent", moneyBookService.totalAmountByCategory(id_index, date));
 		mav.addObject("monthAmount", moneyBookService.totalMonthAmount(id_index, date));
 		mav.addObject("date", moneyBookService.searchDate(date));
+		//extraService.boardWrite(eBoard);
 		mav.setViewName("boardWrite.jsp");
 		return mav;
 	}
@@ -149,9 +154,9 @@ public class MoneyBookController {
 	@RequestMapping("moneyBookWriteForm.do")
 	public ModelAndView moneyBookWriteForm(HashMap<String, Object> parmas) {
 		ModelAndView mav = new ModelAndView();
-		// HashMap<String, Object> parmas = new HashMap<>();
-		mav.addAllObjects(bookMarkService.bookMarkSearch(parmas));
-		mav.setViewName("moneyBookAdd.jsp");
+		//mav.addAllObjects();
+		mav.addObject(bookMarkService.bookMarkSearch(parmas));
+		mav.setViewName("moneyBookAdd");
 		return mav;
 	}
 
@@ -164,12 +169,27 @@ public class MoneyBookController {
 	}
 
 	@RequestMapping("moneyBookRegist.do")
-	public ModelAndView moneyBookRegist(MoneyBook mb) {
-		ModelAndView mav = new ModelAndView();
-		mav.addObject(moneyBookService.moneyBookRegist(mb));
-		mav.setViewName("moneyBookView.jsp");
-		return mav;
-	}*/
+	public String moneyBookRegist(MoneyBook mb) {
+		//ModelAndView mav = new ModelAndView();
+		int result = moneyBookService.moneyBookRegist(mb);
+		
+		if(result == 3201){
+			return "redirect:moneyBookView.do"; 
+		}else{
+			return "redirect : moneyBookRegist.do";
+		}
+	}
+	
+//	@RequestMapping("boardWrite.do")
+//	public String boardWrite(Board board){
+//		ExtraBoard eBoard = new ExtraBoard();
+//		eBoard.setId_index(board.getId_index());
+//		eBoard.setBoardNo(board.getBoardNo());
+//		
+//		
+//		boardService.boardWrite(board);
+//		return "redirect:boardView.do?boardNo=" + board.getBoardNo();
+//	}
 
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {

@@ -19,7 +19,7 @@
 			$("#id").on("blur", function() {
 				if (emailForm.test($(this).val())) {
 					$.ajax({
-						url : "id_Check.do",
+						url : "idCheck.do",
 						type : "get",
 						data : "id=" + $(this).val(),
 						dataType : "json",
@@ -45,7 +45,7 @@
 			$("#nick").on("blur", function() {
 				if (nickPattern.test($(this).val())) {
 						$.ajax({
-							url : "nick_Check.do",
+							url : "nickCheck.do",
 							type : "get",
 							data : "nick=" + $(this).val(),
 							dataType : "json",
@@ -121,7 +121,7 @@
 					return;
 				} else {
 					$.ajax({
-						url : "join_Success.do",
+						url : "joinSuccess.do",
 						type : "post",
 						data : "id=" + $("#id").val() + "&nick=" + $("#nick").val() + "&pwd=" + $("#pwd").val(),
 						dataType : "json",
