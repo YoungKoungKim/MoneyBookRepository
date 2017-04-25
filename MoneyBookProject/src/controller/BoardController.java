@@ -22,6 +22,7 @@ import model.MoneyBook;
 import service.BoardService;
 import service.ExtraBoardService;
 import service.IBoardService;
+import service.ICommentService;
 import service.IExtraService;
 
 @Controller
@@ -31,6 +32,8 @@ public class BoardController {
 	private IBoardService boardservice;
 	@Autowired
 	private IExtraService extraboardservice;
+	@Autowired
+	private ICommentService commentservice;
 	
 	@RequestMapping("boardList.do")
 	public ModelAndView boardList(@RequestParam(defaultValue="1")int page,
@@ -65,6 +68,7 @@ public class BoardController {
 		boardservice.boardReadCount(boardNo);
 		ModelAndView mav = new ModelAndView();
 		mav.addAllObjects(boardservice.searchText(boardNo));
+		mav.addObject(commentservice.selectComment(boardNo));
 		mav.setViewName("boardDetailView");
 		return mav;
 	}
