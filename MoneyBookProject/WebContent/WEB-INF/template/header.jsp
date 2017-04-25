@@ -16,7 +16,7 @@
 			<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-right">
 				<div class="menu-links scroll-me">
 					<!-- 공유게시판 -->
-					<a href="#header" title="공유게시판">BulletinBoard</a>
+					<a href="boardList.do" title="공유게시판">BulletinBoard</a>
 					<!-- 가계부 -->
 					<a href="#moneyBook" title="가계부">MyMoneyBook</a>
 					<!-- 로그인 -->

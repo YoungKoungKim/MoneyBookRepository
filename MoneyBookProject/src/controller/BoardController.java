@@ -15,44 +15,50 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import dao.IExtraBoardDao;
 import model.Board;
 import model.ExtraBoard;
 import model.MoneyBook;
 import service.BoardService;
 import service.ExtraBoardService;
+import service.IBoardService;
+import service.IExtraService;
 
 @Controller
 public class BoardController {
 
-//	@Autowired
-//	private BoardService boardservice;
-//	@Autowired
-//	private ExtraBoardService extraboardservice;
+	@Autowired
+	private IBoardService boardservice;
+	@Autowired
+	private IExtraService extraboardservice;
 	
-/*	@RequestMapping("boardList.do")
+	@RequestMapping("boardList.do")
 	public ModelAndView boardList(@RequestParam(defaultValue="1")int page,
 			@RequestParam(defaultValue="0")String ageType,
 			@RequestParam(defaultValue="0")String category,
 			@RequestParam(defaultValue="0")String content)
 	{	
 		ModelAndView mav = new ModelAndView();
+		mav.addObject("boardBest", boardservice.bestView(3));
 		mav.addAllObjects(boardservice.getboardList(page, ageType,category,content));
 		mav.setViewName("boardList");
 		return mav;
 	}
 	
-	@RequestMapping("boardSearch.do")
-	public ModelAndView boardSearch(
-			@RequestParam(defaultValue="1")int page,
-			@RequestParam(defaultValue="0")String ageType,
-			@RequestParam(defaultValue="0")String category,
-			@RequestParam(defaultValue="0")String content)
-	{
-		ModelAndView mav = new ModelAndView();
-		mav.addAllObjects(boardservice.getboardList(page, ageType,category,content));
-		mav.setViewName("boardList");
-		return mav;
-	}
+//	@RequestMapping("boardSearch.do")
+//	public ModelAndView boardSearch(
+//			@RequestParam(defaultValue="1")int page,
+//			@RequestParam(defaultValue="0")String ageType,
+//			@RequestParam(defaultValue="0")String category,
+//			@RequestParam(defaultValue="0")String content)
+//	{
+//		ModelAndView mav = new ModelAndView();
+//		
+//			
+//		mav.addAllObjects(boardservice.getboardList(page, ageType,category,content));
+//		mav.setViewName("boardList");
+//		return mav;
+//	}
 	
 	@RequestMapping("boardDetailView.do")
 	public ModelAndView boardDetailView(int boardNo,int id_index){
@@ -66,7 +72,7 @@ public class BoardController {
 	@RequestMapping("boardBest.do")
 	public ModelAndView boardBest(){
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("boardBest", boardservice.bestView(1));
+		mav.addObject("boardBest", boardservice.bestView(3));
 		mav.setViewName("boardDetailView");
 		return mav;
 	}
@@ -139,5 +145,5 @@ public class BoardController {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		binder.registerCustomEditor(Date.class, new CustomDateEditor(sdf, true));
 
-	}*/
+	}
 }
