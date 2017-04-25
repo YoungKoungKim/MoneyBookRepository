@@ -67,7 +67,7 @@
 								[${i }]
 							</c:when>
 							<c:otherwise>
-								<a href="boardList.do?page=${i }&ageType=${ageType}">[${i }]</a>
+								<a href="boardList.do?page=${i }&ageType=${ageType}&content=${content}&category=${category}">[${i }]</a>
 							</c:otherwise>
 						</c:choose>
 					</c:forEach>

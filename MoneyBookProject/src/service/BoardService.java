@@ -128,7 +128,8 @@ public class BoardService implements IBoardService {
 		result.put("last", last);
 		result.put("current", page);
 		result.put("boardList", list);
-		System.out.println(list);
+		result.put("category", category);
+		result.put("content", content);
 		return result;
 	}
 
