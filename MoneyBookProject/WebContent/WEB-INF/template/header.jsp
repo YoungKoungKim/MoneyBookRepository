@@ -254,9 +254,9 @@
 							</tr>
 							<tr align="center">
 								<td colspan="2"><input type="button" value="로그인"
-									class="btn btn-primary" id="loginBtn">
+									class="btn btn-success" id="loginBtn">
 									&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" value="취소"
-									class="btn btn-danger" id="loginCancelBtn" data-dismiss="modal"></td>
+									class="btn btn-info" id="loginCancelBtn" data-dismiss="modal"></td>
 							</tr>
 						</table>
 					</center>
@@ -318,9 +318,9 @@
 			</tr>
 				<tr align="center">
 				<td colspan="2"><input type="button" value="확인"
-				class="btn btn-primary" id="submitBtn">
+				class="btn btn-success" id="submitBtn">
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="button" value="취소"
-				class="btn btn-danger" id="cancelBtn"  data-dismiss="modal"></td>
+				class="btn btn-info" id="cancelBtn"  data-dismiss="modal"></td>
 			</tr>
 		</table>
 		<input type="hidden" value="false" id="idTest">
