@@ -105,9 +105,9 @@ function getCommentList() {
 		<table class="table table-bordered" style="width: 70%;" id="commentTable">
 			
 		</table>
-		<c:if test="${id_index == null}">
+		<c:if test="${id_index != null}">
 			<form action="commentWrite.do" method="post">
-			<input type="text" value="${board.nick}" readonly="readonly">
+			<input type="text" value="${nick}" readonly="readonly">
 			<input type="text" style="width: 700px; height: 50px;">
 			<input type="submit" value="등록" >
 			</form>

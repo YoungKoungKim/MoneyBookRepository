@@ -18,6 +18,10 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 
+
+
+
+
 <script type="text/javascript">
 	$(document).ready(function() {
 		$("#loginBtn").on("click", function() {
@@ -33,16 +37,16 @@
 				$.ajax({
 					url : "loginSuccess.do",
 					type : "post",
-					data : "id=" + $("#id").val() + "&pwd=" + $("#pwd").val(),
+					data : "id=" + $("#login_Id").val() + "&pwd=" + $("#login_Pwd").val(),
 					dataType : "json",
 					success : function(data) {
 						if (data == 2101) {
 							location.reload();
 						} else if (data == 2102) {
-							$("#pwd").val("");
-							$("#idCheck").text("");
-							$("#pwdCheck").text("아이디 또는 비밀번호를 잘못 입력하셨습니다.");
-							$("#pwd").focus();
+							$("#login_Pwd").val("");
+							$("#login_IdCheck").text("");
+							$("#login_PwdCheck").text("아이디 또는 비밀번호를 잘못 입력하셨습니다.");
+							$("#login_Pwd").focus();
 						}
 					},
 					error : function() {

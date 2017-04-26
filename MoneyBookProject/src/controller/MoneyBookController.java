@@ -4,11 +4,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 
-<<<<<<< HEAD
 import javax.servlet.http.HttpSession;
-=======
 import javax.swing.plaf.synth.SynthSeparatorUI;
->>>>>>> branch 'master' of https://github.com/YoungKoungKim/MoneyBookRepository.git
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -189,13 +186,10 @@ public class MoneyBookController {
 		mav.addObject("monthContent", moneyBookService.totalAmountByCategory(id_index, date));
 		mav.addObject("monthAmount", moneyBookService.totalMonthAmount(id_index, date));
 		mav.addObject("date", moneyBookService.searchDate(date));
-<<<<<<< HEAD
 		//extraService.boardWrite(eBoard);
 		mav.setViewName("boardWrite");
-=======
 		// extraService.boardWrite(eBoard);
 		mav.setViewName("boardWrite.jsp");
->>>>>>> branch 'master' of https://github.com/YoungKoungKim/MoneyBookRepository.git
 		return mav;
 	}
 
