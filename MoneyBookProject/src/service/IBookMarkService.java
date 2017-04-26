@@ -12,5 +12,5 @@ public interface IBookMarkService {
 
 	public int checkbookNo(int id_index);
 	
-	public HashMap<String, Object> searchOneBookmark(int id_index, int bookmarkNo);
+	public HashMap<String, Object> searchOneBookmark(HashMap<String, Object> params);
 }

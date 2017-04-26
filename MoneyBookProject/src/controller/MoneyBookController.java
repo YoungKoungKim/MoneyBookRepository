@@ -110,12 +110,22 @@ public class MoneyBookController {
 	@RequestMapping("findBookMark.do")
 	public @ResponseBody HashMap<String, Object> findBookMark(int id_index, int bookmarkNo){
 		System.out.println("북마크 하나 찾으러 왔다");
+		System.out.println(id_index);
 		HashMap<String, Object> response = new HashMap<>();
+		HashMap<String, Object> bmParams = new HashMap<>();
+		bmParams.put("id_index", id_index);
+		bmParams.put("bookmarkNo", bookmarkNo);
 		HashMap<String, Object> result = 
-				bookMarkService.searchOneBookmark(id_index, bookmarkNo);
+				bookMarkService.searchOneBookmark(bmParams);
+		
 		response.put("category", result.get("category"));
 		response.put("price", result.get("price"));
 		response.put("detail", result.get("detail"));
+		
+		System.out.println(response.get("category"));
+		System.out.println(response.get("price"));
+		System.out.println(response.get("detail"));
+		
 		return response;
 		
 	}
@@ -188,14 +198,8 @@ public class MoneyBookController {
 	@RequestMapping("moneyBookWriteForm.do")
 	public ModelAndView moneyBookWriteForm(int id_index) {
 		ModelAndView mav = new ModelAndView();
-		// mav.addAllObjects();
-		/*
-		 * HashMap<String, Object> params = new HashMap<>();
-		 * params.put("id_index", id_index); params.put("bookmarkNo",
-		 * bookmarkNo);
-		 */
-
 		mav.addObject("bookMarkList", bookMarkService.bookMarkSearch(id_index));
+		
 		System.out.println(bookMarkService.bookMarkSearch(id_index));
 		System.out.println("하이");
 		mav.setViewName("moneyBookAdd");
@@ -223,7 +227,7 @@ public class MoneyBookController {
 		
 		
 		for(int i=0; i<category_arr.length;i++){
-			System.out.println(category_arr[i]);
+			System.out.println(detail_arr[i]);
 			Date date = new Date();
 			date.setYear(year - 1900);
 			date.setMonth(month - 1);
