@@ -60,9 +60,10 @@ public class MemberController {
 	@RequestMapping(method = RequestMethod.POST, value = "loginSuccess.do")
 	public @ResponseBody int loginSuccess(HttpSession session, String id, String pwd) {
 		Member member = memberService.login(id, pwd);
-
+			
 		if (member != null) {
 			session.setAttribute("id_index", member.getId_index());
+			session.setAttribute("nick", member.getNick());
 			return 2101;
 		} else {
 			return 2102;
