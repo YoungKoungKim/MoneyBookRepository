@@ -26,11 +26,11 @@
 
 	</bean>
 
-	<!-- <mvc:interceptors> <mvc:interceptor> <mvc:mapping path="/*.do" /> <mvc:exclude-mapping 
+<!-- 	<mvc:interceptors> <mvc:interceptor> <mvc:mapping path="/*.do" /> <mvc:exclude-mapping 
 		path="/main.do" /> <mvc:exclude-mapping path="/login.do" /> <mvc:exclude-mapping 
 		path="/join.do" /> <mvc:exclude-mapping path="/joinForm.do" /> <ref bean="loginCheckInterceptor"></ref> 
 		</mvc:interceptor> <mvc:interceptor> <mvc:mapping path="/**" /> <bean id="logInterceptor" 
-		class="controller.LogInterceptor"></bean> </mvc:interceptor> </mvc:interceptors> -->
+		class="controller.LogInterceptor"></bean> </mvc:interceptor> </mvc:interceptors>  -->
 
 	<mvc:annotation-driven></mvc:annotation-driven>
 

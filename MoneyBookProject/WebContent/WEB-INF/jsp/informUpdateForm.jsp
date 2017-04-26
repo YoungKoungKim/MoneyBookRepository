@@ -10,7 +10,7 @@
 		var pwdForm = /(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{6,20})/;
 		var nickPattern = /^[\w\Wㄱ-ㅎㅏ-ㅣ가-힣]{2,20}$/;
 		
-		$("#nick").on("blur", function() {
+		$("#inform_Nick").on("blur", function() {
 			if (nickPattern.test($(this).val())) {
 					$.ajax({
 						url : "nickCheck.do",
@@ -19,15 +19,15 @@
 						dataType : "json",
 						success : function(data) {
 							if (data == 1102) {	
-								$("#nickCheck").text("사용 가능");
-								$("#nickTest").val("true");
+								$("#inform_NickCheck").text("사용 가능");
+								$("#inform_NickTest").val("true");
 							} else if(data == 1101) {
-								if($("#nick").val() != "${member.nick}") {										
-									$("#nickCheck").text("이미 있는 닉네임입니다.");
-									$("#nickTest").val("false");
+								if($("#inform_Nick").val() != "${member.nick}") {										
+									$("#inform_NickCheck").text("이미 있는 닉네임입니다.");
+									$("#inform_NickTest").val("false");
 								} else {
-									$("#nickCheck").text("");
-									$("#nickTest").val("true");
+									$("#inform_NickCheck").text("");
+									$("#inform_NickTest").val("true");
 								}
 							}
 						},
@@ -36,71 +36,71 @@
 						}
 					});
 			} else {
-				$("#nickCheck").text("닉네임 형식에 맞게 입력해주세요.");
-				$("#nickTest").val("false");
+				$("#inform_NickCheck").text("닉네임 형식에 맞게 입력해주세요.");
+				$("#inform_NickTest").val("false");
 			}
 		});
 
-		$("#newPwd").on("blur", function() {
+		$("#inform_NewPwd").on("blur", function() {
 				if (pwdForm.test($(this).val())) {
-						$("#newPwdCheck").text("사용 가능");
-						$("#newPwdTest").val("true");
+						$("#inform_NewPwdCheck").text("사용 가능");
+						$("#inform_NewPwdTest").val("true");
 				} else {
-						$("#newPwdCheck").text("비밀번호는 대소문자, 숫자가 포함되어야 합니다.");
-						$("#newPwdTest").val("false");
+						$("#inform_NewPwdCheck").text("비밀번호는 대소문자, 숫자가 포함되어야 합니다.");
+						$("#inform_NewPwdTest").val("false");
 				}
 					
-				if (pwdForm.test($("#newPwdOk").val())) {
-					if($(this).val() == $("#newPwdOk").val()) {
-						$("#newPwdOkCheck").text("사용 가능");
-						$("#newPwdOkTest").val("true");
+				if (pwdForm.test($("#inform_NewPwdOk").val())) {
+					if($(this).val() == $("#inform_NewPwdOk").val()) {
+						$("#inform_NewPwdOkCheck").text("사용 가능");
+						$("#inform_NewPwdOkTest").val("true");
 					} else {
-						$("#newPwdOkCheck").text("위 비밀번호와 같게 입력해주세요.");
-						$("#newPwdOkTest").val("false");
+						$("#inform_NewPwdOkCheck").text("위 비밀번호와 같게 입력해주세요.");
+						$("#inform_NewPwdOkTest").val("false");
 					}
 				} else {
-					$("#newPwdOkCheck").text("비밀번호는 대소문자, 숫자가 포함되어야 합니다.");
-					$("#newPwdOkTest").val("false");
+					$("#inform_NewPwdOkCheck").text("비밀번호는 대소문자, 숫자가 포함되어야 합니다.");
+					$("#inform_NewPwdOkTest").val("false");
 				}
 		});
 
-		$("#newPwdOk").on("blur", function() {
+		$("#inform_NewPwdOk").on("blur", function() {
 			if (pwdForm.test($(this).val())) {
-				if ($("#newPwd").val() == $(this).val()) {
-					$("#newPwdOkCheck").text("사용 가능");
-					$("#newPwdOkTest").val("true");
+				if ($("#inform_NewPwd").val() == $(this).val()) {
+					$("#inform_NewPwdOkCheck").text("사용 가능");
+					$("#inform_NewPwdOkTest").val("true");
 				} else {
-					$("#newPwdOkCheck").text("위 비밀번호와 같게 입력해주세요.");
-					$("#newPwdOkTest").val("false");
+					$("#inform_NewPwdOkCheck").text("위 비밀번호와 같게 입력해주세요.");
+					$("#inform_NewPwdOkTest").val("false");
 				}
 			} else {
-				$("#newPwdOkCheck").text("비밀번호는 대소문자, 숫자가 포함되어야 합니다.");
-				$("#newPwdOkTest").val("false");
+				$("#inform_NewPwdOkCheck").text("비밀번호는 대소문자, 숫자가 포함되어야 합니다.");
+				$("#inform_NewPwdOkTest").val("false");
 			}
 		});
 
-		$("#submitBtn").on("click", function() {
-			if ($("#nickTest").val() != "true") {
-				$("#nick").focus();
+		$("#inform_SubmitBtn").on("click", function() {
+			if ($("#inform_NickTest").val() != "true") {
+				$("#inform_Nick").focus();
 				return;
-			}  else if ($("#newPwdTest").val() != "true") {
-				$("#newPwd").focus();
+			}  else if ($("#inform_NewPwdTest").val() != "true") {
+				$("#inform_NewPwd").focus();
 				return;
-			} else if ($("#newPwdOkTest").val() != "true") {
-				$("#newPwdOk").focus();
+			} else if ($("#inform_NewPwdOkTest").val() != "true") {
+				$("#inform_NewPwdOk").focus();
 				return;
 			} else {
 				$.ajax({
 					url : "informUpdate.do",
 					type : "post",
-					data : "id_index=${member.id_index}&id=" + $("#id").val() + "&nick=" + $("#nick").val() + "&pwd=" + $("#nowPwd").val() + "&newPwd=" + $("#newPwd").val(),
+					data : "id_index=${member.id_index}" + "&nick=" + $("#inform_Nick").val() + "&pwd=" + $("#inform_NowPwd").val() + "&newPwd=" + $("#inform_NewPwd").val(),
 					dataType : "json",
 					success : function(data) {	
 						if(data == 4101) {
 							location.href = "viewMyPage.do?id_index=${member.id_index}&date=" + new Date();
 						} else if (data == 4102) {
-							$("#nowPwd").val("");
-							$("#nowPwdCheck").text("비밀번호가 틀렸습니다.");
+							$("#inform_NowPwd").val("");
+							$("#inform_NowPwdCheck").text("비밀번호가 틀렸습니다.");
 						} else if (data == 4103) {
 							alert("db 수정 실패");
 						}
@@ -112,8 +112,8 @@
 			}
 		})
 			
-		$("#cancelBtn").on("click", function() {
-			self.close();
+		$("#inform_CancelBtn").on("click", function() {
+			location.href = "javascript:history.back(-1)";
 		})
 	})
 </script>
@@ -136,55 +136,55 @@
 		<table>
 			<tr align="center">
 				<td>아이디</td>
-				<td>${member.id }</td>
+				<td align="left">${member.id }</td>
 			</tr>
 			<tr align="center">
 				<td>닉네임</td>
-				<td><input type="text" id="nick" name="nick"
+				<td><input type="text" id="inform_Nick"
 					value="${member.nick }" class="form-control"
 					placeholder="닉네임을 입력하세요."></td>
 			</tr>
 			<tr>
 				<td></td>
-				<td><span id="nickCheck" style="color: red;"></span></td>
+				<td><span id="inform_NickCheck" style="color: red;"></span></td>
 			</tr>
 			<tr align="center">
 				<td>현재 비밀번호</td>
-				<td><input type="password" id="nowPwd" class="form-control"
+				<td><input type="password" id="inform_NowPwd" class="form-control"
 					placeholder="비밀번호를 입력해주세요."></td>
 			</tr>
 			<tr>
 				<td></td>
-				<td><span id="nowPwdCheck" style="color: red;"></span></td>
+				<td><span id="inform_NowPwdCheck" style="color: red;"></span></td>
 			</tr>
 			<tr align="center">
 				<td>새 비밀번호</td>
-				<td><input type="password" id="newPwd" class="form-control"
+				<td><input type="password" id="inform_NewPwd" class="form-control"
 					placeholder="비밀번호를 입력해주세요."></td>
 			</tr>
 			<tr>
 				<td></td>
-				<td><span id="newPwdCheck" style="color: red;"></span></td>
+				<td><span id="inform_NewPwdCheck" style="color: red;"></span></td>
 			</tr>
 			<tr align="center">
 				<td>새 비밀번호 확인</td>
-				<td><input type="password" id="newPwdOk" class="form-control"
+				<td><input type="password" id="inform_NewPwdOk" class="form-control"
 					placeholder="다시 한번 입력해주세요."></td>
 			</tr>
 			<tr>
 				<td></td>
-				<td><span id="newPwdOkCheck" style="color: red;"></span></td>
+				<td><span id="inform_NewPwdOkCheck" style="color: red;"></span></td>
 			</tr>
 			<tr align="center">
 				<td colspan="2"><input type="button" value="수정"
-					class="btn btn-primary" id="submitBtn">
+					class="btn btn-success" id="inform_SubmitBtn">
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="button" value="취소"
-					class="btn btn-danger" id="cancelBtn"></td>
+					class="btn btn-info" id="inform_CancelBtn"></td>
 			</tr>
 		</table>
-		<input type="hidden" value="true" id="nickTest"> <input
-			type="hidden" value="false" id="newPwdTest"> <input
-			type="hidden" value="false" id="newPwdOkTest">
+		<input type="hidden" value="true" id="inform_NickTest"> <input
+			type="hidden" value="false" id="inform_NewPwdTest"> <input
+			type="hidden" value="false" id="inform_NewPwdOkTest">
 	</center>
 </body>
 </html>

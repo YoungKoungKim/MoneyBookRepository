@@ -23,41 +23,41 @@ public class MemberController {
 	private IMemberService memberService;
 
 	// join_Form
-	@RequestMapping("join_Form.do")
+	@RequestMapping("joinForm.do")
 	public String joinForm() {
 		return "joinForm";
 	}
 
 	// id_check
 	//ajax
-	@RequestMapping("id_Check.do")
+	@RequestMapping("idCheck.do")
 	public @ResponseBody int idCheck(String id) {
 		return memberService.idCheck(id);
 	}
 
 	// nick_check
 	//ajax
-	@RequestMapping("nick_Check.do")
+	@RequestMapping("nickCheck.do")
 	public @ResponseBody int nickCheck(String nick) {
 		return memberService.nickCheck(nick);
 	}
 
 	// join_Success
 	//ajax
-	@RequestMapping(method = RequestMethod.POST, value = "join_Success.do")
+	@RequestMapping(method = RequestMethod.POST, value = "joinSuccess.do")
 	public @ResponseBody int joinSuccess(Member m) {
 		return memberService.joinSuccess(m);
 	}
 
 	// login_Form
-	@RequestMapping("login_Form.do")
+	@RequestMapping("loginForm.do")
 	public String loginForm() {
 		return "loginForm";
 	}
 
 	// login_Success
 	//ajax
-	@RequestMapping(method = RequestMethod.POST, value = "login_Success.do")
+	@RequestMapping(method = RequestMethod.POST, value = "loginSuccess.do")
 	public @ResponseBody int loginSuccess(HttpSession session, String id, String pwd) {
 		Member member = memberService.login(id, pwd);
 
@@ -78,13 +78,13 @@ public class MemberController {
 
 	// password_Check
 	//ajax
-	@RequestMapping("password_Check.do")
+	@RequestMapping("passwordCheck.do")
 	public @ResponseBody int passwordCheck(int id_index, String pwd) {
 		return memberService.IdpwdCheck(pwd, id_index);
 	}
 
 	// inform_Update_Form
-	@RequestMapping("inform_Update_Form.do")
+	@RequestMapping("informUpdateForm.do")
 	public ModelAndView informUpdateForm(int id_index) {
 		ModelAndView mav = new ModelAndView();
 
@@ -98,7 +98,7 @@ public class MemberController {
 
 	// inform_Update
 	//ajax
-	@RequestMapping(method = RequestMethod.POST, value = "inform_Update.do")
+	@RequestMapping(method = RequestMethod.POST, value = "informUpdate.do")
 	public @ResponseBody int infromUpdate(Member member, String newPwd) {
 		return memberService.updateMember(member, newPwd);
 	}
