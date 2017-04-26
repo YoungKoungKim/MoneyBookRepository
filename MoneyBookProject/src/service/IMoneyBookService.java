@@ -15,5 +15,5 @@ public interface IMoneyBookService {
 	public MoneyBook moneyBookSelectOne(int moneyBookNo, int id_index, Date date);
 	public int moneyBookDelete(int moneyBookNo, int id_index);
 	public int moneyBookUpdate(MoneyBook mb);
-
+	public HashMap<String, Object> oneMonthAmount(int id_index, Date date);
 }

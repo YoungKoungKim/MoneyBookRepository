@@ -26,7 +26,6 @@ public class MoneyBookService implements IMoneyBookService {
 		List<MoneyBook> list = new ArrayList<>();
 		list = moneyBookDao.selectOneMonth(params);
 		return list;
-
 	}
 
 	@Override
@@ -47,7 +46,7 @@ public class MoneyBookService implements IMoneyBookService {
 
 		return result;
 	}
-
+	
 	@Override
 	public HashMap<String, Object> totalAmountByCategory(int id_index, Date date) {
 		List<MoneyBook> list = getMonthContent(id_index, date);
@@ -255,6 +254,20 @@ public class MoneyBookService implements IMoneyBookService {
 			return 4201; // 성공
 		else
 			return 4202; // 실패
+	}
+
+	//하루치 수입/지출을 한 달 분 다 가지고 오는 메소드
+	//ex ) 1일 수입,지출 2일 수입, 지출....31일 수입,지출
+	@Override
+	public HashMap<String, Object> oneMonthAmount(int id_index, Date date) {
+		HashMap<String, Object> dateInfo = searchDate(date);
+		int lastDay = Integer.parseInt(dateInfo.get("endMonth").toString().substring(8, 10));
+		
+		for (int i = 1; i <= lastDay; i++) {
+			
+		}
+		
+		return null;
 	}
 
 }
