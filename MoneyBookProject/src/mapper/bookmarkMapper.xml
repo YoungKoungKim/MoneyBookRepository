@@ -21,14 +21,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		id_index = #{id_index}
 	</delete>
 
+	<select id="selectBookmarkList" parameterType="int"
+		resultType="java.util.HashMap">
+		select * from bookmark
+		where id_index = #{id_index};
+	</select>
 	<select id="selectOneBookmark" parameterType="java.util.HashMap"
 		resultType="java.util.HashMap">
 		select * from bookmark
-		where bookmarkNo = #{bookmarkNo} and
-		id_index = #{id_index};
+		where id_index = #{id_index} and
+		bookmarkNo = #{bookmarkNo};
 	</select>
 
-	<select id="selectIdBookmark" parameterType="int" resultType="int">
+	<select id="countBookmarkNo" parameterType="int" resultType="int">
 		select count(*) from bookmark WHERE id_index = #{id_index}
 	</select>
 </mapper>
