@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.mysql.fabric.HashShardMapping;
+
 import commons.BookMark;
 import model.MoneyBook;
 import service.IBoardService;
@@ -172,9 +174,29 @@ public class MoneyBookController {
 	
 	//달력에 가계부 내역 뿌리는 ajax용 리퀘스트
 	@RequestMapping("moneyBookView.do")
-	public @ResponseBody List<String[]> moneyBookView(int id_index, Date date) {
-		List<String[]> response = new ArrayList<>();
-		response = moneyBookService.oneMonthAmount(id_index, date);
+	public @ResponseBody HashMap<String, Object> moneyBookView(int id_index, Date date) {
+		List<String[]> amountList = new ArrayList<>();
+		amountList = moneyBookService.oneMonthAmount(id_index, date);
+		
+		List<HashMap<String, Object>> income = new ArrayList<>();
+		List<HashMap<String, Object>> expense = new ArrayList<>();
+		
+		for (String[] arr : amountList) {
+			HashMap<String, Object> tmpMap = new HashMap<>();
+			tmpMap.put("title", arr[1]);
+			tmpMap.put("start", arr[0]);
+			income.add(tmpMap);
+			
+			tmpMap.remove("title");
+			tmpMap.put("title", arr[2]);
+			expense.add(tmpMap);
+		}
+		
+		HashMap<String, Object> response = new HashMap<>();
+		response.put("lastDay", amountList.size());
+		response.put("income", income);
+		response.put("expense", expense);
+		
 		return response;
 	}
 
