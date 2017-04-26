@@ -19,7 +19,7 @@ public class CommentController {
 	private ICommentService commentservice;
 	
 	@RequestMapping("commentWrite.do")
-	public String commentWrite(int boardNo, @RequestParam("nick1")String nick, @RequestParam("content1")String content, int id_index ){
+	public @ResponseBody String commentWrite(int boardNo, @RequestParam("nick1")String nick, @RequestParam("content1")String content, int id_index ){
 		HashMap<String, Object> comment = new HashMap<>();
 
 		comment.put(Comment.ID_INDEX, id_index);
@@ -27,8 +27,9 @@ public class CommentController {
 		comment.put(Comment.NICK, nick);
 		comment.put(Comment.CONTENT, content);
 		System.out.println(comment);
-		commentservice.commentWrite(comment);
-		return "redirect:boardDetailView.do?";
+		 boolean a = commentservice.commentWrite(comment);
+		 System.out.println(a);
+		 return "true";
 	}
 	
 	@RequestMapping("commentUpdate.do")
