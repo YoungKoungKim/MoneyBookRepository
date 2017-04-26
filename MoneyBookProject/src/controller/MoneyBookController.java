@@ -91,6 +91,11 @@ public class MoneyBookController {
 				if (result == 3101) {
 					// 성공
 					succCount++;
+					detail = "detail"+i;
+					String addBookmarkNo = "addBookmarkNo"+i;
+					
+					response.put(detail, detail_arr[i]);
+					response.put(addBookmarkNo, category_arr[i]);
 				}
 				
 			}			
@@ -98,6 +103,7 @@ public class MoneyBookController {
 				// 성공
 				response.put("msg", "북마크 등록 성공");
 				response.put("result", true);
+				response.put("addBookmarkNo", category_arr.length);
 			} else {
 				// 실패
 				response.put("msg", "북마크 등록 실패");
