@@ -68,8 +68,7 @@ public class BoardController {
 		boardservice.boardReadCount(boardNo);
 		ModelAndView mav = new ModelAndView();
 		mav.addAllObjects(boardservice.searchText(boardNo));
-		mav.addObject("commentList",commentservice.selectComment(boardNo));
-		mav.setViewName("boardDetailView");
+		mav.setViewName("boardDetailViewTest");
 		return mav;
 	}
 	@RequestMapping("boardBest.do")
