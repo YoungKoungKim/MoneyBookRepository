@@ -81,11 +81,10 @@ public class BoardController {
 	}
 //	
 	@RequestMapping("boardUpdateForm.do")
-	public ModelAndView boardUpdateForm(Board board, List<ExtraBoard> extraboard){
+	public ModelAndView boardUpdateForm(int boardNo){
 		//일단 리스트로 받기
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("board",board);
-		mav.addObject("extraboard",extraboard);
+		mav.addAllObjects(boardservice.searchText(boardNo));
 		mav.setViewName("boardUpdateForm");
 		return mav;
 	}
