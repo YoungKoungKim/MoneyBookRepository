@@ -136,7 +136,7 @@
 		<table>
 			<tr align="center">
 				<td>아이디</td>
-				<td>${member.id }</td>
+				<td align="left">${member.id }</td>
 			</tr>
 			<tr align="center">
 				<td>닉네임</td>
