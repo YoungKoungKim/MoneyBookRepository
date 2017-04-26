@@ -1,9 +1,12 @@
 package controller;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 
+import javax.servlet.http.HttpSession;
 import javax.swing.plaf.synth.SynthSeparatorUI;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,11 +18,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.mysql.fabric.Response;
+import com.mysql.fabric.HashShardMapping;
 
 import commons.BookMark;
-import model.Board;
-import model.ExtraBoard;
 import model.MoneyBook;
 import service.IBoardService;
 import service.IBookMarkService;
@@ -176,12 +177,37 @@ public class MoneyBookController {
 	@RequestMapping("viewMyPage.do")
 	public ModelAndView viewMyPage(int id_index, Date date) {
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("monthContent", moneyBookService.getMonthContent(id_index, date));
 		mav.addObject("monthAmount", moneyBookService.totalMonthAmount(id_index, date));
-		mav.addObject("dayContent", moneyBookService.getDayContent(date, id_index));
-		mav.addObject("dayAmount", moneyBookService.totalMonthAmount(id_index, date));
-		mav.setViewName("moneyBookView.jsp");
+		mav.setViewName("moneyBookView");
 		return mav;
+	}
+	
+	//달력에 가계부 내역 뿌리는 ajax용 리퀘스트
+	@RequestMapping("moneyBookView.do")
+	public @ResponseBody HashMap<String, Object> moneyBookView(int id_index, Date date) {
+		List<String[]> amountList = new ArrayList<>();
+		amountList = moneyBookService.oneMonthAmount(id_index, date);
+		
+		List<HashMap<String, Object>> income = new ArrayList<>();
+		List<HashMap<String, Object>> expense = new ArrayList<>();
+		
+		for (String[] arr : amountList) {
+			HashMap<String, Object> tmpMap = new HashMap<>();
+			tmpMap.put("title", arr[1]);
+			tmpMap.put("start", arr[0]);
+			income.add(tmpMap);
+			
+			tmpMap.remove("title");
+			tmpMap.put("title", arr[2]);
+			expense.add(tmpMap);
+		}
+		
+		HashMap<String, Object> response = new HashMap<>();
+		response.put("lastDay", amountList.size());
+		response.put("income", income);
+		response.put("expense", expense);
+		
+		return response;
 	}
 
 	@RequestMapping("boardWriteForm.do")
@@ -190,6 +216,8 @@ public class MoneyBookController {
 		mav.addObject("monthContent", moneyBookService.totalAmountByCategory(id_index, date));
 		mav.addObject("monthAmount", moneyBookService.totalMonthAmount(id_index, date));
 		mav.addObject("date", moneyBookService.searchDate(date));
+		//extraService.boardWrite(eBoard);
+		mav.setViewName("boardWrite");
 		// extraService.boardWrite(eBoard);
 		mav.setViewName("boardWrite.jsp");
 		return mav;
@@ -210,7 +238,7 @@ public class MoneyBookController {
 	public ModelAndView moneyBookDetailView(int id_index, Date date) {
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("dayContent", moneyBookService.getDayContent(date, id_index));
-		mav.setViewName("moneyBookView.jsp");
+		mav.setViewName("moneyBookView");
 		return mav;
 	}
 

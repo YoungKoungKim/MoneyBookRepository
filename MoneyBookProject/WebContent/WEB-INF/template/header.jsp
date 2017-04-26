@@ -8,16 +8,16 @@
 <script src="https://code.jquery.com/jquery-2.2.4.min.js"
 	integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
 	crossorigin="anonymous"></script>
-
+<!-- 
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
-
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-
+<<<<<<< HEAD
+ -->
+ 
 <script type="text/javascript">
 	$(document).ready(function() {
 		$("#loginBtn").on("click", function() {
@@ -33,16 +33,16 @@
 				$.ajax({
 					url : "loginSuccess.do",
 					type : "post",
-					data : "id=" + $("#id").val() + "&pwd=" + $("#pwd").val(),
+					data : "id=" + $("#login_Id").val() + "&pwd=" + $("#login_Pwd").val(),
 					dataType : "json",
 					success : function(data) {
 						if (data == 2101) {
 							location.reload();
 						} else if (data == 2102) {
-							$("#pwd").val("");
-							$("#idCheck").text("");
-							$("#pwdCheck").text("아이디 또는 비밀번호를 잘못 입력하셨습니다.");
-							$("#pwd").focus();
+							$("#login_Pwd").val("");
+							$("#login_IdCheck").text("");
+							$("#login_PwdCheck").text("아이디 또는 비밀번호를 잘못 입력하셨습니다.");
+							$("#login_Pwd").focus();
 						}
 					},
 					error : function() {
@@ -192,6 +192,11 @@
 			})
 		})
 </script>
+=======
+
+<script type="text/javascript" src="js/memberScript.js"></script>
+
+>>>>>>> branch 'master' of https://github.com/YoungKoungKim/MoneyBookRepository.git
 </head>
 <body>
 	<div id="header">
