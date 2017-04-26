@@ -259,15 +259,35 @@ public class MoneyBookService implements IMoneyBookService {
 	//하루치 수입/지출을 한 달 분 다 가지고 오는 메소드
 	//ex ) 1일 수입,지출 2일 수입, 지출....31일 수입,지출
 	@Override
-	public HashMap<String, Object> oneMonthAmount(int id_index, Date date) {
+	public List<String[]> oneMonthAmount(int id_index, Date date) {
+		//index 0:날짜 1:수입 2:지출
+		List<String[]> monthAmountList = new ArrayList<>();
 		HashMap<String, Object> dateInfo = searchDate(date);
 		int lastDay = Integer.parseInt(dateInfo.get("endMonth").toString().substring(8, 10));
-		
+		System.out.println(lastDay);
 		for (int i = 1; i <= lastDay; i++) {
-			
+			String[] arr = new String[3];
+			int income = 0;
+			int expense = 0;
+			Date tmpDate = new Date();
+			tmpDate.setDate(i);
+			System.out.println(tmpDate);
+			List<MoneyBook> mbList = getDayContent(tmpDate, id_index);
+			for (MoneyBook mb : mbList) {
+				if (mb.getCategory().equals("income")) {
+					income += mb.getPrice();
+				} else {
+					expense += mb.getPrice();
+				}
+			}
+			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+			arr[0] = format.format(tmpDate);
+			arr[1] = String.valueOf(income);
+			arr[2] = String.valueOf(expense);
+			monthAmountList.add(arr);
 		}
 		
-		return null;
+		return monthAmountList;
 	}
 
 }
