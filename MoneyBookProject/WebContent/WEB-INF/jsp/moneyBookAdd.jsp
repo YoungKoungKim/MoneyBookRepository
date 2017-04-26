@@ -17,6 +17,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <script type="text/javascript">
 $(document).ready(function() {
+	
+	//북마크 누르기
 	$('#bookmark_regist_btn').click(function (){
 
 	if($('#category').val() ==""|| $('#detail').val() == "" 
@@ -34,37 +36,54 @@ $(document).ready(function() {
 			type: 'post',
 			success : function(data){
 				alert(data.msg);
-				
+				location.reload();
 			}
 		});
 	}
 	});
 
+ 	//북마크 버튼 누르면 카테고리, 가격, 종류 넘기기
+	$('.bookmark').click(function (){
+		var id_index = $(this).attr('id');
+
+		$.ajax({
+			url : 'findBookMark.do',
+			data : "id_index="+${param.id_index}+
+			"&bookmarkNo="+$('#a'+id_index).val(),
+			dataType : 'json',
+			type: 'post',
+			success : function(data){
+				alert("북마크 하나 찾기 성공했다");
+				//alert(data.category);
+				//alert(data.price);
+				//alert(data.detail);
+				
+				$('#category').attr({
+					value : data.category,
+					selected : "selected"
+				}); 
+				//$('#category').val(data.category);
+				$('#detail').val(data.detail);
+				$('#price').val(data.price);
+				
+			}
+		});
+	});
+ 	
+ 	
  	$('#regist_btn').click(function (){
 
 	if($('#category').val() ==""|| $('#detail').val() == "" 
 			|| $('#price').val() == "" ){
 		alert('항목을 모두 입력해주세요.');
+		return false;
 	}
-	if(!($.isNumeric($('#price')))){
+	
+	if(!($.isNumeric($('#price').val()))){
 		alert("금액은 숫자만 입력해주세요.");
+		return false;
 	}
 	}); 
-
-	$('#bookmark_select').click(function (){
-		alert("hi")
-		$.ajax({
-			url : 'findBookMark.do',
-			data : "id_index="+${param.id_index}+"&bookmarkNo=6",
-			dataType : 'json',
-			type: 'post',
-			success : function(data){
-				$('#detail').text(data.detail);
-				$('#price').text(data.price);
-				$('#category').text(data.category);
-			}
-		});
-	});
 	
 });
 </script>
@@ -142,20 +161,19 @@ button[type=submit] {
 		<div id="main_div">
 			<div id="date_div">
 				<select id="year" name="year">
-					<option value="2017">2017년</option>
-					<option value="2016">2016년</option>
-					<option value="2015">2015년</option>
+				<c:forEach  begin ="2010" end="2020" varStatus="status" >
+				<option value="${2009+status.count}">${2009+status.count}년</option>
+				</c:forEach>
 
 				</select> <select id="month" name="month">
-					<option value="1">1월</option>
-					<option value="2">2월</option>
-					<option value="3">3월</option>
-					<option value="4">4월</option>
+				<c:forEach  begin ="1" end="12" varStatus="status" >
+				<option value="${status.count}">${status.count}월</option>
+				</c:forEach>
+				
 				</select> <select id="day" name="day">
-					<option value="1">1일</option>
-					<option value="2">2일</option>
-					<option value="3">3일</option>
-					<option value="25">25일</option>
+				<c:forEach  begin ="1" end="30" varStatus="status" >
+				<option value="${status.count}">${status.count}일</option>
+				</c:forEach>
 				</select>
 
 			</div>
@@ -164,12 +182,13 @@ button[type=submit] {
 			</div>
 			<div id="bookmark_list_div">
 				<c:forEach var="bm" items="${bookMarkList}" varStatus="status">
-					<%-- <button class="bookmark" id="bookmark_select">${bm.detail}</button> --%>
-					<input type="button" class="bookmark" id="bookmark_select" value="${bm.detail}">
+<%-- 			<input type="hidden" id="bookmark_index${status.index}" value="${status.index}"> --%>
+					<input type="button" class="bookmark" id="bookmark_select${status.index}" value="${bm.detail}">
+					<input type="hidden" id="abookmark_select${status.index}" value="${bm.bookmarkNo}">
 					<c:if test="${status.last}">
 						<c:if test="${status.count  != 6}">
 							<c:forEach begin="1" end="${6-status.count}" varStatus="st">
-								<button class="bookmark" id="bookmark_add${st.index}" >등록</button>
+								<button class="bookmark" id="bookmark_add${st.index}" disabled="disabled">등록</button>
 							</c:forEach>
 						</c:if>
 					</c:if>
@@ -197,7 +216,7 @@ button[type=submit] {
 							<td><input type="text" name="detail"
 								placeholder="사용내역을 입력하세요." id="detail"></td>
 							<td><input type="text" name="price" id="price"
-								placeholder="가격을 입력하세요."></td>
+								placeholder="가격을 입력하세요." ></td>
 							<c:if test=""></c:if>
 						</tr>
 					</c:forEach>
