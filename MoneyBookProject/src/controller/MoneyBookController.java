@@ -4,6 +4,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
@@ -132,12 +134,17 @@ public class MoneyBookController {
 	@RequestMapping("viewMyPage.do")
 	public ModelAndView viewMyPage(int id_index, Date date) {
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("monthContent", moneyBookService.getMonthContent(id_index, date));
 		mav.addObject("monthAmount", moneyBookService.totalMonthAmount(id_index, date));
-		mav.addObject("dayContent", moneyBookService.getDayContent(date, id_index));
-		mav.addObject("dayAmount", moneyBookService.totalMonthAmount(id_index, date));
-		mav.setViewName("moneyBookView.jsp");
+		mav.setViewName("moneyBookView");
 		return mav;
+	}
+	
+	//달력에 가계부 내역 뿌리는 ajax용 리퀘스트
+	@RequestMapping("moneyBookView.do")
+	public @ResponseBody HashMap<String, Object> moneyBookView() {
+		HashMap<String, Object> response = new HashMap<>();
+		
+		return response;
 	}
 
 	@RequestMapping("boardWriteForm.do")
@@ -147,7 +154,7 @@ public class MoneyBookController {
 		mav.addObject("monthAmount", moneyBookService.totalMonthAmount(id_index, date));
 		mav.addObject("date", moneyBookService.searchDate(date));
 		//extraService.boardWrite(eBoard);
-		mav.setViewName("boardWrite.jsp");
+		mav.setViewName("boardWrite");
 		return mav;
 	}
 
@@ -164,7 +171,7 @@ public class MoneyBookController {
 	public ModelAndView moneyBookDetailView(int id_index, Date date) {
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("dayContent", moneyBookService.getDayContent(date, id_index));
-		mav.setViewName("moneyBookView.jsp");
+		mav.setViewName("moneyBookView");
 		return mav;
 	}
 
