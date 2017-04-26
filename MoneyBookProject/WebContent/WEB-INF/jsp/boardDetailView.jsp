@@ -22,11 +22,11 @@ function getCommentList() {
 			for(var comment in data) {
 				var date = new Date(data[comment].date);
 				var time = date.getFullYear() + "." + (date.getMonth() + 1) + "." + date.getDate() + " " + date.getHours() + ":" + date.getMinutes();
-				
+			
 			$("#commentTable").html($("#commentTable").html() + 
 					"<tr>	<td>" + data[comment].nick + 
 					"&nbsp;&nbsp;&nbsp;" + time + 
-					"</td></tr><tr><td>"	+ data[comment].content + "</td>	</tr>");
+					"</td></tr><tr><td> <textarea rows='3' cols='120' readonly='readonly'> "+ data[comment].content + "</textarea></td>	</tr>");
 			}
 		},
 		error : function() {
@@ -52,9 +52,27 @@ function getCommentList() {
 				}
 			});
 		});
-		
-		
+	
+	$('#commentbut').on('click', function() {
+		var content1 = $('#content1');
+		var nick1 = $('#nick1');
+		$.ajax({
+			type : 'post',
+			url : 'commentWrite.do',
+			data : 'boardNo='+${board.boardNo}+'&nick1='+ nick1.val() +'&content1='+ content1.val() +'&id_index='+${id_index},
+			dataType : 'json',
+			success : function (data) {
+				getCommentList();
+				$('#content1').val(' ');
+			},
+			error:function(request,status,error){
+		        alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+		       }
+
+		});
 	});
+	
+});
 </script>
 </head>
 <body>
@@ -67,7 +85,6 @@ function getCommentList() {
 					<td style="width: 300px;" align="center">${board.title}</td>
 					<td style="width: 150px;" align="center"><fmt:formatDate
 							value="${board.date}" pattern="yyyy-MM-dd" /></td>
-				
 			</table>
 
 			<table border="3">
@@ -75,7 +92,8 @@ function getCommentList() {
 					<td style="width: 400px" align="center">${board.nick }</td>
 
 					<td style="width: 200px;">조회수 : ${board.viewNo }</td>
-					<td style="width: 200px;" id="recommend">추천수 : ${board.recommend }</td>
+					<td style="width: 200px;" id="recommend">추천수 :
+						${board.recommend }</td>
 				</tr>
 				<tr>
 
@@ -85,32 +103,39 @@ function getCommentList() {
 
 				<c:forEach items="${list}" var="exboard">
 					<tr>
-						<td colspan="3" align="center">${exboard.category } ${exboard.price }</td>
+						<td colspan="3" align="center">${exboard.category }
+							${exboard.price }</td>
 					</tr>
-					
+
 				</c:forEach>
-					<tr>
-						<td colspan="3" align="center"> ${board.content }</td>
-					</tr>
+				<tr>
+					<td colspan="3" align="center">${board.content }</td>
+				</tr>
 
 
 			</table>
 		</div>
 		<div>
-			<input type="button" value="추천" id="recommendbtn">
-				 <input type="button" value="목록" onclick="location.href='boardList.do'">
-				  <input type="button" value="수정" onclick="location.href='boardUpdateForm.do?boardNo=${board.boardNo}'">
-		</div>
+
+			<input type="button" value="추천" id="recommendbtn"> <input
+				type="button" value="목록" onclick="location.href='boardList.do'">
 		
-		<table class="table table-bordered" style="width: 70%;" id="commentTable">
-			
+			<c:if test="${board.id_index  == id_index}">
+				<input type="button" value="수정"
+					onclick="location.href='boardUpdateForm.do?boardNo=${board.boardNo}'">
+			</c:if>
+		</div>
+
+		<table class="table table-bordered" style="width: 70%;"
+			id="commentTable">
+
 		</table>
 		<c:if test="${id_index != null}">
-			<form action="commentWrite.do" method="post">
-			<input type="text" value="${nick}" readonly="readonly">
-			<input type="text" style="width: 700px; height: 50px;">
-			<input type="submit" value="등록" >
-			</form>
+			<input type="text" value="${nick}" readonly="readonly" id="nick1"
+				name="nick1">
+			<br>
+			<textarea rows="5" cols="120" id="content1" name="content1"></textarea>
+			<input type="button" value="등록" id="commentbut">
 		</c:if>
 	</center>
 </body>
