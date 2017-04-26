@@ -52,9 +52,25 @@ function getCommentList() {
 				}
 			});
 		});
-		
-		
+	
+	$('#commentbut').on('click', function() {
+		var content1 = $('#content1').val();
+		var nick1 = $('#nick1').val();
+		$.ajax({
+			type : 'post',
+			url : 'commentWrite.do',
+			data : 'boardNo='+${board.boardNo}+'&nick='+ nick1 +'&content1='+ content1 +'id_index='+${id_index},
+			dataType : 'json',
+			success : function () {
+				getCommentList();
+			},
+			error : function() {
+				alert('실패');
+			}
+		});
 	});
+	
+});
 </script>
 </head>
 <body>
@@ -106,11 +122,9 @@ function getCommentList() {
 			
 		</table>
 		<c:if test="${id_index != null}">
-			<form action="commentWrite.do" method="post">
-			<input type="text" value="${nick}" readonly="readonly">
-			<input type="text" style="width: 700px; height: 50px;">
-			<input type="submit" value="등록" >
-			</form>
+			<input type="text" value="${nick}" readonly="readonly" id="nick1" name="nick1">
+			<input type="text" style="width: 700px; height: 50px;" id="content" name="content1">
+			<input type="button" value="등록" id="commentbut">
 		</c:if>
 	</center>
 </body>
