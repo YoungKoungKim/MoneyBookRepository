@@ -34,7 +34,7 @@ public class BoardController {
 	private IExtraService extraboardservice;
 	@Autowired
 	private ICommentService commentservice;
-	
+	 
 	@RequestMapping("boardList.do")
 	public ModelAndView boardList(@RequestParam(defaultValue="1")int page,
 			@RequestParam(defaultValue="0")String ageType,
@@ -68,7 +68,7 @@ public class BoardController {
 		boardservice.boardReadCount(boardNo);
 		ModelAndView mav = new ModelAndView();
 		mav.addAllObjects(boardservice.searchText(boardNo));
-		mav.setViewName("boardDetailViewTest");
+		mav.setViewName("boardDetailView");
 		return mav;
 	}
 	@RequestMapping("boardBest.do")

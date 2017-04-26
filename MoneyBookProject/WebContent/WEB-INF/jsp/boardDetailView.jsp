@@ -11,8 +11,32 @@
 	integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
 	crossorigin="anonymous"></script>
 <script type="text/javascript">
+function getCommentList() {
+	$.ajax({
+		url : "getCommentList.do",
+		type : "get",
+		data : "boardNo=" + ${board.boardNo},
+		dataType : "json",
+		success : function(data) {
+			$("#commentTable").html("");
+			for(var comment in data) {
+				var date = new Date(data[comment].date);
+				var time = date.getFullYear() + "." + (date.getMonth() + 1) + "." + date.getDate() + " " + date.getHours() + ":" + date.getMinutes();
+				
+			$("#commentTable").html($("#commentTable").html() + 
+					"<tr>	<td>" + data[comment].nick + 
+					"&nbsp;&nbsp;&nbsp;" + time + 
+					"</td></tr><tr><td>"	+ data[comment].content + "</td>	</tr>");
+			}
+		},
+		error : function() {
+			alert("실패");
+		}
+	});
+}
 	$(document).ready(function() {
-		 
+		getCommentList();
+		
 		$('#recommendbtn').on('click', function() {
 
 			$.ajax({
@@ -77,6 +101,17 @@
 				 <input type="button" value="목록" onclick="location.href='boardList.do'">
 				  <input type="button" value="수정" onclick="location.href='boardUpdateForm.do?boardNo=${board.boardNo}'">
 		</div>
+		
+		<table class="table table-bordered" style="width: 70%;" id="commentTable">
+			
+		</table>
+		<c:if test="${id_index == null}">
+			<form action="commentWrite.do" method="post">
+			<input type="text" value="${board.nick}" readonly="readonly">
+			<input type="text" style="width: 700px; height: 50px;">
+			<input type="submit" value="등록" >
+			</form>
+		</c:if>
 	</center>
 </body>
 </html>
