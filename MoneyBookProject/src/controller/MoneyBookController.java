@@ -1,14 +1,12 @@
 package controller;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 
-<<<<<<< HEAD
-import javax.servlet.http.HttpSession;
-=======
-import javax.swing.plaf.synth.SynthSeparatorUI;
->>>>>>> branch 'master' of https://github.com/YoungKoungKim/MoneyBookRepository.git
+//github.com/YoungKoungKim/MoneyBookRepository.git
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -19,11 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.mysql.fabric.Response;
-
 import commons.BookMark;
-import model.Board;
-import model.ExtraBoard;
 import model.MoneyBook;
 import service.IBoardService;
 import service.IBookMarkService;
@@ -177,9 +171,9 @@ public class MoneyBookController {
 	
 	//달력에 가계부 내역 뿌리는 ajax용 리퀘스트
 	@RequestMapping("moneyBookView.do")
-	public @ResponseBody HashMap<String, Object> moneyBookView() {
-		HashMap<String, Object> response = new HashMap<>();
-		
+	public @ResponseBody List<String[]> moneyBookView(int id_index, Date date) {
+		List<String[]> response = new ArrayList<>();
+		response = moneyBookService.oneMonthAmount(id_index, date);
 		return response;
 	}
 
@@ -189,13 +183,10 @@ public class MoneyBookController {
 		mav.addObject("monthContent", moneyBookService.totalAmountByCategory(id_index, date));
 		mav.addObject("monthAmount", moneyBookService.totalMonthAmount(id_index, date));
 		mav.addObject("date", moneyBookService.searchDate(date));
-<<<<<<< HEAD
 		//extraService.boardWrite(eBoard);
 		mav.setViewName("boardWrite");
-=======
 		// extraService.boardWrite(eBoard);
 		mav.setViewName("boardWrite.jsp");
->>>>>>> branch 'master' of https://github.com/YoungKoungKim/MoneyBookRepository.git
 		return mav;
 	}
 
