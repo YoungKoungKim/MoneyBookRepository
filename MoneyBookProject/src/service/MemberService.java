@@ -16,6 +16,10 @@ public class MemberService implements IMemberService {
 	@Autowired
 	private IMemberDao memberDao;
 
+//	public String changePwd(String pwd) {
+//		
+//	}
+	
 	@Override
 	public int idCheck(String id) { // 1000번대
 		int result;
