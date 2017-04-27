@@ -13,8 +13,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		update comment set
 		date=sysdate(), content = #{content} where commentNo =
 		#{commentNo}
-		and
-		boardNo = #{boardNo}
 	</update>
 
 	<delete id="deleteComment" parameterType="int">

@@ -26,9 +26,7 @@ public class CommentController {
 		comment.put(Comment.BOARDNO, boardNo);
 		comment.put(Comment.NICK, nick);
 		comment.put(Comment.CONTENT, content);
-		System.out.println(comment);
 		 boolean a = commentservice.commentWrite(comment);
-		 System.out.println(a);
 		 return "true";
 	}
 	

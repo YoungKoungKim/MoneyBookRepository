@@ -33,7 +33,7 @@
 							"<tr>	<td>" + data[comment].nick + 
 							"&nbsp;&nbsp;&nbsp;" + time + 
 							"</td></tr><tr><td> <textarea rows='3' cols='120' readonly='readonly'> "+ data[comment].content + "</textarea> <input class='delete' id='"+data[comment].commentNo+"@' name='"+data[comment].commentNo+"' type='button' value='삭제'>"
-							+"<input type='text' id='' value='수정'> </td> </tr>");
+							+"<input class='update' type='button' id='' value='수정'> </td> </tr>");
 					
 					}else{
 
