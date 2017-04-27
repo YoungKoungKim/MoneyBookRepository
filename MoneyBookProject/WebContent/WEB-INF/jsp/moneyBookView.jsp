@@ -84,8 +84,8 @@ body {
 					dataType : 'json',
 					data : 'id_index=1&date=' + nowDate.format('YYYY-MM-DD'),
 					success : function(data) {
+						alert(nowDate.format('YYYY-MM-DD'));
 						var events = [];
-						alert(nowDate);
 						for (var i = 0; i < data.lastDay; i++) {
 							events.push({
 								title : '수입:' + data.income[i].title,
@@ -97,6 +97,8 @@ body {
 							});
 						}
 						callback(events);
+						
+						$('#monthIncome').html(${monthAmount.income});
 					}
 				});
 			}

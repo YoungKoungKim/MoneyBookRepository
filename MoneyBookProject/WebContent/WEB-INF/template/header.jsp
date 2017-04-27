@@ -197,8 +197,6 @@
 		})
 </script>
 
-<script type="text/javascript" src="js/memberScript.js"></script>
-
 </head>
 <body>
 	<div id="header">

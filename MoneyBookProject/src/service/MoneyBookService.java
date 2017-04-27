@@ -264,14 +264,12 @@ public class MoneyBookService implements IMoneyBookService {
 		List<String[]> monthAmountList = new ArrayList<>();
 		HashMap<String, Object> dateInfo = searchDate(date);
 		int lastDay = Integer.parseInt(dateInfo.get("endMonth").toString().substring(8, 10));
-		System.out.println(lastDay);
 		for (int i = 1; i <= lastDay; i++) {
 			String[] arr = new String[3];
 			int income = 0;
 			int expense = 0;
-			Date tmpDate = new Date();
+			Date tmpDate = date;
 			tmpDate.setDate(i);
-			System.out.println(tmpDate);
 			List<MoneyBook> mbList = getDayContent(tmpDate, id_index);
 			for (MoneyBook mb : mbList) {
 				if (mb.getCategory().equals("income")) {
