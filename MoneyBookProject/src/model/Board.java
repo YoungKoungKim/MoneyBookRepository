@@ -6,7 +6,6 @@ public class Board {
 	private int boardNo;
 	private String title;
 	private String content;
-	private String annotation;
 	private Date date;
 	private String ageType;
 	private String nick;
@@ -32,12 +31,7 @@ public class Board {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	public String getAnnotation() {
-		return annotation;
-	}
-	public void setAnnotation(String annotation) {
-		this.annotation = annotation;
-	}
+
 	public Date getDate() {
 		return date;
 	}
@@ -77,8 +71,8 @@ public class Board {
 	
 	@Override
 	public String toString() {
-		return "Board [boardNo=" + boardNo + ", title=" + title + ", content=" + content + ", annotation=" + annotation
-				+ ", date=" + date + ", ageType=" + ageType + ", nick=" + nick + ", id_index=" + id_index + ", viewNo="
+		return "Board [boardNo=" + boardNo + ", title=" + title + ", content=" + content + ", date=" + date + 
+				", ageType=" + ageType + ", nick=" + nick + ", id_index=" + id_index + ", viewNo="
 				+ viewNo + ", recommend=" + recommend + "]";
 	}
 	

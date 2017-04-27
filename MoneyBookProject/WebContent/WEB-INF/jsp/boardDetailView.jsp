@@ -70,7 +70,7 @@ function getCommentList() {
 		});
 	});
 	
-});
+});//ready
 </script>
 </head>
 <body>
@@ -97,8 +97,6 @@ function getCommentList() {
 
 				</tr>
 
-
-
 				<c:forEach items="${list}" var="exboard">
 					<tr>
 						<td colspan="3" align="center">${exboard.category } ${exboard.price }</td>
@@ -114,8 +112,8 @@ function getCommentList() {
 		</div>
 		<div>
 			<input type="button" value="추천" id="recommendbtn">
-				 <input type="button" value="목록" onclick="location.href='boardList.do'">
-				  <input type="button" value="수정" onclick="location.href='boardUpdateForm.do?boardNo=${board.boardNo}'">
+			<input type="button" value="목록" onclick="location.href='boardList.do'">
+			<input type="button" value="수정" onclick="location.href='boardUpdateForm.do?boardNo=${board.boardNo}'">
 		</div>
 		
 		<table class="table table-bordered" style="width: 70%;" id="commentTable">

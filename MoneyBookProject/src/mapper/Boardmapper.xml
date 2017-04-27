@@ -21,9 +21,9 @@
 	</insert>
 
 	<update id="updateBoard" parameterType="board">
-		update board set viewNo = #{viewNo},
+		update board set 
 		title = #{title}, content = #{content},
-		annotation = #{annotation}, ageType = #{ageType}, date = sysdate()
+		ageType = #{ageType}, date = sysdate()
 		where boardNo = #{boardNo} and id_index = #{id_index}
 	</update>
 
