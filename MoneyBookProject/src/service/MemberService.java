@@ -139,9 +139,9 @@ public class MemberService implements IMemberService {
 			Member member = memberDao.selectOneMember(id_index);
 
 			if (member != null) {
-				String userPwd = changePwd(member.getPwd());
+				String userPwd = changePwd(pwd);
 				
-				if (userPwd.equals(pwd)) {
+				if (userPwd.equals(member.getPwd())) {
 					return member;
 				} else {
 					return null;
