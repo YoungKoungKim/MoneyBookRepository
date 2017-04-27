@@ -19,7 +19,7 @@ public class CommentController {
 	private ICommentService commentservice;
 	
 	@RequestMapping("commentWrite.do")
-	public @ResponseBody String commentWrite(int boardNo, @RequestParam("nick1")String nick, @RequestParam("content1")String content, int id_index ){
+	public String commentWrite(int boardNo, @RequestParam("nick1")String nick, @RequestParam("content1")String content, int id_index ){
 		HashMap<String, Object> comment = new HashMap<>();
 
 		comment.put(Comment.ID_INDEX, id_index);
@@ -44,9 +44,9 @@ public class CommentController {
 		}
 	}
 	@RequestMapping("commentDelete.do")
-	public @ResponseBody String commentDelete(int commentNo){
+	public String commentDelete(int commentNo){
 		commentservice.commentDelete(commentNo);
-		return "true";
+		return "redirect:boardDetailView.do";
 	}
 	
 	@RequestMapping("getCommentList.do")

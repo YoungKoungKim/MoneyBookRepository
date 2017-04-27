@@ -263,13 +263,13 @@ public class MoneyBookService implements IMoneyBookService {
 		//index 0:날짜 1:수입 2:지출
 		List<String[]> monthAmountList = new ArrayList<>();
 		HashMap<String, Object> dateInfo = searchDate(date);
-		String last = dateInfo.get("endMonth").toString().substring(8, 10);
 		int lastDay = Integer.parseInt(dateInfo.get("endMonth").toString().substring(8, 10));
+		System.out.println(lastDay);
 		for (int i = 1; i <= lastDay; i++) {
 			String[] arr = new String[3];
 			int income = 0;
 			int expense = 0;
-			Date tmpDate = date;
+			Date tmpDate = new Date();
 			tmpDate.setDate(i);
 			System.out.println(tmpDate);
 			List<MoneyBook> mbList = getDayContent(tmpDate, id_index);

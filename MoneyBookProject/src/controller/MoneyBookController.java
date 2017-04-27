@@ -18,8 +18,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.mysql.fabric.HashShardMapping;
-
 import commons.BookMark;
 import model.MoneyBook;
 import service.IBoardService;
@@ -91,11 +89,6 @@ public class MoneyBookController {
 				if (result == 3101) {
 					// 성공
 					succCount++;
-					detail = "detail"+i;
-					String addBookmarkNo = "addBookmarkNo"+i;
-					
-					response.put(detail, detail_arr[i]);
-					response.put(addBookmarkNo, category_arr[i]);
 				}
 				
 			}			
@@ -103,7 +96,6 @@ public class MoneyBookController {
 				// 성공
 				response.put("msg", "북마크 등록 성공");
 				response.put("result", true);
-				response.put("addBookmarkNo", category_arr.length);
 			} else {
 				// 실패
 				response.put("msg", "북마크 등록 실패");
@@ -117,22 +109,12 @@ public class MoneyBookController {
 	@RequestMapping("findBookMark.do")
 	public @ResponseBody HashMap<String, Object> findBookMark(int id_index, int bookmarkNo){
 		System.out.println("북마크 하나 찾으러 왔다");
-		System.out.println(id_index);
 		HashMap<String, Object> response = new HashMap<>();
-		HashMap<String, Object> bmParams = new HashMap<>();
-		bmParams.put("id_index", id_index);
-		bmParams.put("bookmarkNo", bookmarkNo);
 		HashMap<String, Object> result = 
-				bookMarkService.searchOneBookmark(bmParams);
-		
+				bookMarkService.searchOneBookmark(id_index, bookmarkNo);
 		response.put("category", result.get("category"));
 		response.put("price", result.get("price"));
 		response.put("detail", result.get("detail"));
-		
-		System.out.println(response.get("category"));
-		System.out.println(response.get("price"));
-		System.out.println(response.get("detail"));
-		
 		return response;
 		
 	}
@@ -190,29 +172,9 @@ public class MoneyBookController {
 	
 	//달력에 가계부 내역 뿌리는 ajax용 리퀘스트
 	@RequestMapping("moneyBookView.do")
-	public @ResponseBody HashMap<String, Object> moneyBookView(int id_index, Date date) {
-		List<String[]> amountList = new ArrayList<>();
-		amountList = moneyBookService.oneMonthAmount(id_index, date);
-		
-		List<HashMap<String, Object>> income = new ArrayList<>();
-		List<HashMap<String, Object>> expense = new ArrayList<>();
-		
-		for (String[] arr : amountList) {
-			HashMap<String, Object> tmpMap = new HashMap<>();
-			tmpMap.put("title", arr[1]);
-			tmpMap.put("start", arr[0]);
-			income.add(tmpMap);
-			
-			tmpMap.remove("title");
-			tmpMap.put("title", arr[2]);
-			expense.add(tmpMap);
-		}
-		
-		HashMap<String, Object> response = new HashMap<>();
-		response.put("lastDay", amountList.size());
-		response.put("income", income);
-		response.put("expense", expense);
-		
+	public @ResponseBody List<String[]> moneyBookView(int id_index, Date date) {
+		List<String[]> response = new ArrayList<>();
+		response = moneyBookService.oneMonthAmount(id_index, date);
 		return response;
 	}
 
@@ -232,8 +194,14 @@ public class MoneyBookController {
 	@RequestMapping("moneyBookWriteForm.do")
 	public ModelAndView moneyBookWriteForm(int id_index) {
 		ModelAndView mav = new ModelAndView();
+		// mav.addAllObjects();
+		/*
+		 * HashMap<String, Object> params = new HashMap<>();
+		 * params.put("id_index", id_index); params.put("bookmarkNo",
+		 * bookmarkNo);
+		 */
+
 		mav.addObject("bookMarkList", bookMarkService.bookMarkSearch(id_index));
-		
 		System.out.println(bookMarkService.bookMarkSearch(id_index));
 		System.out.println("하이");
 		mav.setViewName("moneyBookAdd");
@@ -261,7 +229,7 @@ public class MoneyBookController {
 		
 		
 		for(int i=0; i<category_arr.length;i++){
-			System.out.println(detail_arr[i]);
+			System.out.println(category_arr[i]);
 			Date date = new Date();
 			date.setYear(year - 1900);
 			date.setMonth(month - 1);

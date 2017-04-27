@@ -15,8 +15,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		#{commentNo}
 	</update>
 
-	<delete id="deleteComment" parameterType="int">
-		delete from comment where commentNo = #{commentNo}
+	<delete id="deleteComment" parameterType="java.util.HashMap">
+		delete from comment
+		where commentNo = #{commentNo} and boardNo = #{boardNo}
 	</delete>
 
 	<select id="selectWriterIndex" parameterType="String"
