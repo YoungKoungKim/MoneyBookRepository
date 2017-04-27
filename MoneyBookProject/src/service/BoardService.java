@@ -52,7 +52,7 @@ public class BoardService implements IBoardService {
 		} else if (type.equals("title")) {
 			HashMap<String, Object> params = new HashMap<>();
 			params.put("title", search_content);
-			list = bDao.selectByTitle(params);
+			list = bDao.selectByWhat(params);
 
 		} else if (type.equals("ageType")) {
 			list = bDao.selectByAgeType(search_content);
@@ -98,7 +98,8 @@ public class BoardService implements IBoardService {
 	public HashMap<String, Object> getboardList(int page, String ageType, String category, String content) {
 		HashMap<String, Object> params = new HashMap<>();
 		params.put("category", category);
-		params.put("category", content);
+		params.put("content", content);
+		params.put("ageType", ageType);
 		// 시작페이지와 끝페이지를 계산해보세요
 		int start = (page - 1) / 10 * 10 + 1;
 		int end = ((page - 1) / 10 + 1) * 10;
@@ -112,22 +113,23 @@ public class BoardService implements IBoardService {
 		int count = 10;
 		params.put("skip", skip);
 		params.put("count", count);
-		params.put("ageType", ageType);
 		List<Board> list;
 		if (!category.equals("0")) {
-			list = bDao.selectByTitle(params);
+			list = bDao.selectByWhat(params);
 		} else {
 			list = bDao.selectboardLimit(params);
 		}
-
+		
 		HashMap<String, Object> result = new HashMap<>();
 		result.put("start", start);
 		result.put("first", first);
+		result.put("ageType", ageType);
 		result.put("end", end);
 		result.put("last", last);
 		result.put("current", page);
 		result.put("boardList", list);
-
+		result.put("category", category);
+		result.put("content", content);
 		return result;
 	}
 

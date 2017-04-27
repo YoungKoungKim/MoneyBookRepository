@@ -1,5 +1,8 @@
 package service;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
 import org.apache.ibatis.binding.BindingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -12,6 +15,28 @@ public class MemberService implements IMemberService {
 
 	@Autowired
 	private IMemberDao memberDao;
+
+	public String changePwd(String pwd) {
+		MessageDigest md;
+
+		try {
+			md = MessageDigest.getInstance("MD5");
+			md.update(pwd.getBytes());
+			byte[] hash = md.digest();
+
+			StringBuffer sb = new StringBuffer();
+
+			for (int i = 0; i < hash.length; i++) {
+				sb.append(Integer.toHexString(0xFF & hash[i]));
+			}
+
+			return sb.toString();
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+		}
+
+		return null;
+	}
 
 	@Override
 	public int idCheck(String id) { // 1000번대
@@ -32,24 +57,33 @@ public class MemberService implements IMemberService {
 	public int nickCheck(String nick) {// 1100번대
 		int result;
 		String selectNick = memberDao.selectNick(nick);
-		
-		if(selectNick != null) {
+
+		if (selectNick != null) {
 			result = 1101;
 		} else {
 			result = 1102;
 		}
-		
+
 		return result;
 	}
 
 	@Override
 	public int joinSuccess(Member member) {// 2000번대
-		int result = memberDao.insertMember(member);
-		
-		if (result > 0)
-			return 2001;
-		else
-			return 2002;
+		String userPwd = changePwd(member.getPwd());
+
+		// 해시값 변환오류
+		if (userPwd == null) {
+			return 2003;
+		} else {
+			member.setPwd(userPwd);
+
+			int result = memberDao.insertMember(member);
+
+			if (result > 0)
+				return 2001;
+			else
+				return 2002;
+		}
 	}
 
 	@Override
@@ -58,44 +92,74 @@ public class MemberService implements IMemberService {
 		// 수정할때 현재비밀번호랑 입력한비밀번호랑 같은지
 		// 1200번대, 요구사항 명세서의 password_check 커맨드랑 같다고 봄
 		String old = memberDao.selectOneMember(id_index).getPwd();
-		int result = 0;
-
-		if (pwd.equals(old))
+		String userPwd = changePwd(pwd);
+		
+		int result;
+		
+		
+		if(userPwd.equals(old)) {
 			result = 1201;
-		else
+		} else {
 			result = 1202;
+		}
 
 		return result;
 	}
 
 	@Override
-	public int updateMember(Member member) { // 4100번대
-		// TODO Auto-generated method stub
-		int result = memberDao.updateMember(member);
+	public int updateMember(Member member, String newPwd) { // 4100번대
+		int result;
+		
+		String userPwd = changePwd(member.getPwd());
 
-		if (result > 0)
-			result = 4101;
-		else
+		if (userPwd.equals(memberDao.selectOneMember(member.getId_index()).getPwd())) {
+			member.setPwd(changePwd(newPwd));
+
+			result = memberDao.updateMember(member);
+
+			if (result > 0)
+				// 성공
+				result = 4101;
+			else
+				// db수정 실패
+				result = 4103;
+		} else {
+			// 현재 비번이랑 입력한 비번이랑 다를때
 			result = 4102;
+		}
 
 		return result;
 	}
 
 	@Override
 	public Member login(String id, String pwd) {
-		int id_index = memberDao.selectIdIndex(id);
+		// mysql문에서 select값이 인트인데 결과값이 없다면 BindingException이 나와서 예외처리.
+		try {
+			int id_index = memberDao.selectIdIndex(id);
+			Member member = memberDao.selectOneMember(id_index);
 
-		Member member = memberDao.selectOneMember(id_index);
-
-		if (member != null) {
-			if (member.getPwd().equals(pwd)) {
-				return member;
+			if (member != null) {
+				String userPwd = changePwd(pwd);
+				
+				if (userPwd.equals(member.getPwd())) {
+					return member;
+				} else {
+					return null;
+				}
 			} else {
 				return null;
 			}
-		} else {
+		} catch (BindingException e) {
 			return null;
 		}
+	}
 
+	@Override
+	public Member memberInfo(int id_index) {
+		
+		// id_index는 세션에서 끄내쓸거라 검색값이 없을리가 없을거라서 그냥 리턴
+		Member member = memberDao.selectOneMember(id_index);
+
+		return member;
 	}
 }

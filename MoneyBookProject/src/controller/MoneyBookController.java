@@ -1,8 +1,13 @@
 package controller;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
+
+import javax.servlet.http.HttpSession;
+import javax.swing.plaf.synth.SynthSeparatorUI;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -17,6 +22,7 @@ import commons.BookMark;
 import model.MoneyBook;
 import service.IBoardService;
 import service.IBookMarkService;
+import service.IExtraService;
 import service.IMoneyBookService;
 
 @Controller
@@ -26,9 +32,10 @@ public class MoneyBookController {
 	private IMoneyBookService moneyBookService;
 	@Autowired
 	private IBookMarkService bookMarkService;
-
 	@Autowired
 	private IBoardService boardService;
+	@Autowired
+	private IExtraService extraService;
 
 	@RequestMapping("bookMarkDelete.do")
 	public @ResponseBody HashMap<String, Object> bookMarkDelete(int id_index, int bookmarkNo) {
@@ -54,22 +61,38 @@ public class MoneyBookController {
 
 	@RequestMapping("bookMarkRegist.do")
 	public @ResponseBody HashMap<String, Object> bookMarkRegist(int id_index, String category, String detail,
-			int price) {
+			String price) {
+		System.out.println("북마크 등록에 왔다.");
 		int num = bookMarkService.checkbookNo(id_index);
 		HashMap<String, Object> response = new HashMap<>();
+		int succCount =0;
+		
 		// bookMark개수가 6개 미만인지 확인
 		if (num >= 6) {
 			response.put("result", false);
 			response.put("msg", "북마크는 6개 이상을 등록할 수 없습니다.");
 		} else {
 			// 6개 미만이라면 DB에 insert후 코드 리턴
-			HashMap<String, Object> params = new HashMap<>();
-			params.put(BM.ID_INDEX, id_index);
-			params.put(BM.CATEGORY, category);
-			params.put(BM.DETAIL, detail);
-			params.put(BM.PRICE, price);
-			int result = bookMarkService.bookMarkWrite(params);
-			if (result == 3101) {
+		
+			String[] category_arr = category.split(",");
+			String[] detail_arr = detail.split(",");
+			String[] price_arr = price.split(",");
+			
+			for(int i=0; i<category_arr.length;i++){
+				HashMap<String, Object> params = new HashMap<>();
+				params.put(BM.ID_INDEX, id_index);
+				params.put(BM.CATEGORY, category_arr[i]);
+				params.put(BM.DETAIL, detail_arr[i]);
+				params.put(BM.PRICE, price_arr[i]);
+				int result = bookMarkService.bookMarkWrite(params);
+				
+				if (result == 3101) {
+					// 성공
+					succCount++;
+				}
+				
+			}			
+			if (succCount == category_arr.length) {
 				// 성공
 				response.put("msg", "북마크 등록 성공");
 				response.put("result", true);
@@ -83,6 +106,20 @@ public class MoneyBookController {
 		return response;
 	}
 
+	@RequestMapping("findBookMark.do")
+	public @ResponseBody HashMap<String, Object> findBookMark(int id_index, int bookmarkNo){
+		System.out.println("북마크 하나 찾으러 왔다");
+		HashMap<String, Object> response = new HashMap<>();
+		HashMap<String, Object> result = 
+				bookMarkService.searchOneBookmark(id_index, bookmarkNo);
+		response.put("category", result.get("category"));
+		response.put("price", result.get("price"));
+		response.put("detail", result.get("detail"));
+		return response;
+		
+	}
+	
+	
 	@RequestMapping("moneyBookUpdateForm.do")
 	public ModelAndView moneyBookUpdateForm(int id_index, Date date, int moneyBookNo) {
 		ModelAndView mav = new ModelAndView();
@@ -128,30 +165,68 @@ public class MoneyBookController {
 	@RequestMapping("viewMyPage.do")
 	public ModelAndView viewMyPage(int id_index, Date date) {
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("monthContent", moneyBookService.getMonthContent(id_index, date));
 		mav.addObject("monthAmount", moneyBookService.totalMonthAmount(id_index, date));
-		mav.addObject("dayContent", moneyBookService.getDayContent(date, id_index));
-		mav.addObject("dayAmount", moneyBookService.totalMonthAmount(id_index, date));
-		mav.setViewName("moneyBookView.jsp");
+		mav.setViewName("moneyBookView");
 		return mav;
 	}
+	
+	//달력에 가계부 내역 뿌리는 ajax용 리퀘스트
+	@RequestMapping("moneyBookView.do")
+	public @ResponseBody HashMap<String, Object> moneyBookView(int id_index, Date date) {
+		List<String[]> amountList = moneyBookService.oneMonthAmount(id_index, date);
+		
+		List<HashMap<String, Object>> income = new ArrayList<>();
+		List<HashMap<String, Object>> expense = new ArrayList<>();
+		
+		for (String[] arr : amountList) {
+			HashMap<String, Object> tmpIncome = new HashMap<>();
+			HashMap<String, Object> tmpExpense = new HashMap<>();
+			
+			tmpIncome.put("title", arr[1]);
+			tmpIncome.put("start", arr[0]);
+			income.add(tmpIncome);
+			
+			tmpExpense.put("title", arr[2]);
+			tmpExpense.put("start", arr[0]);
+			expense.add(tmpExpense);
+		}
+		
+		HashMap<String, Object> response = new HashMap<>();
+		response.put("lastDay", amountList.size());
+		response.put("income", income);
+		response.put("expense", expense);
+		
+		return response;
+	}
+
 
 	@RequestMapping("boardWriteForm.do")
 	public ModelAndView boardWriteForm(int id_index, Date date) {
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("monthContent", moneyBookService.getMonthContent(id_index, date));
+		mav.addObject("monthContent", moneyBookService.totalAmountByCategory(id_index, date));
 		mav.addObject("monthAmount", moneyBookService.totalMonthAmount(id_index, date));
 		mav.addObject("date", moneyBookService.searchDate(date));
+		//extraService.boardWrite(eBoard);
+		mav.setViewName("boardWrite");
+		// extraService.boardWrite(eBoard);
 		mav.setViewName("boardWrite.jsp");
 		return mav;
 	}
 
 	@RequestMapping("moneyBookWriteForm.do")
-	public ModelAndView moneyBookWriteForm(HashMap<String, Object> parmas) {
+	public ModelAndView moneyBookWriteForm(int id_index) {
 		ModelAndView mav = new ModelAndView();
-		// HashMap<String, Object> parmas = new HashMap<>();
-		mav.addAllObjects(bookMarkService.bookMarkSearch(parmas));
-		mav.setViewName("moneyBookAdd.jsp");
+		// mav.addAllObjects();
+		/*
+		 * HashMap<String, Object> params = new HashMap<>();
+		 * params.put("id_index", id_index); params.put("bookmarkNo",
+		 * bookmarkNo);
+		 */
+
+		mav.addObject("bookMarkList", bookMarkService.bookMarkSearch(id_index));
+		System.out.println(bookMarkService.bookMarkSearch(id_index));
+		System.out.println("하이");
+		mav.setViewName("moneyBookAdd");
 		return mav;
 	}
 
@@ -159,17 +234,49 @@ public class MoneyBookController {
 	public ModelAndView moneyBookDetailView(int id_index, Date date) {
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("dayContent", moneyBookService.getDayContent(date, id_index));
-		mav.setViewName("moneyBookView.jsp");
+		mav.setViewName("moneyBookView");
 		return mav;
 	}
 
 	@RequestMapping("moneyBookRegist.do")
-	public ModelAndView moneyBookRegist(MoneyBook mb) {
-		ModelAndView mav = new ModelAndView();
-		mav.addObject(moneyBookService.moneyBookRegist(mb));
-		mav.setViewName("moneyBookView.jsp");
-		return mav;
+	public String moneyBookRegist(int id_index, String category, String detail, String price, 
+			int year, int month,int day) {
+		System.out.println("가계부 등록 요청에 왔다");
+
+		int resultCount = 0;
+		
+		String[] category_arr = category.split(",");
+		String[] detail_arr = detail.split(",");
+		String[] price_arr = price.split(",");
+		
+		
+		for(int i=0; i<category_arr.length;i++){
+			System.out.println(category_arr[i]);
+			Date date = new Date();
+			date.setYear(year - 1900);
+			date.setMonth(month - 1);
+			date.setDate(day);
+
+			MoneyBook mb = new MoneyBook();
+			mb.setId_index(id_index);
+			mb.setCategory(category_arr[i]);
+			mb.setDetail(detail_arr[i]);
+			mb.setPrice(Integer.parseInt(price_arr[i]));
+			mb.setDate(date);
+			int result =moneyBookService.moneyBookRegist(mb);
+			
+			if (result == 3201) {
+				resultCount++;
+			}
+		}
+
+		if (resultCount==category_arr.length) {
+			return "redirect:moneyBookView.do";
+		} else {
+			return "redirect : moneyBookRegist.do";
+		}
 	}
+
 
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {

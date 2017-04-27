@@ -16,9 +16,11 @@ public interface IMemberService {
 	public int IdpwdCheck(String pwd, int id_index);
 
 	// 회원정보 수정
-	public int updateMember(Member member);
+	public int updateMember(Member member, String newPwd);
 
 	// 로그인 할 때는?
 	// 받는 건 아이디랑 비번
 	public Member login(String id, String pwd);
+	
+	public Member memberInfo(int id_index);
 }

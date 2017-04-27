@@ -1,26 +1,34 @@
 package controller;
 
 import java.util.HashMap;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
-import service.CommentService;
-import service.MemberService;
+import commons.Comment;
+import service.ICommentService;
 
 @Controller
 public class CommentController {
-/*
+
 	@Autowired
-	private CommentService commentservice;
+	private ICommentService commentservice;
 	
 	@RequestMapping("commentWrite.do")
-	public String commentWrite(HashMap<String, Object> comment){
+	public String commentWrite(int boardNo, @RequestParam("nick1")String nick, @RequestParam("content1")String content, int id_index ){
+		HashMap<String, Object> comment = new HashMap<>();
+
+		comment.put(Comment.ID_INDEX, id_index);
+		comment.put(Comment.BOARDNO, boardNo);
+		comment.put(Comment.NICK, nick);
+		comment.put(Comment.CONTENT, content);
+		System.out.println(comment);
 		commentservice.commentWrite(comment);
-		return "redirect:boardDetailView.do";
+		return "redirect:boardDetailView.do?";
 	}
 	
 	@RequestMapping("commentUpdate.do")
@@ -40,5 +48,10 @@ public class CommentController {
 	public String commentDelete(int commentNo){
 		commentservice.commentDelete(commentNo);
 		return "redirect:boardDetailView.do";
-	}*/
+	}
+	
+	@RequestMapping("getCommentList.do")
+	public @ResponseBody List<HashMap<String, Object>> getCommentList(int boardNo) {
+		return commentservice.selectComment(boardNo);
+	}
 }

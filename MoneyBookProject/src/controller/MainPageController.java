@@ -10,5 +10,10 @@ public class MainPageController {
 	public String test() {
 		return "test";
 	}
+	
+	@RequestMapping("cal.do")
+	public String cal() {
+		return "calendar";
+	}
 
 }

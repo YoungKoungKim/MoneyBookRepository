@@ -23,46 +23,47 @@ public class MemberController {
 	private IMemberService memberService;
 
 	// join_Form
-	@RequestMapping("join_Form.do")
+	@RequestMapping("joinForm.do")
 	public String joinForm() {
 		return "joinForm";
 	}
 
 	// id_check
 	//ajax
-	@RequestMapping("id_Check.do")
+	@RequestMapping("idCheck.do")
 	public @ResponseBody int idCheck(String id) {
 		return memberService.idCheck(id);
 	}
 
 	// nick_check
 	//ajax
-	@RequestMapping("nick_Check.do")
+	@RequestMapping("nickCheck.do")
 	public @ResponseBody int nickCheck(String nick) {
 		return memberService.nickCheck(nick);
 	}
 
 	// join_Success
 	//ajax
-	@RequestMapping(method = RequestMethod.POST, value = "join_Success.do")
+	@RequestMapping(method = RequestMethod.POST, value = "joinSuccess.do")
 	public @ResponseBody int joinSuccess(Member m) {
 		return memberService.joinSuccess(m);
 	}
 
 	// login_Form
-	@RequestMapping("login_Form.do")
+	@RequestMapping("loginForm.do")
 	public String loginForm() {
 		return "loginForm";
 	}
 
 	// login_Success
 	//ajax
-	@RequestMapping("login_Success.do")
-	public @ResponseBody int loginSuccess(HttpSession session, String id, String pwd, String beforePage) {
+	@RequestMapping(method = RequestMethod.POST, value = "loginSuccess.do")
+	public @ResponseBody int loginSuccess(HttpSession session, String id, String pwd) {
 		Member member = memberService.login(id, pwd);
-
+			
 		if (member != null) {
 			session.setAttribute("id_index", member.getId_index());
+			session.setAttribute("nick", member.getNick());
 			return 2101;
 		} else {
 			return 2102;
@@ -72,22 +73,26 @@ public class MemberController {
 	@RequestMapping("logout.do")
 	public String logout(HttpSession session) {
 		session.removeAttribute("id_index");
+		session.removeAttribute("nick");
+		
 		// 로그아웃하면 메인으로??
-		return "redirect:main.do";
+		return "redirect:test.do";
 	}
 
 	// password_Check
 	//ajax
-	@RequestMapping("password_Check.do")
+	@RequestMapping("passwordCheck.do")
 	public @ResponseBody int passwordCheck(int id_index, String pwd) {
 		return memberService.IdpwdCheck(pwd, id_index);
 	}
 
 	// inform_Update_Form
-	@RequestMapping("inform_Update_Form.do")
-	public ModelAndView informUpdateForm(Member member) {
+	@RequestMapping("informUpdateForm.do")
+	public ModelAndView informUpdateForm(int id_index) {
 		ModelAndView mav = new ModelAndView();
 
+		Member member = memberService.memberInfo(id_index);
+		
 		mav.addObject("member", member);
 		mav.setViewName("informUpdateForm");
 
@@ -96,8 +101,8 @@ public class MemberController {
 
 	// inform_Update
 	//ajax
-	@RequestMapping("inform_Update.do")
-	public @ResponseBody int infromUpdate(Member member) {
-		return memberService.updateMember(member);
+	@RequestMapping(method = RequestMethod.POST, value = "informUpdate.do")
+	public @ResponseBody int infromUpdate(Member member, String newPwd) {
+		return memberService.updateMember(member, newPwd);
 	}
 }

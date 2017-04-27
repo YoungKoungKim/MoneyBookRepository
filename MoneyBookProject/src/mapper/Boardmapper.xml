@@ -8,70 +8,90 @@
 			<when test="annotation != null">
 				#{content}
 			</when>
-			<otherwise>
+			<otherwise> 
 				''
 			</otherwise>
 		</choose>
 	</sql>
-	 	<insert id="insertBoard" parameterType="board" useGeneratedKeys="true" keyProperty="boardno">
-  		insert into board values(0, #{title},#{content},
-  		<include refid="annotation"></include>
-  		,sysdate(),#{ageType},#{nick},#{id_index},0,0)
-  	</insert>
-  
-  	<update id="updateBoard" parameterType="board">
-  		update board set 
-  		title = #{title}, content = #{content}, 
-  		annotation = #{annotation}, ageType = #{ageType}, date = sysdate() 
-  		where boardNo = #{boardNo} and id_index = #{id_index} 
-  	</update>
-  	
-  	 <update id="updateRecommendBoard" parameterType="int">
-  		update board set 
-  		recommend =recommend +1  
-  		where boardNo = #{boardNo} 
-  	</update>
-  	
-  	<delete id="deleteBoard" parameterType="int">
-  		delete from board where boardNo = #{boardNo}
-  	</delete>
-  	
-  	<select id="selectByNick" parameterType="String" resultType="board">
-  		select * from board where nick = #{nick}
-  	</select>
-  	
-  	  <select id="selectOneBoard" parameterType="int" resultType="board">
-  		select * from board where boardNo = #{boardNo}
-  	</select>
-  	
-  	<select id="selectByTitle" parameterType="java.util.HashMap" resultType="board">
-  		select * from board where title like '%${params}%' 
-		order by boardNo desc limit #{skip}, #{count};	
-  	</select>
-  	
-  	<select id="selectByAgeType" parameterType="String" resultType="board">
-  		select * from board where ageType = #{ageType}
-  	</select>
-  	
-  	<select id="selectBest" resultType="board">
-	select * from board order by recommend desc limit 0,{count};
+	<insert id="insertBoard" parameterType="board" useGeneratedKeys="true"
+		keyProperty="boardno">
+		insert into board values(0, #{title},#{content},
+		<include refid="annotation"></include>
+		,sysdate(),#{ageType},#{nick},#{id_index},0,0)
+	</insert>
+
+	<update id="updateBoard" parameterType="board">
+		update board set 
+		title = #{title}, content = #{content},
+		ageType = #{ageType}, date = sysdate()
+		where boardNo = #{boardNo} and id_index = #{id_index}
+	</update>
+
+	<update id="updateRecommendBoard" parameterType="int">
+		update board set
+		recommend =recommend +1
+		where boardNo = #{boardNo}
+	</update>
+
+	<delete id="deleteBoard" parameterType="int">
+		delete from board where boardNo = #{boardNo}
+	</delete>
+
+	<select id="selectByNick" parameterType="String" resultType="board">
+		select * from board where nick = #{nick}
+		order by boardNo desc limit #{skip}, #{count}
 	</select>
-  	
-  	<select id="selectboardLimit" parameterType="java.util.HashMap" resultType="board">
-  		select * from board 
-  		<if test="#{ageType} != '0'">
-  		where ageType = #{ageType}
-  		</if> 
-  		order by boardNo desc limit #{skip}, #{count}
-  	</select>
-  	
-  	<select id="getBoardCount" resultType="int" parameterType="java.util.HashMap">
-  		select count(*) from board 
-  		<if test="#{category} == 'title'">
-  			where title like '%${content}%'
-  		</if>
-  		<if test="#{category} == 'nick'">
-	  		where nick like '%${content}%'
-  		</if>
-  	</select>
+
+	<select id="selectOneBoard" parameterType="int" resultType="board">
+		select * from board where boardNo = #{boardNo}
+	</select>
+
+	<select id="selectByWhat" parameterType="java.util.HashMap"
+		resultType="board">
+		select * from board
+		<choose>
+			<when test="category eq 'title'">
+				where title like concat ("%", #{content}, "%")
+			</when>
+			<when test="category eq 'nick'">
+				where nick like concat ("%", #{content}, "%")
+			</when>
+		</choose>
+		order by boardNo desc limit #{skip}, #{count}
+	</select>
+
+	<select id="selectByAgeType" parameterType="String" resultType="board">
+		select * from board where ageType = #{ageType}
+	</select>
+
+	<select id="selectBest" resultType="board" parameterType="int">
+		select * from board order by recommend desc limit 0, #{count}
+	</select>
+
+	<select id="selectboardLimit" parameterType="java.util.HashMap"
+		resultType="board">
+		select * from board
+		<if test="ageType != 0">
+			where ageType = #{ageType}
+		</if>
+		order by boardNo desc limit #{skip}, #{count}
+	</select>
+
+	<select id="getBoardCount" resultType="int">
+		select count(*) from board
+		<choose>
+			<when test="ageType == 40">
+				where ageType >= #{ageType}
+			</when>
+			<when test="ageType != 0">
+				where ageType = #{ageType}
+			</when>
+		</choose>
+		<if test="category eq 'title'">
+			where title like concat("%", #{content} ,"%")
+		</if>
+		<if test="category eq 'nick'">
+			where nick like concat("%", #{content} ,"%")
+		</if>
+	</select>
 </mapper>
