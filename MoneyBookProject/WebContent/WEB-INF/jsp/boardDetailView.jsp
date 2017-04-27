@@ -57,8 +57,8 @@ function getCommentList() {
 							success : function(data){
 								getCommentList();
 							},
-							error:function(request,status,error){
-						        alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+							error:function(){
+						      
 						       }
 						});
 						}
@@ -70,21 +70,11 @@ function getCommentList() {
 			
 			});
 
-
-			$("#commentTable").html($("#commentTable").html() + 
-					"<tr>	<td>" + data[comment].nick + 
-					"&nbsp;&nbsp;&nbsp;" + time + 
-					"</td></tr><tr><td>"	+ data[comment].content + "</td>	</tr>");
 			}
-		},
-		error : function() {
-			alert("실패");
-		}
-	});
-}
+	
 	$(document).ready(function() {
 		getCommentList();
-		
+
 		$('#recommendbtn').on('click', function() {
 
 			$.ajax({
@@ -107,9 +97,10 @@ function getCommentList() {
 		$.ajax({
 			type : 'post',
 			url : 'commentWrite.do',
-			data : 'boardNo='+${board.boardNo}+'&nick='+ nick1 +'&content1='+ content1 +'id_index='+${id_index},
+			data : 'boardNo='+${board.boardNo}+'&nick1='+ nick1 +'&content1='+ content1 +'&id_index='+${id_index},
 			dataType : 'json',
 			success : function () {
+				$('#content1').val(' ');
 				getCommentList();
 			},
 			error : function() {
@@ -118,7 +109,7 @@ function getCommentList() {
 		});
 	});
 	
-});//ready
+});
 </script>
 </head>
 <body>
@@ -161,7 +152,9 @@ function getCommentList() {
 		<div>
 			<input type="button" value="추천" id="recommendbtn">
 			<input type="button" value="목록" onclick="location.href='boardList.do'">
-			<input type="button" value="수정" onclick="location.href='boardUpdateForm.do?boardNo=${board.boardNo}'">
+			<c:if test="${board.id_index eq id_index}">
+			<input type="button" value="수정" onclick="location.href='boardUpdateForm.do?boardNo=${board.boardNo}'">			
+			</c:if>
 		</div>
 		
 		<table class="table table-bordered" style="width: 70%;" id="commentTable">
@@ -169,7 +162,7 @@ function getCommentList() {
 		</table>
 		<c:if test="${id_index != null}">
 			<input type="text" value="${nick}" readonly="readonly" id="nick1" name="nick1">
-			<input type="text" style="width: 700px; height: 50px;" id="content" name="content1">
+<textarea rows="5" cols="120" id="content1" name="content1"></textarea>
 			<input type="button" value="등록" id="commentbut">
 		</c:if>
 	</center>
