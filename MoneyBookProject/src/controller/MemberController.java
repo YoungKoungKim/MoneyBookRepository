@@ -74,7 +74,7 @@ public class MemberController {
 	public String logout(HttpSession session) {
 		session.removeAttribute("id_index");
 		// 로그아웃하면 메인으로??
-		return "redirect:main.do";
+		return "redirect:test.do";
 	}
 
 	// password_Check
