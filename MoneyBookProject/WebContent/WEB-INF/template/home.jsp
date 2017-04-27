@@ -43,11 +43,13 @@ html, body {
 }
 
 #container #content {
-	padding: 100px 0;
+	min-height: 300px;
 }
 
 #footer {
+	position : absolute;
 	height : auto;
+	bottom : 0%;
 	width : 100%;
 }
 

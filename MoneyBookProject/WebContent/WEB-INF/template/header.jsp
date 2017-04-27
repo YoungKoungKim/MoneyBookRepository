@@ -36,7 +36,7 @@
 								<!-- 공유게시판 -->
 								<a href="boardList.do" title="공유게시판">BulletinBoard</a>
 								<!-- 가계부 -->
-								<a href="#moneyBook" title="가계부">MyMoneyBook</a>
+								<a href="viewMyPage.do?id_index=1&date=2017-04-27" title="가계부">MyMoneyBook</a>
 								<!-- 로그인 -->
 								<a data-toggle="modal" data-target="#loginModal"
 									data-backdrop="static" href="#loginForm" title="로그인">Login</a>

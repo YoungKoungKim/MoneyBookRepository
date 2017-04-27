@@ -23,6 +23,7 @@ body {
 	padding: 0;
 	font-family: 'Ubuntu Condensed', sans-serif;
 	font-size: 14px;
+	height: 100%;
 }
 
 #left {
@@ -48,8 +49,14 @@ body {
 }
 
 #calendar {
+	padding-top : 50px;
 	max-width: 600px;
 	margin: 0 auto;
+}
+
+#detail {
+	min-height: 300px;
+	background-color: blue;
 }
 
 .fc-event, .fc-event:hover, .ui-widget .fc-event {
@@ -84,7 +91,6 @@ body {
 					dataType : 'json',
 					data : 'id_index=1&date=' + nowDate.format('YYYY-MM-DD'),
 					success : function(data) {
-						alert(nowDate.format('YYYY-MM-DD'));
 						var events = [];
 						for (var i = 0; i < data.lastDay; i++) {
 							events.push({
@@ -98,7 +104,8 @@ body {
 						}
 						callback(events);
 						
-						$('#monthIncome').html(${monthAmount.income});
+						$('#monthIncome').text(data.monthIncome);
+						$('#monthExpense').text(data.monthExpense);
 					}
 				});
 			}
