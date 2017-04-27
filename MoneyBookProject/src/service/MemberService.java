@@ -69,13 +69,13 @@ public class MemberService implements IMemberService {
 
 	@Override
 	public int joinSuccess(Member member) {// 2000번대
-		String pwd = changePwd(member.getPwd());
+		String userPwd = changePwd(member.getPwd());
 
 		// 해시값 변환오류
-		if (pwd == null) {
+		if (userPwd == null) {
 			return 2003;
 		} else {
-			member.setPwd(pwd);
+			member.setPwd(userPwd);
 
 			int result = memberDao.insertMember(member);
 
@@ -113,7 +113,7 @@ public class MemberService implements IMemberService {
 		String userPwd = changePwd(member.getPwd());
 
 		if (userPwd.equals(memberDao.selectOneMember(member.getId_index()).getPwd())) {
-			member.setPwd(newPwd);
+			member.setPwd(changePwd(newPwd));
 
 			result = memberDao.updateMember(member);
 
