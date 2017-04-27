@@ -16,10 +16,28 @@ public class MemberService implements IMemberService {
 	@Autowired
 	private IMemberDao memberDao;
 
-//	public String changePwd(String pwd) {
-//		
-//	}
-	
+	public String changePwd(String pwd) {
+		MessageDigest md;
+
+		try {
+			md = MessageDigest.getInstance("MD5");
+			md.update(pwd.getBytes());
+			byte[] hash = md.digest();
+
+			StringBuffer sb = new StringBuffer();
+
+			for (int i = 0; i < hash.length; i++) {
+				sb.append(Integer.toHexString(0xFF & hash[i]));
+			}
+
+			return sb.toString();
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+		}
+
+		return null;
+	}
+
 	@Override
 	public int idCheck(String id) { // 1000번대
 		int result;
@@ -51,31 +69,21 @@ public class MemberService implements IMemberService {
 
 	@Override
 	public int joinSuccess(Member member) {// 2000번대
-		String pwd = member.getPwd();
+		String pwd = changePwd(member.getPwd());
 
-		MessageDigest md;
-		try {
-			md = MessageDigest.getInstance("MD5");
-			md.update(pwd.getBytes());
-			byte[] hash = md.digest();
-			
-			StringBuffer sb = new StringBuffer();
-			
-			for (int i = 0; i < hash.length; i++) {
-				sb.append(Integer.toHexString(0xFF & hash[i]));
-			}
-			
-			member.setPwd(sb.toString());
-		} catch (NoSuchAlgorithmException e) {
-			e.printStackTrace();
+		// 해시값 변환오류
+		if (pwd == null) {
+			return 2003;
+		} else {
+			member.setPwd(pwd);
+
+			int result = memberDao.insertMember(member);
+
+			if (result > 0)
+				return 2001;
+			else
+				return 2002;
 		}
-		
-		int result = memberDao.insertMember(member);
-
-		if (result > 0)
-			return 2001;
-		else
-			return 2002;
 	}
 
 	@Override
@@ -84,12 +92,16 @@ public class MemberService implements IMemberService {
 		// 수정할때 현재비밀번호랑 입력한비밀번호랑 같은지
 		// 1200번대, 요구사항 명세서의 password_check 커맨드랑 같다고 봄
 		String old = memberDao.selectOneMember(id_index).getPwd();
-		int result = 0;
-
-		if (pwd.equals(old))
+		String userPwd = changePwd(pwd);
+		
+		int result;
+		
+		
+		if(userPwd.equals(old)) {
 			result = 1201;
-		else
+		} else {
 			result = 1202;
+		}
 
 		return result;
 	}
