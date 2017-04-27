@@ -25,29 +25,48 @@ body {
 	font-size: 14px;
 }
 
+#left {
+	position: absolute;
+	height: 100%;
+	left: 0;
+	width: 20%;
+}
+
+#center {
+	position: absolute;
+	left: 20%;
+	right: 20%;
+	height: 100%;
+	width: 60%;
+}
+
+#right {
+	position: absolute;
+	height: 100%;
+	width: 20%;
+	right: 0%;
+}
+
 #calendar {
 	max-width: 600px;
 	margin: 0 auto;
 }
+
+.fc-event, .fc-event:hover, .ui-widget .fc-event {
+	color: #000; /* default TEXT color */
+	text-decoration: none; /* if <a> has an href */
+}
 </style>
 
 <script type="text/javascript">
-
 	$(document).ready(function() {
-		// 	<c:forEach items="${arr }" var="str">
-		// 		alert('${str}');
-		// 	</c:forEach>
-		// 	alert('a');
-		// 	alert('b');
-		// 	alert('c');
-
 		var today = new Date();
-		
+
 		$('#calendar').fullCalendar({
 			header : {
 				left : 'prev,next today',
 				center : 'title',
-				right : 'month,agendaWeek,listWeek'
+				right : 'month,listWeek'
 			},
 			defaultDate : today,
 			navLinks : true, // can click day/week names to navigate views
@@ -55,67 +74,56 @@ body {
 			weekNumberCalculation : 'ISO',
 
 			editable : false,
-			eventLimit : true // allow "more" link when too many events
-		});
-		
-		$.ajax({
-			type : 'get',
-			url : 'moneyBookView.do',
-			data : 'id_index=1&date=' + today.yyyymmdd(),
-			dataType : 'json',
-			success : function(data) {
-				alert(data.lastDay);
-				for (var i = 0; i < data.lastDay; i++) {
-					if (i != (data.lastDay-1)) {
-						$('#calendar').fullCalendar({
-							events : [
-								{
-									title : data.income[i].title,
-									start : data.income[i].start
-								}
-							]
-						});
-					} else {
-						
+			eventLimit : true, // allow "more" link when too many events
+			events : function(start, end, timezone, callback) {
+				var nowDate = $('#calendar').fullCalendar('getDate');
+				
+				$.ajax({
+					type : 'post',
+					url : 'moneyBookView.do',
+					dataType : 'json',
+					data : 'id_index=1&date=' + nowDate.format('YYYY-MM-DD'),
+					success : function(data) {
+						var events = [];
+						alert(nowDate);
+						for (var i = 0; i < data.lastDay; i++) {
+							events.push({
+								title : '수입:' + data.income[i].title,
+								start : data.income[i].start
+							});
+							events.push({
+								title : '지출:' + data.expense[i].title,
+								start : data.expense[i].start
+							});
+						}
+						callback(events);
 					}
-				}
-			},
-			error : function() {
-				alert('error');
+				});
 			}
-		})
-
-
-		jQuery("button.fc-prev-button").click(function() {
-			var date = jQuery("#calendar").fullCalendar("getDate");
-			convertDate(date);
 		});
-
-		// 오른쪽 버튼을 클릭하였을 경우
-		jQuery("button.fc-next-button").click(function() {
-			var date = jQuery("#calendar").fullCalendar("getDate");
-			convertDate(date);
-		});
-
 	});
-	// 받은 날짜값을 date 형태로 형변환 해주어야 한다.
-	function convertDate(date) {
-		var date = new Date(date);
-		date.yyyymmdd();
-	}
-
-	// 받은 날짜값을 YYYY-MM-DD 형태로 출력하기위한 함수.
-	Date.prototype.yyyymmdd = function() {
-		var yyyy = this.getFullYear().toString();
-		var mm = (this.getMonth() + 1).toString();
-		var dd = this.getDate().toString();
-		return yyyy + "-" + (mm[1] ? mm : "0" + mm[0]) + "-" + (dd[1] ? dd : "0" + dd[0]);
-	}
 </script>
 </head>
 <body>
-	<div>수입 : ${monthAmount.income }</div>
-	<div>지출 : ${monthAmount.expense }</div>
-	<div id="calendar"></div>
+	<div id="left">
+		<center>
+			<div>
+				총 수입 : <span id="monthIncome">${monthAmount.income }</span>
+			</div>
+			<div>
+				총 지출 : <span id="monthExpense">${monthAmount.expense }</span>
+			</div>
+		</center>
+	</div>
+
+	<div id="center">
+		<div id="calendar"></div>
+		<div id="detail"></div>
+	</div>
+
+	<div id="right">
+		<button>등록</button>
+		<button>공유</button>
+	</div>
 </body>
 </html>

@@ -175,21 +175,22 @@ public class MoneyBookController {
 	//달력에 가계부 내역 뿌리는 ajax용 리퀘스트
 	@RequestMapping("moneyBookView.do")
 	public @ResponseBody HashMap<String, Object> moneyBookView(int id_index, Date date) {
-		List<String[]> amountList = new ArrayList<>();
-		amountList = moneyBookService.oneMonthAmount(id_index, date);
+		List<String[]> amountList = moneyBookService.oneMonthAmount(id_index, date);
 		
 		List<HashMap<String, Object>> income = new ArrayList<>();
 		List<HashMap<String, Object>> expense = new ArrayList<>();
 		
 		for (String[] arr : amountList) {
-			HashMap<String, Object> tmpMap = new HashMap<>();
-			tmpMap.put("title", arr[1]);
-			tmpMap.put("start", arr[0]);
-			income.add(tmpMap);
+			HashMap<String, Object> tmpIncome = new HashMap<>();
+			HashMap<String, Object> tmpExpense = new HashMap<>();
 			
-			tmpMap.remove("title");
-			tmpMap.put("title", arr[2]);
-			expense.add(tmpMap);
+			tmpIncome.put("title", arr[1]);
+			tmpIncome.put("start", arr[0]);
+			income.add(tmpIncome);
+			
+			tmpExpense.put("title", arr[2]);
+			tmpExpense.put("start", arr[0]);
+			expense.add(tmpExpense);
 		}
 		
 		HashMap<String, Object> response = new HashMap<>();

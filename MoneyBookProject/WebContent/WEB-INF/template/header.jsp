@@ -192,11 +192,9 @@
 			})
 		})
 </script>
-=======
 
 <script type="text/javascript" src="js/memberScript.js"></script>
 
->>>>>>> branch 'master' of https://github.com/YoungKoungKim/MoneyBookRepository.git
 </head>
 <body>
 	<div id="header">
