@@ -172,7 +172,6 @@ public class MoneyBookController {
 	
 	//달력에 가계부 내역 뿌리는 ajax용 리퀘스트
 	@RequestMapping("moneyBookView.do")
-<<<<<<< HEAD
 	public @ResponseBody HashMap<String, Object> moneyBookView(int id_index, Date date) {
 		List<String[]> amountList = moneyBookService.oneMonthAmount(id_index, date);
 		
@@ -197,13 +196,9 @@ public class MoneyBookController {
 		response.put("income", income);
 		response.put("expense", expense);
 		
-=======
-	public @ResponseBody List<String[]> moneyBookView(int id_index, Date date) {
-		List<String[]> response = new ArrayList<>();
-		response = moneyBookService.oneMonthAmount(id_index, date);
->>>>>>> branch 'master' of https://github.com/YoungKoungKim/MoneyBookRepository.git
 		return response;
 	}
+
 
 	@RequestMapping("boardWriteForm.do")
 	public ModelAndView boardWriteForm(int id_index, Date date) {
