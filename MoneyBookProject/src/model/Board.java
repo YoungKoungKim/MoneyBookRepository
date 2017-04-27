@@ -1,7 +1,7 @@
 package model;
 
 import java.util.Date;
-
+ 
 public class Board {
 	private int boardNo;
 	private String title;

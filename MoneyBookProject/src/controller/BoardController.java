@@ -93,7 +93,7 @@ public class BoardController {
 		boardservice.boardRecommand(boardNo);
 		Board board = (Board) boardservice.searchText(boardNo).get("board");
 		return board.getRecommend(); 
-	}
+	} 
 	
 	@RequestMapping("boardUpdate.do")
 	public String boardUpdate(Board board){
