@@ -1,5 +1,8 @@
 package service;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
 import org.apache.ibatis.binding.BindingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -44,6 +47,25 @@ public class MemberService implements IMemberService {
 
 	@Override
 	public int joinSuccess(Member member) {// 2000번대
+		String pwd = member.getPwd();
+
+		MessageDigest md;
+		try {
+			md = MessageDigest.getInstance("MD5");
+			md.update(pwd.getBytes());
+			byte[] hash = md.digest();
+			
+			StringBuffer sb = new StringBuffer();
+			
+			for (int i = 0; i < hash.length; i++) {
+				sb.append(Integer.toHexString(0xFF & hash[i]));
+			}
+			
+			member.setPwd(sb.toString());
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+		}
+		
 		int result = memberDao.insertMember(member);
 
 		if (result > 0)
@@ -74,17 +96,17 @@ public class MemberService implements IMemberService {
 
 		if (member.getPwd().equals(memberDao.selectOneMember(member.getId_index()).getPwd())) {
 			member.setPwd(newPwd);
-			
+
 			result = memberDao.updateMember(member);
 
 			if (result > 0)
-				//성공
+				// 성공
 				result = 4101;
 			else
-				//db수정 실패
+				// db수정 실패
 				result = 4103;
 		} else {
-			//현재 비번이랑 입력한 비번이랑 다를때
+			// 현재 비번이랑 입력한 비번이랑 다를때
 			result = 4102;
 		}
 
@@ -116,7 +138,7 @@ public class MemberService implements IMemberService {
 	public Member memberInfo(int id_index) {
 		// id_index는 세션에서 끄내쓸거라 검색값이 없을리가 없을거라서 그냥 리턴
 		Member member = memberDao.selectOneMember(id_index);
-		
+
 		return member;
 	}
 }
