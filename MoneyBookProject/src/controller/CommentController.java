@@ -46,9 +46,9 @@ public class CommentController {
 		}
 	}
 	@RequestMapping("commentDelete.do")
-	public String commentDelete(int commentNo){
+	public @ResponseBody String commentDelete(int commentNo){
 		commentservice.commentDelete(commentNo);
-		return "redirect:boardDetailView.do";
+		return "true";
 	}
 	
 	@RequestMapping("getCommentList.do")

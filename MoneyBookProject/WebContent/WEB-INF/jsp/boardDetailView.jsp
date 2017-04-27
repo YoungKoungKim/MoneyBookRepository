@@ -11,29 +11,69 @@
 	integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
 	crossorigin="anonymous"></script>
 <script type="text/javascript">
-function getCommentList() {
-	$.ajax({
-		url : "getCommentList.do",
-		type : "get",
-		data : "boardNo=" + ${board.boardNo},
-		dataType : "json",
-		success : function(data) {
-			$("#commentTable").html("");
-			for(var comment in data) {
-				var date = new Date(data[comment].date);
-				var time = date.getFullYear() + "." + (date.getMonth() + 1) + "." + date.getDate() + " " + date.getHours() + ":" + date.getMinutes();
+
+		function getCommentList() {
+			$.ajax({
+				url : "getCommentList.do",
+				type : "get",
+				data : "boardNo=" + ${board.boardNo},
+				dataType : "json",
+				success : function(data) {
+					$("#commentTable").html("");
+					var comment;
+					for(comment in data) {
+						var date = new Date(data[comment].date);
+						var time = date.getFullYear() + "." + (date.getMonth() + 1) + "." + date.getDate() + " " + date.getHours() + ":" + date.getMinutes();
+				
+						
+					if(${id_index} == data[comment].id_index)
+					{
+						
+					$("#commentTable").html($("#commentTable").html() + 
+							"<tr>	<td>" + data[comment].nick + 
+							"&nbsp;&nbsp;&nbsp;" + time + 
+							"</td></tr><tr><td> <textarea rows='3' cols='120' readonly='readonly'> "+ data[comment].content + "</textarea> <input class='delete' id='"+data[comment].commentNo+"@' name='"+data[comment].commentNo+"' type='button' value='삭제'>"
+							+"<input type='text' id='' value='수정'> </td> </tr>");
+					
+					}else{
+
+						$("#commentTable").html($("#commentTable").html() + 
+						"<tr>	<td>" + data[comment].nick + 
+						"&nbsp;&nbsp;&nbsp;" + time + 
+						"</td></tr><tr><td> <textarea rows='3' cols='120' readonly='readonly'> "+ data[comment].content + "</textarea></td>	</tr>");						
+					}	
+					
+					}
+					$('.delete').on('click',function(){
+						var idno = $(this).attr('id').split('@')[0];
+						var commentNo = $(this).attr('name');
+						alert(commentNo);
+						alert(idno);
+						if(idno == commentNo) {
+							
+						$.ajax({
+							type : 'post',
+							url : 'commentDelete.do',
+							data : 'commentNo='+commentNo,
+							dataType : 'json',
+							success : function(data){
+								getCommentList();
+							},
+							error:function(request,status,error){
+						        alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+						       }
+						});
+						}
+					});
+				},
+				error : function() {
+					alert("실패");
+				}
 			
-			$("#commentTable").html($("#commentTable").html() + 
-					"<tr>	<td>" + data[comment].nick + 
-					"&nbsp;&nbsp;&nbsp;" + time + 
-					"</td></tr><tr><td> <textarea rows='3' cols='120' readonly='readonly'> "+ data[comment].content + "</textarea></td>	</tr>");
-			}
-		},
-		error : function() {
-			alert("실패");
+			});
+
+
 		}
-	});
-}
 	$(document).ready(function() {
 		getCommentList();
 		
@@ -71,6 +111,7 @@ function getCommentList() {
 
 		});
 	});
+	
 	
 });
 </script>
@@ -125,7 +166,7 @@ function getCommentList() {
 					onclick="location.href='boardUpdateForm.do?boardNo=${board.boardNo}'">
 			</c:if>
 		</div>
-
+	
 		<table class="table table-bordered" style="width: 70%;"
 			id="commentTable">
 

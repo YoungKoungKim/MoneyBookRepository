@@ -81,9 +81,6 @@ function getCommentList() {
 		<br>
 		<br>
 		
-		<table class="table table-bordered" style="width: 70%;" id="commentTable">
-			
-		</table>
-	</center>
+			</center>
 </body>
 </html>
