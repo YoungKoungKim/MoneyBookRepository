@@ -11,44 +11,44 @@
 	crossorigin="anonymous"></script>
 
 <script type="text/javascript">
-	$(document).ready(function() {
-		$("#submitBtn").on("click", function() {
-			if ($("#id").val() == "") {
-				$("#pwdCheck").text("");
-				$("#idCheck").text("아이디를 입력해주세요.");
-				$("#id").focus();
-			} else if ($("#pwd").val() == "") {
-				$("#idCheck").text("");
-				$("#pwdCheck").text("비밀번호를 입력해주세요.");
-				$("#pwd").focus();
-			} else {
-				$.ajax({
-					url : "loginSuccess.do",
-					type : "post",
-					data : "id=" + $("#id").val() + "&pwd=" + $("#pwd").val(),
-					dataType : "json",
-					success : function(data) {
-						if (data == 2101) {
-							opener.parent.location.reload();
-							self.close();
-						} else if (data == 2102) {
-							$("#pwd").val("");
-							$("#idCheck").text("");
-							$("#pwdCheck").text("아이디 또는 비밀번호를 잘못 입력하셨습니다.");
-							$("#pwd").focus();
-						}
-					},
-					error : function() {
-						alert("에러 : 로그인 실패");
-					}
-				})
-			}
-		})
+// 	$(document).ready(function() {
+// 		$("#submitBtn").on("click", function() {
+// 			if ($("#id").val() == "") {
+// 				$("#pwdCheck").text("");
+// 				$("#idCheck").text("아이디를 입력해주세요.");
+// 				$("#id").focus();
+// 			} else if ($("#pwd").val() == "") {
+// 				$("#idCheck").text("");
+// 				$("#pwdCheck").text("비밀번호를 입력해주세요.");
+// 				$("#pwd").focus();
+// 			} else {
+// 				$.ajax({
+// 					url : "loginSuccess.do",
+// 					type : "post",
+// 					data : "id=" + $("#id").val() + "&pwd=" + $("#pwd").val(),
+// 					dataType : "json",
+// 					success : function(data) {
+// 						if (data == 2101) {
+// 							opener.parent.location.reload();
+// 							self.close();
+// 						} else if (data == 2102) {
+// 							$("#pwd").val("");
+// 							$("#idCheck").text("");
+// 							$("#pwdCheck").text("아이디 또는 비밀번호를 잘못 입력하셨습니다.");
+// 							$("#pwd").focus();
+// 						}
+// 					},
+// 					error : function() {
+// 						alert("에러 : 로그인 실패");
+// 					}
+// 				})
+// 			}
+// 		})
 		
-		$("#cancelBtn").on("click", function() {
-			self.close();
-		})
-	})
+// 		$("#cancelBtn").on("click", function() {
+// 			self.close();
+// 		})
+// 	})
 </script>
 
 <script type="text/javascript">

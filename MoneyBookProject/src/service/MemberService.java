@@ -109,8 +109,10 @@ public class MemberService implements IMemberService {
 	@Override
 	public int updateMember(Member member, String newPwd) { // 4100번대
 		int result;
+		
+		String userPwd = changePwd(member.getPwd());
 
-		if (member.getPwd().equals(memberDao.selectOneMember(member.getId_index()).getPwd())) {
+		if (userPwd.equals(memberDao.selectOneMember(member.getId_index()).getPwd())) {
 			member.setPwd(newPwd);
 
 			result = memberDao.updateMember(member);
@@ -137,7 +139,9 @@ public class MemberService implements IMemberService {
 			Member member = memberDao.selectOneMember(id_index);
 
 			if (member != null) {
-				if (member.getPwd().equals(pwd)) {
+				String userPwd = changePwd(member.getPwd());
+				
+				if (userPwd.equals(pwd)) {
 					return member;
 				} else {
 					return null;
@@ -152,6 +156,7 @@ public class MemberService implements IMemberService {
 
 	@Override
 	public Member memberInfo(int id_index) {
+		
 		// id_index는 세션에서 끄내쓸거라 검색값이 없을리가 없을거라서 그냥 리턴
 		Member member = memberDao.selectOneMember(id_index);
 
