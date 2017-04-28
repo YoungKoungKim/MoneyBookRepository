@@ -161,10 +161,11 @@ $(document).ready(function() {
  						}
  					})
  				}
- 				
+ 			});
  				//*********************************정보 수정***************************************
  				
  				$("#inform_Nick").on("blur", function() {
+ 					alert("test");
  		 			if (nickPattern.test($(this).val())) {
  		 					$.ajax({
  		 						url : "nickCheck.do",
@@ -251,7 +252,7 @@ $(document).ready(function() {
  		 					dataType : "json",
  		 					success : function(data) {	
  		 						if(data == 4101) {
- 		 							location.href = "viewMyPage.do?id_index=${member.id_index}&date=" + new Date();
+ 		 							location.href = "viewMyPage.do?id_index=${member.id_index}&date=" + new Date().format("yyyy-MM-dd");
  		 						} else if (data == 4102) {
  		 							$("#inform_NowPwd").val("");
  		 							$("#inform_NowPwdCheck").text("비밀번호가 틀렸습니다.");
@@ -264,10 +265,9 @@ $(document).ready(function() {
  		 					}
  		 				})
  		 			}
- 		 		})
+ 		 		});
  					
  		 		$("#inform_CancelBtn").on("click", function() {
  		 			location.href = "javascript:history.back(-1)";
  		 		})
  			})
-})
