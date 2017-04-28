@@ -161,7 +161,7 @@ $(document).ready(function() {
  						}
  					})
  				}
- 				
+ 			});
  				//*********************************정보 수정***************************************
  				
  				$("#inform_Nick").on("blur", function() {
@@ -176,7 +176,7 @@ $(document).ready(function() {
  		 								$("#inform_NickCheck").text("사용 가능");
  		 								$("#inform_NickTest").val("true");
  		 							} else if(data == 1101) {
- 		 								if($("#inform_Nick").val() != "${member.nick}") {										
+ 		 								if($("#inform_Nick").val() != $("#inform_NickName").val()) {										
  		 									$("#inform_NickCheck").text("이미 있는 닉네임입니다.");
  		 									$("#inform_NickTest").val("false");
  		 								} else {
@@ -247,12 +247,16 @@ $(document).ready(function() {
  		 				$.ajax({
  		 					url : "informUpdate.do",
  		 					type : "post",
- 		 					data : "id_index=${member.id_index}" + "&nick=" + $("#inform_Nick").val() + "&pwd=" + $("#inform_NowPwd").val() + "&newPwd=" + $("#inform_NewPwd").val(),
+ 		 					data : "id_index=" + $("#inform_Id_index").val() + "&nick=" + $("#inform_Nick").val() + "&pwd=" + $("#inform_NowPwd").val() + "&newPwd=" + $("#inform_NewPwd").val(),
  		 					dataType : "json",
  		 					success : function(data) {	
  		 						if(data == 4101) {
- 		 							location.href = "viewMyPage.do?id_index=${member.id_index}&date=" + new Date();
+ 		 							var date = new Date();
+ 		 							var time = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
+ 		 							location.href = "viewMyPage.do?id_index=" + $("#inform_Id_index").val() + "&date=" + time;
  		 						} else if (data == 4102) {
+ 		 							alert($("#inform_Id_index").val());
+ 		 							alert($("#inform_Nick").val());
  		 							$("#inform_NowPwd").val("");
  		 							$("#inform_NowPwdCheck").text("비밀번호가 틀렸습니다.");
  		 						} else if (data == 4103) {
@@ -260,14 +264,13 @@ $(document).ready(function() {
  		 						}
  		 					},
  		 					error:function(request,status,error){
- 		 						alert("전송 실패");
- 		 					}
+ 		 				        alert("수정 실패 : 다시 시도해주세요.");
+ 		 				       }
  		 				})
  		 			}
- 		 		})
+ 		 		});
  					
  		 		$("#inform_CancelBtn").on("click", function() {
  		 			location.href = "javascript:history.back(-1)";
  		 		})
  			})
-})
