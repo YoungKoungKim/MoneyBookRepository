@@ -19,35 +19,30 @@ public class CommentController {
 	private ICommentService commentservice;
 	
 	@RequestMapping("commentWrite.do")
-	public String commentWrite(int boardNo, @RequestParam("nick1")String nick, @RequestParam("content1")String content, int id_index ){
+	public @ResponseBody String commentWrite(int boardNo, @RequestParam("nick1")String nick, @RequestParam("content1")String content, int id_index ){
 		HashMap<String, Object> comment = new HashMap<>();
 
 		comment.put(Comment.ID_INDEX, id_index);
 		comment.put(Comment.BOARDNO, boardNo);
 		comment.put(Comment.NICK, nick);
 		comment.put(Comment.CONTENT, content);
-		System.out.println(comment);
-		commentservice.commentWrite(comment);
-		return "redirect:boardDetailView.do?";
+		 commentservice.commentWrite(comment);
+		 return "true";
 	}
 	
 	@RequestMapping("commentUpdate.do")
-	public @ResponseBody HashMap<String, Object> commentUpdate(HashMap<String, Object> comment){
-		boolean result=commentservice.commentUpdate(comment);
-		HashMap<String, Object> response = new HashMap<>();
-		if(result == true){
-			response.put("result", true);
-			response.put("comment", comment.get("comment"));
-			return response;
-		}else{
-			response.put("result", false);
-			return response;
-		}
+	public @ResponseBody String commentUpdate(String content, int commentNo){
+		HashMap<String, Object> comment = new HashMap<>();
+		comment.put("content", content);
+		comment.put("commentNo", commentNo);
+		commentservice.commentUpdate(comment);
+		return "true";
+		
 	}
 	@RequestMapping("commentDelete.do")
-	public String commentDelete(int commentNo){
+	public @ResponseBody String commentDelete(int commentNo){
 		commentservice.commentDelete(commentNo);
-		return "redirect:boardDetailView.do";
+		return "true";
 	}
 	
 	@RequestMapping("getCommentList.do")

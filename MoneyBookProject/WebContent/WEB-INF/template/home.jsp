@@ -20,41 +20,32 @@
 <script src="assets/js/ie-10-view-port.js"></script>
 
 <style type="text/css">
-
 @import url('http://fonts.googleapis.com/css?family=Lato');
 @import url('https://fonts.googleapis.com/css?family=Amatic+SC');
-
 html, body {
 	height: 100%;
 /* 	margin: 0;
 	padding: 0; */
 }
-
 #header {
 	background-color: #91D4B5;
 	color: #fff;
 	padding-top: 30px;
 	padding-bottom: 10px;
 }
-
 #container {
 	min-height: 80%;
 	background-color: white;
 }
-
 #container #content {
 	min-height: 300px;
 }
-
 #footer {
 	position : absolute;
 	height : auto;
 	bottom : 0%;
 	width : 100%;
 }
-
-
-
 </style>
 <title>Insert title here</title>
 </head>

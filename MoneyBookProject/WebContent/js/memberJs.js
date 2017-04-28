@@ -22,7 +22,7 @@ $(document).ready(function() {
 				dataType : "json",
 				success : function(data) {
 					if (data == 2101) {
-						alert("로그인 하셨습니다.");
+						alert("로그인하셨습니다.");
 						location.reload();
 					} else if (data == 2102) {
 						$("#login_Pwd").val("");

@@ -24,14 +24,12 @@ body {
 	font-size: 14px;
 	height: 100%;
 }
-
 #left {
 	position: absolute;
 	height: 100%;
 	left: 0;
 	width: 20%;
 }
-
 #center {
 	position: absolute;
 	left: 20%;
@@ -39,14 +37,12 @@ body {
 	height: 100%;
 	width: 60%;
 }
-
 #right {
 	position: absolute;
 	height: 100%;
 	width: 20%;
 	right: 0%;
 }
-
 #calendar {
 	padding-top : 50px;
 	max-width: 600px;
@@ -57,7 +53,10 @@ body {
 	min-height: 300px;
 	background-color: blue;
 }
-
+#detail {
+	min-height: 300px;
+	background-color: blue;
+}
 .fc-event, .fc-event:hover, .ui-widget .fc-event {
 	color: #000; /* default TEXT color */
 	text-decoration: none; /* if <a> has an href */
@@ -67,7 +66,6 @@ body {
 <script type="text/javascript">
 	$(document).ready(function() {
 		var today = new Date();
-
 		$('#calendar').fullCalendar({
 			header : {
 				left : 'prev,next today',
@@ -76,9 +74,7 @@ body {
 			},
 			defaultDate : today,
 			navLinks : true, // can click day/week names to navigate views
-
 			weekNumberCalculation : 'ISO',
-
 			editable : false,
 			eventLimit : false, // allow "more" link when too many events
 			events : function(start, end, timezone, callback) {
