@@ -23,7 +23,6 @@
 		<table>
 			<tr>
 				<th>No</th>
-				<th>age</th>
 				<th>제목</th>
 				<th>작성자</th>
 				<th>조회수</th>
@@ -33,19 +32,17 @@
 			<c:forEach var="best" items="${boardBest }" >
 				<tr>
 					<td>*</td>
-					<td>${best.ageType }</td>
 					<td><a href="boardDetailView.do?boardNo=${best.boardNo}
 					&id_index=${best.id_index}">${best.title }</a></td>
 					<td>${best.nick }</td>
 					<td>${best.viewNo }</td>
 					<td>${best.recommend }</td>
-					<td>${best.date }</td>
+					<td><fmt:formatDate value="${best.date }" pattern="yyyy-MM-dd"/></td>
 				</tr>
 			</c:forEach> 
 			<c:forEach var="board" items="${boardList }">
 				<tr>
 					<td>${board.boardNo }</td>
-					<td>${board.ageType }</td>
 					<td>
 					<a href="boardDetailView.do?boardNo=${board.boardNo}
 					&id_index=${board.id_index}">${board.title }</a>
@@ -53,7 +50,7 @@
 					<td>${board.nick }</td>
 					<td>${board.viewNo }</td>
 					<td>${board.recommend }</td>
-					<td>${board.date }</td>
+					<td><fmt:formatDate value="${board.date }" pattern="yyyy-MM-dd"/> </td>
 				</tr>
 			</c:forEach>
 			<tr>
