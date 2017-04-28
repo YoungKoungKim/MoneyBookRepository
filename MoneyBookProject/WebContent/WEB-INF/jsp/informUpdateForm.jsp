@@ -70,6 +70,8 @@
 					class="btn btn-info" id="inform_CancelBtn"></td>
 			</tr>
 		</table>
+		<input type="hidden" value="${member.nick }" id="inform_NickName">
+		<input type="hidden" value="${member.id_index }" id="inform_Id_index">
 		<input type="hidden" value="true" id="inform_NickTest"> <input
 			type="hidden" value="false" id="inform_NewPwdTest"> <input
 			type="hidden" value="false" id="inform_NewPwdOkTest">
