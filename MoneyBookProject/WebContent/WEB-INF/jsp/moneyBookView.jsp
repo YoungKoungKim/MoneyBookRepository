@@ -23,15 +23,14 @@ body {
 	padding: 0;
 	font-family: 'Ubuntu Condensed', sans-serif;
 	font-size: 14px;
+	height: 100%;
 }
-
 #left {
 	position: absolute;
 	height: 100%;
 	left: 0;
 	width: 20%;
 }
-
 #center {
 	position: absolute;
 	left: 20%;
@@ -39,19 +38,21 @@ body {
 	height: 100%;
 	width: 60%;
 }
-
 #right {
 	position: absolute;
 	height: 100%;
 	width: 20%;
 	right: 0%;
 }
-
 #calendar {
+	padding-top : 50px;
 	max-width: 600px;
 	margin: 0 auto;
 }
-
+#detail {
+	min-height: 300px;
+	background-color: blue;
+}
 .fc-event, .fc-event:hover, .ui-widget .fc-event {
 	color: #000; /* default TEXT color */
 	text-decoration: none; /* if <a> has an href */
@@ -61,7 +62,6 @@ body {
 <script type="text/javascript">
 	$(document).ready(function() {
 		var today = new Date();
-
 		$('#calendar').fullCalendar({
 			header : {
 				left : 'prev,next today',
@@ -70,9 +70,7 @@ body {
 			},
 			defaultDate : today,
 			navLinks : true, // can click day/week names to navigate views
-
 			weekNumberCalculation : 'ISO',
-
 			editable : false,
 			eventLimit : true, // allow "more" link when too many events
 			events : function(start, end, timezone, callback) {
@@ -84,7 +82,6 @@ body {
 					dataType : 'json',
 					data : 'id_index=1&date=' + nowDate.format('YYYY-MM-DD'),
 					success : function(data) {
-						alert(nowDate.format('YYYY-MM-DD'));
 						var events = [];
 						for (var i = 0; i < data.lastDay; i++) {
 							events.push({
@@ -98,7 +95,8 @@ body {
 						}
 						callback(events);
 						
-						$('#monthIncome').html(${monthAmount.income});
+						$('#monthIncome').text(data.monthIncome);
+						$('#monthExpense').text(data.monthExpense);
 					}
 				});
 			}

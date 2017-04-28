@@ -73,6 +73,8 @@ public class MemberController {
 	@RequestMapping("logout.do")
 	public String logout(HttpSession session) {
 		session.removeAttribute("id_index");
+		session.removeAttribute("nick");
+		
 		// 로그아웃하면 메인으로??
 		return "redirect:test.do";
 	}

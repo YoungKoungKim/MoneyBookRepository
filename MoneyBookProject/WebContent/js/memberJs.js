@@ -22,8 +22,8 @@ $(document).ready(function() {
 				dataType : "json",
 				success : function(data) {
 					if (data == 2101) {
-						opener.parent.location.reload();
-						self.close();
+						alert("로그인하셨습니다.");
+						location.reload();
 					} else if (data == 2102) {
 						$("#login_Pwd").val("");
 						$("#login_IdCheck").text("");

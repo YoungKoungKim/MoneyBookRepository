@@ -34,13 +34,14 @@
 				<tr>
 					<td>*</td>
 					<td>${best.ageType }</td>
-					<td>${best.title }</td>
+					<td><a href="boardDetailView.do?boardNo=${best.boardNo}
+					&id_index=${best.id_index}">${best.title }</a></td>
 					<td>${best.nick }</td>
 					<td>${best.viewNo }</td>
 					<td>${best.recommend }</td>
 					<td>${best.date }</td>
 				</tr>
-			</c:forEach>
+			</c:forEach> 
 			<c:forEach var="board" items="${boardList }">
 				<tr>
 					<td>${board.boardNo }</td>

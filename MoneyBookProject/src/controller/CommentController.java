@@ -31,17 +31,13 @@ public class CommentController {
 	}
 	
 	@RequestMapping("commentUpdate.do")
-	public @ResponseBody HashMap<String, Object> commentUpdate(HashMap<String, Object> comment){
-		boolean result=commentservice.commentUpdate(comment);
-		HashMap<String, Object> response = new HashMap<>();
-		if(result == true){
-			response.put("result", true);
-			response.put("comment", comment.get("comment"));
-			return response;
-		}else{
-			response.put("result", false);
-			return response;
-		}
+	public @ResponseBody String commentUpdate(String content, int commentNo){
+		HashMap<String, Object> comment = new HashMap<>();
+		comment.put("content", content);
+		comment.put("commentNo", commentNo);
+		commentservice.commentUpdate(comment);
+		return "true";
+		
 	}
 	@RequestMapping("commentDelete.do")
 	public @ResponseBody String commentDelete(int commentNo){

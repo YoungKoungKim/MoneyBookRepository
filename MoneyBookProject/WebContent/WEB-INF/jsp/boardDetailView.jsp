@@ -12,6 +12,7 @@
 	crossorigin="anonymous"></script>
 <script type="text/javascript">
 function getCommentList() {
+	var id_index = parseInt('${id_index}');
 	$.ajax({
 		url : "getCommentList.do",
 		type : "get",
@@ -22,19 +23,17 @@ function getCommentList() {
 			for(var comment in data) {
 				var date = new Date(data[comment].date);
 				var time = date.getFullYear() + "." + (date.getMonth() + 1) + "." + date.getDate() + " " + date.getHours() + ":" + date.getMinutes();
-				
-						
-					if(${id_index} == data[comment].id_index)
+					
+					if(id_index == data[comment].id_index)
 					{
-						
+
 					$("#commentTable").html($("#commentTable").html() + 
 							"<tr>	<td>" + data[comment].nick + 
 							"&nbsp;&nbsp;&nbsp;" + time + 
-							"</td></tr><tr><td> <textarea rows='3' cols='120' readonly='readonly'> "+ data[comment].content + "</textarea> <input class='delete' id='"+data[comment].commentNo+"@' name='"+data[comment].commentNo+"' type='button' value='삭제'>"
-							+"<input class='update' type='button' id='' value='수정'> </td> </tr>");
+							"</td></tr><tr><td> <textarea class='comment' id='comment_"+data[comment].commentNo+"' rows='3' cols='120' readonly='readonly'> "+ data[comment].content + "</textarea> <input class='delete' id='"+data[comment].commentNo+"@' name='"+data[comment].commentNo+"' type='button' value='삭제'>"
+							+"<input class='update' type='button' id='"+data[comment].commentNo+"@' name='"+data[comment].commentNo+"' value='수정'> </td> </tr>");
 					
-					}else{
-
+					}else {
 						$("#commentTable").html($("#commentTable").html() + 
 						"<tr>	<td>" + data[comment].nick + 
 						"&nbsp;&nbsp;&nbsp;" + time + 
@@ -45,10 +44,7 @@ function getCommentList() {
 					$('.delete').on('click',function(){
 						var idno = $(this).attr('id').split('@')[0];
 						var commentNo = $(this).attr('name');
-						alert(commentNo);
-						alert(idno);
 						if(idno == commentNo) {
-							
 						$.ajax({
 							type : 'post',
 							url : 'commentDelete.do',
@@ -56,6 +52,7 @@ function getCommentList() {
 							dataType : 'json',
 							success : function(data){
 								getCommentList();
+								alert("삭제완료");
 							},
 							error:function(){
 						      
@@ -63,6 +60,33 @@ function getCommentList() {
 						});
 						}
 					});
+					
+					$('.update').on('click', function(){
+// 						var idno = $(this).attr('id').split('@')[0];
+						var btnval =$(this).val();
+						var commentNo = $(this).attr('name');
+						var content = $('#comment_'+commentNo).val();					
+						if(btnval == "수정"){
+						$('#comment_' + commentNo).removeAttr("readonly");						
+						 $(this).attr('value','변경');
+						}else if(btnval=="변경"){
+							$.ajax({
+								type : 'post',
+								url : 'commentUpdate.do',
+								data : 'commentNo='+commentNo +"&content="+content,
+								dataType : 'json',
+								success : function(data){
+									alert("수정완료");
+									getCommentList();
+								},
+								error:function(){
+							      
+							       }
+							});
+						}
+						
+					});
+					
 				},
 				error : function() {
 					alert("실패");
@@ -74,7 +98,6 @@ function getCommentList() {
 	
 	$(document).ready(function() {
 		getCommentList();
-
 		$('#recommendbtn').on('click', function() {
 
 			$.ajax({
@@ -97,7 +120,7 @@ function getCommentList() {
 		$.ajax({
 			type : 'post',
 			url : 'commentWrite.do',
-			data : 'boardNo='+${board.boardNo}+'&nick1='+ nick1 +'&content1='+ content1 +'&id_index='+${id_index},
+			data : 'boardNo='+${board.boardNo}+'&nick1='+ nick1 +'&content1='+ content1 +'&id_index='+'${id_index}',
 			dataType : 'json',
 			success : function () {
 				$('#content1').val(' ');
@@ -122,7 +145,6 @@ function getCommentList() {
 					<td style="width: 300px;" align="center">${board.title}</td>
 					<td style="width: 150px;" align="center"><fmt:formatDate
 							value="${board.date}" pattern="yyyy-MM-dd" /></td>
-				
 			</table>
 
 			<table border="3">
@@ -130,7 +152,8 @@ function getCommentList() {
 					<td style="width: 400px" align="center">${board.nick }</td>
 
 					<td style="width: 200px;">조회수 : ${board.viewNo }</td>
-					<td style="width: 200px;" id="recommend">추천수 : ${board.recommend }</td>
+					<td style="width: 200px;" id="recommend">추천수 :
+						${board.recommend }</td>
 				</tr>
 				<tr>
 
@@ -138,31 +161,35 @@ function getCommentList() {
 
 				<c:forEach items="${list}" var="exboard">
 					<tr>
-						<td colspan="3" align="center">${exboard.category } ${exboard.price }</td>
+						<td colspan="3" align="center">${exboard.category }
+							${exboard.price }</td>
 					</tr>
-					
+
 				</c:forEach>
-					<tr>
-						<td colspan="3" align="center"> ${board.content }</td>
-					</tr>
+				<tr>
+					<td colspan="3" align="center">${board.content }</td>
+				</tr>
 
 
 			</table>
 		</div>
 		<div>
-			<input type="button" value="추천" id="recommendbtn">
-			<input type="button" value="목록" onclick="location.href='boardList.do'">
+			<input type="button" value="추천" id="recommendbtn"> <input
+				type="button" value="목록" onclick="location.href='boardList.do'">
 			<c:if test="${board.id_index eq id_index}">
-			<input type="button" value="수정" onclick="location.href='boardUpdateForm.do?boardNo=${board.boardNo}'">			
+				<input type="button" value="수정"
+					onclick="location.href='boardUpdateForm.do?boardNo=${board.boardNo}'">
 			</c:if>
 		</div>
-		
-		<table class="table table-bordered" style="width: 70%;" id="commentTable">
-			
+
+		<table class="table table-bordered" style="width: 70%;"
+			id="commentTable">
+
 		</table>
 		<c:if test="${id_index != null}">
-			<input type="text" value="${nick}" readonly="readonly" id="nick1" name="nick1">
-<textarea rows="5" cols="120" id="content1" name="content1"></textarea>
+			<input type="text" value="${nick}" readonly="readonly" id="nick1"
+				name="nick1">
+			<textarea rows="5" cols="120" id="content1" name="content1"></textarea>
 			<input type="button" value="등록" id="commentbut">
 		</c:if>
 	</center>
