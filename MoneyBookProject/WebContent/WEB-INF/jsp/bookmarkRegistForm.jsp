@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
+    pageEncoding="UTF-8"%>
+ <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -18,85 +17,48 @@
 <script type="text/javascript">
 $(document).ready(function() {
 	
-	$(document).on("click",".bookmark",function(){
-		var id_index = $(this).attr('id');
-		//alert("버튼 눌렀다!!!!!!!!!!!!!!");
+	alert(${msg});
+	
+/* 	//북마크 누르기
+	$('#bookmark_regist_btn').click(function (){
 
+	if($('#category').val() ==""|| $('#detail').val() == "" 
+			|| $('#price').val() == "" ){
+		alert('항목을 모두 입력해주세요!');
+		
+	}else{
+		var params = $('#bookmarkRegistForm').serialize();
+		//alert(params);
 		$.ajax({
-			url : 'findBookMark.do',
-			data : "id_index="+${param.id_index}+
-			"&bookmarkNo="+$('#a'+id_index).val(),
+			url : 'bookMarkRegist.do',
+			data : params,
 			dataType : 'json',
 			type: 'post',
 			success : function(data){
+				alert(data.msg);
 				
-				var list_size = parseInt($('.add_line_btn').attr("id").replace("add_line_btn",""));
+				var bookmarkNo = data.bookmarkNo;
+				var detail = data.detail;
 				
-				for(var i=1; i <= list_size; i++){
-					if($('#category'+i).val()==""){
-						$('#category'+i).val(data.category).prop("selected", true);
-						$('#detail'+i).val(data.detail);
-						$('#price'+i).val(data.price);
-						break;
-					}
-				}
+				var id_index = $('.bookmark').attr('id').replace("bookmark_select","");
+				alert('id_index :'+id_index);
+				alert(bookmarkNo);
+				$('#bookmark_list_div').empty();
+				for(var i= 0; i < data.resultNo ;i++){
+ 					var tag ="<input type='button' class='bookmark' id='bookmark_select"+i+"' value='"+detail[i]+"'>";
+					$('#bookmark_list_div').append(tag);
+					var tag2 = "<input type='hidden' id='abookmark_select"+i+"' value='" +bookmarkNo[i] +"'>";
+					$('#bookmark_list_div').append(tag2);
+				} 
 			}
 		});
-	});
-	
-		$(document).on("click",".add_line_btn",function(){
-		//alert("버튼 눌렀다!!!!!!!!!!!!!!");
-		var addCount = parseInt($('.add_line_btn').attr("id").replace("add_line_btn",""))+parseInt(1);
-		$('.add_line_btn').remove();
-		
-		var tag =
- 			"<tr>"
-			+"<td><select id='category"+addCount+"' name='category'>"
-			+"	<option value selected>카테고리 선택</option>"
-			+"	<option value='food'>식비</option>"
-			+"	<option value='traffic'>교통비</option>"
-			+"	<option value='commodity'>생필품</option>"
-			+"	<option value='medical'>의료</option>"
-			+"	<option value='education'>교육</option>"
-			+"	<option value='phonefees'>통신비</option>"
-			+"	<option value='saving'>저축</option>"
-			+"	<option value='utilitybills'>공과금</option>"
-			+"	<option value='culturallife'>문화생활비</option>"
-			+"<option value='otheritems'>기타</option>"
-			+"	<option value='income'>수입</option>"
-			+"</select></td>" 
-			+"<td><input type='text' name='detail'" 
-			+"placeholder='사용내역을 입력하세요.' id='detail"+addCount+"'></td>"
-			+"<td><input type='text' name='price' "
-			+"id='price"+addCount+"' placeholder='가격을 입력하세요.'>"
-			+"<input type = 'button' value='추가' id='add_line_btn"+addCount+"' class='add_line_btn'>"
-			+"</td>"
-			+"</tr>" ;
-			
-		$('#list_table').append(tag);
-		
-
-
-	});
-	
-
-/*   	$('#regist_btn').click(function (){
-		for(var i=1; i<=5;i++){
-			if(!($('#category'+i).val()=="" || $('#detail'+i).val()=="" ||
-					$('#price'+i).val() =="")){
-				alert('항목을 모두 입력해주세요.');
-				break;
-			}
-			if(!($.isNumeric($('#price'+i).val()))){
-				alert("금액은 숫자만 입력해주세요.");
-				break;
-			}
-		}
-		return false;
-	});  */
- 	//"input[type='submit']").attr("disabled", true);
+	}
+	}); */
 });
 </script>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>북마크 등록</title>
+</head>
 <style type="text/css">
 .bookmark {
 	border-radius: 10px;
@@ -170,31 +132,13 @@ button[type=submit] {
 }
 </style>
 
-<title>가계부 등록</title>
+<title>즐겨찾기 등록</title>
 </head>
 <body>
-	<form action="moneyBookRegist.do" id="mbRegistForm">
+	<form action="bookmarkRegist.do" id="bookmarkRegistForm">
 		<div id="main_div">
-			<div id="date_div">
-				<select id="year" name="year">
-					<c:forEach begin="2010" end="2020" varStatus="status">
-						<option value="${2009+status.count}">${2009+status.count}년</option>
-					</c:forEach>
-
-				</select> <select id="month" name="month">
-					<c:forEach begin="1" end="12" varStatus="status">
-						<option value="${status.count}">${status.count}월</option>
-					</c:forEach>
-
-				</select> <select id="day" name="day">
-					<c:forEach begin="1" end="30" varStatus="status">
-						<option value="${status.count}">${status.count}일</option>
-					</c:forEach>
-				</select>
-
-			</div>
 			<div id="bookmark_bar_div">
-				<h5>★즐겨찾기</h5>
+				<h5>즐겨찾기 등록</h5>
 			</div>
 			<div id="bookmark_list_div">
 				<c:forEach var="bm" items="${bookMarkList}" varStatus="status">
@@ -206,8 +150,8 @@ button[type=submit] {
 			</div>
 			<div id="list_div">
 				<input type="hidden" name="id_index" value="${param.id_index}">
-				<table id="list_table">
-					<c:forEach begin="1" end="5" varStatus="status">
+							<table id="list_table">
+					<c:forEach begin="1" end="2" varStatus="status">
 						<tr>
 							<td><select id="category${status.index}" name="category">
 									<option value='' selected>카테고리 선택</option>
@@ -233,10 +177,9 @@ button[type=submit] {
 						</tr>
 					</c:forEach>
 				</table>
-
 			</div>
 			<div id="btn_list">
-				<input type="submit" value="등록" class="btn" id="regist_btn">
+				<input type="submit" value="즐겨찾기 등록" class="btn" id="book_mark_regist_btn">
 				<button class="btn" id="cancle_btn">취소</button>
 			</div>
 		</div>

@@ -18,9 +18,49 @@
 <script type="text/javascript">
 $(document).ready(function() {
 	
+	//북마크 누르기
+	$('#bookmark_regist_btn').click(function (){
+
+	if($('#category').val() ==""|| $('#detail').val() == "" 
+			|| $('#price').val() == "" ){
+		alert('항목을 모두 입력해주세요!');
+		
+	}else{
+		var params = $('#mbRegistForm').serialize();
+		//alert(params);
+		$.ajax({
+			url : 'bookMarkRegist.do',
+			data : params,
+			dataType : 'json',
+			type: 'post',
+			success : function(data){
+				alert(data.msg);
+				
+				var bookmarkNo = data.bookmarkNo;
+				var detail = data.detail;
+				
+				var id_index = $('.bookmark').attr('id').replace("bookmark_select","");
+				alert('id_index :'+id_index);
+				alert(bookmarkNo);
+				$('#bookmark_list_div').empty();
+				for(var i= 0; i < data.resultNo ;i++){
+ 					var tag ="<input type='button' class='bookmark' id='bookmark_select"+i+"' value='"+detail[i]+"'>";
+					$('#bookmark_list_div').append(tag);
+					var tag2 = "<input type='hidden' id='abookmark_select"+i+"' value='" +bookmarkNo[i] +"'>";
+					$('#bookmark_list_div').append(tag2);
+				} 
+
+			}
+			
+	
+		});
+		
+	}
+	});
+	
 	$(document).on("click",".bookmark",function(){
 		var id_index = $(this).attr('id');
-		//alert("버튼 눌렀다!!!!!!!!!!!!!!");
+		alert("버튼 눌렀다!!!!!!!!!!!!!!");
 
 		$.ajax({
 			url : 'findBookMark.do',
@@ -29,72 +69,36 @@ $(document).ready(function() {
 			dataType : 'json',
 			type: 'post',
 			success : function(data){
+				alert("북마크 하나 찾기 성공했다");
 				
-				var list_size = parseInt($('.add_line_btn').attr("id").replace("add_line_btn",""));
-				
-				for(var i=1; i <= list_size; i++){
+				for(var i=1; i<=5;i++){
 					if($('#category'+i).val()==""){
 						$('#category'+i).val(data.category).prop("selected", true);
 						$('#detail'+i).val(data.detail);
 						$('#price'+i).val(data.price);
-						break;
+						return;
 					}
 				}
 			}
 		});
 	});
-	
-		$(document).on("click",".add_line_btn",function(){
-		//alert("버튼 눌렀다!!!!!!!!!!!!!!");
-		var addCount = parseInt($('.add_line_btn').attr("id").replace("add_line_btn",""))+parseInt(1);
-		$('.add_line_btn').remove();
-		
-		var tag =
- 			"<tr>"
-			+"<td><select id='category"+addCount+"' name='category'>"
-			+"	<option value selected>카테고리 선택</option>"
-			+"	<option value='food'>식비</option>"
-			+"	<option value='traffic'>교통비</option>"
-			+"	<option value='commodity'>생필품</option>"
-			+"	<option value='medical'>의료</option>"
-			+"	<option value='education'>교육</option>"
-			+"	<option value='phonefees'>통신비</option>"
-			+"	<option value='saving'>저축</option>"
-			+"	<option value='utilitybills'>공과금</option>"
-			+"	<option value='culturallife'>문화생활비</option>"
-			+"<option value='otheritems'>기타</option>"
-			+"	<option value='income'>수입</option>"
-			+"</select></td>" 
-			+"<td><input type='text' name='detail'" 
-			+"placeholder='사용내역을 입력하세요.' id='detail"+addCount+"'></td>"
-			+"<td><input type='text' name='price' "
-			+"id='price"+addCount+"' placeholder='가격을 입력하세요.'>"
-			+"<input type = 'button' value='추가' id='add_line_btn"+addCount+"' class='add_line_btn'>"
-			+"</td>"
-			+"</tr>" ;
-			
-		$('#list_table').append(tag);
-		
 
+ 	
+ 	
+ 	$('#regist_btn').click(function (){
 
-	});
-	
-
-/*   	$('#regist_btn').click(function (){
-		for(var i=1; i<=5;i++){
-			if(!($('#category'+i).val()=="" || $('#detail'+i).val()=="" ||
-					$('#price'+i).val() =="")){
-				alert('항목을 모두 입력해주세요.');
-				break;
-			}
-			if(!($.isNumeric($('#price'+i).val()))){
-				alert("금액은 숫자만 입력해주세요.");
-				break;
-			}
-		}
+	if($('#category').val() ==""|| $('#detail').val() == "" 
+			|| $('#price').val() == "" ){
+		alert('항목을 모두 입력해주세요.');
 		return false;
-	});  */
- 	//"input[type='submit']").attr("disabled", true);
+	}
+	
+	if(!($.isNumeric($('#price').val()))){
+		alert("금액은 숫자만 입력해주세요.");
+		return false;
+	}
+	}); 
+	
 });
 </script>
 <style type="text/css">
@@ -177,19 +181,19 @@ button[type=submit] {
 		<div id="main_div">
 			<div id="date_div">
 				<select id="year" name="year">
-					<c:forEach begin="2010" end="2020" varStatus="status">
-						<option value="${2009+status.count}">${2009+status.count}년</option>
-					</c:forEach>
+				<c:forEach  begin ="2010" end="2020" varStatus="status" >
+				<option value="${2009+status.count}">${2009+status.count}년</option>
+				</c:forEach>
 
 				</select> <select id="month" name="month">
-					<c:forEach begin="1" end="12" varStatus="status">
-						<option value="${status.count}">${status.count}월</option>
-					</c:forEach>
-
+				<c:forEach  begin ="1" end="12" varStatus="status" >
+				<option value="${status.count}">${status.count}월</option>
+				</c:forEach>
+				
 				</select> <select id="day" name="day">
-					<c:forEach begin="1" end="30" varStatus="status">
-						<option value="${status.count}">${status.count}일</option>
-					</c:forEach>
+				<c:forEach  begin ="1" end="30" varStatus="status" >
+				<option value="${status.count}">${status.count}일</option>
+				</c:forEach>
 				</select>
 
 			</div>
@@ -198,20 +202,18 @@ button[type=submit] {
 			</div>
 			<div id="bookmark_list_div">
 				<c:forEach var="bm" items="${bookMarkList}" varStatus="status">
-					<input type="button" class="bookmark"
-						id="bookmark_select${status.index}" value="${bm.detail}">
-					<input type="hidden" id="abookmark_select${status.index}"
-						value="${bm.bookmarkNo}">
+					<input type="button" class="bookmark" id="bookmark_select${status.index}" value="${bm.detail}">
+					<input type="hidden" id="abookmark_select${status.index}" value="${bm.bookmarkNo}">
 				</c:forEach>
 			</div>
 			<div id="list_div">
 				<input type="hidden" name="id_index" value="${param.id_index}">
-				<table id="list_table">
+				<table>
 					<c:forEach begin="1" end="5" varStatus="status">
 						<tr>
 							<td><select id="category${status.index}" name="category">
-									<option value='' selected>카테고리 선택</option>
-									<option value="food">식비</option>
+									<option value='' selected >카테고리 선택</option>
+									<option value="food" >식비</option>
 									<option value="traffic">교통비</option>
 									<option value="commodity">생필품</option>
 									<option value="medical">의료</option>
@@ -223,21 +225,20 @@ button[type=submit] {
 									<option value="otheritems">기타</option>
 									<option value="income">수입</option>
 							</select></td>
-							<td><input type="text" name="detail" 
+							<td><input type="text"  name="detail" 
 								placeholder="사용내역을 입력하세요." id="detail${status.index}"></td>
-							<td><input type="text" name="price" 
-								id="price${status.index}" placeholder="가격을 입력하세요.">
-								<c:if test="${status.last}"><input type = "button" value="추가" id="add_line_btn${status.index}"
-								class="add_line_btn"> </c:if>
-								</td>
+							<td><input type="text"  name="price" id="price${status.index}"
+								placeholder="가격을 입력하세요." ></td>
+							<c:if test=""></c:if>
 						</tr>
 					</c:forEach>
 				</table>
 
 			</div>
 			<div id="btn_list">
-				<input type="submit" value="등록" class="btn" id="regist_btn">
-				<button class="btn" id="cancle_btn">취소</button>
+				<input type ="button" class="btn" id="bookmark_regist_btn"  value="즐겨찾기 등록">
+				<input type="submit"  value="등록" class="btn" id="regist_btn"> 
+				<button class="btn" id="cancle_btn">취소 </button>
 			</div>
 		</div>
 	</form>
