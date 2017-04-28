@@ -7,8 +7,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>캘린더 페이지</title>
 <link href="./fullcalendar-3.3.1/fullcalendar.css" rel="stylesheet" />
-<link href="./fullcalendar-3.3.1/fullcalendar.print.css"
-	rel="stylesheet" media="print" />
+<link href="./fullcalendar-3.3.1/fullcalendar.print.css" rel="stylesheet" media="print" />
 <!-- 웹폰트 -->
 <link
 	href="https://fonts.googleapis.com/css?family=Abel|Open+Sans+Condensed:300|Rationale|Ubuntu+Condensed"
@@ -81,7 +80,7 @@ body {
 			weekNumberCalculation : 'ISO',
 
 			editable : false,
-			eventLimit : true, // allow "more" link when too many events
+			eventLimit : false, // allow "more" link when too many events
 			events : function(start, end, timezone, callback) {
 				var nowDate = $('#calendar').fullCalendar('getDate');
 				
@@ -108,8 +107,29 @@ body {
 						$('#monthExpense').text(data.monthExpense);
 					}
 				});
-			}
+			},
+			dayClick: function(date, jsEvent, view) {
+
+		        alert('Clicked on: ' + date.format());
+
+		        alert('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);
+
+		        alert('Current view: ' + view.name);
+
+		        $(this).css('background-color', 'red');
+
+		    }
 		});
+		
+/* 		$('a.fc-day-number').removeAttr('data-goto');
+		$(document).on("click", 'a.fc-day-number', function() {
+			$(this).removeAttr('data-goto');
+		}); */
+		
+/* 		$('a.fc-day-number').click(function() {
+			alert('나오냐?');
+		}); */
+		
 	});
 </script>
 </head>
@@ -127,7 +147,9 @@ body {
 
 	<div id="center">
 		<div id="calendar"></div>
-		<div id="detail"></div>
+		<div id="detail">
+			
+		</div>
 	</div>
 
 	<div id="right">
