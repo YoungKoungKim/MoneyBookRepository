@@ -49,6 +49,11 @@ body {
 	max-width: 600px;
 	margin: 0 auto;
 }
+
+#detail {
+	min-height: 300px;
+	background-color: blue;
+}
 #detail {
 	min-height: 300px;
 	background-color: blue;

@@ -30,7 +30,7 @@ public class MemberService implements IMemberService {
 				sb.append(Integer.toHexString(0xFF & hash[i]));
 			}
 
-			return sb.toString().trim();
+			return sb.toString();
 		} catch (NoSuchAlgorithmException e) {
 			e.printStackTrace();
 		}
@@ -113,7 +113,7 @@ public class MemberService implements IMemberService {
 		String userPwd = changePwd(member.getPwd());
 
 		if (userPwd.equals(memberDao.selectOneMember(member.getId_index()).getPwd())) {
-			member.setPwd(newPwd);
+			member.setPwd(changePwd(newPwd));
 
 			result = memberDao.updateMember(member);
 
@@ -137,8 +137,10 @@ public class MemberService implements IMemberService {
 		try {
 			int id_index = memberDao.selectIdIndex(id);
 			Member member = memberDao.selectOneMember(id_index);
+
 			if (member != null) {
 				String userPwd = changePwd(pwd);
+				
 				if (userPwd.equals(member.getPwd())) {
 					return member;
 				} else {

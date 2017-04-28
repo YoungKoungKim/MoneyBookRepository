@@ -150,7 +150,7 @@ $(document).ready(function() {
  						dataType : "json",
  						success : function(data) {	
  							if(data == 2001) {
- 								alert("가입 성공")
+ 								alert("가입하셨습니다.")
 								location.reload();
  							} else if (data == 2002) {
  								alert("가입 실패, 다시 시도해주세요.");
