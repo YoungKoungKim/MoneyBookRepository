@@ -8,10 +8,12 @@
 	<bean id="multipartResolver"
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver"></bean>
 
-	<!-- <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver"> 
-		<property name="prefix" value="/WEB-INF/jsp/"></property> <property name="suffix" 
-		value=".jsp"></property> <property name="contentType" value="text/html; charset=UTF-8"></property> 
-		</bean> -->
+<!-- 	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/jsp/"></property>
+		<property name="suffix" value=".jsp"></property>
+		<property name="contentType" value="text/html; charset=UTF-8"></property>
+	</bean> -->
 
 	<context:component-scan base-package="controller"></context:component-scan>
 
@@ -24,31 +26,12 @@
 
 	</bean>
 
-<!-- 	<mvc:interceptors> -->
-<!-- 		<mvc:interceptor> -->
-			<!-- 무슨 요청에서 할지 -->
-<!-- 			<mvc:mapping path="/*.do" /> -->
-			<!-- 이 요청에서는 하지 않겠다 -->
-<!-- 			<mvc:exclude-mapping path="/test.do" /> -->
-<!-- 			<mvc:exclude-mapping path="/loginForm.do" /> -->
-<!-- 			<mvc:exclude-mapping path="/loginSuccess.do" /> -->
-<!-- 			<mvc:exclude-mapping path="/joinForm.do" /> -->
-<!-- 			<mvc:exclude-mapping path="/joinSuccess.do" /> -->
-<!-- 			<mvc:exclude-mapping path="/idCheck.do" /> -->
-<!-- 			<mvc:exclude-mapping path="/nickCheck.do" /> -->
-<!-- 			<mvc:exclude-mapping path="/logout.do" /> -->
-			<!-- 요청이 들어올 때에 할 메소드를 정의한 클래스의 빈 참조 -->
-<!-- 			<ref bean="loginCheckInterceptor" /> -->
-<!-- 		</mvc:interceptor> -->
+<!-- 	<mvc:interceptors> <mvc:interceptor> <mvc:mapping path="/*.do" /> <mvc:exclude-mapping 
+		path="/main.do" /> <mvc:exclude-mapping path="/login.do" /> <mvc:exclude-mapping 
+		path="/join.do" /> <mvc:exclude-mapping path="/joinForm.do" /> <ref bean="loginCheckInterceptor"></ref> 
+		</mvc:interceptor> <mvc:interceptor> <mvc:mapping path="/**" /> <bean id="logInterceptor" 
+		class="controller.LogInterceptor"></bean> </mvc:interceptor> </mvc:interceptors>  -->
 
-
-		<!-- <mvc:interceptors> <mvc:interceptor> <mvc:mapping path="/*.do" /> 
-			<mvc:exclude-mapping path="/main.do" /> <mvc:exclude-mapping path="/login.do" 
-			/> <mvc:exclude-mapping path="/join.do" /> <mvc:exclude-mapping path="/joinForm.do" 
-			/> <ref bean="loginCheckInterceptor"></ref> </mvc:interceptor> <mvc:interceptor> 
-			<mvc:mapping path="/**" /> <bean id="logInterceptor" class="controller.LogInterceptor"></bean> 
-			</mvc:interceptor> -->
-<!-- 	</mvc:interceptors> -->
 	<mvc:annotation-driven></mvc:annotation-driven>
 
 </beans>

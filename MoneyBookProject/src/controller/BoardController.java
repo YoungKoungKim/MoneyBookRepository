@@ -5,6 +5,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
@@ -78,7 +80,7 @@ public class BoardController {
 		mav.setViewName("boardDetailView");
 		return mav;
 	}
-//	
+	
 	@RequestMapping("boardUpdateForm.do")
 	public ModelAndView boardUpdateForm(int boardNo){
 		//일단 리스트로 받기
@@ -87,22 +89,25 @@ public class BoardController {
 		mav.setViewName("boardUpdateForm");
 		return mav;
 	}
-//
+
 	@RequestMapping("boardRecommend.do")
 	public @ResponseBody int boardRecommend(int boardNo){
 		boardservice.boardRecommand(boardNo);
 		Board board = (Board) boardservice.searchText(boardNo).get("board");
 		return board.getRecommend(); 
-	}
-//	
+	} 
+	
 	@RequestMapping("boardUpdate.do")
-	public @ResponseBody String boardUpdate(Board board){
-		
+	public String boardUpdate(Board board){
 		int result = boardservice.boardUpdate(board);
-		if (result == 4001)
-			return "true";
-		else
-			return "false";
+		if (result == 4001){
+			System.out.println("성공");
+			return "redirect:boardDetailView.do?boardNo="+board.getBoardNo()+"&id_index="+board.getId_index();
+		}
+		else{
+			System.out.println("실패");
+			return "redirect:boardUpdateForm.do?boardNo="+board.getBoardNo();
+		}
 	}
 
 	@RequestMapping("boardWrite.do")

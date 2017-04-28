@@ -1,5 +1,8 @@
 package service;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
 import org.apache.ibatis.binding.BindingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -12,6 +15,28 @@ public class MemberService implements IMemberService {
 
 	@Autowired
 	private IMemberDao memberDao;
+
+	public String changePwd(String pwd) {
+		MessageDigest md;
+
+		try {
+			md = MessageDigest.getInstance("MD5");
+			md.update(pwd.getBytes());
+			byte[] hash = md.digest();
+
+			StringBuffer sb = new StringBuffer();
+
+			for (int i = 0; i < hash.length; i++) {
+				sb.append(Integer.toHexString(0xFF & hash[i]));
+			}
+
+			return sb.toString();
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+		}
+
+		return null;
+	}
 
 	@Override
 	public int idCheck(String id) { // 1000번대
@@ -44,12 +69,21 @@ public class MemberService implements IMemberService {
 
 	@Override
 	public int joinSuccess(Member member) {// 2000번대
-		int result = memberDao.insertMember(member);
+		String userPwd = changePwd(member.getPwd());
 
-		if (result > 0)
-			return 2001;
-		else
-			return 2002;
+		// 해시값 변환오류
+		if (userPwd == null) {
+			return 2003;
+		} else {
+			member.setPwd(userPwd);
+
+			int result = memberDao.insertMember(member);
+
+			if (result > 0)
+				return 2001;
+			else
+				return 2002;
+		}
 	}
 
 	@Override
@@ -58,12 +92,16 @@ public class MemberService implements IMemberService {
 		// 수정할때 현재비밀번호랑 입력한비밀번호랑 같은지
 		// 1200번대, 요구사항 명세서의 password_check 커맨드랑 같다고 봄
 		String old = memberDao.selectOneMember(id_index).getPwd();
-		int result = 0;
-
-		if (pwd.equals(old))
+		String userPwd = changePwd(pwd);
+		
+		int result;
+		
+		
+		if(userPwd.equals(old)) {
 			result = 1201;
-		else
+		} else {
 			result = 1202;
+		}
 
 		return result;
 	}
@@ -71,20 +109,22 @@ public class MemberService implements IMemberService {
 	@Override
 	public int updateMember(Member member, String newPwd) { // 4100번대
 		int result;
+		
+		String userPwd = changePwd(member.getPwd());
 
-		if (member.getPwd().equals(memberDao.selectOneMember(member.getId_index()).getPwd())) {
-			member.setPwd(newPwd);
-			
+		if (userPwd.equals(memberDao.selectOneMember(member.getId_index()).getPwd())) {
+			member.setPwd(changePwd(newPwd));
+
 			result = memberDao.updateMember(member);
 
 			if (result > 0)
-				//성공
+				// 성공
 				result = 4101;
 			else
-				//db수정 실패
+				// db수정 실패
 				result = 4103;
 		} else {
-			//현재 비번이랑 입력한 비번이랑 다를때
+			// 현재 비번이랑 입력한 비번이랑 다를때
 			result = 4102;
 		}
 
@@ -99,7 +139,9 @@ public class MemberService implements IMemberService {
 			Member member = memberDao.selectOneMember(id_index);
 
 			if (member != null) {
-				if (member.getPwd().equals(pwd)) {
+				String userPwd = changePwd(pwd);
+				
+				if (userPwd.equals(member.getPwd())) {
 					return member;
 				} else {
 					return null;
@@ -114,9 +156,10 @@ public class MemberService implements IMemberService {
 
 	@Override
 	public Member memberInfo(int id_index) {
+		
 		// id_index는 세션에서 끄내쓸거라 검색값이 없을리가 없을거라서 그냥 리턴
 		Member member = memberDao.selectOneMember(id_index);
-		
+
 		return member;
 	}
 }

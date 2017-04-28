@@ -18,8 +18,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.mysql.fabric.HashShardMapping;
-
 import commons.BookMark;
 import model.MoneyBook;
 import service.IBoardService;
@@ -97,8 +95,25 @@ public class MoneyBookController {
 				int result = bookMarkService.bookMarkWrite(params);
 				if (result == 3101) {
 					// 성공
+<<<<<<< HEAD
 					mav.addObject("msg", "즐겨찾기 등록에 성공");
+=======
+					succCount++;
+>>>>>>> branch 'master' of https://github.com/YoungKoungKim/MoneyBookRepository.git
 				}
+<<<<<<< HEAD
+=======
+				
+			}			
+			if (succCount == category_arr.length) {
+				// 성공
+				response.put("msg", "북마크 등록 성공");
+				response.put("result", true);
+			} else {
+				// 실패
+				response.put("msg", "북마크 등록 실패");
+				response.put("result", false);
+>>>>>>> branch 'master' of https://github.com/YoungKoungKim/MoneyBookRepository.git
 			}
 		}
 		//mav.setViewName("bookmarkRegistForm.do");
@@ -154,21 +169,28 @@ public class MoneyBookController {
 	@RequestMapping("findBookMark.do")
 	public @ResponseBody HashMap<String, Object> findBookMark(int id_index, int bookmarkNo) {
 		System.out.println("북마크 하나 찾으러 왔다");
-		System.out.println(id_index);
 		HashMap<String, Object> response = new HashMap<>();
+<<<<<<< HEAD
 		HashMap<String, Object> bmParams = new HashMap<>();
 		bmParams.put("id_index", id_index);
 		bmParams.put("bookmarkNo", bookmarkNo);
 		HashMap<String, Object> result = bookMarkService.searchOneBookmark(bmParams);
 
+=======
+		HashMap<String, Object> result = 
+				bookMarkService.searchOneBookmark(id_index, bookmarkNo);
+>>>>>>> branch 'master' of https://github.com/YoungKoungKim/MoneyBookRepository.git
 		response.put("category", result.get("category"));
 		response.put("price", result.get("price"));
 		response.put("detail", result.get("detail"));
+<<<<<<< HEAD
 
 		System.out.println(response.get("category"));
 		System.out.println(response.get("price"));
 		System.out.println(response.get("detail"));
 
+=======
+>>>>>>> branch 'master' of https://github.com/YoungKoungKim/MoneyBookRepository.git
 		return response;
 
 	}
@@ -226,13 +248,20 @@ public class MoneyBookController {
 	// 달력에 가계부 내역 뿌리는 ajax용 리퀘스트
 	@RequestMapping("moneyBookView.do")
 	public @ResponseBody HashMap<String, Object> moneyBookView(int id_index, Date date) {
+<<<<<<< HEAD
 		List<String[]> amountList = new ArrayList<>();
 		amountList = moneyBookService.oneMonthAmount(id_index, date);
 
+=======
+		HashMap<String, Object> monthAmount = moneyBookService.totalMonthAmount(id_index, date);
+		List<String[]> amountList = moneyBookService.oneMonthAmount(id_index, date);
+		
+>>>>>>> branch 'master' of https://github.com/YoungKoungKim/MoneyBookRepository.git
 		List<HashMap<String, Object>> income = new ArrayList<>();
 		List<HashMap<String, Object>> expense = new ArrayList<>();
 
 		for (String[] arr : amountList) {
+<<<<<<< HEAD
 			HashMap<String, Object> tmpMap = new HashMap<>();
 			tmpMap.put("title", arr[1]);
 			tmpMap.put("start", arr[0]);
@@ -241,15 +270,34 @@ public class MoneyBookController {
 			tmpMap.remove("title");
 			tmpMap.put("title", arr[2]);
 			expense.add(tmpMap);
+=======
+			HashMap<String, Object> tmpIncome = new HashMap<>();
+			HashMap<String, Object> tmpExpense = new HashMap<>();
+			
+			tmpIncome.put("title", arr[1]);
+			tmpIncome.put("start", arr[0]);
+			income.add(tmpIncome);
+			
+			tmpExpense.put("title", arr[2]);
+			tmpExpense.put("start", arr[0]);
+			expense.add(tmpExpense);
+>>>>>>> branch 'master' of https://github.com/YoungKoungKim/MoneyBookRepository.git
 		}
 
 		HashMap<String, Object> response = new HashMap<>();
 		response.put("lastDay", amountList.size());
 		response.put("income", income);
 		response.put("expense", expense);
+<<<<<<< HEAD
 
+=======
+		response.put("monthIncome", monthAmount.get("income"));
+		response.put("monthExpense", monthAmount.get("expense"));
+		
+>>>>>>> branch 'master' of https://github.com/YoungKoungKim/MoneyBookRepository.git
 		return response;
 	}
+
 
 	@RequestMapping("boardWriteForm.do")
 	public ModelAndView boardWriteForm(int id_index, Date date) {
@@ -267,7 +315,19 @@ public class MoneyBookController {
 	@RequestMapping("moneyBookWriteForm.do")
 	public ModelAndView moneyBookWriteForm(int id_index) {
 		ModelAndView mav = new ModelAndView();
+		// mav.addAllObjects();
+		/*
+		 * HashMap<String, Object> params = new HashMap<>();
+		 * params.put("id_index", id_index); params.put("bookmarkNo",
+		 * bookmarkNo);
+		 */
+
 		mav.addObject("bookMarkList", bookMarkService.bookMarkSearch(id_index));
+<<<<<<< HEAD
+=======
+		System.out.println(bookMarkService.bookMarkSearch(id_index));
+		System.out.println("하이");
+>>>>>>> branch 'master' of https://github.com/YoungKoungKim/MoneyBookRepository.git
 		mav.setViewName("moneyBookAdd");
 		return mav;
 	}
@@ -282,11 +342,9 @@ public class MoneyBookController {
 	}
 
 	@RequestMapping("moneyBookDetailView.do")
-	public ModelAndView moneyBookDetailView(int id_index, Date date) {
-		ModelAndView mav = new ModelAndView();
-		mav.addObject("dayContent", moneyBookService.getDayContent(date, id_index));
-		mav.setViewName("moneyBookView");
-		return mav;
+	public 
+	@ResponseBody List<MoneyBook> moneyBookDetailView(int id_index, Date date) {
+		return moneyBookService.getDayContent(date, id_index);
 	}
 
 	@RequestMapping("moneyBookRegist.do")
@@ -298,9 +356,16 @@ public class MoneyBookController {
 		String[] category_arr = category.split(",");
 		String[] detail_arr = detail.split(",");
 		String[] price_arr = price.split(",");
+<<<<<<< HEAD
 
 		for (int i = 0; i < category_arr.length; i++) {
 			System.out.println(detail_arr[i]);
+=======
+		
+		
+		for(int i=0; i<category_arr.length;i++){
+			System.out.println(category_arr[i]);
+>>>>>>> branch 'master' of https://github.com/YoungKoungKim/MoneyBookRepository.git
 			Date date = new Date();
 			date.setYear(year - 1900);
 			date.setMonth(month - 1);
