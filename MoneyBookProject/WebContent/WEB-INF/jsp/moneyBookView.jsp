@@ -7,7 +7,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>캘린더 페이지</title>
 <link href="./fullcalendar-3.3.1/fullcalendar.css" rel="stylesheet" />
-<link href="./fullcalendar-3.3.1/fullcalendar.print.css" rel="stylesheet" media="print" />
+<link href="./fullcalendar-3.3.1/fullcalendar.print.css"
+	rel="stylesheet" media="print" />
 <!-- 웹폰트 -->
 <link
 	href="https://fonts.googleapis.com/css?family=Abel|Open+Sans+Condensed:300|Rationale|Ubuntu+Condensed"
@@ -24,12 +25,14 @@ body {
 	font-size: 14px;
 	height: 100%;
 }
+
 #left {
 	position: absolute;
 	height: 100%;
 	left: 0;
 	width: 20%;
 }
+
 #center {
 	position: absolute;
 	left: 20%;
@@ -37,33 +40,44 @@ body {
 	height: 100%;
 	width: 60%;
 }
+
 #right {
 	position: absolute;
 	height: 100%;
 	width: 20%;
 	right: 0%;
 }
+
 #calendar {
-	padding-top : 50px;
+	padding-top: 50px;
 	max-width: 600px;
 	margin: 0 auto;
 }
 
 #detail {
 	min-height: 300px;
-	background-color: blue;
 }
-#detail {
-	min-height: 300px;
-	background-color: blue;
-}
+
 .fc-event, .fc-event:hover, .ui-widget .fc-event {
 	color: #000; /* default TEXT color */
 	text-decoration: none; /* if <a> has an href */
 }
+
+.fc-day-number {
+	color: #91D4B5;
+}
 </style>
 
 <script type="text/javascript">
+
+function dateToYYYYMMDD(date){
+    function pad(num) {
+        num = num + '';
+        return num.length < 2 ? '0' + num : num;
+    }
+    return date.getFullYear() + '-' + pad(date.getMonth()+1) + '-' + pad(date.getDate());
+}
+
 	$(document).ready(function() {
 		var today = new Date();
 		$('#calendar').fullCalendar({
@@ -72,11 +86,11 @@ body {
 				center : 'title',
 				right : 'month,listWeek'
 			},
-			defaultDate : today,
-			navLinks : true, // can click day/week names to navigate views
+ 			defaultDate : today,
+			navLinks : false, // can click day/week names to navigate views
 			weekNumberCalculation : 'ISO',
 			editable : false,
-			eventLimit : false, // allow "more" link when too many events
+			eventLimit : true, // allow "more" link when too many events
 			events : function(start, end, timezone, callback) {
 				var nowDate = $('#calendar').fullCalendar('getDate');
 				
@@ -105,26 +119,40 @@ body {
 				});
 			},
 			dayClick: function(date, jsEvent, view) {
-
-		        alert('Clicked on: ' + date.format());
-
-		        alert('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);
-
-		        alert('Current view: ' + view.name);
-
-		        $(this).css('background-color', 'red');
+				var current = $('#calendar').fullCalendar('getDate');
+				var now = dateToYYYYMMDD(today);
+				
+				if (date.format().substring(0, 7) == current.format('YYYY-MM-DD').substring(0,7)) {
+						$('.fc-day').css('background-color', '#ffffff');
+						$('.fc-today').css('background-color', '#DCDCDC');
+						$(this).css('background-color', '#91D4B5');
+						$.ajax({
+							type : 'post',
+							url : 'moneyBookDetailView.do',
+							dataType : 'json',
+							data : 'id_index=1&date=' + date.format(),
+							success : function(data) {
+								$('#detail').text('');
+								$(data).each(function(i) {
+									var text = "<div class='detail' id='" + data[i].moneyBookNo + "onClick=callUpdateForm("+ 
+											data[i].moneyBookNo + "," + date.format() + ")>" + data[i].category + " : " + data[i].price + "</div>"
+									$('#detail').append(text);
+								})
+							},
+							error : function() {
+								alert('error');
+							}
+						});
+				} else {
+					alert('잘못된 선택');
+				}
 
 		    }
 		});
 		
-/* 		$('a.fc-day-number').removeAttr('data-goto');
-		$(document).on("click", 'a.fc-day-number', function() {
-			$(this).removeAttr('data-goto');
-		}); */
-		
-/* 		$('a.fc-day-number').click(function() {
-			alert('나오냐?');
-		}); */
+		$(document).on('click', '.detail', function callUpdateForm(moneyBookNo, date) {
+			alert(moneyBookNo + " : " + date);
+		});
 		
 	});
 </script>
@@ -143,9 +171,7 @@ body {
 
 	<div id="center">
 		<div id="calendar"></div>
-		<div id="detail">
-			
-		</div>
+		<div id="detail"></div>
 	</div>
 
 	<div id="right">

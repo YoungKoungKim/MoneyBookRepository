@@ -234,11 +234,9 @@ public class MoneyBookController {
 	}
 
 	@RequestMapping("moneyBookDetailView.do")
-	public ModelAndView moneyBookDetailView(int id_index, Date date) {
-		ModelAndView mav = new ModelAndView();
-		mav.addObject("dayContent", moneyBookService.getDayContent(date, id_index));
-		mav.setViewName("moneyBookView");
-		return mav;
+	public 
+	@ResponseBody List<MoneyBook> moneyBookDetailView(int id_index, Date date) {
+		return moneyBookService.getDayContent(date, id_index);
 	}
 
 	@RequestMapping("moneyBookRegist.do")
