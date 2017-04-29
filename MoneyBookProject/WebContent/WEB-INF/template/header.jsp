@@ -72,7 +72,7 @@
 								<!-- 가계부 -->
 								<a href="#moneyBook" title="가계부">MyMoneyBook</a>
 								<!-- 가계부 -->
-								<form action="informUpdateForm.do" method="post" id="updateForm">
+								<form action="informUpdateForm.do" method="post" id="updateForm" style="display: inline-block;">
 									<input type="hidden" value="${id_index }" name="id_index">
 								</form>
 								<a href="#" title="회원 정보 수정" id="updateLink">InformUpdate</a>
