@@ -41,10 +41,9 @@ html, body {
 	min-height: 300px;
 }
 #footer {
-	position : absolute;
-	height : auto;
-	bottom : 0%;
+	margin-top : 50px;
 	width : 100%;
+    height : auto;
 }
 </style>
 <title>Insert title here</title>
