@@ -156,7 +156,6 @@ public class MemberService implements IMemberService {
 
 	@Override
 	public Member memberInfo(int id_index) {
-		
 		// id_index는 세션에서 끄내쓸거라 검색값이 없을리가 없을거라서 그냥 리턴
 		Member member = memberDao.selectOneMember(id_index);
 
