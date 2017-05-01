@@ -25,14 +25,12 @@ body {
 	font-size: 14px;
 	height: 100%;
 }
-
 #left {
 	position: absolute;
 	height: 100%;
 	left: 0;
 	width: 20%;
 }
-
 #center {
 	position: absolute;
 	left: 20%;
@@ -40,36 +38,30 @@ body {
 	height: 100%;
 	width: 60%;
 }
-
 #right {
 	position: absolute;
 	height: 100%;
 	width: 20%;
 	right: 0%;
 }
-
 #calendar {
 	padding-top: 50px;
 	max-width: 600px;
 	margin: 0 auto;
 }
-
 #detail {
 	min-height: 300px;
 }
-
 .fc-event, .fc-event:hover, .ui-widget .fc-event {
 	color: #000; /* default TEXT color */
 	text-decoration: none; /* if <a> has an href */
 }
-
 .fc-day-number {
 	color: #91D4B5;
 }
 </style>
 
 <script type="text/javascript">
-
 function moneyBookRegist(id_index){
 	var popUrl = "moneyBookWriteForm.do?id_index=" + id_index;	//팝업창에 출력될 페이지 URL
 	var popOption = "width=370, height=360, resizable=no, scrollbars=no, status=no;";    //팝업창 옵션(optoin)
@@ -83,7 +75,6 @@ function dateToYYYYMMDD(date){
     }
     return date.getFullYear() + '-' + pad(date.getMonth()+1) + '-' + pad(date.getDate());
 }
-
 	$(document).ready(function() {
 		var today = new Date();
 		var boardDate;
@@ -160,7 +151,6 @@ function dateToYYYYMMDD(date){
 				} else {
 					alert('잘못된 선택');
 				}
-
 		    }
 		});
 		

@@ -236,11 +236,8 @@ public class MoneyBookController {
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("monthContent", moneyBookService.totalAmountByCategory(id_index, date));
 		mav.addObject("monthAmount", moneyBookService.totalMonthAmount(id_index, date));
-		mav.addObject("date", moneyBookService.searchDate(date));
-		// extraService.boardWrite(eBoard);
-		mav.setViewName("boardWrite");
-		// extraService.boardWrite(eBoard);
-		mav.setViewName("boardWrite.jsp");
+		mav.addAllObjects(moneyBookService.searchDate(date));
+		mav.setViewName("boardWriteForm");
 		return mav;
 	}
 

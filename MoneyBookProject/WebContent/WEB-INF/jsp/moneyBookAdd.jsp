@@ -17,11 +17,13 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <script type="text/javascript">
 $(document).ready(function() {
+<<<<<<< HEAD
+=======
 	
+>>>>>>> branch 'master' of https://github.com/YoungKoungKim/MoneyBookRepository.git
 	$(document).on("click",".bookmark",function(){
 		var id_index = $(this).attr('id');
 		//alert("버튼 눌렀다!!!!!!!!!!!!!!");
-
 		$.ajax({
 			url : 'findBookMark.do',
 			data : "id_index="+${param.id_index}+
@@ -76,7 +78,6 @@ $(document).ready(function() {
 		$('#list_table').append(tag);
 	});
 	
-
 /*   	$('#regist_btn').click(function (){
 		for(var i=1; i<=5;i++){
 			if(!($('#category'+i).val()=="" || $('#detail'+i).val()=="" ||
@@ -101,7 +102,6 @@ $(document).ready(function() {
 	padding: 10px 35px;
 	text-align: center;
 }
-
 .btn {
 	border-radius: 10px;
 	background-color: #91D4B5;
@@ -115,7 +115,12 @@ input[type="button"] {
 	padding: 10px 35px;
 	text-align: center;
 }
-
+input[type="button"] {
+	border-radius: 10px;
+	background-color: #91D4B5;
+	padding: 10px 35px;
+	text-align: center;
+}
 #main_div {
 	position: absolute;
 	top: 150px;
@@ -123,12 +128,14 @@ input[type="button"] {
 	width: 677px;
 	height: 526px;
 }
-
 #btn_list {
 	position: absolute;
 	top: 350px;
 	left: 50px;
 }
+<<<<<<< HEAD
+#year, #month, #day {
+=======
 
 #year, #month, #day {
 	border: 1px solid #ddd;
@@ -137,16 +144,20 @@ input[type="button"] {
 }
 
 select {
+>>>>>>> branch 'master' of https://github.com/YoungKoungKim/MoneyBookRepository.git
 	border: 1px solid #ddd;
 	padding: 10px;
 	width: 100px;
 }
-
+select {
+	border: 1px solid #ddd;
+	padding: 10px;
+	width: 100px;
+}
 input[type="text"] {
 	border: 1px solid #ddd;
 	padding: 10px;
 }
-
 button[type=submit] {
 	background: none repeat scroll 0 0 #1abc9c;
 	border: medium none;
@@ -154,7 +165,6 @@ button[type=submit] {
 	padding: 11px 20px;
 	text-transform: uppercase;
 }
-
 .add_to_cart_button {
 	background: none repeat scroll 0 0 #1abc9c;
 	border: medium none;
@@ -162,13 +172,11 @@ button[type=submit] {
 	padding: 6px 25px;
 	display: inline-block
 }
-
 .btn:hover {
 	background-color: grey;
 	color: #fff;
 	text-decoration: none
 }
-
 .add_to_cart_button {
 	background-color: #222
 }

@@ -17,6 +17,24 @@
 <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+	
+	<style type="text/css">
+	
+	input {
+    font-size: 15px;
+    line-height: 16px;
+    position: relative;
+    z-index: 9;
+    width: 100%;
+    height: 16px;
+    padding: 7px 0 6px;
+    color: #000;
+    border: none;
+    background: #fff;
+    -webkit-appearance: none;
+}
+	</style>
+	
 </head>
 <body>
 	<center>
@@ -24,44 +42,48 @@
 		<table>
 			<tr align="center">
 				<td>아이디</td>
-				<td align="left">${member.id }</td>
+				<td align="left"><input type="text" id="inform_Nick" value="${member.id }"
+					class="form-control" readonly="readonly"></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td><br></td>
 			</tr>
 			<tr align="center">
 				<td>닉네임</td>
-				<td><input type="text" id="inform_Nick"
-					value="${member.nick }" class="form-control"
-					placeholder="닉네임을 입력하세요."></td>
+				<td><input type="text" id="inform_Nick" value="${member.nick }"
+					class="form-control" placeholder="닉네임을 입력하세요."></td>
 			</tr>
 			<tr>
 				<td></td>
-				<td><span id="inform_NickCheck" style="color: red;"></span></td>
+				<td><span id="inform_NickCheck" style="color: red;"></span><br></td>
 			</tr>
 			<tr align="center">
 				<td>현재 비밀번호</td>
-				<td><input type="password" id="inform_NowPwd" class="form-control"
-					placeholder="비밀번호를 입력해주세요."></td>
+				<td><input type="password" id="inform_NowPwd"
+					class="form-control" placeholder="비밀번호를 입력해주세요."></td>
 			</tr>
 			<tr>
 				<td></td>
-				<td><span id="inform_NowPwdCheck" style="color: red;"></span></td>
+				<td><span id="inform_NowPwdCheck" style="color: red;"></span><br></td>
 			</tr>
 			<tr align="center">
 				<td>새 비밀번호</td>
-				<td><input type="password" id="inform_NewPwd" class="form-control"
-					placeholder="비밀번호를 입력해주세요."></td>
+				<td><input type="password" id="inform_NewPwd"
+					class="form-control" placeholder="비밀번호를 입력해주세요."></td>
 			</tr>
 			<tr>
 				<td></td>
-				<td><span id="inform_NewPwdCheck" style="color: red;"></span></td>
+				<td><span id="inform_NewPwdCheck" style="color: red;"></span><br></td>
 			</tr>
 			<tr align="center">
 				<td>새 비밀번호 확인</td>
-				<td><input type="password" id="inform_NewPwdOk" class="form-control"
-					placeholder="다시 한번 입력해주세요."></td>
+				<td><input type="password" id="inform_NewPwdOk"
+					class="form-control" placeholder="다시 한번 입력해주세요."></td>
 			</tr>
 			<tr>
 				<td></td>
-				<td><span id="inform_NewPwdOkCheck" style="color: red;"></span></td>
+				<td><span id="inform_NewPwdOkCheck" style="color: red;"></span><br></td>
 			</tr>
 			<tr align="center">
 				<td colspan="2"><input type="button" value="수정"
