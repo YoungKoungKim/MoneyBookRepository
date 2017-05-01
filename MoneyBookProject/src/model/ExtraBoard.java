@@ -8,7 +8,14 @@ public class ExtraBoard {
 	private String category;
 	private int price;
 	private Date month;
+	private int percent;
 	
+	public int getPercent() {
+		return percent;
+	}
+	public void setPercent(int percent) {
+		this.percent = percent;
+	}
 	public int getId_index() {
 		return id_index;
 	}

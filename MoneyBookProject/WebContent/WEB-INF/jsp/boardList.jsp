@@ -91,6 +91,7 @@
 				</tr>
 			</form>
 		</table>
+		<input type="button" value="공유" onclick="location.href='boardWriteForm.do?id_index=${id_index}&date=2017-04-28'">
 	</div>
 
 </body>

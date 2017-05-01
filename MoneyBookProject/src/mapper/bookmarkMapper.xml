@@ -10,7 +10,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<update id="updateBookmark" parameterType="java.util.HashMap">
 		update bookmark set
-		category = #{category}, detail = #{detail}, price = #{price}
+		price = #{price}
 		Where
 		bookmarkNo = #{bookmarkNo} And id_index = #{id_index}
 	</update>

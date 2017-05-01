@@ -17,12 +17,9 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <script type="text/javascript">
 $(document).ready(function() {
-<<<<<<< HEAD
-	
 	$(document).on("click",".bookmark",function(){
 		var id_index = $(this).attr('id');
 		//alert("버튼 눌렀다!!!!!!!!!!!!!!");
-
 		$.ajax({
 			url : 'findBookMark.do',
 			data : "id_index="+${param.id_index}+
@@ -75,39 +72,8 @@ $(document).ready(function() {
 			+"</tr>" ;
 			
 		$('#list_table').append(tag);
-		
-=======
-	$('#bookmark_regist_btn').click(function (){
-
-	if($('#category').val() ==""|| $('#detail').val() == "" 
-			|| $('#price').val() == "" ){
-		alert('항목을 모두 입력해주세요!');
-		
-	}else{
-	
-		var params = $('#mbRegistForm').serialize();
-		//alert(params);
-		$.ajax({
-			url : 'bookMarkRegist.do',
-			data : params,
-			dataType : 'json',
-			type: 'post',
-			success : function(data){
-				alert(data.msg);
-				
-			}
-		});
-	}
-	});
-
- 	$('#regist_btn').click(function (){
->>>>>>> branch 'master' of https://github.com/YoungKoungKim/MoneyBookRepository.git
-
-<<<<<<< HEAD
-
 	});
 	
-
 /*   	$('#regist_btn').click(function (){
 		for(var i=1; i<=5;i++){
 			if(!($('#category'+i).val()=="" || $('#detail'+i).val()=="" ||
@@ -123,32 +89,6 @@ $(document).ready(function() {
 		return false;
 	});  */
  	//"input[type='submit']").attr("disabled", true);
-=======
-	if($('#category').val() ==""|| $('#detail').val() == "" 
-			|| $('#price').val() == "" ){
-		alert('항목을 모두 입력해주세요.');
-	}
-	if(!($.isNumeric($('#price')))){
-		alert("금액은 숫자만 입력해주세요.");
-	}
-	}); 
-
-	$('#bookmark_select').click(function (){
-		alert("hi")
-		$.ajax({
-			url : 'findBookMark.do',
-			data : "id_index="+${param.id_index}+"&bookmarkNo=6",
-			dataType : 'json',
-			type: 'post',
-			success : function(data){
-				$('#detail').text(data.detail);
-				$('#price').text(data.price);
-				$('#category').text(data.category);
-			}
-		});
-	});
-	
->>>>>>> branch 'master' of https://github.com/YoungKoungKim/MoneyBookRepository.git
 });
 </script>
 <style type="text/css">
@@ -158,14 +98,18 @@ $(document).ready(function() {
 	padding: 10px 35px;
 	text-align: center;
 }
-
 .btn {
 	border-radius: 10px;
 	background-color: #91D4B5;
 	padding: 10px 35px;
 	text-align: center;
 }
-
+input[type="button"] {
+	border-radius: 10px;
+	background-color: #91D4B5;
+	padding: 10px 35px;
+	text-align: center;
+}
 #main_div {
 	position: absolute;
 	top: 150px;
@@ -173,24 +117,25 @@ $(document).ready(function() {
 	width: 677px;
 	height: 526px;
 }
-
 #btn_list {
 	position: absolute;
 	top: 350px;
 	left: 50px;
 }
-
-#year, #month, #day, #category {
+#year, #month, #day {
 	border: 1px solid #ddd;
 	padding: 10px;
 	width: 100px;
 }
-
+select {
+	border: 1px solid #ddd;
+	padding: 10px;
+	width: 100px;
+}
 input[type="text"] {
 	border: 1px solid #ddd;
 	padding: 10px;
 }
-
 button[type=submit] {
 	background: none repeat scroll 0 0 #1abc9c;
 	border: medium none;
@@ -198,7 +143,6 @@ button[type=submit] {
 	padding: 11px 20px;
 	text-transform: uppercase;
 }
-
 .add_to_cart_button {
 	background: none repeat scroll 0 0 #1abc9c;
 	border: medium none;
@@ -206,18 +150,15 @@ button[type=submit] {
 	padding: 6px 25px;
 	display: inline-block
 }
-
 .btn:hover {
 	background-color: grey;
 	color: #fff;
 	text-decoration: none
 }
-
 .add_to_cart_button {
 	background-color: #222
 }
 </style>
-
 <title>가계부 등록</title>
 </head>
 <body>
@@ -225,39 +166,19 @@ button[type=submit] {
 		<div id="main_div">
 			<div id="date_div">
 				<select id="year" name="year">
-<<<<<<< HEAD
 					<c:forEach begin="2010" end="2020" varStatus="status">
 						<option value="${2009+status.count}">${2009+status.count}년</option>
 					</c:forEach>
-=======
-					<option value="2017">2017년</option>
-					<option value="2016">2016년</option>
-					<option value="2015">2015년</option>
->>>>>>> branch 'master' of https://github.com/YoungKoungKim/MoneyBookRepository.git
 
 				</select> <select id="month" name="month">
-<<<<<<< HEAD
 					<c:forEach begin="1" end="12" varStatus="status">
 						<option value="${status.count}">${status.count}월</option>
 					</c:forEach>
 
-=======
-					<option value="1">1월</option>
-					<option value="2">2월</option>
-					<option value="3">3월</option>
-					<option value="4">4월</option>
->>>>>>> branch 'master' of https://github.com/YoungKoungKim/MoneyBookRepository.git
 				</select> <select id="day" name="day">
-<<<<<<< HEAD
 					<c:forEach begin="1" end="30" varStatus="status">
 						<option value="${status.count}">${status.count}일</option>
 					</c:forEach>
-=======
-					<option value="1">1일</option>
-					<option value="2">2일</option>
-					<option value="3">3일</option>
-					<option value="25">25일</option>
->>>>>>> branch 'master' of https://github.com/YoungKoungKim/MoneyBookRepository.git
 				</select>
 
 			</div>
@@ -266,39 +187,18 @@ button[type=submit] {
 			</div>
 			<div id="bookmark_list_div">
 				<c:forEach var="bm" items="${bookMarkList}" varStatus="status">
-<<<<<<< HEAD
 					<input type="button" class="bookmark"
 						id="bookmark_select${status.index}" value="${bm.detail}">
 					<input type="hidden" id="abookmark_select${status.index}"
 						value="${bm.bookmarkNo}">
-=======
-					<%-- <button class="bookmark" id="bookmark_select">${bm.detail}</button> --%>
-					<input type="button" class="bookmark" id="bookmark_select" value="${bm.detail}">
-					<c:if test="${status.last}">
-						<c:if test="${status.count  != 6}">
-							<c:forEach begin="1" end="${6-status.count}" varStatus="st">
-								<button class="bookmark" id="bookmark_add${st.index}" >등록</button>
-							</c:forEach>
-						</c:if>
-					</c:if>
->>>>>>> branch 'master' of https://github.com/YoungKoungKim/MoneyBookRepository.git
 				</c:forEach>
 			</div>
 			<div id="list_div">
 				<input type="hidden" name="id_index" value="${param.id_index}">
-<<<<<<< HEAD
 				<table id="list_table">
 					<c:forEach begin="1" end="5" varStatus="status">
-=======
-				<table>
-					<c:forEach var="i" begin="1" end="5" varStatus="status">
->>>>>>> branch 'master' of https://github.com/YoungKoungKim/MoneyBookRepository.git
 						<tr>
-<<<<<<< HEAD
 							<td><select id="category${status.index}" name="category">
-=======
-							<td><select id="category" name="category">
->>>>>>> branch 'master' of https://github.com/YoungKoungKim/MoneyBookRepository.git
 									<option value='' selected>카테고리 선택</option>
 									<option value="food">식비</option>
 									<option value="traffic">교통비</option>
@@ -312,7 +212,6 @@ button[type=submit] {
 									<option value="otheritems">기타</option>
 									<option value="income">수입</option>
 							</select></td>
-<<<<<<< HEAD
 							<td><input type="text" name="detail" 
 								placeholder="사용내역을 입력하세요." id="detail${status.index}"></td>
 							<td><input type="text" name="price" 
@@ -320,24 +219,17 @@ button[type=submit] {
 								<c:if test="${status.last}"><input type = "button" value="추가" id="add_line_btn${status.index}"
 								class="add_line_btn"> </c:if>
 								</td>
-=======
-							<td><input type="text" name="detail"
-								placeholder="사용내역을 입력하세요." id="detail"></td>
-							<td><input type="text" name="price" id="price"
-								placeholder="가격을 입력하세요."></td>
-							<c:if test=""></c:if>
->>>>>>> branch 'master' of https://github.com/YoungKoungKim/MoneyBookRepository.git
 						</tr>
 					</c:forEach>
 				</table>
 
 			</div>
+			
 			<div id="btn_list">
 				<input type="submit" value="등록" class="btn" id="regist_btn">
 				<button class="btn" id="cancle_btn">취소</button>
 			</div>
 		</div>
 	</form>
-				<!-- <button class="btn" id="bookmark_regist_btn" >즐겨찾기 등록</button> --> 
 </body>
 </html>

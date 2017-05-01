@@ -3,27 +3,17 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="dao.IBoardDao">
-	<sql id='annotation'>
-		<choose>
-			<when test="annotation != null">
-				#{content}
-			</when>
-			<otherwise> 
-				''
-			</otherwise>
-		</choose>
-	</sql>
+
 	<insert id="insertBoard" parameterType="board" useGeneratedKeys="true"
-		keyProperty="boardno">
-		insert into board values(0, #{title},#{content},
-		<include refid="annotation"></include>
-		,sysdate(),#{ageType},#{nick},#{id_index},0,0)
+		keyProperty="boardNo">
+		insert into board values(0,#{title},#{content},sysdate(),#{ageType},#{nick},#{id_index},0,0)
 	</insert>
 
 	<update id="updateBoard" parameterType="board">
 		update board set 
 		title = #{title}, content = #{content},
-		ageType = #{ageType}, date = sysdate()
+		ageType = #{ageType}, date = sysdate(),
+		viewNo = #{viewNo}
 		where boardNo = #{boardNo} and id_index = #{id_index}
 	</update>
 

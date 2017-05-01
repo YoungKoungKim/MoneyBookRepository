@@ -6,9 +6,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
-import javax.swing.plaf.synth.SynthSeparatorUI;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
@@ -37,8 +34,8 @@ public class MoneyBookController {
 	@Autowired
 	private IExtraService extraService;
 
-	@RequestMapping("bookMarkDelete.do")
-	public @ResponseBody HashMap<String, Object> bookMarkDelete(int id_index, int bookmarkNo) {
+	@RequestMapping("bookmarkDelete.do")
+	public @ResponseBody HashMap<String, Object> bookmarkDelete(int id_index, int bookmarkNo) {
 		HashMap<String, Object> params = new HashMap<>();
 		params.put(BM.BOOKMARKNO, bookmarkNo);
 		params.put(BM.ID_INDEX, id_index);
@@ -50,10 +47,30 @@ public class MoneyBookController {
 			response.put("result", true);
 			response.put("id_index", id_index);
 			response.put("msg", "북마크 삭제 성공");
-			System.out.println("성공");
 		} else {
 			response.put("result", false);
 			response.put("msg", "북마크 삭제 실패");
+			//System.out.printlzn("실패");
+		}
+		return response;
+	}
+	
+	@RequestMapping("bookmarkUpdate.do")
+	public @ResponseBody HashMap<String, Object> bookmarkUpdate(int id_index, int bookmarkNo,
+			int price){
+		HashMap<String, Object> params = new HashMap<>();
+		params.put(BM.BOOKMARKNO, bookmarkNo);
+		params.put(BM.ID_INDEX, id_index);
+		params.put(BM.PRICE, price);
+		int result = bookMarkService.bookMarkModify(params);
+		HashMap<String, Object> response = new HashMap<>();
+		if (result == 4301) {
+			response.put("result", true);
+			response.put("id_index", id_index);
+			response.put("msg", "가격 수정 성공");
+		} else {
+			response.put("result", false);
+			response.put("msg", "가격 수정 실패");
 			System.out.println("실패");
 		}
 		return response;
@@ -62,13 +79,12 @@ public class MoneyBookController {
 	@RequestMapping("bookmarkRegist.do")
 	public ModelAndView bookMarkRegist(int id_index, String category, String detail, String price) {
 		ModelAndView mav = new ModelAndView();
-		System.out.println("북마크 등록 요청에 왔다");
 		int resultCount = 0;
 
 		int num = bookMarkService.checkbookNo(id_index);
 
 		if (num >= 6) {
-			mav.addObject("msg", "북마크는 6개 이상을 등록할 수 없습니다.");
+			mav.addObject("msg", "북마크는 6개 이상 등록할 수 없습니다.");
 		} else {
 			String[] category_arr = category.split(",");
 			String[] detail_arr = detail.split(",");
@@ -95,104 +111,31 @@ public class MoneyBookController {
 				int result = bookMarkService.bookMarkWrite(params);
 				if (result == 3101) {
 					// 성공
-<<<<<<< HEAD
 					mav.addObject("msg", "즐겨찾기 등록에 성공");
-=======
-					succCount++;
->>>>>>> branch 'master' of https://github.com/YoungKoungKim/MoneyBookRepository.git
 				}
-<<<<<<< HEAD
-=======
-				
-			}			
-			if (succCount == category_arr.length) {
-				// 성공
-				response.put("msg", "북마크 등록 성공");
-				response.put("result", true);
-			} else {
-				// 실패
-				response.put("msg", "북마크 등록 실패");
-				response.put("result", false);
->>>>>>> branch 'master' of https://github.com/YoungKoungKim/MoneyBookRepository.git
 			}
 		}
-		//mav.setViewName("bookmarkRegistForm.do");
 		mav.addObject("id_index", id_index);
 		mav.setViewName("redirect:/bookmarkRegistForm.do");
 		return mav;
 
 	}
 
-	/*
-	 * @RequestMapping("bookMarkRegist.do") public @ResponseBody HashMap<String,
-	 * Object> bookMarkRegist(int id_index, String category, String detail,
-	 * String price) { System.out.println("북마크 등록에 왔다."); int num =
-	 * bookMarkService.checkbookNo(id_index); HashMap<String, Object> response =
-	 * new HashMap<>(); int succCount =0; List bookmarkNo = new ArrayList<>();
-	 * List bookmarkDetail = new ArrayList<>();
-	 * 
-	 * 
-	 * // bookMark개수가 6개 미만인지 확인 if (num >= 6) { response.put("result", false);
-	 * response.put("msg", "북마크는 6개 이상을 등록할 수 없습니다."); } else { // 6개 미만이라면 DB에
-	 * insert후 코드 리턴
-	 * 
-	 * String[] category_arr = category.split(","); String[] detail_arr =
-	 * detail.split(","); String[] price_arr = price.split(",");
-	 * List<HashMap<String, Object>> bookmarkList = new
-	 * ArrayList<HashMap<String,Object>>();
-	 * 
-	 * for(int i=0; i<category_arr.length;i++){ HashMap<String, Object> params =
-	 * new HashMap<>(); params.put(BM.ID_INDEX, id_index);
-	 * params.put(BM.CATEGORY, category_arr[i]); params.put(BM.DETAIL,
-	 * detail_arr[i]); params.put(BM.PRICE, price_arr[i]);
-	 * 
-	 * int result = bookMarkService.bookMarkWrite(params); if (result == 3101) {
-	 * // 성공 succCount++; //String addBookmarkNo = "addBookmarkNo"+i;
-	 * //response.put(addBookmarkNo , category_arr[i]);
-	 * System.out.println(bookmarkNo); } }
-	 * 
-	 * if (succCount == category_arr.length) {
-	 * 
-	 * int resultNo = bookMarkService.checkbookNo(id_index);
-	 * response.put("resultNo" , resultNo); bookmarkList =
-	 * bookMarkService.bookMarkSearch(id_index); for(int i
-	 * =0;i<bookmarkList.size();i++){
-	 * bookmarkNo.add(bookmarkList.get(i).get("bookmarkNo"));
-	 * bookmarkDetail.add(bookmarkList.get(i).get("detail")); } // 성공
-	 * response.put("msg", "북마크 등록 성공"); response.put("result", true);
-	 * response.put("bookmarkNo", bookmarkNo); response.put("detail",
-	 * bookmarkDetail); } else { // 실패 response.put("msg", "북마크 등록 실패");
-	 * response.put("result", false); } }
-	 * System.out.println(response.get("msg")); return response; }
-	 */
-
 	@RequestMapping("findBookMark.do")
 	public @ResponseBody HashMap<String, Object> findBookMark(int id_index, int bookmarkNo) {
 		System.out.println("북마크 하나 찾으러 왔다");
+		System.out.println(id_index);
 		HashMap<String, Object> response = new HashMap<>();
-<<<<<<< HEAD
 		HashMap<String, Object> bmParams = new HashMap<>();
 		bmParams.put("id_index", id_index);
 		bmParams.put("bookmarkNo", bookmarkNo);
 		HashMap<String, Object> result = bookMarkService.searchOneBookmark(bmParams);
 
-=======
-		HashMap<String, Object> result = 
-				bookMarkService.searchOneBookmark(id_index, bookmarkNo);
->>>>>>> branch 'master' of https://github.com/YoungKoungKim/MoneyBookRepository.git
 		response.put("category", result.get("category"));
 		response.put("price", result.get("price"));
 		response.put("detail", result.get("detail"));
-<<<<<<< HEAD
 
-		System.out.println(response.get("category"));
-		System.out.println(response.get("price"));
-		System.out.println(response.get("detail"));
-
-=======
->>>>>>> branch 'master' of https://github.com/YoungKoungKim/MoneyBookRepository.git
 		return response;
-
 	}
 
 	@RequestMapping("moneyBookUpdateForm.do")
@@ -248,29 +191,14 @@ public class MoneyBookController {
 	// 달력에 가계부 내역 뿌리는 ajax용 리퀘스트
 	@RequestMapping("moneyBookView.do")
 	public @ResponseBody HashMap<String, Object> moneyBookView(int id_index, Date date) {
-<<<<<<< HEAD
 		List<String[]> amountList = new ArrayList<>();
 		amountList = moneyBookService.oneMonthAmount(id_index, date);
 
-=======
 		HashMap<String, Object> monthAmount = moneyBookService.totalMonthAmount(id_index, date);
-		List<String[]> amountList = moneyBookService.oneMonthAmount(id_index, date);
-		
->>>>>>> branch 'master' of https://github.com/YoungKoungKim/MoneyBookRepository.git
 		List<HashMap<String, Object>> income = new ArrayList<>();
 		List<HashMap<String, Object>> expense = new ArrayList<>();
 
 		for (String[] arr : amountList) {
-<<<<<<< HEAD
-			HashMap<String, Object> tmpMap = new HashMap<>();
-			tmpMap.put("title", arr[1]);
-			tmpMap.put("start", arr[0]);
-			income.add(tmpMap);
-
-			tmpMap.remove("title");
-			tmpMap.put("title", arr[2]);
-			expense.add(tmpMap);
-=======
 			HashMap<String, Object> tmpIncome = new HashMap<>();
 			HashMap<String, Object> tmpExpense = new HashMap<>();
 			
@@ -281,53 +209,33 @@ public class MoneyBookController {
 			tmpExpense.put("title", arr[2]);
 			tmpExpense.put("start", arr[0]);
 			expense.add(tmpExpense);
->>>>>>> branch 'master' of https://github.com/YoungKoungKim/MoneyBookRepository.git
 		}
 
 		HashMap<String, Object> response = new HashMap<>();
 		response.put("lastDay", amountList.size());
 		response.put("income", income);
 		response.put("expense", expense);
-<<<<<<< HEAD
 
-=======
 		response.put("monthIncome", monthAmount.get("income"));
 		response.put("monthExpense", monthAmount.get("expense"));
 		
->>>>>>> branch 'master' of https://github.com/YoungKoungKim/MoneyBookRepository.git
 		return response;
 	}
-
 
 	@RequestMapping("boardWriteForm.do")
 	public ModelAndView boardWriteForm(int id_index, Date date) {
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("monthContent", moneyBookService.totalAmountByCategory(id_index, date));
 		mav.addObject("monthAmount", moneyBookService.totalMonthAmount(id_index, date));
-		mav.addObject("date", moneyBookService.searchDate(date));
-		// extraService.boardWrite(eBoard);
-		mav.setViewName("boardWrite");
-		// extraService.boardWrite(eBoard);
-		mav.setViewName("boardWrite.jsp");
+		mav.addAllObjects(moneyBookService.searchDate(date));
+		mav.setViewName("boardWriteForm");
 		return mav;
 	}
 
 	@RequestMapping("moneyBookWriteForm.do")
 	public ModelAndView moneyBookWriteForm(int id_index) {
 		ModelAndView mav = new ModelAndView();
-		// mav.addAllObjects();
-		/*
-		 * HashMap<String, Object> params = new HashMap<>();
-		 * params.put("id_index", id_index); params.put("bookmarkNo",
-		 * bookmarkNo);
-		 */
-
 		mav.addObject("bookMarkList", bookMarkService.bookMarkSearch(id_index));
-<<<<<<< HEAD
-=======
-		System.out.println(bookMarkService.bookMarkSearch(id_index));
-		System.out.println("하이");
->>>>>>> branch 'master' of https://github.com/YoungKoungKim/MoneyBookRepository.git
 		mav.setViewName("moneyBookAdd");
 		return mav;
 	}
@@ -342,9 +250,11 @@ public class MoneyBookController {
 	}
 
 	@RequestMapping("moneyBookDetailView.do")
-	public 
-	@ResponseBody List<MoneyBook> moneyBookDetailView(int id_index, Date date) {
-		return moneyBookService.getDayContent(date, id_index);
+	public ModelAndView moneyBookDetailView(int id_index, Date date) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("dayContent", moneyBookService.getDayContent(date, id_index));
+		mav.setViewName("moneyBookView");
+		return mav;
 	}
 
 	@RequestMapping("moneyBookRegist.do")
@@ -356,16 +266,9 @@ public class MoneyBookController {
 		String[] category_arr = category.split(",");
 		String[] detail_arr = detail.split(",");
 		String[] price_arr = price.split(",");
-<<<<<<< HEAD
 
 		for (int i = 0; i < category_arr.length; i++) {
 			System.out.println(detail_arr[i]);
-=======
-		
-		
-		for(int i=0; i<category_arr.length;i++){
-			System.out.println(category_arr[i]);
->>>>>>> branch 'master' of https://github.com/YoungKoungKim/MoneyBookRepository.git
 			Date date = new Date();
 			date.setYear(year - 1900);
 			date.setMonth(month - 1);

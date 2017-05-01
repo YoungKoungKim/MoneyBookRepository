@@ -25,14 +25,12 @@ body {
 	font-size: 14px;
 	height: 100%;
 }
-
 #left {
 	position: absolute;
 	height: 100%;
 	left: 0;
 	width: 20%;
 }
-
 #center {
 	position: absolute;
 	left: 20%;
@@ -40,36 +38,36 @@ body {
 	height: 100%;
 	width: 60%;
 }
-
 #right {
 	position: absolute;
 	height: 100%;
 	width: 20%;
 	right: 0%;
 }
-
 #calendar {
 	padding-top: 50px;
 	max-width: 600px;
 	margin: 0 auto;
 }
-
 #detail {
 	min-height: 300px;
 }
-
 .fc-event, .fc-event:hover, .ui-widget .fc-event {
 	color: #000; /* default TEXT color */
 	text-decoration: none; /* if <a> has an href */
 }
-
 .fc-day-number {
 	color: #91D4B5;
 }
 </style>
 
 <script type="text/javascript">
-
+function moneyBookRegist(id_index){
+	var popUrl = "moneyBookWriteForm.do?id_index=" + id_index;	//팝업창에 출력될 페이지 URL
+	var popOption = "width=370, height=360, resizable=no, scrollbars=no, status=no;";    //팝업창 옵션(optoin)
+	window.open(popUrl,"",popOption);
+}
+	
 function dateToYYYYMMDD(date){
     function pad(num) {
         num = num + '';
@@ -77,7 +75,6 @@ function dateToYYYYMMDD(date){
     }
     return date.getFullYear() + '-' + pad(date.getMonth()+1) + '-' + pad(date.getDate());
 }
-
 	$(document).ready(function() {
 		var today = new Date();
 		$('#calendar').fullCalendar({
@@ -132,11 +129,17 @@ function dateToYYYYMMDD(date){
 							dataType : 'json',
 							data : 'id_index=1&date=' + date.format(),
 							success : function(data) {
-								$('#detail').text('');
+								$('#detailTable').empty();
 								$(data).each(function(i) {
-									var text = "<div class='detail' id='" + data[i].moneyBookNo + "onClick=callUpdateForm("+ 
-											data[i].moneyBookNo + "," + date.format() + ")>" + data[i].category + " : " + data[i].price + "</div>"
-									$('#detail').append(text);
+									var td = "<tr"
+											+ " class='detailOne' "
+											+ " id='" + data[i].moneyBookNo + "'"
+											+ " name='" + date.format() + "'>"
+											+ "<td>" + data[i].category + "</td>"
+											+ "<td>" + data[i].detail + "</td>"
+											+ "<td>" + data[i].price + "</td>"
+											+ "</tr>"
+									$('#detailTable').append(td);
 								})
 							},
 							error : function() {
@@ -146,12 +149,16 @@ function dateToYYYYMMDD(date){
 				} else {
 					alert('잘못된 선택');
 				}
-
 		    }
 		});
 		
-		$(document).on('click', '.detail', function callUpdateForm(moneyBookNo, date) {
-			alert(moneyBookNo + " : " + date);
+		$(document).on('click', '.detailOne', function() {
+			var popUrl = "moneyBookUpdateForm.do?"
+				+ "id_index=" + ${id_index}
+				+ "&date=" + $(this).attr('name')
+				+ "&moneyBookNo=" + $(this).attr('id');
+			var popOption = "width=370, height=360, resizable=no, scrollbars=no, status=no;";    //팝업창 옵션(optoin)
+			window.open(popUrl,"",popOption);
 		});
 		
 	});
@@ -171,11 +178,15 @@ function dateToYYYYMMDD(date){
 
 	<div id="center">
 		<div id="calendar"></div>
-		<div id="detail"></div>
+		<div id="detail">
+			<table id="detailTable" border="solid black 1px">
+
+			</table>
+		</div>
 	</div>
 
 	<div id="right">
-		<button>등록</button>
+		<button onclick="moneyBookRegist(${id_index})">등록</button>
 		<button>공유</button>
 	</div>
 </body>

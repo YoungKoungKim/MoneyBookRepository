@@ -1,5 +1,6 @@
 package service;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -14,7 +15,7 @@ public interface IBoardService {
 	public boolean checkMyText(Member member, int id_index);
 	public HashMap<String, Object> searchText(int boardNo);
 	public List<Board> bestView(int count);
-	public int boardWrite(Board board);
+	public void boardWrite(Board board, Date date2);
 	public HashMap<String, Object> getboardList(int page, String ageType, String category,
 			String content);
 }

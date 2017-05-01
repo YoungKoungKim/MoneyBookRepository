@@ -9,9 +9,7 @@
 	</insert>
 
 	<update id="updateExtraBoard" parameterType="extraBoard">
-		update extraboard set
-		category = #{category}, price=#{price}, month = sysdate()
-		where boardNo = #{boardNo} and id_index = #{id_index}
+		update extraboard set percent = #{percent} where id_index = #{id_index} and  category = #{category}
 	</update>
 
 	<delete id="deleteExtraBoard" parameterType="int">
