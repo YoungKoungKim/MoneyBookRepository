@@ -12,6 +12,7 @@
 	crossorigin="anonymous"></script>
 
 <script type="text/javascript" src="js/memberJs.js"></script>
+<script type="text/javascript" src="js/headerScript.js"></script>
 
 <script type="text/javascript">
 	$(document).ready(function() {
@@ -43,7 +44,7 @@
 								<!-- 공유게시판 -->
 								<a href="boardList.do" title="공유게시판">BulletinBoard</a>
 								<!-- 가계부 -->
-								<a href="viewMyPage.do?id_index=1&date=2017-04-27" title="가계부">MyMoneyBook</a>
+								<a href="#" title="가계부">MyMoneyBook</a>
 								<!-- 로그인 -->
 								<a data-toggle="modal" data-target="#loginModal"
 									data-backdrop="static" href="#loginForm" title="로그인">Login</a>
@@ -68,7 +69,7 @@
 								<!-- 공유게시판 -->
 								<a href="boardList.do" title="공유게시판">BulletinBoard</a>
 								<!-- 가계부 -->
-								<a href="#moneyBook" title="가계부">MyMoneyBook</a>
+								<a href="#" onclick="viewMyPage(${id_index})" title="가계부">MyMoneyBook</a>
 								<!-- 가계부 -->
 								<form action="informUpdateForm.do" method="post" id="updateForm">
 									<input type="hidden" value="${id_index }" name="id_index">

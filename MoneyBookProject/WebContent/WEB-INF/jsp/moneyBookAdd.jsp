@@ -190,7 +190,7 @@ button[type=submit] {
 					</c:forEach>
 
 				</select> <select id="day" name="day">
-					<c:forEach begin="1" end="30" varStatus="status">
+					<c:forEach begin="1" end="31" varStatus="status">
 						<option value="${status.count}">${status.count}일</option>
 					</c:forEach>
 				</select>

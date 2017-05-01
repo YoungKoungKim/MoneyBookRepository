@@ -86,6 +86,7 @@ function dateToYYYYMMDD(date){
 
 	$(document).ready(function() {
 		var today = new Date();
+		var boardDate;
 		$('#calendar').fullCalendar({
 			header : {
 				left : 'prev,next today',
@@ -99,12 +100,13 @@ function dateToYYYYMMDD(date){
 			eventLimit : true, // allow "more" link when too many events
 			events : function(start, end, timezone, callback) {
 				var nowDate = $('#calendar').fullCalendar('getDate');
+				boardDate = nowDate.format('YYYY-MM-DD');
 				
 				$.ajax({
 					type : 'post',
 					url : 'moneyBookView.do',
 					dataType : 'json',
-					data : 'id_index=1&date=' + nowDate.format('YYYY-MM-DD'),
+					data : 'id_index=' + ${id_index} + '&date=' + nowDate.format('YYYY-MM-DD'),
 					success : function(data) {
 						var events = [];
 						for (var i = 0; i < data.lastDay; i++) {
@@ -136,12 +138,12 @@ function dateToYYYYMMDD(date){
 							type : 'post',
 							url : 'moneyBookDetailView.do',
 							dataType : 'json',
-							data : 'id_index=1&date=' + date.format(),
+							data : 'id_index=' + ${id_index} + '&date=' + date.format(),
 							success : function(data) {
 								$('#detailTable').empty();
 								$(data).each(function(i) {
 									var td = "<tr"
-											+ " class='detailOne' "
+											+ " class='detailOne'"
 											+ " id='" + data[i].moneyBookNo + "'"
 											+ " name='" + date.format() + "'>"
 											+ "<td>" + data[i].category + "</td>"
@@ -162,15 +164,19 @@ function dateToYYYYMMDD(date){
 		    }
 		});
 		
+		
 		$(document).on('click', '.detailOne', function() {
 			var popUrl = "moneyBookUpdateForm.do?"
 				+ "id_index=" + ${id_index}
 				+ "&date=" + $(this).attr('name')
 				+ "&moneyBookNo=" + $(this).attr('id');
-			var popOption = "width=370, height=360, resizable=no, scrollbars=no, status=no;";    //팝업창 옵션(optoin)
+			var popOption = "width=370, height=360, resizable=no, scrollbars=no, status=no";    //팝업창 옵션(optoin)
 			window.open(popUrl,"",popOption);
 		});
 		
+		$('#boardWriteBtn').click(function() {
+			location.href='boardWriteForm.do?id_index=' + ${id_index} + '&date=' + boardDate;
+		});
 	});
 </script>
 </head>
@@ -197,7 +203,7 @@ function dateToYYYYMMDD(date){
 
 	<div id="right">
 		<button onclick="moneyBookRegist(${id_index})">등록</button>
-		<button>공유</button>
+		<button id="boardWriteBtn">공유</button>
 	</div>
 </body>
 </html>

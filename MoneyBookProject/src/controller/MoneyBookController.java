@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 import javax.swing.plaf.synth.SynthSeparatorUI;
 
@@ -146,8 +147,10 @@ public class MoneyBookController {
 	@RequestMapping("moneyBookUpdateForm.do")
 	public ModelAndView moneyBookUpdateForm(int id_index, Date date, int moneyBookNo) {
 		ModelAndView mav = new ModelAndView();
+		String mbDate = moneyBookService.searchDate(date).get("date").toString();
 		// 클릭한 가계부 중 하나의 정보를 얻어옴 (selectOne)
 		mav.addObject("moneyBook", moneyBookService.moneyBookSelectOne(moneyBookNo, id_index, date));
+		mav.addObject("mbDate", mbDate);
 		// 팝업창 uri
 		mav.setViewName("moneyBookUpdateForm");
 		return mav;
@@ -197,6 +200,7 @@ public class MoneyBookController {
 	@RequestMapping("moneyBookView.do")
 	public @ResponseBody HashMap<String, Object> moneyBookView(int id_index, Date date) {
 		List<String[]> amountList = new ArrayList<>();
+		System.out.println(date);
 		amountList = moneyBookService.oneMonthAmount(id_index, date);
 
 		HashMap<String, Object> monthAmount = moneyBookService.totalMonthAmount(id_index, date);
@@ -258,11 +262,9 @@ public class MoneyBookController {
 	}
 
 	@RequestMapping("moneyBookDetailView.do")
-	public ModelAndView moneyBookDetailView(int id_index, Date date) {
-		ModelAndView mav = new ModelAndView();
-		mav.addObject("dayContent", moneyBookService.getDayContent(date, id_index));
-		mav.setViewName("moneyBookView");
-		return mav;
+	public 
+	@ResponseBody List<MoneyBook> moneyBookDetailView(int id_index, Date date) {
+		return moneyBookService.getDayContent(date, id_index);
 	}
 
 	@RequestMapping("moneyBookRegist.do")
