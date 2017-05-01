@@ -70,6 +70,12 @@ body {
 
 <script type="text/javascript">
 
+function moneyBookRegist(id_index){
+	var popUrl = "moneyBookWriteForm.do?id_index=" + id_index;	//팝업창에 출력될 페이지 URL
+	var popOption = "width=370, height=360, resizable=no, scrollbars=no, status=no;";    //팝업창 옵션(optoin)
+	window.open(popUrl,"",popOption);
+}
+	
 function dateToYYYYMMDD(date){
     function pad(num) {
         num = num + '';
@@ -132,11 +138,17 @@ function dateToYYYYMMDD(date){
 							dataType : 'json',
 							data : 'id_index=1&date=' + date.format(),
 							success : function(data) {
-								$('#detail').text('');
+								$('#detailTable').empty();
 								$(data).each(function(i) {
-									var text = "<div class='detail' id='" + data[i].moneyBookNo + "onClick=callUpdateForm("+ 
-											data[i].moneyBookNo + "," + date.format() + ")>" + data[i].category + " : " + data[i].price + "</div>"
-									$('#detail').append(text);
+									var td = "<tr"
+											+ " class='detailOne' "
+											+ " id='" + data[i].moneyBookNo + "'"
+											+ " name='" + date.format() + "'>"
+											+ "<td>" + data[i].category + "</td>"
+											+ "<td>" + data[i].detail + "</td>"
+											+ "<td>" + data[i].price + "</td>"
+											+ "</tr>"
+									$('#detailTable').append(td);
 								})
 							},
 							error : function() {
@@ -150,8 +162,13 @@ function dateToYYYYMMDD(date){
 		    }
 		});
 		
-		$(document).on('click', '.detail', function callUpdateForm(moneyBookNo, date) {
-			alert(moneyBookNo + " : " + date);
+		$(document).on('click', '.detailOne', function() {
+			var popUrl = "moneyBookUpdateForm.do?"
+				+ "id_index=" + ${id_index}
+				+ "&date=" + $(this).attr('name')
+				+ "&moneyBookNo=" + $(this).attr('id');
+			var popOption = "width=370, height=360, resizable=no, scrollbars=no, status=no;";    //팝업창 옵션(optoin)
+			window.open(popUrl,"",popOption);
 		});
 		
 	});
@@ -171,11 +188,15 @@ function dateToYYYYMMDD(date){
 
 	<div id="center">
 		<div id="calendar"></div>
-		<div id="detail"></div>
+		<div id="detail">
+			<table id="detailTable" border="solid black 1px">
+
+			</table>
+		</div>
 	</div>
 
 	<div id="right">
-		<button>등록</button>
+		<button onclick="moneyBookRegist(${id_index})">등록</button>
 		<button>공유</button>
 	</div>
 </body>
