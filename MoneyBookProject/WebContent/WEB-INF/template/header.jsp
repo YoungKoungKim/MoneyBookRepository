@@ -70,7 +70,8 @@
 								<!-- 가계부 -->
 								<a href="#moneyBook" title="가계부">MyMoneyBook</a>
 								<!-- 가계부 -->
-								<form action="informUpdateForm.do" method="post" id="updateForm" style="display: inline-block;">
+								<form action="informUpdateForm.do" method="post" id="updateForm"
+									style="display: inline-block;">
 									<input type="hidden" value="${id_index }" name="id_index">
 								</form>
 								<a href="#" title="회원 정보 수정" id="updateLink">InformUpdate</a>
@@ -101,7 +102,7 @@
 						<table>
 							<tr align="center">
 								<td style="color: black;">아이디</td>
-								<td><input type="text" id="join_Id" class="form-control"
+								<td width="305px;"><input type="text" id="join_Id" class="form-control"
 									placeholder="이메일을 입력하세요."></td>
 							</tr>
 							<tr>
@@ -170,7 +171,7 @@
 						<table>
 							<tr align="center">
 								<td style="color: black;">아이디</td>
-								<td><input type="text" id="login_Id" class="form-control"
+								<td width="305px;"><input type="text" id="login_Id" class="form-control"
 									placeholder="이메일을 입력하세요."></td>
 							</tr>
 							<tr>
@@ -201,12 +202,12 @@
 
 	<!-- JAVASCRIPT FILES PLACED AT THE BOTTOM TO REDUCE THE LOADING TIME  -->
 	<!-- CORE JQUERY  SCRIPTS -->
-<!-- 	<script src="assets/js/jquery-1.11.1.js"></script> -->
+	<!-- 	<script src="assets/js/jquery-1.11.1.js"></script> -->
 	<!-- BOOTSTRAP SCRIPTS  -->
-<!-- 	<script src="assets/js/bootstrap.js"></script> -->
+	<!-- 	<script src="assets/js/bootstrap.js"></script> -->
 	<!-- SCROLLING SCRIPTS PLUGIN  -->
-<!-- 	<script src="assets/js/jquery.easing.min.js"></script> -->
+	<!-- 	<script src="assets/js/jquery.easing.min.js"></script> -->
 	<!-- CUSTOM SCRIPTS   -->
-<!-- 	<script src="assets/js/custom.js"></script> -->
+	<!-- 	<script src="assets/js/custom.js"></script> -->
 </body>
 </html>
