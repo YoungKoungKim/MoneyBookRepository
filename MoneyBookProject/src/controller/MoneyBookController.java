@@ -199,18 +199,21 @@ public class MoneyBookController {
 		List<String[]> amountList = new ArrayList<>();
 		amountList = moneyBookService.oneMonthAmount(id_index, date);
 
+		HashMap<String, Object> monthAmount = moneyBookService.totalMonthAmount(id_index, date);
 		List<HashMap<String, Object>> income = new ArrayList<>();
 		List<HashMap<String, Object>> expense = new ArrayList<>();
 
 		for (String[] arr : amountList) {
-			HashMap<String, Object> tmpMap = new HashMap<>();
-			tmpMap.put("title", arr[1]);
-			tmpMap.put("start", arr[0]);
-			income.add(tmpMap);
-
-			tmpMap.remove("title");
-			tmpMap.put("title", arr[2]);
-			expense.add(tmpMap);
+			HashMap<String, Object> tmpIncome = new HashMap<>();
+			HashMap<String, Object> tmpExpense = new HashMap<>();
+			
+			tmpIncome.put("title", arr[1]);
+			tmpIncome.put("start", arr[0]);
+			income.add(tmpIncome);
+			
+			tmpExpense.put("title", arr[2]);
+			tmpExpense.put("start", arr[0]);
+			expense.add(tmpExpense);
 		}
 
 		HashMap<String, Object> response = new HashMap<>();
@@ -218,6 +221,9 @@ public class MoneyBookController {
 		response.put("income", income);
 		response.put("expense", expense);
 
+		response.put("monthIncome", monthAmount.get("income"));
+		response.put("monthExpense", monthAmount.get("expense"));
+		
 		return response;
 	}
 

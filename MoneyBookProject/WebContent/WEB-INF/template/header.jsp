@@ -6,21 +6,21 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
-
 <script src="https://code.jquery.com/jquery-2.2.4.min.js"
 	integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
 	crossorigin="anonymous"></script>
+<!-- 
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<<<<<<< HEAD
+ -->
 
 <script type="text/javascript" src="js/memberJs.js"></script>
-
-<script type="text/javascript">
-	$(document).ready(function() {
-		$("#updateLink").on("click", function() {
-			$("#updateForm").submit();
-		});
-	})
-</script>
-
+<script type="text/javascript" src="js/headerScript.js"></script>
 
 </head>
 <body>
@@ -37,7 +37,7 @@
 								<!-- 공유게시판 -->
 								<a href="boardList.do" title="공유게시판">BulletinBoard</a>
 								<!-- 가계부 -->
-								<a href="viewMyPage.do?id_index=1&date=2017-04-27" title="가계부">MyMoneyBook</a>
+								<a href="#" title="가계부">MyMoneyBook</a>
 								<!-- 로그인 -->
 								<a data-toggle="modal" data-target="#loginModal"
 									data-backdrop="static" href="#loginForm" title="로그인">Login</a>
@@ -62,13 +62,8 @@
 								<!-- 공유게시판 -->
 								<a href="boardList.do" title="공유게시판">BulletinBoard</a>
 								<!-- 가계부 -->
-								<a href="#moneyBook" title="가계부">MyMoneyBook</a>
-								<!-- 가계부 -->
-								<form action="informUpdateForm.do" method="post" id="updateForm">
-									<input type="hidden" value="${id_index }" name="id_index">
-								</form>
-								<a href="#" title="회원 정보 수정" id="updateLink">InformUpdate</a>
-								<!-- 로그인 -->
+								<a href="#" onclick="viewMyPage(${id_index})" title="가계부">MyMoneyBook</a>
+								<!-- 로그아웃 -->
 								<a href="logout.do" title="로그아웃">Logout</a>
 							</div>
 						</div>
@@ -77,74 +72,6 @@
 			</div>
 		</c:otherwise>
 	</c:choose>
-
-	<div class="modal fade" id="joinModal" tabindex="-1" role="dialog"
-		aria-labelledby="myModalLabel" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal"
-						aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-					<h4 class="modal-title" id="myModalLabel" style="color: black;">회원가입</h4>
-				</div>
-				<div class="modal-body">
-					<center>
-						<h1 style="color: black;">회 원 가 입</h1>
-						<table>
-							<tr align="center">
-								<td style="color: black;">아이디</td>
-								<td><input type="text" id="join_Id" class="form-control"
-									placeholder="이메일을 입력하세요."></td>
-							</tr>
-							<tr>
-								<td></td>
-								<td><span id="join_IdCheck" style="color: red;"></span></td>
-							</tr>
-							<tr align="center">
-								<td style="color: black;">닉네임</td>
-								<td><input type="text" id="join_Nick" class="form-control"
-									placeholder="닉네임을 입력하세요."></td>
-							</tr>
-							<tr>
-								<td></td>
-								<td><span id="join_NickCheck" style="color: red;"></span></td>
-							</tr>
-							<tr align="center">
-								<td style="color: black;">비밀번호</td>
-								<td><input type="password" id="join_Pwd"
-									class="form-control" placeholder="비밀번호를 입력해주세요."></td>
-							</tr>
-							<tr>
-								<td></td>
-								<td><span id="join_PwdCheck" style="color: red;"></span></td>
-							</tr>
-							<tr align="center">
-								<td style="color: black;">비밀번호 확인</td>
-								<td><input type="password" id="join_PwdOk"
-									class="form-control" placeholder="다시 한번 입력해주세요."></td>
-							</tr>
-							<tr>
-								<td></td>
-								<td><span id="join_PwdOkCheck" style="color: red;"></span></td>
-							</tr>
-							<tr align="center">
-								<td colspan="2"><input type="button" value="확인"
-									class="btn btn-success" id="join_SubmitBtn">
-									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="button" value="취소"
-									class="btn btn-info" data-dismiss="modal"></td>
-							</tr>
-						</table>
-						<input type="hidden" value="false" id="join_IdTest"> <input
-							type="hidden" value="false" id="join_NickTest"> <input
-							type="hidden" value="false" id="join_PwdTest"> <input
-							type="hidden" value="false" id="join_PwdOkTest">
-					</center>
-				</div>
-			</div>
-		</div>
-	</div>
 
 	<!-- LoginModal -->
 	<div class="modal fade" id="loginModal" tabindex="-1" role="dialog"
@@ -182,9 +109,9 @@
 							</tr>
 							<tr align="center">
 								<td colspan="2"><input type="button" value="로그인"
-									class="btn btn-success" id="login_SubmitBtn">
+									class="btn btn-success" id="loginBtn">
 									&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" value="취소"
-									class="btn btn-info" data-dismiss="modal"></td>
+									class="btn btn-info" id="loginCancelBtn" data-dismiss="modal"></td>
 							</tr>
 						</table>
 					</center>
@@ -193,14 +120,83 @@
 		</div>
 	</div>
 
+	<div class="modal fade" id="joinModal" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="myModalLabel" style="color: black;">회원가입</h4>
+				</div>
+				<div class="modal-body">
+					<center>
+						<h1 style="color: black;">회 원 가 입</h1>
+						<table>
+							<tr align="center">
+								<td style="color: black;">아이디</td>
+								<td><input type="text" id="id" class="form-control"
+									placeholder="이메일을 입력하세요."></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td><span id="idCheck" style="color: red;"></span></td>
+							</tr>
+							<tr align="center">
+								<td style="color: black;">닉네임</td>
+								<td><input type="text" id="nick" class="form-control"
+									placeholder="닉네임을 입력하세요."></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td><span id="nickCheck" style="color: red;"></span></td>
+							</tr>
+							<tr align="center">
+								<td style="color: black;">비밀번호</td>
+								<td><input type="password" id="pwd" class="form-control"
+									placeholder="비밀번호를 입력해주세요."></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td><span id="pwdCheck" style="color: red;"></span></td>
+							</tr>
+							<tr align="center">
+								<td style="color: black;">비밀번호 확인</td>
+								<td><input type="password" id="pwdOk" class="form-control"
+									placeholder="다시 한번 입력해주세요."></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td><span id="pwdOkCheck" style="color: red;"></span></td>
+							</tr>
+							<tr align="center">
+								<td colspan="2"><input type="button" value="확인"
+									class="btn btn-success" id="submitBtn">
+									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="button" value="취소"
+									class="btn btn-info" id="cancelBtn" data-dismiss="modal"></td>
+							</tr>
+						</table>
+						<input type="hidden" value="false" id="idTest"> <input
+							type="hidden" value="false" id="nickTest"> <input
+							type="hidden" value="false" id="pwdTest"> <input
+							type="hidden" value="false" id="pwdOkTest">
+					</center>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
 	<!-- JAVASCRIPT FILES PLACED AT THE BOTTOM TO REDUCE THE LOADING TIME  -->
 	<!-- CORE JQUERY  SCRIPTS -->
-<!-- 	<script src="assets/js/jquery-1.11.1.js"></script> -->
+	<script src="assets/js/jquery-1.11.1.js"></script>
 	<!-- BOOTSTRAP SCRIPTS  -->
-<!-- 	<script src="assets/js/bootstrap.js"></script> -->
+	<script src="assets/js/bootstrap.js"></script>
 	<!-- SCROLLING SCRIPTS PLUGIN  -->
-<!-- 	<script src="assets/js/jquery.easing.min.js"></script> -->
+	<script src="assets/js/jquery.easing.min.js"></script>
 	<!-- CUSTOM SCRIPTS   -->
-<!-- 	<script src="assets/js/custom.js"></script> -->
+	<script src="assets/js/custom.js"></script>
 </body>
 </html>

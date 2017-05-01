@@ -81,13 +81,14 @@ public class MemberController {
 
 	// password_Check
 	//ajax
+	//이건 안쓴거같은데...
 	@RequestMapping("passwordCheck.do")
 	public @ResponseBody int passwordCheck(int id_index, String pwd) {
 		return memberService.IdpwdCheck(pwd, id_index);
 	}
 
 	// inform_Update_Form
-	@RequestMapping("informUpdateForm.do")
+	@RequestMapping(method = RequestMethod.POST, value = "informUpdateForm.do")
 	public ModelAndView informUpdateForm(int id_index) {
 		ModelAndView mav = new ModelAndView();
 
