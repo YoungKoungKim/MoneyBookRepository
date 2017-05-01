@@ -106,7 +106,7 @@
 							</tr>
 							<tr>
 								<td></td>
-								<td><span id="join_IdCheck" style="color: red;"></span></td>
+								<td><span id="join_IdCheck" style="color: red;"></span><br></td>
 							</tr>
 							<tr align="center">
 								<td style="color: black;">닉네임</td>
@@ -115,7 +115,7 @@
 							</tr>
 							<tr>
 								<td></td>
-								<td><span id="join_NickCheck" style="color: red;"></span></td>
+								<td><span id="join_NickCheck" style="color: red;"></span><br></td>
 							</tr>
 							<tr align="center">
 								<td style="color: black;">비밀번호</td>
@@ -124,7 +124,7 @@
 							</tr>
 							<tr>
 								<td></td>
-								<td><span id="join_PwdCheck" style="color: red;"></span></td>
+								<td><span id="join_PwdCheck" style="color: red;"></span><br></td>
 							</tr>
 							<tr align="center">
 								<td style="color: black;">비밀번호 확인</td>
@@ -133,7 +133,7 @@
 							</tr>
 							<tr>
 								<td></td>
-								<td><span id="join_PwdOkCheck" style="color: red;"></span></td>
+								<td><span id="join_PwdOkCheck" style="color: red;"></span><br></td>
 							</tr>
 							<tr align="center">
 								<td colspan="2"><input type="button" value="확인"
@@ -175,7 +175,7 @@
 							</tr>
 							<tr>
 								<td></td>
-								<td><span id="login_IdCheck" style="color: red;"></span></td>
+								<td><span id="login_IdCheck" style="color: red;"></span><br></td>
 							</tr>
 							<tr align="center">
 								<td style="color: black;">비밀번호</td>
@@ -184,7 +184,7 @@
 							</tr>
 							<tr>
 								<td></td>
-								<td><span id="login_PwdCheck" style="color: red;"></span></td>
+								<td><span id="login_PwdCheck" style="color: red;"></span><br></td>
 							</tr>
 							<tr align="center">
 								<td colspan="2"><input type="button" value="로그인"
