@@ -52,8 +52,19 @@ public class BookMarkService implements IBookMarkService {
 	}
 
 	@Override
-	public HashMap<String, Object> searchOneBookmark(int id_index, int bookmarkNo) {
-		return dao.selectOneBookmark(id_index, bookmarkNo);
+	public HashMap<String, Object> searchOneBookmark(HashMap<String, Object> params) {
+		
+		return dao.selectOneBookmark(params);
+	}
+
+	@Override
+	public int bookMarkModify(HashMap<String, Object> params) {
+		int result = dao.updateBookmark(params);
+		if (result > 0) {
+			return 4301;
+		} else {
+			return 4302;
+		}
 	}
 
 }
