@@ -104,6 +104,7 @@ public class BoardService implements IBoardService {
 		 
 		eboard.setBoardNo(bDao.insertBoard(board));
 		eboard.setId_index(board.getId_index());
+		
 		eboard.setMonth(date2);
 		
 
