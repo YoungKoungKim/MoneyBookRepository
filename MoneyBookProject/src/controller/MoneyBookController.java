@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.mysql.fabric.HashShardMapping;
+
 import commons.BookMark;
 import model.MoneyBook;
 import service.IBoardService;

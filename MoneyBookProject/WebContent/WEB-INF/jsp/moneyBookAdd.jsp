@@ -17,6 +17,10 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <script type="text/javascript">
 $(document).ready(function() {
+<<<<<<< HEAD
+=======
+	
+>>>>>>> branch 'master' of https://github.com/YoungKoungKim/MoneyBookRepository.git
 	$(document).on("click",".bookmark",function(){
 		var id_index = $(this).attr('id');
 		//alert("버튼 눌렀다!!!!!!!!!!!!!!");
@@ -104,6 +108,13 @@ $(document).ready(function() {
 	padding: 10px 35px;
 	text-align: center;
 }
+
+input[type="button"] {
+	border-radius: 10px;
+	background-color: #91D4B5;
+	padding: 10px 35px;
+	text-align: center;
+}
 input[type="button"] {
 	border-radius: 10px;
 	background-color: #91D4B5;
@@ -122,7 +133,18 @@ input[type="button"] {
 	top: 350px;
 	left: 50px;
 }
+<<<<<<< HEAD
 #year, #month, #day {
+=======
+
+#year, #month, #day {
+	border: 1px solid #ddd;
+	padding: 10px;
+	width: 100px;
+}
+
+select {
+>>>>>>> branch 'master' of https://github.com/YoungKoungKim/MoneyBookRepository.git
 	border: 1px solid #ddd;
 	padding: 10px;
 	width: 100px;
