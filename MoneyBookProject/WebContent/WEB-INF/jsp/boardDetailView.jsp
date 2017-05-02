@@ -137,6 +137,21 @@ function getCommentList() {
 </head>
 <body>
 	<center>
+		<br>
+		<br>
+		<div>
+			<table border="3">
+				<tr>
+					<td style="width: 150px; font-size: 20px;" align="center">
+						${board.ageType}대</td>
+					<td style="width: 300px;" align="center">${board.title}</td>
+					<td style="width: 150px;" align="center"><fmt:formatDate
+							value="${board.date}" pattern="yyyy-MM-dd" /></td>
+							
+				</tr>
+			</table>
+		</div>
+	
 		<div>
 			<table border="3">
 				<tr style="background-color: pink">

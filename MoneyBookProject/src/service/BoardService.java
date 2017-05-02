@@ -101,8 +101,8 @@ public class BoardService implements IBoardService {
 		 int expense = (int)amount.get("expense");
 		 
 		ExtraBoard eboard = new ExtraBoard();
-		 
-		eboard.setBoardNo(bDao.insertBoard(board));
+		bDao.insertBoard(board);
+		eboard.setBoardNo(board.getBoardNo());
 		eboard.setId_index(board.getId_index());
 		
 		eboard.setMonth(date2);
