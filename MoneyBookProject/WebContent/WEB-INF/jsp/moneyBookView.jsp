@@ -21,7 +21,6 @@
 <style type="text/css">
 body {
 	padding: 0;
-	font-family: 'Ubuntu Condensed', sans-serif;
 	font-size: 14px;
 	height: 100%;
 }
@@ -34,6 +33,7 @@ body {
 }
 
 #center {
+	font-family: 'Ubuntu Condensed', sans-serif;
 	position: relative;
 	left: 20%;
 	right: 20%;
@@ -73,6 +73,10 @@ body {
 
 .fc-day-number {
 	color: #91D4B5;
+}
+
+.detailOne:hover {
+	background-color: #91D4B5; 
 }
 </style>
 
@@ -148,18 +152,27 @@ function dateToYYYYMMDD(date){
 							dataType : 'json',
 							data : 'id_index=' + ${id_index} + '&date=' + date.format(),
 							success : function(data) {
-								$('#detailTable thead').show();
-								$(data).each(function(i) {
-									var td = "<tr"
-											+ " class='detailOne' "
-											+ " id='" + data[i].moneyBookNo + "'"
-											+ " name='" + date.format() + "'>"
-											+ "<td>" + data[i].category + "</td>"
-											+ "<td>" + data[i].detail + "</td>"
-											+ "<td>" + data[i].price + "</td>"
-											+ "</tr>"
-									$('#detailTable').append(td);
-								})
+								if (data.length == 0) {
+									$('#detailTable thead').hide();
+									var img = "<center><br><h5>아직 등록된 데이터가 없습니다!</h5>"
+												+"<img src='assets/img/ryan_broken.gif'"+
+												"style='width='240px'; height='240px''></center>";
+									$('#detailTable tbody').append(img);
+								} else {
+									$('#detailTable thead').show();
+									$(data).each(function(i) {
+										var td = "<tr"
+												+ " class='detailOne' "
+												+ " id='" + data[i].moneyBookNo + "'"
+												+ " name='" + date.format() + "'>"
+												+ "<td>" + data[i].category + "</td>"
+												+ "<td>" + data[i].detail + "</td>"
+												+ "<td>" + data[i].price + "</td>"
+												+ "</tr>"
+										$('#detailTable').append(td);
+									})
+								}
+								
 							},
 							error : function() {
 								alert('error');
@@ -173,7 +186,6 @@ function dateToYYYYMMDD(date){
 		});
 		
 		$(document).on('click', '.detailOne', function() {
-			alert($(this).attr('id'));
 			var popUrl = "moneyBookUpdateForm.do?"
 				+ "id_index=" + ${id_index}
 				+ "&date=" + $(this).attr('name')
