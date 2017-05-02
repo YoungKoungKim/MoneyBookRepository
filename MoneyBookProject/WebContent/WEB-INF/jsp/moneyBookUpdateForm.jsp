@@ -129,7 +129,7 @@
 				<div class="form-group">
 					<button name="update" class="btn btn-primary" id="btn_update">수정</button>
 					<button name="delete" class="btn btn-primary" id="btn_delete">삭제</button>
-					<button name="cancel" class="btn btn-primary" id="btn_cancel">취소</button>
+					<button name="cancel" class="btn btn-primary" id="btn_cancel" data-dismiss="modal">취소</button>
 				</div>
 
 			</fieldset>

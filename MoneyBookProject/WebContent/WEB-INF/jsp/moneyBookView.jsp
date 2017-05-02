@@ -34,7 +34,7 @@ body {
 }
 
 #center {
-	position: absolute;
+	position: relative;
 	left: 20%;
 	right: 20%;
 	height: 100%;
@@ -42,9 +42,9 @@ body {
 }
 
 #right {
-	position: absolute;
+	position: relative;
 	height: 100%;
-	width: 20%;
+	width: 10%;
 	right: 0%;
 }
 
@@ -55,7 +55,15 @@ body {
 }
 
 #detail {
+    box-sizing: border-box;
+    table-layout: fixed;
+    border-collapse: collapse;
+    border-spacing: 0;
+    font-size: 1em;
 	min-height: 300px;
+	margin-left: 174px;
+	margin-right: 174px;
+	
 }
 
 .fc-event, .fc-event:hover, .ui-widget .fc-event {
@@ -85,6 +93,7 @@ function dateToYYYYMMDD(date){
 }
 
 	$(document).ready(function() {
+		$('#detailTable thead').hide();
 		var today = new Date();
 		$('#calendar').fullCalendar({
 			header : {
@@ -125,6 +134,7 @@ function dateToYYYYMMDD(date){
 				});
 			},
 			dayClick: function(date, jsEvent, view) {
+				$('#detailTable tbody').empty();
 				var current = $('#calendar').fullCalendar('getDate');
 				var now = dateToYYYYMMDD(today);
 				
@@ -138,7 +148,7 @@ function dateToYYYYMMDD(date){
 							dataType : 'json',
 							data : 'id_index=' + ${id_index} + '&date=' + date.format(),
 							success : function(data) {
-								$('#detailTable').empty();
+								$('#detailTable thead').show();
 								$(data).each(function(i) {
 									var td = "<tr"
 											+ " class='detailOne' "
@@ -189,10 +199,23 @@ function dateToYYYYMMDD(date){
 
 	<div id="center">
 		<div id="calendar"></div>
-		<div id="detail">
-			<table id="detailTable" border="solid black 1px">
 
-			</table>
+		<div id="detail">
+			<div class="row">
+				<div class="col-md-12">
+					<table class="table" id="detailTable">
+						<thead>
+							<tr>
+								<th>Category</th>
+								<th>Detail</th>
+								<th>Price</th>
+							</tr>
+						</thead>
+						<tbody class="detailBody">
+						</tbody>
+					</table>
+				</div>
+			</div>
 		</div>
 	</div>
 
