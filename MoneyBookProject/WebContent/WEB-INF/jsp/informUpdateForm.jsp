@@ -20,19 +20,6 @@
 	
 	<style type="text/css">
 	
-	input {
-    font-size: 15px;
-    line-height: 16px;
-    position: relative;
-    z-index: 9;
-    width: 100%;
-    height: 16px;
-    padding: 7px 0 6px;
-    color: #000;
-    border: none;
-    background: #fff;
-    -webkit-appearance: none;
-}
 	</style>
 	
 </head>
