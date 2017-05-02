@@ -42,6 +42,32 @@
 				}
 			});
 		});
+		
+		$('#btn_update').click(function() {
+			$.ajax({
+				type : 'post',
+				url : 'moneyBookUpdate.do',
+				dataType : 'json',
+				data : 'id_index=' + ${id_index}
+						+ '&moneyBookNo=' + ${moneyBook.moneyBookNo}
+						+ '&category=' + $('#category').val()
+						+ '&detail=' + $('#edt_detail').val()
+						+ '&price=' + $('#edt_price').val()
+						+ '&date=' + $('#datepicker').val(),
+				success : function(data) {
+					alert(data.msg);
+					if (data.result) {
+						//창 종료	
+					} else {
+						//창 냅두기
+					}
+				},
+				error : function() {
+					alert('error');
+				}
+			});
+		});
+		
 	});
 </script>
 
@@ -49,7 +75,6 @@
 </head>
 <body>
 	<center>
-		<form class="form-horizontal">
 			<fieldset>
 				<div class="form-group">
 					<label class="col-md-4 control-label" for="date">Date</label>
@@ -108,7 +133,6 @@
 				</div>
 
 			</fieldset>
-		</form>
 	</center>
 </body>
 </html>

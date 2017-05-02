@@ -104,7 +104,7 @@ function dateToYYYYMMDD(date){
 					type : 'post',
 					url : 'moneyBookView.do',
 					dataType : 'json',
-					data : 'id_index=1&date=' + nowDate.format('YYYY-MM-DD'),
+					data : 'id_index=' + ${id_index} + '&date=' + nowDate.format('YYYY-MM-DD'),
 					success : function(data) {
 						var events = [];
 						for (var i = 0; i < data.lastDay; i++) {
@@ -136,7 +136,7 @@ function dateToYYYYMMDD(date){
 							type : 'post',
 							url : 'moneyBookDetailView.do',
 							dataType : 'json',
-							data : 'id_index=1&date=' + date.format(),
+							data : 'id_index=' + ${id_index} + '&date=' + date.format(),
 							success : function(data) {
 								$('#detailTable').empty();
 								$(data).each(function(i) {
@@ -163,6 +163,7 @@ function dateToYYYYMMDD(date){
 		});
 		
 		$(document).on('click', '.detailOne', function() {
+			alert($(this).attr('id'));
 			var popUrl = "moneyBookUpdateForm.do?"
 				+ "id_index=" + ${id_index}
 				+ "&date=" + $(this).attr('name')

@@ -150,6 +150,7 @@ public class MoneyBookController {
 		String mbDate = moneyBookService.searchDate(date).get("date").toString();
 		// 클릭한 가계부 중 하나의 정보를 얻어옴 (selectOne)
 		mav.addObject("moneyBook", moneyBookService.moneyBookSelectOne(moneyBookNo, id_index, date));
+		System.out.println(moneyBookService.moneyBookSelectOne(moneyBookNo, id_index, date));
 		mav.addObject("mbDate", mbDate);
 		// 팝업창 uri
 		mav.setViewName("moneyBookUpdateForm");
