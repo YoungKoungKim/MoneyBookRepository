@@ -21,7 +21,6 @@
 <style type="text/css">
 body {
 	padding: 0;
-	font-family: 'Ubuntu Condensed', sans-serif;
 	font-size: 14px;
 	height: 100%;
 }
@@ -34,7 +33,8 @@ body {
 }
 
 #center {
-	position: absolute;
+	font-family: 'Ubuntu Condensed', sans-serif;
+	position: relative;
 	left: 20%;
 	right: 20%;
 	height: 100%;
@@ -42,9 +42,9 @@ body {
 }
 
 #right {
-	position: absolute;
+	position: relative;
 	height: 100%;
-	width: 20%;
+	width: 10%;
 	right: 0%;
 }
 
@@ -55,7 +55,15 @@ body {
 }
 
 #detail {
+    box-sizing: border-box;
+    table-layout: fixed;
+    border-collapse: collapse;
+    border-spacing: 0;
+    font-size: 1em;
 	min-height: 300px;
+	margin-left: 174px;
+	margin-right: 174px;
+	
 }
 
 .fc-event, .fc-event:hover, .ui-widget .fc-event {
@@ -65,6 +73,10 @@ body {
 
 .fc-day-number {
 	color: #91D4B5;
+}
+
+.detailOne:hover {
+	background-color: #91D4B5; 
 }
 </style>
 
@@ -102,6 +114,7 @@ function dateToYYYYMMDD(date){
 }
 
 	$(document).ready(function() {
+<<<<<<< HEAD
 		
 		
 	if('${param.succ}' == "sucess"){
@@ -113,6 +126,9 @@ function dateToYYYYMMDD(date){
 		
 		
 		
+=======
+		$('#detailTable thead').hide();
+>>>>>>> branch 'master' of https://github.com/YoungKoungKim/MoneyBookRepository.git
 		var today = new Date();
 		$('#calendar').fullCalendar({
 			header : {
@@ -132,7 +148,7 @@ function dateToYYYYMMDD(date){
 					type : 'post',
 					url : 'moneyBookView.do',
 					dataType : 'json',
-					data : 'id_index=1&date=' + nowDate.format('YYYY-MM-DD'),
+					data : 'id_index=' + ${id_index} + '&date=' + nowDate.format('YYYY-MM-DD'),
 					success : function(data) {
 						var events = [];
 						for (var i = 0; i < data.lastDay; i++) {
@@ -153,6 +169,7 @@ function dateToYYYYMMDD(date){
 				});
 			},
 			dayClick: function(date, jsEvent, view) {
+				$('#detailTable tbody').empty();
 				var current = $('#calendar').fullCalendar('getDate');
 				var now = dateToYYYYMMDD(today);
 				
@@ -164,20 +181,29 @@ function dateToYYYYMMDD(date){
 							type : 'post',
 							url : 'moneyBookDetailView.do',
 							dataType : 'json',
-							data : 'id_index=1&date=' + date.format(),
+							data : 'id_index=' + ${id_index} + '&date=' + date.format(),
 							success : function(data) {
-								$('#detailTable').empty();
-								$(data).each(function(i) {
-									var td = "<tr"
-											+ " class='detailOne' "
-											+ " id='" + data[i].moneyBookNo + "'"
-											+ " name='" + date.format() + "'>"
-											+ "<td>" + data[i].category + "</td>"
-											+ "<td>" + data[i].detail + "</td>"
-											+ "<td>" + data[i].price + "</td>"
-											+ "</tr>"
-									$('#detailTable').append(td);
-								})
+								if (data.length == 0) {
+									$('#detailTable thead').hide();
+									var img = "<center><br><h5>아직 등록된 데이터가 없습니다!</h5>"
+												+"<img src='assets/img/ryan_broken.gif'"+
+												"style='width='240px'; height='240px''></center>";
+									$('#detailTable tbody').append(img);
+								} else {
+									$('#detailTable thead').show();
+									$(data).each(function(i) {
+										var td = "<tr"
+												+ " class='detailOne' "
+												+ " id='" + data[i].moneyBookNo + "'"
+												+ " name='" + date.format() + "'>"
+												+ "<td>" + data[i].category + "</td>"
+												+ "<td>" + data[i].detail + "</td>"
+												+ "<td>" + data[i].price + "</td>"
+												+ "</tr>"
+										$('#detailTable').append(td);
+									})
+								}
+								
 							},
 							error : function() {
 								alert('error');
@@ -223,10 +249,23 @@ function dateToYYYYMMDD(date){
 
 	<div id="center">
 		<div id="calendar"></div>
-		<div id="detail">
-			<table id="detailTable" border="solid black 1px">
 
-			</table>
+		<div id="detail">
+			<div class="row">
+				<div class="col-md-12">
+					<table class="table" id="detailTable">
+						<thead>
+							<tr>
+								<th>Category</th>
+								<th>Detail</th>
+								<th>Price</th>
+							</tr>
+						</thead>
+						<tbody class="detailBody">
+						</tbody>
+					</table>
+				</div>
+			</div>
 		</div>
 	</div>
 

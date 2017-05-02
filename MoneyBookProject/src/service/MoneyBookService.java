@@ -50,8 +50,6 @@ public class MoneyBookService implements IMoneyBookService {
 	@Override
 	public HashMap<String, Object> totalAmountByCategory(int id_index, Date date) {
 		List<MoneyBook> list = getMonthContent(id_index, date);
-		for (MoneyBook m : list)
-			System.out.println(m);
 		HashMap<String, Object> params = new HashMap<>();
 		int food = 0; // 식비
 		int traffic = 0;// 교통비
@@ -98,50 +96,39 @@ public class MoneyBookService implements IMoneyBookService {
 
 		if (food != 0) {
 			params.put("food", food);
-			params.put("foodPercent", (food/expense)*100);
 			}
 		if (traffic != 0) {
 			params.put("traffic", traffic);
-			params.put("trafficPercent", (traffic/expense)*100);
 		}
 		if (medical != 0) {
 			params.put("medical", medical);
-			params.put("medicalPercent", (medical/expense)*100);
 		}
 		if (beauty != 0) {
 			params.put("beauty", beauty);
-			params.put("beautyPercent", (beauty/expense)*100);
 		}
 		if (commodity != 0) {
 			params.put("commodity", commodity);
-			params.put("commodityPercent", (commodity/expense)*100);
 		}
 		if (education != 0) {
 			params.put("education", education);
-			params.put("educationPercent", (education/expense)*100);
 		}
 		if (phonefees != 0) {
 			params.put("phonefees", phonefees);
-			params.put("phonefeesPercent", (phonefees/expense)*100);
 		}
 		if (saving != 0) {
 			params.put("saving", saving);
-			params.put("savingPercent", (saving/expense)*100);
 		}
 		if (utilitybills != 0) {
 			params.put("utilitybills", utilitybills);
-			params.put("utilityPercent", (utilitybills/expense)*100);
 		}
 		if (culturallife != 0) {
 			params.put("culturallife", culturallife);
-			params.put("culturallifePercent", (culturallife/expense)*100);
 		}
 		if (income != 0) {
 			params.put("income", income);
 		}
 		if (otheritems != 0) {
 			params.put("otheritems", otheritems);
-			params.put("otheritemsPercent", (otheritems/expense)*100);
 		}
 
 		return params;
@@ -264,13 +251,14 @@ public class MoneyBookService implements IMoneyBookService {
 		List<String[]> monthAmountList = new ArrayList<>();
 		HashMap<String, Object> dateInfo = searchDate(date);
 		int lastDay = Integer.parseInt(dateInfo.get("endMonth").toString().substring(8, 10));
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		for (int i = 1; i <= lastDay; i++) {
 			String[] arr = new String[3];
 			int income = 0;
 			int expense = 0;
 			Date tmpDate = date;
 			tmpDate.setDate(i);
-			List<MoneyBook> mbList = getDayContent(tmpDate, id_index);
+			List<MoneyBook> mbList = getDayContent(date, id_index);
 			for (MoneyBook mb : mbList) {
 				if (mb.getCategory().equals("income")) {
 					income += mb.getPrice();
@@ -278,7 +266,6 @@ public class MoneyBookService implements IMoneyBookService {
 					expense += mb.getPrice();
 				}
 			}
-			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 			arr[0] = format.format(tmpDate);
 			arr[1] = String.valueOf(income);
 			arr[2] = String.valueOf(expense);

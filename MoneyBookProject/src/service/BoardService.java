@@ -1,6 +1,8 @@
 package service;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -11,9 +13,11 @@ import org.springframework.stereotype.Service;
 import dao.IBoardDao;
 import dao.IExtraBoardDao;
 import dao.IMemberDao;
+import dao.IMoneyBookDao;
 import model.Board;
 import model.ExtraBoard;
 import model.Member;
+import model.MoneyBook;
 
 @Service
 public class BoardService implements IBoardService {
@@ -23,7 +27,12 @@ public class BoardService implements IBoardService {
 	private IMemberDao mDao;
 	@Autowired
 	private IExtraBoardDao ebDao;
-
+	@Autowired
+	private IMoneyBookService moneybookservice;
+	@Autowired
+	private IMoneyBookDao mbdao;
+	
+	
 	@Override
 	public int boardRecommand(int boardNo) {
 		int result = bDao.updateRecommendBoard(boardNo);
@@ -86,12 +95,28 @@ public class BoardService implements IBoardService {
 	}
 
 	@Override
-	public int boardWrite(Board board) {
-		int result = bDao.insertBoard(board);
-		if (result > 0)
-			return 3001;
-		else
-			return 3002;
+	public void boardWrite(Board board, Date date2) {
+		
+		 HashMap<String, Object>  amount = moneybookservice.totalMonthAmount(board.getId_index(), date2);
+		 int expense = (int)amount.get("expense");
+		 
+		ExtraBoard eboard = new ExtraBoard();
+		bDao.insertBoard(board);
+		eboard.setBoardNo(board.getBoardNo());
+		eboard.setId_index(board.getId_index());
+		
+		eboard.setMonth(date2);
+		
+
+		 HashMap<String, Object> category= (HashMap<String, Object>) moneybookservice.totalAmountByCategory(board.getId_index(),date2);
+		
+		for (String key : category.keySet() ){
+			eboard.setCategory(key);
+			eboard.setPrice((int) category.get(key));
+			eboard.setPercent( ((int)category.get(key))/expense*100 );
+			ebDao.insertExtraBoard(eboard);
+		}
+		
 	}
 
 	@Override
@@ -119,7 +144,7 @@ public class BoardService implements IBoardService {
 		} else {
 			list = bDao.selectboardLimit(params);
 		}
-		
+
 		HashMap<String, Object> result = new HashMap<>();
 		result.put("start", start);
 		result.put("first", first);

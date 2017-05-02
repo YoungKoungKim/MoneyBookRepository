@@ -12,6 +12,7 @@
 	crossorigin="anonymous"></script>
 
 <script type="text/javascript" src="js/memberJs.js"></script>
+<script type="text/javascript" src="js/headerScript.js"></script>
 
 <script type="text/javascript">
 	$(document).ready(function() {
@@ -43,7 +44,7 @@
 								<!-- 공유게시판 -->
 								<a href="boardList.do" title="공유게시판">BulletinBoard</a>
 								<!-- 가계부 -->
-								<a href="viewMyPage.do?id_index=1&date=2017-04-27" title="가계부">MyMoneyBook</a>
+								<a href="#" title="가계부">MyMoneyBook</a>
 								<!-- 로그인 -->
 								<a data-toggle="modal" data-target="#loginModal"
 									data-backdrop="static" href="#loginForm" title="로그인">Login</a>
@@ -68,9 +69,10 @@
 								<!-- 공유게시판 -->
 								<a href="boardList.do" title="공유게시판">BulletinBoard</a>
 								<!-- 가계부 -->
-								<a href="#moneyBook" title="가계부">MyMoneyBook</a>
+								<a href="#" onclick="viewMyPage(${id_index})" title="가계부">MyMoneyBook</a>
 								<!-- 가계부 -->
-								<form action="informUpdateForm.do" method="post" id="updateForm">
+								<form action="informUpdateForm.do" method="post" id="updateForm"
+									style="display: inline-block;">
 									<input type="hidden" value="${id_index }" name="id_index">
 								</form>
 								<a href="#" title="회원 정보 수정" id="updateLink">InformUpdate</a>
@@ -101,12 +103,12 @@
 						<table>
 							<tr align="center">
 								<td style="color: black;">아이디</td>
-								<td><input type="text" id="join_Id" class="form-control"
+								<td width="305px;"><input type="text" id="join_Id" class="form-control"
 									placeholder="이메일을 입력하세요."></td>
 							</tr>
 							<tr>
 								<td></td>
-								<td><span id="join_IdCheck" style="color: red;"></span></td>
+								<td><span id="join_IdCheck" style="color: red;"></span><br></td>
 							</tr>
 							<tr align="center">
 								<td style="color: black;">닉네임</td>
@@ -115,7 +117,7 @@
 							</tr>
 							<tr>
 								<td></td>
-								<td><span id="join_NickCheck" style="color: red;"></span></td>
+								<td><span id="join_NickCheck" style="color: red;"></span><br></td>
 							</tr>
 							<tr align="center">
 								<td style="color: black;">비밀번호</td>
@@ -124,7 +126,7 @@
 							</tr>
 							<tr>
 								<td></td>
-								<td><span id="join_PwdCheck" style="color: red;"></span></td>
+								<td><span id="join_PwdCheck" style="color: red;"></span><br></td>
 							</tr>
 							<tr align="center">
 								<td style="color: black;">비밀번호 확인</td>
@@ -133,7 +135,7 @@
 							</tr>
 							<tr>
 								<td></td>
-								<td><span id="join_PwdOkCheck" style="color: red;"></span></td>
+								<td><span id="join_PwdOkCheck" style="color: red;"></span><br></td>
 							</tr>
 							<tr align="center">
 								<td colspan="2"><input type="button" value="확인"
@@ -170,12 +172,12 @@
 						<table>
 							<tr align="center">
 								<td style="color: black;">아이디</td>
-								<td><input type="text" id="login_Id" class="form-control"
+								<td width="305px;"><input type="text" id="login_Id" class="form-control"
 									placeholder="이메일을 입력하세요."></td>
 							</tr>
 							<tr>
 								<td></td>
-								<td><span id="login_IdCheck" style="color: red;"></span></td>
+								<td><span id="login_IdCheck" style="color: red;"></span><br></td>
 							</tr>
 							<tr align="center">
 								<td style="color: black;">비밀번호</td>
@@ -184,7 +186,7 @@
 							</tr>
 							<tr>
 								<td></td>
-								<td><span id="login_PwdCheck" style="color: red;"></span></td>
+								<td><span id="login_PwdCheck" style="color: red;"></span><br></td>
 							</tr>
 							<tr align="center">
 								<td colspan="2"><input type="button" value="로그인"
@@ -201,12 +203,12 @@
 
 	<!-- JAVASCRIPT FILES PLACED AT THE BOTTOM TO REDUCE THE LOADING TIME  -->
 	<!-- CORE JQUERY  SCRIPTS -->
-<!-- 	<script src="assets/js/jquery-1.11.1.js"></script> -->
+	<!-- 	<script src="assets/js/jquery-1.11.1.js"></script> -->
 	<!-- BOOTSTRAP SCRIPTS  -->
-<!-- 	<script src="assets/js/bootstrap.js"></script> -->
+	<!-- 	<script src="assets/js/bootstrap.js"></script> -->
 	<!-- SCROLLING SCRIPTS PLUGIN  -->
-<!-- 	<script src="assets/js/jquery.easing.min.js"></script> -->
+	<!-- 	<script src="assets/js/jquery.easing.min.js"></script> -->
 	<!-- CUSTOM SCRIPTS   -->
-<!-- 	<script src="assets/js/custom.js"></script> -->
+	<!-- 	<script src="assets/js/custom.js"></script> -->
 </body>
 </html>

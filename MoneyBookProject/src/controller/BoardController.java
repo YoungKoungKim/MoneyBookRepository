@@ -26,6 +26,7 @@ import service.ExtraBoardService;
 import service.IBoardService;
 import service.ICommentService;
 import service.IExtraService;
+import service.IMoneyBookService;
 
 @Controller
 public class BoardController {
@@ -34,8 +35,6 @@ public class BoardController {
 	private IBoardService boardservice;
 	@Autowired
 	private IExtraService extraboardservice;
-	@Autowired
-	private ICommentService commentservice;
 	 
 	@RequestMapping("boardList.do")
 	public ModelAndView boardList(@RequestParam(defaultValue="1")int page,
@@ -111,27 +110,9 @@ public class BoardController {
 	}
 
 	@RequestMapping("boardWrite.do")
-	public String boardWrite(Board board, 
-			HashMap<String, Object>monthAmount,
-			HashMap<String, Object>totalAmountByCategory, 
-			List<MoneyBook> monthContent){
-		ExtraBoard eboard = new ExtraBoard();
-	
-		eboard.setBoardNo(boardservice.boardWrite(board)); 
-		eboard.setId_index(monthContent.get(0).getId_index());
-		
-		for(String key : totalAmountByCategory.keySet()) {
-			eboard.setCategory(key);
-			eboard.setPrice((int)totalAmountByCategory.get(key));
-		}
-		for(String key : monthAmount.keySet()){
-			eboard.setCategory(key);
-			eboard.setPrice((int) monthAmount.get(key));
-		}
-		eboard.setMonth(monthContent.get(0).getDate());
-		 
-		extraboardservice.boardWrite(eboard);
-		return "redirect:viewMyPage.do";
+	public String boardWrite(Board board, Date date2){
+		boardservice.boardWrite(board ,date2);
+		return "redirect:boardList.do";
 		
 //		Iterator<String> iter = totalAmountByCategory.keySet().iterator();
 //		while(iter.hasNext()){
