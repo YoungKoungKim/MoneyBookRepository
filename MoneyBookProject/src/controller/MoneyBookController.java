@@ -244,7 +244,7 @@ public class MoneyBookController {
 	public ModelAndView moneyBookWriteForm(int id_index) {
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("bookMarkList", bookMarkService.bookMarkSearch(id_index));
-		mav.setViewName("moneyBookAdd");
+		mav.setViewName("empty/moneyBookAdd");
 		return mav;
 	}
 
@@ -253,7 +253,7 @@ public class MoneyBookController {
 	public ModelAndView bookmarkRegistForm(int id_index) {
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("bookMarkList", bookMarkService.bookMarkSearch(id_index));
-		mav.setViewName("bookmarkRegistForm");
+		mav.setViewName("empty/bookmarkRegistForm");
 		return mav;
 	}
 
@@ -266,18 +266,21 @@ public class MoneyBookController {
 	}
 
 	@RequestMapping("moneyBookRegist.do")
-	public String moneyBookRegist(int id_index, String category, String detail, String price, int year, int month,
+	public ModelAndView moneyBookRegist(int id_index, String category, String detail, String price, int year, int month,
 			int day) {
 		System.out.println("가계부 등록 요청에 왔다");
+		ModelAndView mav = new ModelAndView();
 		int resultCount = 0;
 
 		String[] category_arr = category.split(",");
 		String[] detail_arr = detail.split(",");
 		String[] price_arr = price.split(",");
 
+		Date date = new Date();
+		String date2 = null;
 		for (int i = 0; i < category_arr.length; i++) {
 			System.out.println(detail_arr[i]);
-			Date date = new Date();
+			
 			date.setYear(year - 1900);
 			date.setMonth(month - 1);
 			date.setDate(day);
@@ -289,6 +292,9 @@ public class MoneyBookController {
 			mb.setPrice(Integer.parseInt(price_arr[i]));
 			mb.setDate(date);
 			int result = moneyBookService.moneyBookRegist(mb);
+			System.out.println(result);
+			System.out.println(date);
+			date2 = (String) moneyBookService.searchDate(date).get("date");
 
 			if (result == 3201) {
 				resultCount++;
@@ -296,10 +302,16 @@ public class MoneyBookController {
 		}
 
 		if (resultCount == category_arr.length) {
-			return "redirect:moneyBookView.do?id_index=" + id_index;
+			mav.setViewName("redirect:/viewMyPage.do");
+			mav.addObject("id_index", id_index);
+			mav.addObject("date", date2);
+			mav.addObject("succ", "sucess");
+			
 		} else {
-			return "redirect:moneyBookRegist.do";
+			mav.setViewName("redirect:/moneyBookRegist.do");
 		}
+		
+		return mav;
 	}
 
 	@InitBinder

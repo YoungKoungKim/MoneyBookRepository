@@ -23,6 +23,10 @@ $(document).ready(function() {
 	alert("${param.msg}");
 	}
 	
+	$("#cancle_btn").click(function(){
+		window.close();	
+	});
+	
 	$(document).on("click",".update_btn", function(){
 		var id_index = $(this).attr('id').replace("update_btn", "");
 		$('#price'+id_index).attr("readonly", false);
@@ -127,13 +131,13 @@ input[type="button"] {
 	text-align: center;
 }
 
-#main_div {
+/* #main_div {
 	position: absolute;
 	top: 150px;
 	left: 151px;
 	width: 677px;
 	height: 526px;
-}
+} */
 
 #btn_list {
 	/* position: absolute; */
@@ -255,7 +259,8 @@ button[type=submit] {
 			<br>
 			<div id="btn_list">
 				<input type="submit" value="즐겨찾기 등록" class="btn"
-					id="book_mark_regist_btn"> <input type="button" class="btn"
+					id="book_mark_regist_btn"> 
+					<input type="button" class="btn"
 					id="cancle_btn" value="취소">
 			</div>
 		</div>

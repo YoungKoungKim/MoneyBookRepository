@@ -12,4 +12,15 @@
 	<definition name="*.tiles" extends="tiles">
 		<put-attribute name="content" value="/WEB-INF/jsp/{1}.jsp"></put-attribute>
 	</definition>
+	
+	<definition name="empty" template="/WEB-INF/template/empty.jsp">
+        <put-attribute name="content" value=""/>  
+    </definition>
+
+	<definition name="empty/*.*" extends="empty">
+	
+          <put-attribute name="content" value="/WEB-INF/popup/{1}.jsp"></put-attribute>
+          
+    </definition>
+	
 </tiles-definitions>

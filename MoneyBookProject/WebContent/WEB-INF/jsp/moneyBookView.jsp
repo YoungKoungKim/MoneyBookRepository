@@ -70,10 +70,27 @@ body {
 
 <script type="text/javascript">
 
+jQuery.fn.center = function () {
+    this.css("position","absolute");
+    this.css("top", Math.max(0, (($(window).height() - $(this).outerHeight()) / 2) + $(window).scrollTop()) + "px");
+    this.css("left", Math.max(0, (($(window).width() - $(this).outerWidth()) / 2) + $(window).scrollLeft()) + "px");
+    return this;
+}
+
+
 function moneyBookRegist(id_index){
+
 	var popUrl = "moneyBookWriteForm.do?id_index=" + id_index;	//팝업창에 출력될 페이지 URL
-	var popOption = "width=370, height=360, resizable=no, scrollbars=no, status=no;";    //팝업창 옵션(optoin)
-	window.open(popUrl,"",popOption);
+	var popOption = "top=200, left=300, width=600, height=500, resizable=no, scrollbars=no, status=no";    //팝업창 옵션(optoin)
+	window.open(popUrl,"가계부입력",popOption);
+ 	
+	
+}
+
+function bookmarkRegist(id_index){
+	var popUrl = "bookmarkRegistForm.do?id_index=" + id_index;	//팝업창에 출력될 페이지 URL
+	var popOption = "top=200, left=300, width=500, height=400, resizable=no, scrollbars=no, status=no";    //팝업창 옵션(optoin)
+	window.open(popUrl,"즐겨찾기등록",popOption);
 }
 	
 function dateToYYYYMMDD(date){
@@ -85,6 +102,17 @@ function dateToYYYYMMDD(date){
 }
 
 	$(document).ready(function() {
+		
+		
+	if('${param.succ}' == "sucess"){
+			window.close();
+			opener.parent.location.reload();
+			//location.reload();
+	} 
+		
+		
+		
+		
 		var today = new Date();
 		$('#calendar').fullCalendar({
 			header : {
@@ -172,6 +200,12 @@ function dateToYYYYMMDD(date){
 		});
 		
 	});
+	
+	function loadImage(){
+		var popUrl = "";	//팝업창에 출력될 페이지 URL
+		var popOption = "width=650, height=420, resizable=no, scrollbars=no, status=no;";    //팝업창 옵션(optoin)
+		window.open(popUrl,"",popOption);
+	}
 </script>
 </head>
 <body>
@@ -183,6 +217,7 @@ function dateToYYYYMMDD(date){
 			<div>
 				총 지출 : <span id="monthExpense">${monthAmount.expense }</span>
 			</div>
+			<button onclick="bookmarkRegist(${param.id_index})">즐겨찾기 등록</button>
 		</center>
 	</div>
 
@@ -196,8 +231,8 @@ function dateToYYYYMMDD(date){
 	</div>
 
 	<div id="right">
-		<button onclick="moneyBookRegist(${id_index})">등록</button>
-		<button>공유</button>
+		<button onclick="moneyBookRegist(${param.id_index})">등록</button>
+		<button onclick="loadImage()">공유</button>
 	</div>
 </body>
 </html>
