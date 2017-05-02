@@ -49,7 +49,7 @@
 </head>
 <body>
 	<center>
-		<form class="form-horizontal" action="">
+		<form class="form-horizontal">
 			<fieldset>
 				<div class="form-group">
 					<label class="col-md-4 control-label" for="date">Date</label>
