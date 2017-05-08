@@ -25,7 +25,7 @@
 		<table>
 			<tr align="center">
 				<td>아이디</td>
-				<td align="left" width="305px;"><input type="text" id="inform_Nick" value="${member.id }"
+				<td align="left" width="305px;"><input type="text" id="inform_Id" value="${member.id }"
 					class="form-control" readonly="readonly"></td>
 			</tr>
 			<tr>
