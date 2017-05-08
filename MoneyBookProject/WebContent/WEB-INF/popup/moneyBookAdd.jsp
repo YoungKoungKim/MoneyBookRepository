@@ -145,8 +145,9 @@ $(document).ready(function() {
 			+"<td><input type='text' name='detail'" 
 			+"placeholder='사용내역을 입력하세요.' id='detail"+addCount+"'></td>"
 			+"<td><input type='text' name='price' "
-			+"id='price"+addCount+"' placeholder='가격을 입력하세요.'>"
-			+"<input type = 'button' value='추가' id='add_line_btn"+addCount+"' class='add_line_btn'>"
+			+"id='price"+addCount+"' placeholder='가격을 입력하세요.'></td>"
+			+"<td><a href = '#' target='' id='add_line_btn"+addCount+"'class='add_line_btn'>"
+			+"<i class='fa fa-plus-circle' aria-hidden='true'></i></a>"
 			+"</td>"
 			+"</tr>" ;
 			
@@ -179,6 +180,7 @@ $(document).ready(function() {
 	border-radius: 10px;
 	background-color: #91D4B5;
 	padding: 10px 35px;
+	
 }
 
 .bookmark2 {
@@ -189,18 +191,11 @@ $(document).ready(function() {
 	margin: 3px;
 }
 
-/*   input[type="button"] {
-	border-radius: 10px;
-	background-color: #91D4B5;
-	padding: 10px 35px;
-	width: 150px;
-}   */
 
 #main_div {
-
-	width: 600px;
-	/* height: 500px; */
-	border: 1px solid #91D4B5;
+	/* background-color: #FAFAD2; */
+	
+	border: 3px solid #91D4B5;
 }
 
 #list_div {
@@ -215,7 +210,8 @@ $(document).ready(function() {
 #btn_list_div {
 	top: 350px;
 	left: 200px;
-	padding-left: 100px
+	padding-left: 150px;
+	
 }
 
 #year, #month, #day {
@@ -227,7 +223,7 @@ $(document).ready(function() {
 select {
 	border: 1px solid #ddd;
 	padding: 10px;
-	width: 100px;
+	width: 140px;
 }
 
 input[type="text"] {
@@ -242,7 +238,13 @@ input[type="text"] {
 }
 
 div {
-	padding: 5px;
+ padding:5px; 
+}
+.add_line_btn {
+color : #91D4B5;
+font-size: 25px;
+text-align: right;
+margin-left: 5px;
 }
 </style>
 <title>가계부 등록</title>
@@ -309,7 +311,7 @@ div {
 
 			<div id="bookmark_bar_div">
 				<h3>
-					<i class="fa fa-bookmark" aria-hidden="true"></i>즐겨찾기
+					<i class="fa fa-bookmark" aria-hidden="true"></i> 즐겨찾기
 				</h3>
 			</div>
 
@@ -347,14 +349,15 @@ div {
 							<td><input type="text" name="detail"
 								placeholder="사용내역을 입력하세요." id="detail${status.index}"></td>
 							<td><input type="text" name="price"
-								id="price${status.index}" placeholder="가격을 입력하세요."> <c:if
-									test="${status.last}">
-									
+								id="price${status.index}" placeholder="가격을 입력하세요.">
+								<c:if test="${status.last}">
+								<td>
 									<a href = "#" target="" id="add_line_btn${status.index}" class="add_line_btn">
-									<i class="fa fa-plus-circle" aria-hidden="true"></i>
+									<i class="fa fa-plus-circle fa-2x;" aria-hidden="true"></i>
 									</a>
-				
-								</c:if></td>
+									</td>
+								</c:if>
+							</td>
 						</tr>
 					</c:forEach>
 				</table>

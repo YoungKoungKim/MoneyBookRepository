@@ -114,8 +114,6 @@ function dateToYYYYMMDD(date){
 }
 
 	$(document).ready(function() {
-<<<<<<< HEAD
-		
 		
 	if('${param.succ}' == "sucess"){
 			window.close();
@@ -123,12 +121,6 @@ function dateToYYYYMMDD(date){
 			//location.reload();
 	} 
 		
-		
-		
-		
-=======
-		$('#detailTable thead').hide();
->>>>>>> branch 'master' of https://github.com/YoungKoungKim/MoneyBookRepository.git
 		var today = new Date();
 		$('#calendar').fullCalendar({
 			header : {
