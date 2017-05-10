@@ -9,6 +9,12 @@
 <link href="./fullcalendar-3.3.1/fullcalendar.css" rel="stylesheet" />
 <link href="./fullcalendar-3.3.1/fullcalendar.print.css"
 	rel="stylesheet" media="print" />
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+<link rel="stylesheet"
+	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <!-- 웹폰트 -->
 <link
 	href="https://fonts.googleapis.com/css?family=Abel|Open+Sans+Condensed:300|Rationale|Ubuntu+Condensed"
@@ -38,7 +44,7 @@ body {
 	left: 20%;
 	right: 20%;
 	height: 100%;
-	width: 60%;
+	width: 70%;
 }
 
 #right {
@@ -50,20 +56,19 @@ body {
 
 #calendar {
 	padding-top: 50px;
-	max-width: 600px;
+	max-width: 700px;
 	margin: 0 auto;
 }
 
 #detail {
-    box-sizing: border-box;
-    table-layout: fixed;
-    border-collapse: collapse;
-    border-spacing: 0;
-    font-size: 1em;
+	box-sizing: border-box;
+	table-layout: fixed;
+	border-collapse: collapse;
+	border-spacing: 0;
+	font-size: 1em;
 	min-height: 300px;
-	margin-left: 174px;
-	margin-right: 174px;
-	
+	/* 	margin-left: #calendar.margin;
+	margin-right: px; */
 }
 
 .fc-event, .fc-event:hover, .ui-widget .fc-event {
@@ -72,15 +77,17 @@ body {
 }
 
 .fc-day-number {
-	color: #91D4B5;
+	color: #A9A9A9;
 }
 
 .detailOne:hover {
-	background-color: #91D4B5; 
+	background-color: #91D4B5;
 }
 </style>
 
 <script type="text/javascript">
+
+$('#detail').css('margin', $('calendar').attr('margin'));
 
 jQuery.fn.center = function () {
     this.css("position","absolute");
@@ -91,12 +98,9 @@ jQuery.fn.center = function () {
 
 
 function moneyBookRegist(id_index){
-
 	var popUrl = "moneyBookWriteForm.do?id_index=" + id_index;	//팝업창에 출력될 페이지 URL
 	var popOption = "top=200, left=300, width=600, height=500, resizable=no, scrollbars=no, status=no";    //팝업창 옵션(optoin)
 	window.open(popUrl,"가계부입력",popOption);
- 	
-	
 }
 
 function bookmarkRegist(id_index){
@@ -114,7 +118,78 @@ function dateToYYYYMMDD(date){
 }
 
 	$(document).ready(function() {
-<<<<<<< HEAD
+		
+		$(document).on('click', '.detailOne', function() {
+			$("#datepicker").datepicker();
+			$("#datepicker").datepicker("option", "dateFormat", "yy-mm-dd");
+			
+			$.ajax({
+				type : 'post',
+				url : 'moneyBookUpdateForm.do',
+				dataType : 'json',
+				data : 'id_index=${id_index}'
+						+ "&date=" + $(this).attr('name')
+						+ "&moneyBookNo=" + $(this).attr('id'),
+				success : function(data) {
+					$("#datepicker").datepicker("setDate", data.mbDate);
+					$('#category').val(data.moneyBook.category);
+					$('#edt_detail').val(data.moneyBook.detail);
+					$('#edt_price').val(data.moneyBook.price);
+					
+					$('#btn_delete').click(function() {
+						$.ajax({
+							type : 'post',
+							url : 'moneyBookDelete.do',
+							dataType : 'json',
+							data : 'id_index=${id_index}&moneyBookNo='
+									+ data.moneyBook.moneyBookNo,
+							success : function(data) {
+								alert(data.msg);
+								if (data.result) {
+									location.reload();
+								} else {
+									//창 냅두기
+								}
+							},
+							error : function() {
+								alert('error');
+							}
+						});
+					});
+					
+					$('#btn_update').click(function() {
+						$.ajax({
+							type : 'post',
+							url : 'moneyBookUpdate.do',
+							dataType : 'json',
+							data : 'id_index=${id_index}'
+									+ '&moneyBookNo=' + data.moneyBook.moneyBookNo
+									+ '&category=' + $('#category').val()
+									+ '&detail=' + $('#edt_detail').val()
+									+ '&price=' + $('#edt_price').val()
+									+ '&date=' + $('#datepicker').val(),
+							success : function(data) {
+								alert(data.msg);
+								if (data.result) {
+									location.reload();
+								} else {
+									//창 냅두기
+								}
+							},
+							error : function() {
+								alert('error');
+							}
+						});
+					});
+					
+				},
+				error : function() {
+					alert("모달에러");
+				}
+
+			});
+		});
+		
 		
 		
 	if('${param.succ}' == "sucess"){
@@ -123,12 +198,7 @@ function dateToYYYYMMDD(date){
 			//location.reload();
 	} 
 		
-		
-		
-		
-=======
 		$('#detailTable thead').hide();
->>>>>>> branch 'master' of https://github.com/YoungKoungKim/MoneyBookRepository.git
 		var today = new Date();
 		$('#calendar').fullCalendar({
 			header : {
@@ -152,14 +222,23 @@ function dateToYYYYMMDD(date){
 					success : function(data) {
 						var events = [];
 						for (var i = 0; i < data.lastDay; i++) {
-							events.push({
-								title : '수입:' + data.income[i].title,
-								start : data.income[i].start
-							});
-							events.push({
-								title : '지출:' + data.expense[i].title,
-								start : data.expense[i].start
-							});
+							if (data.income[i].title != 0) {
+								events.push({
+									/* 수입 */
+									title : data.income[i].title,
+									start : data.income[i].start,
+									textColor : "#1ABC9C"
+								});
+							}
+							
+							if (data.expense[i].title != 0) {
+								events.push({
+									/* 지출 */
+									title : data.expense[i].title,
+									start : data.expense[i].start,
+									textColor : "#FA8072"
+								});
+							}
 						}
 						callback(events);
 						
@@ -174,9 +253,19 @@ function dateToYYYYMMDD(date){
 				var now = dateToYYYYMMDD(today);
 				
 				if (date.format().substring(0, 7) == current.format('YYYY-MM-DD').substring(0,7)) {
-						$('.fc-day').css('background-color', '#ffffff');
-						$('.fc-today').css('background-color', '#DCDCDC');
+					$('.fc-day').css('background-color', '#ffffff');
+					if (date.format() == now) {
 						$(this).css('background-color', '#91D4B5');
+						$(this).css('opacity', '0');
+						$('.fc-today').css('background-color', '#91D4B5');
+						$('.fc-today').css('opacity', '0.4');
+					} else {
+						$('.fc-today').css('background-color', '#DCDCDC');
+						$('.fc-today').css('opacity', '1');
+						$(this).css('background-color', '#91D4B5');
+						$(this).css('opacity', '0.4');
+					}
+						
 						$.ajax({
 							type : 'post',
 							url : 'moneyBookDetailView.do',
@@ -187,7 +276,7 @@ function dateToYYYYMMDD(date){
 									$('#detailTable thead').hide();
 									var img = "<center><br><h5>아직 등록된 데이터가 없습니다!</h5>"
 												+"<img src='assets/img/ryan_broken.gif'"+
-												"style='width='240px'; height='240px''></center>";
+												"style='width='200px'; height='200px''></center>";
 									$('#detailTable tbody').append(img);
 								} else {
 									$('#detailTable thead').show();
@@ -195,7 +284,8 @@ function dateToYYYYMMDD(date){
 										var td = "<tr"
 												+ " class='detailOne' "
 												+ " id='" + data[i].moneyBookNo + "'"
-												+ " name='" + date.format() + "'>"
+												+ " name='" + date.format() + "'"
+												+ "data-target='#layerpop' data-toggle='modal'>"
 												+ "<td>" + data[i].category + "</td>"
 												+ "<td>" + data[i].detail + "</td>"
 												+ "<td>" + data[i].price + "</td>"
@@ -216,15 +306,6 @@ function dateToYYYYMMDD(date){
 		    }
 		});
 		
-		$(document).on('click', '.detailOne', function() {
-			var popUrl = "moneyBookUpdateForm.do?"
-				+ "id_index=" + ${id_index}
-				+ "&date=" + $(this).attr('name')
-				+ "&moneyBookNo=" + $(this).attr('id');
-			var popOption = "width=370, height=360, resizable=no, scrollbars=no, status=no;";    //팝업창 옵션(optoin)
-			window.open(popUrl,"",popOption);
-		});
-		
 	});
 	
 	function loadImage(){
@@ -237,41 +318,128 @@ function dateToYYYYMMDD(date){
 <body>
 	<div id="left">
 		<center>
-			<div>
-				총 수입 : <span id="monthIncome">${monthAmount.income }</span>
-			</div>
-			<div>
-				총 지출 : <span id="monthExpense">${monthAmount.expense }</span>
-			</div>
+			<table>
+				<tr>
+					<td align="center"><h3>Total</h3></td>
+				</tr>
+
+				<tr>
+					<td>Income : <span id="monthIncome">${monthAmount.income }</span></td>
+				</tr>
+
+				<tr>
+					<td>Expense : <span id="monthExpense">${monthAmount.expense }</span></td>
+				</tr>
+			</table>
 			<button onclick="bookmarkRegist(${param.id_index})">즐겨찾기 등록</button>
 		</center>
 	</div>
 
 	<div id="center">
-		<div id="calendar"></div>
-
-		<div id="detail">
-			<div class="row">
-				<div class="col-md-12">
-					<table class="table" id="detailTable">
-						<thead>
-							<tr>
-								<th>Category</th>
-								<th>Detail</th>
-								<th>Price</th>
-							</tr>
-						</thead>
-						<tbody class="detailBody">
-						</tbody>
-					</table>
-				</div>
-			</div>
-		</div>
+		<table>
+			<tr>
+				<td><div id="calendar"></div>
+				<td>
+			</tr>
+			<tr>
+				<td><br></td>
+			</tr>
+			<tr>
+				<td>
+					<div id="detail">
+						<table class="table" id="detailTable">
+							<thead>
+								<tr>
+									<th>Category</th>
+									<th>Detail</th>
+									<th>Price</th>
+								</tr>
+							</thead>
+							<tbody class="detailBody">
+							</tbody>
+						</table>
+					</div>
+				</td>
+			</tr>
+		</table>
 	</div>
 
 	<div id="right">
 		<button onclick="moneyBookRegist(${param.id_index})">등록</button>
 		<button onclick="loadImage()">공유</button>
 	</div>
+
+	<div class="modal fade" id="layerpop">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<!-- header -->
+				<!-- <div class="modal-header">
+					닫기(x) 버튼
+					<button type="button" class="close" data-dismiss="modal">×</button>
+					header title
+					<h4 class="modal-title"> </h4>
+				</div> -->
+				<!-- body -->
+				<div class="modal-body">
+					<center>
+						<div class="form-group">
+							<label class="control-label" for="datepicker">Date</label>
+							<div>
+								<input class="form-control" type="text" id="datepicker">
+							</div>
+						</div>
+
+						<!-- Select Basic -->
+						<div class="form-group">
+							<label class="control-label" for="category">Category</label>
+							<div>
+								<select name="category" class="form-control" id="category">
+									<option>카테고리 선택</option>
+									<option value="food">식비</option>
+									<option value="traffic">교통비</option>
+									<option value="commodity">생필품</option>
+									<option value="beauty">미용</option>
+									<option value="medical">의료</option>
+									<option value="education">교육</option>
+									<option value="phonefees">통신비</option>
+									<option value="saving">저축</option>
+									<option value="utilitybills">공과금</option>
+									<option value="culturallife">문화생활</option>
+									<option value="otheritems">기타</option>
+									<option value="income">수입</option>
+								</select>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="control-label" for="edt_detail">Detail</label>
+							<div>
+								<input name="edt_detail" class="form-control input-md"
+									id="edt_detail" type="text">
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="control-label" for="edt_price">Price</label>
+							<div>
+								<input name="edt_price" class="form-control input-md"
+									id="edt_price" type="text">
+							</div>
+						</div>
+					</center>
+				</div>
+				<!-- Footer -->
+				<div class="modal-footer">
+					<div class="form-group">
+						<button name="update" class="btn btn-primary" id="btn_update">수정</button>
+						<button name="delete" class="btn btn-primary" id="btn_delete">삭제</button>
+						<button name="cancel" class="btn btn-primary" id="btn_cancel"
+							data-dismiss="modal">취소</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
 </body>
 </html>
