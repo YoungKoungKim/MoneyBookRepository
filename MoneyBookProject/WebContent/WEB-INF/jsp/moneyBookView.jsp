@@ -118,6 +118,7 @@ function dateToYYYYMMDD(date){
 }
 
 	$(document).ready(function() {
+<<<<<<< HEAD
 		
 		$(document).on('click', '.detailOne', function() {
 			$("#datepicker").datepicker();
@@ -191,6 +192,8 @@ function dateToYYYYMMDD(date){
 		});
 		
 		
+=======
+>>>>>>> branch 'master' of https://github.com/YoungKoungKim/MoneyBookRepository.git
 		
 	if('${param.succ}' == "sucess"){
 			window.close();
@@ -198,7 +201,10 @@ function dateToYYYYMMDD(date){
 			//location.reload();
 	} 
 		
+<<<<<<< HEAD
 		$('#detailTable thead').hide();
+=======
+>>>>>>> branch 'master' of https://github.com/YoungKoungKim/MoneyBookRepository.git
 		var today = new Date();
 		$('#calendar').fullCalendar({
 			header : {

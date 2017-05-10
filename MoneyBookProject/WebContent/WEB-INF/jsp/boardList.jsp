@@ -95,8 +95,8 @@
 		</table>
 		
 		<div>
-			<table>
 			<form action="boardList.do">
+			<table>
 				<tr align="center" >
 					<td>
 						<select name="category">
@@ -109,10 +109,9 @@
 						<input type="submit" id="searchWhat" value="검색">
 					</td>
 				</tr>
-			</form>
 		</table>
+			</form>
 		
-		<input type="button" value="공유" onclick="location.href='boardWriteForm.do?id_index=${id_index}&date=2017-04-28'">
 	</div>
 	</center>	
 

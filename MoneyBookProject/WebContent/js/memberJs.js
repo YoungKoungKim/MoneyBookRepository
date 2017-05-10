@@ -255,8 +255,6 @@ $(document).ready(function() {
  		 							var time = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
  		 							location.href = "viewMyPage.do?id_index=" + $("#inform_Id_index").val() + "&date=" + time;
  		 						} else if (data == 4102) {
- 		 							alert($("#inform_Id_index").val());
- 		 							alert($("#inform_Nick").val());
  		 							$("#inform_NowPwd").val("");
  		 							$("#inform_NowPwdCheck").text("비밀번호가 틀렸습니다.");
  		 						} else if (data == 4103) {

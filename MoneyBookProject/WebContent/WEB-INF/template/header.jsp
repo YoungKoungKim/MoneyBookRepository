@@ -22,6 +22,9 @@
 	})
 </script>
 
+<link href="http://fonts.googleapis.com/earlyaccess/nanumgothic.css"
+	rel="stylesheet">
+
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 <link rel="stylesheet"
@@ -29,6 +32,18 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 
+<style type="text/css">
+.modal-content {
+	width: 523px;
+	height: auto;
+}
+
+.modal-body {
+	margin: 10px;
+	width: 500px;
+	height: auto;
+}
+</style>
 </head>
 <body>
 	<c:choose>
@@ -90,21 +105,14 @@
 		aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal"
-						aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-					<h4 class="modal-title" id="myModalLabel" style="color: black;">회원가입</h4>
-				</div>
-				<div class="modal-body">
+				<div class="modal-body" style="border: 2px solid #91D4B5;">
 					<center>
 						<h1 style="color: black;">회 원 가 입</h1>
 						<table>
 							<tr align="center">
 								<td style="color: black;">아이디</td>
-								<td width="305px;"><input type="text" id="join_Id" class="form-control"
-									placeholder="이메일을 입력하세요."></td>
+								<td width="320px;"><input type="text" id="join_Id"
+									class="form-control" placeholder="이메일을 입력하세요."></td>
 							</tr>
 							<tr>
 								<td></td>
@@ -129,7 +137,7 @@
 								<td><span id="join_PwdCheck" style="color: red;"></span><br></td>
 							</tr>
 							<tr align="center">
-								<td style="color: black;">비밀번호 확인</td>
+								<td style="color: black;">비밀번호 확인&nbsp;</td>
 								<td><input type="password" id="join_PwdOk"
 									class="form-control" placeholder="다시 한번 입력해주세요."></td>
 							</tr>
@@ -159,28 +167,21 @@
 		aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal"
-						aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-					<h4 class="modal-title" id="myModalLabel" style="color: black;">로그인</h4>
-				</div>
-				<div class="modal-body">
+				<div class="modal-body" style="border: 2px solid #91D4B5;">
 					<center>
 						<h1 style="color: black;">로그인</h1>
 						<table>
 							<tr align="center">
 								<td style="color: black;">아이디</td>
-								<td width="305px;"><input type="text" id="login_Id" class="form-control"
-									placeholder="이메일을 입력하세요."></td>
+								<td width="305px;"><input type="text" id="login_Id"
+									class="form-control" placeholder="이메일을 입력하세요."></td>
 							</tr>
 							<tr>
 								<td></td>
 								<td><span id="login_IdCheck" style="color: red;"></span><br></td>
 							</tr>
 							<tr align="center">
-								<td style="color: black;">비밀번호</td>
+								<td style="color: black;">비밀번호&nbsp;</td>
 								<td><input type="password" id="login_Pwd"
 									class="form-control" placeholder="비밀번호를 입력해주세요."></td>
 							</tr>

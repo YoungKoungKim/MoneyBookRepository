@@ -18,10 +18,6 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 	
-	<style type="text/css">
-	
-	</style>
-	
 </head>
 <body>
 	<center>
@@ -29,7 +25,7 @@
 		<table>
 			<tr align="center">
 				<td>아이디</td>
-				<td align="left"><input type="text" id="inform_Nick" value="${member.id }"
+				<td align="left" width="305px;"><input type="text" id="inform_Id" value="${member.id }"
 					class="form-control" readonly="readonly"></td>
 			</tr>
 			<tr>
@@ -64,7 +60,7 @@
 				<td><span id="inform_NewPwdCheck" style="color: red;"></span><br></td>
 			</tr>
 			<tr align="center">
-				<td>새 비밀번호 확인</td>
+				<td>새 비밀번호 확인&nbsp;&nbsp;</td>
 				<td><input type="password" id="inform_NewPwdOk"
 					class="form-control" placeholder="다시 한번 입력해주세요."></td>
 			</tr>
