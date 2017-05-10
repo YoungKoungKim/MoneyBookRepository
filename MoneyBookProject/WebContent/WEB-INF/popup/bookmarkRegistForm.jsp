@@ -15,7 +15,7 @@
 <link href="http://fonts.googleapis.com/earlyaccess/nanumgothic.css"
 	rel="stylesheet">
 <link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <script src="https://code.jquery.com/jquery-2.2.4.min.js"
 	integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
 	crossorigin="anonymous"></script>
@@ -143,6 +143,7 @@ function isNumber(checkValue) {
 		+"	<option value='traffic'>교통비</option>"
 		+"	<option value='commodity'>생필품</option>"
 		+"	<option value='medical'>의료</option>"
+		+"<option value='beauty'>미용</option>"
 		+"	<option value='education'>교육</option>"
 		+"	<option value='phonefees'>통신비</option>"
 		+"	<option value='saving'>저축</option>"
@@ -286,8 +287,8 @@ div {
 						</th>
 						<c:forEach var="bm" items="${bookMarkList}" varStatus="status">
 							<tr id="bookmarklist${status.index}" class="text-center">
-								<td class="category_td"><c:if
-										test="${bm.category=='medical'}">
+								<td class="category_td">
+								<c:if test="${bm.category=='medical'}">
 										<span style="color: #708090;"> 
 										<i class="fa fa-medkit" aria-hidden="true"></i>
 										</span>
@@ -307,7 +308,7 @@ div {
 										</span>
 									</c:if> 
 									<c:if test="${bm.category=='beauty'}">
-									<span style="color: #FFB6C1;"> 
+									<span style="color: #F08080;"> 
 										<i class="fa fa-bath" aria-hidden="true"></i>
 										</span>
 									</c:if> 
@@ -387,6 +388,7 @@ div {
 									<option value="traffic">교통비</option>
 									<option value="commodity">생필품</option>
 									<option value="medical">의료</option>
+									<option value="beauty">미용</option>
 									<option value="education">교육</option>
 									<option value="phonefees">통신비</option>
 									<option value="saving">저축</option>
