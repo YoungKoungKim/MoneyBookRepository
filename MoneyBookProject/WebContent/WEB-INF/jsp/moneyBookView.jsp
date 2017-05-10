@@ -83,6 +83,33 @@ body {
 .detailOne:hover {
 	background-color: #91D4B5;
 }
+
+.btn {
+	font-weight: bold;
+	border-radius: 10px;
+	background-color: #1abc9c;
+	padding: 10px 35px;
+	text-align: center;
+	color: white;
+	border-radius: 10px;
+}
+
+.btn:hover {
+	background-color: grey;
+	color: #fff;
+	text-decoration: none
+}
+
+#borderLine {
+	padding: 5px;
+	margin: 10px;
+	border: 3px solid #1ABC9C;
+}
+
+.modal-body {
+	max-width: 450px;
+}
+
 </style>
 
 <script type="text/javascript">
@@ -95,7 +122,6 @@ jQuery.fn.center = function () {
     this.css("left", Math.max(0, (($(window).width() - $(this).outerWidth()) / 2) + $(window).scrollLeft()) + "px");
     return this;
 }
-
 
 function moneyBookRegist(id_index){
 	var popUrl = "moneyBookWriteForm.do?id_index=" + id_index;	//팝업창에 출력될 페이지 URL
@@ -117,8 +143,25 @@ function dateToYYYYMMDD(date){
     return date.getFullYear() + '-' + pad(date.getMonth()+1) + '-' + pad(date.getDate());
 }
 
+function convertCategory(word) {
+	var category = {
+		food : "식비",
+		traffic : "교통비",
+		commodity : "생필품",
+		beauty : "미용",
+		medical : "의료",
+		education : "교육",
+		phonefees : "통신비",
+		saving : "저축",
+		utilitybills : "공과금",
+		culturallife : "문화생활",
+		otheritems : "기타",
+		income : "수입"
+	}
+	return category[word];
+}
+
 	$(document).ready(function() {
-<<<<<<< HEAD
 		
 		$(document).on('click', '.detailOne', function() {
 			$("#datepicker").datepicker();
@@ -192,19 +235,13 @@ function dateToYYYYMMDD(date){
 		});
 		
 		
-=======
->>>>>>> branch 'master' of https://github.com/YoungKoungKim/MoneyBookRepository.git
-		
 	if('${param.succ}' == "sucess"){
 			window.close();
 			opener.parent.location.reload();
 			//location.reload();
 	} 
 		
-<<<<<<< HEAD
 		$('#detailTable thead').hide();
-=======
->>>>>>> branch 'master' of https://github.com/YoungKoungKim/MoneyBookRepository.git
 		var today = new Date();
 		$('#calendar').fullCalendar({
 			header : {
@@ -234,6 +271,13 @@ function dateToYYYYMMDD(date){
 									title : data.income[i].title,
 									start : data.income[i].start,
 									textColor : "#1ABC9C"
+								});
+							} else {
+								events.push({
+									/* 수입 */
+									title : "",
+									start : data.income[i].start,
+									textColor : "#FFFFFF"
 								});
 							}
 							
@@ -292,7 +336,7 @@ function dateToYYYYMMDD(date){
 												+ " id='" + data[i].moneyBookNo + "'"
 												+ " name='" + date.format() + "'"
 												+ "data-target='#layerpop' data-toggle='modal'>"
-												+ "<td>" + data[i].category + "</td>"
+												+ "<td>" + convertCategory(data[i].category) + "</td>"
 												+ "<td>" + data[i].detail + "</td>"
 												+ "<td>" + data[i].price + "</td>"
 												+ "</tr>"
@@ -306,12 +350,24 @@ function dateToYYYYMMDD(date){
 							}
 						});
 				} else {
-					alert('잘못된 선택');
+					
 				}
 
 		    }
 		});
 		
+		// 왼쪽 버튼을 클릭하였을 경우
+        $("button.fc-prev-button").click(function() {
+        	$('#detailTable thead').hide();
+        	$('#detailTable tbody').empty();
+        });
+
+        // 오른쪽 버튼을 클릭하였을 경우
+       	$("button.fc-next-button").click(function() {
+       		$('#detailTable thead').hide();
+       		$('#detailTable tbody').empty();
+        });
+
 	});
 	
 	function loadImage(){
@@ -378,69 +434,69 @@ function dateToYYYYMMDD(date){
 	<div class="modal fade" id="layerpop">
 		<div class="modal-dialog">
 			<div class="modal-content">
-				<!-- header -->
-				<!-- <div class="modal-header">
+				<div id="borderLine">
+					<!-- header -->
+					<!-- <div class="modal-header">
 					닫기(x) 버튼
 					<button type="button" class="close" data-dismiss="modal">×</button>
 					header title
 					<h4 class="modal-title"> </h4>
 				</div> -->
-				<!-- body -->
-				<div class="modal-body">
-					<center>
-						<div class="form-group">
-							<label class="control-label" for="datepicker">Date</label>
+					<!-- body -->
+						<div class="modal-body">
 							<div>
-								<input class="form-control" type="text" id="datepicker">
+								<label class="control-label" for="datepicker">Date</label>
+								<div>
+									<input class="form-control" type="text" id="datepicker">
+								</div>
 							</div>
-						</div>
 
-						<!-- Select Basic -->
-						<div class="form-group">
-							<label class="control-label" for="category">Category</label>
+							<!-- Select Basic -->
 							<div>
-								<select name="category" class="form-control" id="category">
-									<option>카테고리 선택</option>
-									<option value="food">식비</option>
-									<option value="traffic">교통비</option>
-									<option value="commodity">생필품</option>
-									<option value="beauty">미용</option>
-									<option value="medical">의료</option>
-									<option value="education">교육</option>
-									<option value="phonefees">통신비</option>
-									<option value="saving">저축</option>
-									<option value="utilitybills">공과금</option>
-									<option value="culturallife">문화생활</option>
-									<option value="otheritems">기타</option>
-									<option value="income">수입</option>
-								</select>
+								<label class="control-label" for="category">Category</label>
+								<div>
+									<select name="category" class="form-control" id="category">
+										<option>카테고리 선택</option>
+										<option value="food">식비</option>
+										<option value="traffic">교통비</option>
+										<option value="commodity">생필품</option>
+										<option value="beauty">미용</option>
+										<option value="medical">의료</option>
+										<option value="education">교육</option>
+										<option value="phonefees">통신비</option>
+										<option value="saving">저축</option>
+										<option value="utilitybills">공과금</option>
+										<option value="culturallife">문화생활</option>
+										<option value="otheritems">기타</option>
+										<option value="income">수입</option>
+									</select>
+								</div>
 							</div>
-						</div>
 
-						<div class="form-group">
-							<label class="control-label" for="edt_detail">Detail</label>
 							<div>
-								<input name="edt_detail" class="form-control input-md"
-									id="edt_detail" type="text">
+								<label class="control-label" for="edt_detail">Detail</label>
+								<div>
+									<input name="edt_detail" class="form-control input-md"
+										id="edt_detail" type="text">
+								</div>
 							</div>
-						</div>
 
-						<div class="form-group">
-							<label class="control-label" for="edt_price">Price</label>
 							<div>
-								<input name="edt_price" class="form-control input-md"
-									id="edt_price" type="text">
+								<label class="control-label" for="edt_price">Price</label>
+								<div>
+									<input name="edt_price" class="form-control input-md"
+										id="edt_price" type="text">
+								</div>
 							</div>
 						</div>
-					</center>
-				</div>
-				<!-- Footer -->
-				<div class="modal-footer">
-					<div class="form-group">
-						<button name="update" class="btn btn-primary" id="btn_update">수정</button>
-						<button name="delete" class="btn btn-primary" id="btn_delete">삭제</button>
-						<button name="cancel" class="btn btn-primary" id="btn_cancel"
-							data-dismiss="modal">취소</button>
+					<!-- Footer -->
+					<div class="modal-footer">
+						<div>
+							<button name="update" class="btn" id="btn_update">수정</button>
+							<button name="delete" class="btn" id="btn_delete">삭제</button>
+							<button name="cancel" class="btn" id="btn_cancel"
+								data-dismiss="modal">취소</button>
+						</div>
 					</div>
 				</div>
 			</div>
