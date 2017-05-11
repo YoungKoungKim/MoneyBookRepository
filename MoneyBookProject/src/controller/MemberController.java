@@ -29,21 +29,21 @@ public class MemberController {
 	}
 
 	// id_check
-	//ajax
+	// ajax
 	@RequestMapping("idCheck.do")
 	public @ResponseBody int idCheck(String id) {
 		return memberService.idCheck(id);
 	}
 
 	// nick_check
-	//ajax
+	// ajax
 	@RequestMapping("nickCheck.do")
 	public @ResponseBody int nickCheck(String nick) {
 		return memberService.nickCheck(nick);
 	}
 
 	// join_Success
-	//ajax
+	// ajax
 	@RequestMapping(method = RequestMethod.POST, value = "joinSuccess.do")
 	public @ResponseBody int joinSuccess(Member m) {
 		return memberService.joinSuccess(m);
@@ -56,11 +56,11 @@ public class MemberController {
 	}
 
 	// login_Success
-	//ajax
+	// ajax
 	@RequestMapping(method = RequestMethod.POST, value = "loginSuccess.do")
 	public @ResponseBody int loginSuccess(HttpSession session, String id, String pwd) {
 		Member member = memberService.login(id, pwd);
-			
+
 		if (member != null) {
 			session.setAttribute("id_index", member.getId_index());
 			session.setAttribute("nick", member.getNick());
@@ -74,14 +74,14 @@ public class MemberController {
 	public String logout(HttpSession session) {
 		session.removeAttribute("id_index");
 		session.removeAttribute("nick");
-		
+
 		// 로그아웃하면 메인으로??
 		return "redirect:test.do";
 	}
 
 	// password_Check
-	//ajax
-	//이건 안쓴거같은데...
+	// ajax
+	// 이건 안쓴거같은데...
 	@RequestMapping("passwordCheck.do")
 	public @ResponseBody int passwordCheck(int id_index, String pwd) {
 		return memberService.IdpwdCheck(pwd, id_index);
@@ -93,7 +93,7 @@ public class MemberController {
 		ModelAndView mav = new ModelAndView();
 
 		Member member = memberService.memberInfo(id_index);
-		
+
 		mav.addObject("member", member);
 		mav.setViewName("informUpdateForm");
 
@@ -101,9 +101,30 @@ public class MemberController {
 	}
 
 	// inform_Update
-	//ajax
+	// ajax
 	@RequestMapping(method = RequestMethod.POST, value = "informUpdate.do")
 	public @ResponseBody int infromUpdate(Member member, String newPwd) {
 		return memberService.updateMember(member, newPwd);
+	}
+
+	// 카카오 로그인
+	@RequestMapping("kakaoLogin.do")
+	public @ResponseBody void kakaoLogin(HttpSession session, String id, String nick) {
+		int result = memberService.idCheck(id);
+
+		if (result == 1002) {
+			Member member = new Member();
+			
+			member.setId(id);
+			member.setNick(nick);
+			member.setPwd("0000");
+			
+			memberService.joinSuccess(member);
+		}
+		
+		Member member = memberService.login(id, "0000");
+
+		session.setAttribute("id_index", member.getId_index());
+		session.setAttribute("nick", member.getNick());
 	}
 }

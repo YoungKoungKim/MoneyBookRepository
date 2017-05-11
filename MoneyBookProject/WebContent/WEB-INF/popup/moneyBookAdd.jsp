@@ -97,7 +97,6 @@ $(document).ready(function() {
 	
 	$(document).on("click",".bookmark2",function(){
 		var id_index = $(this).attr('id');
-		//alert("버튼 눌렀다!!!!!!!!!!!!!!");
 
 		$.ajax({
 			url : 'findBookMark.do',
@@ -134,6 +133,7 @@ $(document).ready(function() {
 			+"	<option value='traffic'>교통비</option>"
 			+"	<option value='commodity'>생필품</option>"
 			+"	<option value='medical'>의료</option>"
+			+"<option value='beauty'>미용</option>"
 			+"	<option value='education'>교육</option>"
 			+"	<option value='phonefees'>통신비</option>"
 			+"	<option value='saving'>저축</option>"
@@ -177,15 +177,18 @@ $(document).ready(function() {
 </script>
 <style type="text/css">
 .btn {
-	border-radius: 10px;
-	background-color: #91D4B5;
+	font-weight: bold; border-radius : 10px;
+	background-color: #1abc9c;
 	padding: 10px 35px;
+	text-align: center;
+	color: white;
+	border-radius: 10px;
 	
 }
 
 .bookmark2 {
 	border-radius: 10px;
-	background-color: #91D4B5;
+	background-color: #1abc9c;
 	padding: 10px;
 	width: 150px;
 	margin: 3px;
@@ -193,9 +196,8 @@ $(document).ready(function() {
 
 
 #main_div {
-	/* background-color: #FAFAD2; */
-	
-	border: 3px solid #91D4B5;
+	background-color:#f3f3f3;
+	border: 3px solid #1abc9c;
 }
 
 #list_div {
@@ -241,7 +243,7 @@ div {
  padding:5px; 
 }
 .add_line_btn {
-color : #91D4B5;
+color: #000000;
 font-size: 25px;
 text-align: right;
 margin-left: 5px;
@@ -310,14 +312,16 @@ margin-left: 5px;
 			</div>
 
 			<div id="bookmark_bar_div">
-				<h3>
+				<h4>
+				<span style="color: #1abc9c; font-weight: bold;">
 					<i class="fa fa-bookmark" aria-hidden="true"></i> 즐겨찾기
-				</h3>
+					</span>
+				</h4>
 			</div>
 
 			<div id="bookmark_list_div">
 				<c:forEach var="bm" items="${bookMarkList}" varStatus="status">
-					<input type="button" class="btn bookmark2"
+						<input type="button" class="btn bookmark2"
 						id="bookmark_select${status.index}" value="${bm.detail}">
 					<input type="hidden" id="abookmark_select${status.index}"
 						value="${bm.bookmarkNo}">
@@ -338,6 +342,7 @@ margin-left: 5px;
 									<option value="traffic">교통비</option>
 									<option value="commodity">생필품</option>
 									<option value="medical">의료</option>
+									<option value="beauty">미용</option>
 									<option value="education">교육</option>
 									<option value="phonefees">통신비</option>
 									<option value="saving">저축</option>

@@ -145,16 +145,14 @@ public class MoneyBookController {
 	}
 
 	@RequestMapping("moneyBookUpdateForm.do")
-	public ModelAndView moneyBookUpdateForm(int id_index, Date date, int moneyBookNo) {
-		ModelAndView mav = new ModelAndView();
+	public 
+	@ResponseBody HashMap<String, Object> moneyBookUpdateForm(int id_index, Date date, int moneyBookNo) {
+		HashMap<String, Object> params = new HashMap<>();
 		String mbDate = moneyBookService.searchDate(date).get("date").toString();
 		// 클릭한 가계부 중 하나의 정보를 얻어옴 (selectOne)
-		mav.addObject("moneyBook", moneyBookService.moneyBookSelectOne(moneyBookNo, id_index, date));
-		System.out.println(moneyBookService.moneyBookSelectOne(moneyBookNo, id_index, date));
-		mav.addObject("mbDate", mbDate);
-		// 팝업창 uri
-		mav.setViewName("moneyBookUpdateForm");
-		return mav;
+		params.put("mbDate", mbDate);
+		params.put("moneyBook", moneyBookService.moneyBookSelectOne(moneyBookNo, id_index, date));
+		return params;
 	}
 
 	@RequestMapping("moneyBookDelete.do")
@@ -169,12 +167,12 @@ public class MoneyBookController {
 			response.put("msg", "상세내역 삭제 실패");
 			response.put("result", false);
 		}
-		System.out.println(response.get("msg"));
 		return response;
 	}
 
 	@RequestMapping("moneyBookUpdate.do")
 	public @ResponseBody HashMap<String, Object> moneyBookUpdate(MoneyBook moneyBook) {
+		System.out.println(moneyBook.getDate());
 		HashMap<String, Object> response = new HashMap<>();
 		int result = moneyBookService.moneyBookUpdate(moneyBook);
 
@@ -201,7 +199,6 @@ public class MoneyBookController {
 	@RequestMapping("moneyBookView.do")
 	public @ResponseBody HashMap<String, Object> moneyBookView(int id_index, Date date) {
 		List<String[]> amountList = new ArrayList<>();
-		System.out.println(date);
 		amountList = moneyBookService.oneMonthAmount(id_index, date);
 
 		HashMap<String, Object> monthAmount = moneyBookService.totalMonthAmount(id_index, date);
@@ -292,8 +289,6 @@ public class MoneyBookController {
 			mb.setPrice(Integer.parseInt(price_arr[i]));
 			mb.setDate(date);
 			int result = moneyBookService.moneyBookRegist(mb);
-			System.out.println(result);
-			System.out.println(date);
 			date2 = (String) moneyBookService.searchDate(date).get("date");
 
 			if (result == 3201) {

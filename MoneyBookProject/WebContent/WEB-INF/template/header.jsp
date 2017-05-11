@@ -14,11 +14,21 @@
 <script type="text/javascript" src="js/memberJs.js"></script>
 <script type="text/javascript" src="js/headerScript.js"></script>
 
+<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+
 <script type="text/javascript">
 	$(document).ready(function() {
 		$("#updateLink").on("click", function() {
 			$("#updateForm").submit();
 		});
+		
+		$("#header_Logout").on("click", function() {
+			Kakao.Auth.logout();
+			
+			setTimeout(function() {
+				location.href = "logout.do";
+			}, 1000);
+		})
 	})
 </script>
 
@@ -92,7 +102,7 @@
 								</form>
 								<a href="#" title="회원 정보 수정" id="updateLink">InformUpdate</a>
 								<!-- 로그인 -->
-								<a href="logout.do" title="로그아웃">Logout</a>
+								<a href="#" title="로그아웃" id="header_Logout">Logout</a>
 							</div>
 						</div>
 					</div>
@@ -195,12 +205,54 @@
 									&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" value="취소"
 									class="btn btn-info" data-dismiss="modal"></td>
 							</tr>
+							<tr>
+								<td colspan="2" align="center"><br> <a
+									id="kakao-login-btn"></a> <a
+									href="http://developers.kakao.com/logout"></a>
+								<td>
+							</tr>
 						</table>
 					</center>
 				</div>
 			</div>
 		</div>
 	</div>
+
+	<script type='text/javascript'>
+  //<![CDATA[
+    // 사용할 앱의 JavaScript 키를 설정해 주세요.
+    Kakao.init('9712483447f19279ea7f16e2db8de389');
+    // 카카오 로그인 버튼을 생성합니다.
+    Kakao.Auth.createLoginButton({
+      container: '#kakao-login-btn',
+      success: function(authObj) {
+    	  Kakao.API.request({
+    		  url: '/v1/user/me',
+    		  success: function(res) {
+    			  $.ajax({
+    				  url : "kakaoLogin.do",
+    					type : "post",
+    					data : "id=" + res.id + "&nick=" + res.properties.nickname,
+    					success : function() {
+ 								alert(res.properties.nickname + "님 환영합니다!!");
+								location.reload();
+    					},
+    					error:function(error) {
+    				        alert("카카오 로그인 실패 : " + error);
+    				    }
+    			  });
+    		  }, 
+    		  fail: function(error) {
+    			  alert(JSON.stringify(error));
+    		  }
+    	  })
+      },
+      fail: function(err) {
+         alert(JSON.stringify(err));
+      }
+    });
+  //]]>
+</script>
 
 	<!-- JAVASCRIPT FILES PLACED AT THE BOTTOM TO REDUCE THE LOADING TIME  -->
 	<!-- CORE JQUERY  SCRIPTS -->
