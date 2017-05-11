@@ -17,4 +17,5 @@ public interface IBoardDao {
 	public List<Board> selectByAgeType(String ageType);
 	public List<Board> selectboardLimit(HashMap<String, Object> params);
 	public int getBoardCount(HashMap<String, Object> params);
+	public Board selectMaxRecommend();
 }

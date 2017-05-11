@@ -84,4 +84,5 @@
 			where nick like concat("%", #{content} ,"%")
 		</if>
 	</select>
+	
 </mapper>

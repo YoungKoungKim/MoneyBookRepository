@@ -65,13 +65,15 @@ public class BoardController {
 //	}
 	
 	@RequestMapping("boardDetailView.do")
-	public ModelAndView boardDetailView(int boardNo,int id_index){
+	public ModelAndView boardDetailView(int boardNo, 
+								@RequestParam(defaultValue="-1") int id_index){//id_index 빼야됨 
 		boardservice.boardReadCount(boardNo);
 		ModelAndView mav = new ModelAndView();
 		mav.addAllObjects(boardservice.searchText(boardNo));
 		mav.setViewName("boardDetailView");
 		return mav;
 	}
+	
 	@RequestMapping("boardBest.do")
 	public ModelAndView boardBest(){
 		ModelAndView mav = new ModelAndView();
