@@ -18,8 +18,9 @@
 
 <script type="text/javascript">
 	$(document).ready(function() {
-		$("#updateLink").on("click", function() {
-			$("#updateForm").submit();
+		$("#MyInfoLink").on("click", function() {
+			alert("test");
+			$("#myInfoForm").submit();
 		});
 		
 		$("#header_Logout").on("click", function() {
@@ -27,7 +28,7 @@
 			
 			setTimeout(function() {
 				location.href = "logout.do";
-			}, 1000);
+			}, 1500);
 		})
 	})
 </script>
@@ -43,6 +44,16 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 
 <style type="text/css">
+@CHARSET "UTF-8";
+/************* Common *************/
+@font-face {
+	font-family: 'NanumGothic';
+	src: url(font/NanumBarunGothic_0.ttf) format('truetype');
+	
+	font-family: 'koverwatch';
+	src: url(font/koverwatch.ttf) format('truetype');
+}
+
 .modal-content {
 	width: 523px;
 	height: auto;
@@ -52,6 +63,12 @@
 	margin: 10px;
 	width: 500px;
 	height: auto;
+	font-family: NanumGothic;
+}
+
+#login_Label {
+	color: #91D4B5;
+	font-family: koverwatch;
 }
 </style>
 </head>
@@ -62,7 +79,7 @@
 				<div class="container">
 					<div class="row">
 						<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 logo-wrapper">
-							<a href="home.do"><img src="assets/img/logo1.jpg" alt="" /></a>
+							<img src="assets/img/logo1.jpg" alt="" />
 						</div>
 						<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-right">
 							<div class="menu-links scroll-me">
@@ -87,7 +104,7 @@
 				<div class="container">
 					<div class="row">
 						<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 logo-wrapper">
-							<a href="home.do"><img src="assets/img/logo1.jpg" alt="" /></a>
+							<img src="assets/img/logo1.jpg" alt="" />
 						</div>
 						<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-right">
 							<div class="menu-links scroll-me">
@@ -96,11 +113,11 @@
 								<!-- 가계부 -->
 								<a href="#" onclick="viewMyPage(${id_index})" title="가계부">MyMoneyBook</a>
 								<!-- 가계부 -->
-								<form action="informUpdateForm.do" method="post" id="updateForm"
+								<form action="myInfo.do" method="post" id="myInfoForm"
 									style="display: inline-block;">
 									<input type="hidden" value="${id_index }" name="id_index">
 								</form>
-								<a href="#" title="회원 정보 수정" id="updateLink">InformUpdate</a>
+								<a href="#" title="회원 정보" id="MyInfoLink">Account</a>
 								<!-- 로그인 -->
 								<a href="#" title="로그아웃" id="header_Logout">Logout</a>
 							</div>
@@ -179,7 +196,7 @@
 			<div class="modal-content">
 				<div class="modal-body" style="border: 2px solid #91D4B5;">
 					<center>
-						<h1 style="color: black;">로그인</h1>
+						<h1 id="login_Label">로그인</h1>
 						<table>
 							<tr align="center">
 								<td style="color: black;">아이디</td>

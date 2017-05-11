@@ -87,15 +87,14 @@ public class MemberController {
 		return memberService.IdpwdCheck(pwd, id_index);
 	}
 
-	// inform_Update_Form
-	@RequestMapping(method = RequestMethod.POST, value = "informUpdateForm.do")
+	@RequestMapping(method = RequestMethod.POST, value = "myInfo.do")
 	public ModelAndView informUpdateForm(int id_index) {
 		ModelAndView mav = new ModelAndView();
 
 		Member member = memberService.memberInfo(id_index);
 
 		mav.addObject("member", member);
-		mav.setViewName("informUpdateForm");
+		mav.setViewName("myInfo");
 
 		return mav;
 	}
