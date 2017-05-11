@@ -27,13 +27,5 @@ public class MainPageController {
 		System.out.println(result);
 		return "redirect:boardDetailView.do?boardNo="+result;
 	}
-	
-	@RequestMapping("homemypage.do")
-	public String homemypage(){
-		
-		
-		
-		return "";
-	}
 
 }
