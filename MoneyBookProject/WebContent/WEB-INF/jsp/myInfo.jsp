@@ -33,10 +33,15 @@
 		<div id="myInfoContainer" align="center">
 			<div class="col-md-5 left_t">
 				<h2>프로필</h2>
-				<div style="margin-top: 20px; height: inherit;">
-					<div class="col-md-4">test</div>
-					<div class="col-md-8">test</div>
+				<div style="padding: 10px; height: 30%;">
+					<div class="col-md-2">
+						<h3>ID :</h3>
+					</div>
+					<div class="col-md-10" style="text-align: left;">
+						<h3>${member.id }</h3>
+					</div>
 				</div>
+
 			</div>
 			<div class="col-md-5 right_t">t2</div>
 			<div class="col-md-5 left_b">t3</div>
