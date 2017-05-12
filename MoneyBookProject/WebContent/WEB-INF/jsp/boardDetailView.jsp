@@ -102,7 +102,8 @@ function getCommentList() {
 		
 	$(document).ready(function() {
 		getCommentList();
-		
+		var id_index = parseInt('${id_index}');
+			
 		$('#recommendbtn').on('click', function() {
 
 			$.ajax({
@@ -114,10 +115,12 @@ function getCommentList() {
 					$('#recommend').text(data);
 				}, 
 				error : function(){
-					alert("실패");
+					
+					alert("회원만 가능합니다.");
 				}
 			});
 		});
+		
 	
 	$('#commentbut').on('click', function() {
 		var content1 = $('#content1').val();

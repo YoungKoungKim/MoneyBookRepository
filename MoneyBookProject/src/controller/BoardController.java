@@ -27,6 +27,7 @@ import service.IBoardService;
 import service.ICommentService;
 import service.IExtraService;
 import service.IMoneyBookService;
+import service.IRecommendService;
 
 @Controller
 public class BoardController {
@@ -35,6 +36,8 @@ public class BoardController {
 	private IBoardService boardservice;
 	@Autowired
 	private IExtraService extraboardservice;
+	@Autowired
+	private IRecommendService recommendservice;
 
 	@RequestMapping("boardList.do")
 	public ModelAndView boardList(@RequestParam(defaultValue = "1") int page,
@@ -69,8 +72,8 @@ public class BoardController {
 		ModelAndView mav = new ModelAndView();
 		try {
 			int readCheck = (int) session.getAttribute("readCheck");
-			if(readCheck != boardNo){
-				session.setAttribute("readCheck",boardNo);
+			if (readCheck != boardNo) {
+				session.setAttribute("readCheck", boardNo);
 				boardservice.boardReadCount(boardNo);
 			}
 		} catch (NullPointerException e) {
@@ -102,9 +105,23 @@ public class BoardController {
 	}
 
 	@RequestMapping("boardRecommend.do")
-	public @ResponseBody int boardRecommend(int boardNo) {
-		boardservice.boardRecommand(boardNo);
-		Board board = (Board) boardservice.searchText(boardNo).get("board");
+	public @ResponseBody int boardRecommend(int boardNo, HttpSession session,
+			@RequestParam(defaultValue = "0") int commentNo) {
+		Board board = null;
+
+		try {
+			if (session.getAttribute("id_index") != null) {
+				int id_index = (int) session.getAttribute("id_index");
+				if (recommendservice.Searchrecommend(boardNo, id_index, commentNo) == false) {
+					boardservice.boardRecommand(boardNo);
+					recommendservice.Writerecommend(boardNo, id_index, commentNo);
+				}
+
+			}
+		} catch (NullPointerException e) {
+			// TODO: handle exception
+		}
+		board = (Board) boardservice.searchText(boardNo).get("board");
 		return board.getRecommend();
 	}
 

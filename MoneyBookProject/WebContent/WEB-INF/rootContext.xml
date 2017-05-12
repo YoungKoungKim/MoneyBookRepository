@@ -50,6 +50,11 @@
 		<property name="mapperInterface" value="dao.IExtraBoardDao"></property>
 		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
 	</bean>
+		<bean class="org.mybatis.spring.mapper.MapperFactoryBean" id="recommendDao">
+		<property name="mapperInterface" value="dao.IRecommendDao"></property>
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+	</bean>
+	
 	<bean
 		class="org.springframework.jdbc.datasource.DataSourceTransactionManager"
 		id="txManager">
