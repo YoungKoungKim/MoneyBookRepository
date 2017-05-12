@@ -51,18 +51,32 @@
 }
 .titlebar{
 	width: 800px;
-	background-color: white;
-	
+	border: 1px solid #e4e4e4; 
+    background: #fff; 
+    border-radius: 2px;
+    transition: .3s; 
+    -webkit-transition: .3s; 
+    -moz-transition: .3s; 
+    -o-transition: .3s;
 }
 .titlebar #title1{
 	font-size: 30px;
 	text-align: center;
+	border: solid #ffffff;
 }
 .titlebar #type1{
 	width: 80px;
 	height: 40px;
 	margin-right: 20px;
+	border: solid #ffffff;
+	font-size: 20px;
 }
+.titlebar #title1:hover { 
+   border: 1px solid #5B5F61; 
+   box-shadow: 0px 0px 15px 5px #847F7F; 
+   -webkit-box-shadow:0px 0px 15px 5px #847F7F; 
+   -moz-box-shadow:0px 0px 15px 5px #847F7F; 
+ }
 </style>
 </head>
 <body>
