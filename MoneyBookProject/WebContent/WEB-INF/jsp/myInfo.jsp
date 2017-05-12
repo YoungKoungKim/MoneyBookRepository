@@ -31,52 +31,67 @@
 </head>
 <body id="myInfo_Body">
 	<center>
-		<h1>회원 정보 관리</h1>
-		<div id="myInfoContainer" align="center">
-			<div class="col-md-5 left_t">
-				<h2>프로필</h2>
-				<div style="padding: 5px; height: 20%;">
-					<div class="col-md-4">
-						<h3>ID :</h3>
-					</div>
-					<div class="col-md-8" style="text-align: left;">
-						<h3>${member.id }</h3>
-					</div>
-				</div>
+		<c:choose>
+			<c:when test="${id_index != null }">
+				<h1>회원 정보 관리</h1>
+				<div id="myInfoContainer" align="center">
+					<div class="col-md-5 left_t">
+						<h2>프로필</h2>
+						<div style="padding: 5px; height: 20%;">
+							<div class="col-md-4">
+								<h3>ID :</h3>
+							</div>
+							<div class="col-md-8" style="text-align: left;">
+								<h3>${member.id }</h3>
+							</div>
+						</div>
 
-				<div style="padding: 5px; height: 20%;">
-					<div class="col-md-4">
-						<h3>닉네임 :</h3>
-					</div>
-					<div class="col-md-8" style="text-align: left;">
-						<h3>${member.nick }</h3>
-					</div>
-				</div>
-				
-				<div style="padding: 5px; height: 20%;">
-					<div class="col-md-4">
-						<h3>가입 경로 :</h3>
-					</div>
-					<div class="col-md-8" style="text-align: left;">
-						<h3>
-							<c:choose>
-								<c:when
-									test="${member.pwd eq '4a7d1ed414474e4033ac29ccb8653d9b'}">
+						<div style="padding: 5px; height: 20%;">
+							<div class="col-md-4">
+								<h3>닉네임 :</h3>
+							</div>
+							<div class="col-md-8" style="text-align: left;">
+								<h3>${member.nick }</h3>
+							</div>
+						</div>
+
+						<div style="padding: 5px; height: 20%;">
+							<div class="col-md-4">
+								<h3>가입 경로 :</h3>
+							</div>
+							<div class="col-md-8" style="text-align: left;">
+								<h3>
+									<c:choose>
+										<c:when
+											test="${member.pwd eq '4a7d1ed414474e4033ac29ccb8653d9b'}">
 									카카오 아이디
 								</c:when>
-								<c:otherwise>
+										<c:otherwise>
 									일반 아이디
 								</c:otherwise>
-							</c:choose>
-						</h3>
+									</c:choose>
+								</h3>
+							</div>
+						</div>
+
+					</div>
+					<div class="col-md-5 right_t">
+						<h2>닉네임 수정</h2>
+					</div>
+					<div class="col-md-5 left_b">
+						<h2>비밀번호 수정</h2>
+					</div>
+					<div class="col-md-5 right_b">
+						<h2>탈퇴</h2>
 					</div>
 				</div>
-				
-			</div>
-			<div class="col-md-5 right_t"><h2>닉네임 수정</h2></div>
-			<div class="col-md-5 left_b"><h2>비밀번호 수정</h2></div>
-			<div class="col-md-5 right_b"><h2>탈퇴</h2></div>
-		</div>
+			</c:when>
+			<c:otherwise>
+				<h1>죄송합니다.</h1>
+				<br>
+				<h3>잘못된 요청입니다.</h3>
+			</c:otherwise>
+		</c:choose>
 	</center>
 </body>
 </html>

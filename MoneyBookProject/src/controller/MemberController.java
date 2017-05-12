@@ -76,7 +76,7 @@ public class MemberController {
 		session.removeAttribute("nick");
 
 		// 로그아웃하면 메인으로??
-		return "redirect:home";
+		return "redirect:home.do";
 	}
 
 	// password_Check
@@ -87,14 +87,21 @@ public class MemberController {
 		return memberService.IdpwdCheck(pwd, id_index);
 	}
 
-	@RequestMapping(method = RequestMethod.POST, value = "myInfo.do")
-	public ModelAndView informUpdateForm(int id_index) {
+	@RequestMapping(value = "myInfo.do")
+	public ModelAndView informUpdateForm(HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 
-		Member member = memberService.memberInfo(id_index);
+		try {
+			int id = (int) session.getAttribute("id_index");
 
-		mav.addObject("member", member);
-		mav.setViewName("myInfo");
+			Member member = memberService.memberInfo(id);
+
+			mav.addObject("member", member);
+			mav.setViewName("myInfo");
+			
+		} catch (NullPointerException e) {
+			mav.setViewName("redirect:home.do");
+		}
 
 		return mav;
 	}
@@ -113,14 +120,14 @@ public class MemberController {
 
 		if (result == 1002) {
 			Member member = new Member();
-			
+
 			member.setId(id);
 			member.setNick(nick);
 			member.setPwd("0000");
-			
+
 			memberService.joinSuccess(member);
 		}
-		
+
 		Member member = memberService.login(id, "0000");
 
 		session.setAttribute("id_index", member.getId_index());
