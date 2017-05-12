@@ -77,6 +77,7 @@
    -webkit-box-shadow:0px 0px 15px 5px #847F7F; 
    -moz-box-shadow:0px 0px 15px 5px #847F7F; 
  }
+ 
 </style>
 </head>
 <body>

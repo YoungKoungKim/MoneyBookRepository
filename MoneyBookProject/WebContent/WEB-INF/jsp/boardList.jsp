@@ -111,7 +111,7 @@ a:hover {
 
 </head>
 <body>
-		<input type="button" value="공유" id="form" onclick="location.href='boardWriteForm.do?id_index=4&date=2017-04-28'">
+<!-- 		<input type="button" value="공유" id="form" onclick="location.href='boardWriteForm.do?id_index=4&date=2017-04-28'"> -->
 
 	<br>
 	<div class="root">
