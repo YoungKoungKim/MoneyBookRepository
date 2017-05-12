@@ -105,24 +105,28 @@ public class BoardController {
 	}
 
 	@RequestMapping("boardRecommend.do")
-	public @ResponseBody int boardRecommend(int boardNo, HttpSession session,
+	public @ResponseBody HashMap<String, Object> boardRecommend(int boardNo, HttpSession session,
 			@RequestParam(defaultValue = "0") int commentNo) {
 		Board board = null;
-
+		HashMap<String, Object> params = new HashMap<>();
 		try {
 			if (session.getAttribute("id_index") != null) {
 				int id_index = (int) session.getAttribute("id_index");
 				if (recommendservice.Searchrecommend(boardNo, id_index, commentNo) == false) {
 					boardservice.boardRecommand(boardNo);
 					recommendservice.Writerecommend(boardNo, id_index, commentNo);
+					board = (Board) boardservice.searchText(boardNo).get("board");
+					params.put("code", 0);
+					params.put("recommend", board.getRecommend());
 				}
-
+			}else{
+				params.put("code", 1);
+				params.put("recommend", board.getRecommend());
 			}
 		} catch (NullPointerException e) {
-			// TODO: handle exception
 		}
-		board = (Board) boardservice.searchText(boardNo).get("board");
-		return board.getRecommend();
+
+		return params;
 	}
 
 	@RequestMapping("boardUpdate.do")
