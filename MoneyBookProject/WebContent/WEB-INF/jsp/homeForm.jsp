@@ -12,8 +12,9 @@
 .container{
 	width: 1500px;
 }
+
 #container{
-	min-height: 65%;
+	min-height: 67%;
 }
 .center {
   font-family: 'Open Sans', sans-serif;
@@ -88,7 +89,7 @@
 	}//today()
 	
 	function goError(){
-			
+		
 	}//goError()
 </script>
 </head>

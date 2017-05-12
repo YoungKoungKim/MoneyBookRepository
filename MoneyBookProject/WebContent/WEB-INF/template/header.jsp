@@ -13,7 +13,6 @@
 
 <script type="text/javascript" src="js/memberJs.js"></script>
 <script type="text/javascript" src="js/headerScript.js"></script>
-
 <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
 
 <script type="text/javascript">
@@ -79,7 +78,7 @@
 				<div class="container">
 					<div class="row">
 						<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 logo-wrapper">
-							<img src="assets/img/logo1.jpg" alt="" />
+							<a href="home.do"><img src="assets/img/logo1.jpg" alt="" /></a>
 						</div>
 						<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-right">
 							<div class="menu-links scroll-me">
@@ -104,7 +103,7 @@
 				<div class="container">
 					<div class="row">
 						<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 logo-wrapper">
-							<img src="assets/img/logo1.jpg" alt="" />
+							<a href="home.do"><img src="assets/img/logo1.jpg" alt="" /></a>
 						</div>
 						<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-right">
 							<div class="menu-links scroll-me">
