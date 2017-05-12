@@ -12,6 +12,19 @@
 	integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
 	crossorigin="anonymous"></script>
 <style type="text/css">
+select {
+ width: 70px; /* 원하는 너비설정 */ 
+ padding: .3em .3em; /* 여백으로 높이 설정 */ 
+ margin-right : 10px;
+ font-family: inherit; /* 폰트 상속 */ 
+ background: url(https://farm1.staticflickr.com/379/19928272501_4ef877c265_t.jpg) no-repeat 95% 50%; /* 네이티브 화살표 대체 */ 
+ border: 1px solid #999; 
+ border-radius: 0px; /* iOS 둥근모서리 제거 */ 
+ -webkit-appearance: none; /* 네이티브 외형 감추기 */ 
+ -moz-appearance: none; 
+ appearance: none; 
+ }
+
 a:link {
 	color: black;
 	text-decoration: none;
@@ -82,7 +95,6 @@ a:hover {
 .left .btn btn-default {
 	background: #91D4B5;
 	color: #E9F2EE;
-	"
 }
 </style>
 <script type="text/javascript">
@@ -140,7 +152,22 @@ a:hover {
 
 		</div>
 
-		<div class="right">
+		<div class="right" >
+		<div align="right" style="margin-bottom: 20px;">
+		<form action="boardList.do">
+					<table>
+						<tr align="center">
+							<td><select name="category">
+									<option value="title">제목</option>
+									<option value="nick">작성자</option>
+							</select>
+							</td>
+							<td><input style="width: 650px" type="text" name="content"> <input
+								type="submit" id="searchWhat" value="검색"></td>
+						</tr>
+					</table>
+				</form>
+		</div>
 			<table width="800px" height="500px"
 				style="border-bottom: 1px solid #CCE2D8; background-color: #EAF2EE">
 				<tr style="border-bottom: 1px solid black; background: #91D4B5;">
@@ -207,20 +234,9 @@ a:hover {
 
 
 
-			<div class="bottom">
-				<form action="boardList.do">
-					<table>
-						<tr align="center">
-							<td><select name="category">
-									<option value="title">제목</option>
-									<option value="nick">작성자</option>
-							</select></td>
-							<td><input type="text" name="content"> <input
-								type="submit" id="searchWhat" value="검색"></td>
-						</tr>
-					</table>
-				</form>
-			</div>
+<!-- 			<div class="bottom"> -->
+				
+<!-- 			</div> -->
 		</div>
 
 
