@@ -103,7 +103,6 @@ function getCommentList() {
 	$(document).ready(function() {
 		getCommentList();
 		
-		
 		$('#recommendbtn').on('click', function() {
 
 			$.ajax({

@@ -35,56 +35,66 @@ public class BoardController {
 	private IBoardService boardservice;
 	@Autowired
 	private IExtraService extraboardservice;
-	 
+
 	@RequestMapping("boardList.do")
-	public ModelAndView boardList(@RequestParam(defaultValue="1")int page,
-			@RequestParam(defaultValue="0")String ageType,
-			@RequestParam(defaultValue="0")String category,
-			@RequestParam(defaultValue="0")String content)
-	{	
+	public ModelAndView boardList(@RequestParam(defaultValue = "1") int page,
+			@RequestParam(defaultValue = "0") String ageType, @RequestParam(defaultValue = "0") String category,
+			@RequestParam(defaultValue = "0") String content) {
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("boardBest", boardservice.bestView(3));
-		mav.addAllObjects(boardservice.getboardList(page, ageType,category,content));
+		mav.addAllObjects(boardservice.getboardList(page, ageType, category, content));
 		mav.setViewName("boardList");
 		return mav;
 	}
-	
-//	@RequestMapping("boardSearch.do")
-//	public ModelAndView boardSearch(
-//			@RequestParam(defaultValue="1")int page,
-//			@RequestParam(defaultValue="0")String ageType,
-//			@RequestParam(defaultValue="0")String category,
-//			@RequestParam(defaultValue="0")String content)
-//	{
-//		ModelAndView mav = new ModelAndView();
-//		
-//			
-//		mav.addAllObjects(boardservice.getboardList(page, ageType,category,content));
-//		mav.setViewName("boardList");
-//		return mav;
-//	}
-	
+
+	// @RequestMapping("boardSearch.do")
+	// public ModelAndView boardSearch(
+	// @RequestParam(defaultValue="1")int page,
+	// @RequestParam(defaultValue="0")String ageType,
+	// @RequestParam(defaultValue="0")String category,
+	// @RequestParam(defaultValue="0")String content)
+	// {
+	// ModelAndView mav = new ModelAndView();
+	//
+	//
+	// mav.addAllObjects(boardservice.getboardList(page,
+	// ageType,category,content));
+	// mav.setViewName("boardList");
+	// return mav;
+	// }
+
 	@RequestMapping("boardDetailView.do")
-	public ModelAndView boardDetailView(int boardNo, 
-								@RequestParam(defaultValue="-1") int id_index){//id_index 빼야됨 
-		boardservice.boardReadCount(boardNo);
+	public ModelAndView boardDetailView(HttpSession session, int boardNo,
+			@RequestParam(defaultValue = "-1") int id_index) {// id_index 빼야됨
 		ModelAndView mav = new ModelAndView();
+		try {
+			int readCheck = (int) session.getAttribute("readCheck");
+			if(readCheck != boardNo){
+				session.setAttribute("readCheck",boardNo);
+				boardservice.boardReadCount(boardNo);
+			}
+		} catch (NullPointerException e) {
+			// 세션에 readCheck저장하고 조회수 올리고 페이지 ㄱㄱ
+			session.setAttribute("readCheck", boardNo);
+			boardservice.boardReadCount(boardNo);
+		}
+
 		mav.addAllObjects(boardservice.searchText(boardNo));
 		mav.setViewName("boardDetailView");
 		return mav;
 	}
-	
+
 	@RequestMapping("boardBest.do")
-	public ModelAndView boardBest(){
+	public ModelAndView boardBest() {
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("boardBest", boardservice.bestView(3));
 		mav.setViewName("boardDetailView");
 		return mav;
 	}
-	
+
 	@RequestMapping("boardUpdateForm.do")
-	public ModelAndView boardUpdateForm(int boardNo){
-		//일단 리스트로 받기
+	public ModelAndView boardUpdateForm(int boardNo) {
+		// 일단 리스트로 받기
 		ModelAndView mav = new ModelAndView();
 		mav.addAllObjects(boardservice.searchText(boardNo));
 		mav.setViewName("boardUpdateForm");
@@ -92,43 +102,42 @@ public class BoardController {
 	}
 
 	@RequestMapping("boardRecommend.do")
-	public @ResponseBody int boardRecommend(int boardNo){
+	public @ResponseBody int boardRecommend(int boardNo) {
 		boardservice.boardRecommand(boardNo);
 		Board board = (Board) boardservice.searchText(boardNo).get("board");
-		return board.getRecommend(); 
-	} 
-	
+		return board.getRecommend();
+	}
+
 	@RequestMapping("boardUpdate.do")
-	public String boardUpdate(Board board){
+	public String boardUpdate(Board board) {
 		int result = boardservice.boardUpdate(board);
-		if (result == 4001){
+		if (result == 4001) {
 			System.out.println("성공");
-			return "redirect:boardDetailView.do?boardNo="+board.getBoardNo()+"&id_index="+board.getId_index();
-		}
-		else{
+			return "redirect:boardDetailView.do?boardNo=" + board.getBoardNo() + "&id_index=" + board.getId_index();
+		} else {
 			System.out.println("실패");
-			return "redirect:boardUpdateForm.do?boardNo="+board.getBoardNo();
+			return "redirect:boardUpdateForm.do?boardNo=" + board.getBoardNo();
 		}
 	}
 
 	@RequestMapping("boardWrite.do")
-	public String boardWrite(Board board, Date date2){
-		boardservice.boardWrite(board ,date2);
+	public String boardWrite(Board board, Date date2) {
+		boardservice.boardWrite(board, date2);
 		return "redirect:boardList.do";
-		
-//		Iterator<String> iter = totalAmountByCategory.keySet().iterator();
-//		while(iter.hasNext()){
-//			String key = iter.next();
-//			System.out.println(key);
-//		}
+
+		// Iterator<String> iter = totalAmountByCategory.keySet().iterator();
+		// while(iter.hasNext()){
+		// String key = iter.next();
+		// System.out.println(key);
+		// }
 	}
-//	
-////	@RequestMapping("boardDelete.do")
-////	public ModelAndView boardDelete(int boardNo){
-////		//게시글삭제
-////		return null;
-////	}
-	
+	//
+	//// @RequestMapping("boardDelete.do")
+	//// public ModelAndView boardDelete(int boardNo){
+	//// //게시글삭제
+	//// return null;
+	//// }
+
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
