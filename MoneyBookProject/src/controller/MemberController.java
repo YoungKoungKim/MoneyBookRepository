@@ -76,7 +76,7 @@ public class MemberController {
 		session.removeAttribute("nick");
 
 		// 로그아웃하면 메인으로??
-		return "redirect:test.do";
+		return "redirect:home";
 	}
 
 	// password_Check

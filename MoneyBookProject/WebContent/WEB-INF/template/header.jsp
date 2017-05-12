@@ -18,7 +18,6 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 		$("#MyInfoLink").on("click", function() {
-			alert("test");
 			$("#myInfoForm").submit();
 		});
 		
