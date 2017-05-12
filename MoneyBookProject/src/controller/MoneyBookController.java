@@ -232,7 +232,13 @@ public class MoneyBookController {
 	@RequestMapping("boardWriteForm.do")
 	public ModelAndView boardWriteForm(int id_index, Date date) {
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("monthContent", moneyBookService.totalAmountByCategory(id_index, date));
+		HashMap<String, Object> moneybook=moneyBookService.totalAmountByCategory(id_index, date);
+		mav.addAllObjects(moneybook);
+			HashMap<String, Object> keys = new HashMap<>();
+		 for( String key : moneybook.keySet() ){
+	            keys.put("category"+key, key);
+	        }
+		mav.addAllObjects(keys);
 		mav.addObject("monthAmount", moneyBookService.totalMonthAmount(id_index, date));
 		mav.addAllObjects(moneyBookService.searchDate(date));
 		mav.setViewName("boardWriteForm");

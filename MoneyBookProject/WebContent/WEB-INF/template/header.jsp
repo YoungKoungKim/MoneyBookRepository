@@ -17,11 +17,6 @@
 
 <script type="text/javascript">
 	$(document).ready(function() {
-		$("#MyInfoLink").on("click", function() {
-			alert("test");
-			$("#myInfoForm").submit();
-		});
-		
 		$("#header_Logout").on("click", function() {
 			Kakao.Auth.logout();
 			
@@ -112,11 +107,7 @@
 								<!-- 가계부 -->
 								<a href="#" onclick="viewMyPage(${id_index})" title="가계부">MyMoneyBook</a>
 								<!-- 가계부 -->
-								<form action="myInfo.do" method="post" id="myInfoForm"
-									style="display: inline-block;">
-									<input type="hidden" value="${id_index }" name="id_index">
-								</form>
-								<a href="#" title="회원 정보" id="MyInfoLink">Account</a>
+								<a href="myInfo.do" title="회원 정보" id="MyInfoLink">Account</a>
 								<!-- 로그인 -->
 								<a href="#" title="로그아웃" id="header_Logout">Logout</a>
 							</div>
