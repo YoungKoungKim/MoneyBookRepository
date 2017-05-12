@@ -392,8 +392,6 @@ function getCommentList() {
 					onclick="location.href='boardList.do'">
 				<c:if test="${board.id_index eq id_index}">
 					<input  class="re_btn" type="button" value="수정"
-						
-					
 						onclick="location.href='boardUpdateForm.do?boardNo=${board.boardNo}'">
 				</c:if>
 			</div>
