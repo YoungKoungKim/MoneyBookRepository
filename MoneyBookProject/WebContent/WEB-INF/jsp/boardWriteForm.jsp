@@ -10,8 +10,7 @@
 <script src="https://code.jquery.com/jquery-2.2.4.min.js"
 	integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
 	crossorigin="anonymous"></script>
-</head>
-<script type="text/javascript">
+	<script type="text/javascript">
 $(document).ready(function() {
 	var today = new Date();
 	var dd = today.getDate();
@@ -26,10 +25,57 @@ $(document).ready(function() {
 	today = yyyy+'-' + mm+'-'+dd;
 	$("#nowDate").text("날짜 : " + today); //날짜 표시
 	
+	
 })
 </script>
+<style type="text/css">
+.root {
+	margin: auto;
+	width: 1000px;
+	height :1000px;
+	background-color: #f0f8ff;
+	border: solid red;
+}
+
+.left {
+	height :1000px;
+	width :20%;
+	float: left;
+	border: solid red;
+	
+}
+.right {
+	height: 1000px;
+	width: 80%;
+	float : right;
+	border: solid red;
+}
+
+.bottom {
+width: 100%;
+	height: 100%;
+	clear: both;}
+</style>
+</head>
+
 <body>
 
+<div class="root">
+
+<div class="left">
+1
+</div>
+
+<div class="right">
+2
+</div>
+
+<div class="bottom">
+3
+</div>
+
+</div>
+<%-- 
 	<center>
 	<table>
 	<form action="boardWrite.do" method="get">
@@ -51,9 +97,9 @@ $(document).ready(function() {
 		</tr>
 		<tr>
 			<td colspan="3">
-<%-- 			${monthContent} --%>
-<%-- 			${monthAmount} --%>
-<%-- 			${date } --%>
+			${monthContent}
+			${monthAmount}
+			${date }
 			<textarea rows="30" cols="100" id="content" name="content" placeholder="내용을 입력하세요"></textarea></td>
 		</tr>
 		<input type="hidden" value="${date}" name="date2">
@@ -66,6 +112,6 @@ $(document).ready(function() {
 	<div>
 		<input type="button" value="돌아가기" onclick="location.href='boardList.do'">
 	</div>
-	</center>
+	</center> --%>
 </body>
 </html>
