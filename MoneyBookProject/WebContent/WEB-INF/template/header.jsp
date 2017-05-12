@@ -13,7 +13,6 @@
 
 <script type="text/javascript" src="js/memberJs.js"></script>
 <script type="text/javascript" src="js/headerScript.js"></script>
-
 <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
 
 <script type="text/javascript">

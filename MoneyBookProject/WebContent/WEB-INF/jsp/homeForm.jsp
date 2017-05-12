@@ -12,6 +12,7 @@
 .container{
 	width: 1500px;
 }
+
 #container{
 	min-height: 67%;
 }
