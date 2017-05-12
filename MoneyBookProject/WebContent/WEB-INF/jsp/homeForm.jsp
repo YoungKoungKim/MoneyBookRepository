@@ -12,7 +12,6 @@
 .container{
 	width: 1500px;
 }
-
 #container{
 	min-height: 67%;
 }
@@ -87,10 +86,6 @@
 		today = yyyy+'-'+mm+'-'+dd;
 		return location.href="viewMyPage.do?id_index="+id_index+"&date="+today;
 	}//today()
-	
-	function goError(){
-		
-	}//goError()
 </script>
 </head>
 <body>

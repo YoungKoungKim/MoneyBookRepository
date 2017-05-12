@@ -221,10 +221,7 @@ function getCommentList() {
 						<%-- 							${board.recommend }</td> --%>
 					</tr>
 				</table>
-
 			</div>
-
-
 		</div>
 
 		<div class="left" align="center">
@@ -376,7 +373,7 @@ function getCommentList() {
 			</table>
 
 		</div>
-
+		
 		<div class="right">
 			<br>
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
