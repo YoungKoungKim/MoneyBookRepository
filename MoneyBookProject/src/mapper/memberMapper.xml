@@ -7,10 +7,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		insert into member
 		values(0, #{id}, #{nick}, #{pwd})
 	</insert>
-	<update id="updateMember" parameterType="member">
+	<update id="nickUpdate" parameterType="member">
 		update member set nick =
-		#{nick}, pwd = #{pwd} where id_index = #{id_index}
+		#{nick} where id_index = #{id_index}
 	</update>
+
+	<update id="pwdUpdate" parameterType="member">
+		update member set pwd =
+		#{pwd} where id_index = #{id_index}
+	</update>
+
 	<delete id="deleteMember" parameterType="int">
 		delete from member where
 		id_index = #{id_index}

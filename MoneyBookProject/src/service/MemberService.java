@@ -93,11 +93,10 @@ public class MemberService implements IMemberService {
 		// 1200번대, 요구사항 명세서의 password_check 커맨드랑 같다고 봄
 		String old = memberDao.selectOneMember(id_index).getPwd();
 		String userPwd = changePwd(pwd);
-		
+
 		int result;
-		
-		
-		if(userPwd.equals(old)) {
+
+		if (userPwd.equals(old)) {
 			result = 1201;
 		} else {
 			result = 1202;
@@ -107,22 +106,46 @@ public class MemberService implements IMemberService {
 	}
 
 	@Override
-	public int updateMember(Member member, String newPwd) { // 4100번대
-		int result;
-		
-		String userPwd = changePwd(member.getPwd());
+	public int nickUpdate(int id_index, String nick) {
+		Member member = new Member();
 
-		if (userPwd.equals(memberDao.selectOneMember(member.getId_index()).getPwd())) {
+		member.setId_index(id_index);
+		member.setNick(nick);
+
+		int result = memberDao.nickUpdate(member);
+
+		if (result > 0) {
+			// 성공
+			result = 4101;
+		} else {
+			// db수정 실패
+			result = 4103;
+		}
+
+		return result;
+	}
+
+	@Override
+	public int pwdUpdate(int id_index, String pwd, String newPwd) {
+		int result;
+
+		String userPwd = changePwd(pwd);
+
+		if (userPwd.equals(memberDao.selectOneMember(id_index).getPwd())) {
+			Member member = new Member();
+
+			member.setId_index(id_index);
 			member.setPwd(changePwd(newPwd));
 
-			result = memberDao.updateMember(member);
+			result = memberDao.pwdUpdate(member);
 
-			if (result > 0)
+			if (result > 0) {
 				// 성공
 				result = 4101;
-			else
+			} else {
 				// db수정 실패
 				result = 4103;
+			}
 		} else {
 			// 현재 비번이랑 입력한 비번이랑 다를때
 			result = 4102;
@@ -140,7 +163,7 @@ public class MemberService implements IMemberService {
 
 			if (member != null) {
 				String userPwd = changePwd(pwd);
-				
+
 				if (userPwd.equals(member.getPwd())) {
 					return member;
 				} else {

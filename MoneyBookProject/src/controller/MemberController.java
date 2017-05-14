@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -98,7 +99,7 @@ public class MemberController {
 
 			mav.addObject("member", member);
 			mav.setViewName("myInfo");
-			
+
 		} catch (NullPointerException e) {
 			mav.setViewName("redirect:home.do");
 		}
@@ -106,11 +107,16 @@ public class MemberController {
 		return mav;
 	}
 
-	// inform_Update
-	// ajax
-	@RequestMapping(method = RequestMethod.POST, value = "informUpdate.do")
-	public @ResponseBody int infromUpdate(Member member, String newPwd) {
-		return memberService.updateMember(member, newPwd);
+	@RequestMapping(method = RequestMethod.POST, value = "nickUpdate.do")
+	public @ResponseBody int nickUpdate(HttpSession session, String nick) {
+
+		return memberService.nickUpdate((int) session.getAttribute("id_index"), nick);
+	}
+
+	@RequestMapping(method = RequestMethod.POST, value = "pwdUpdate.do")
+	public @ResponseBody int pwdUpdate(HttpSession session, String pwd, String newPwd) {
+
+		return memberService.pwdUpdate((int) session.getAttribute("id_index"), pwd, newPwd);
 	}
 
 	// 카카오 로그인

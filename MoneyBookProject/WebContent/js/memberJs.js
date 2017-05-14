@@ -194,6 +194,8 @@ $(document).ready(function() {
  		 			}
  		 		});
 
+ 				
+ 				//비밀번호 수정
  		 		$("#inform_NewPwd").on("blur", function() {
  		 				if (pwdForm.test($(this).val())) {
  		 						$("#inform_NewPwdCheck").text("사용 가능");
@@ -232,11 +234,41 @@ $(document).ready(function() {
  		 			}
  		 		});
 
- 		 		$("#inform_SubmitBtn").on("click", function() {
+ 		 		
+ 		 		//버튼을 2개로 나눠서 닉네임 따로 해야 함 true 체크
+ 		 		
+ 		 		$("#nick_UpdateBtn").on("click", function() {
  		 			if ($("#inform_NickTest").val() != "true") {
  		 				$("#inform_Nick").focus();
  		 				return;
- 		 			}  else if ($("#inform_NewPwdTest").val() != "true") {
+ 		 			} else {
+ 		 				$.ajax({
+ 		 					url : "nickUpdate.do",
+ 		 					type : "post",
+ 		 					data : "nick=" + $("#inform_Nick").val(),
+ 		 					dataType : "json",
+ 		 					success : function(data) {	
+ 		 						if(data == 4101) {
+ 		 							location.href = "myInfo.do";
+ 		 						} else if (data == 4103) {
+ 		 							alert("db 수정 실패");
+ 		 						}
+ 		 					},
+ 		 					error:function(request,status,error){
+ 		 				        alert("닉네임 수정 실패 : 다시 시도해주세요. " + data);
+ 		 				       }
+ 		 				})
+ 		 			}
+ 		 		})
+ 		 		
+ 		 		//이건 비밀번호체크로 바꿔야함
+ 		 		$("#pwd_UpdateBtn").on("click", function() {
+ 		 			if($("#inform_NowPwd").val() == "") {
+ 		 				alert("현재 비밀번호를 입력해주세요.");
+ 		 				$("#inform_NowPwd").focus();
+ 		 				return;
+ 		 			}
+ 		 			if ($("#inform_NewPwdTest").val() != "true") {
  		 				$("#inform_NewPwd").focus();
  		 				return;
  		 			} else if ($("#inform_NewPwdOkTest").val() != "true") {
@@ -246,28 +278,22 @@ $(document).ready(function() {
  		 				$.ajax({
  		 					url : "informUpdate.do",
  		 					type : "post",
- 		 					data : "id_index=" + $("#inform_Id_index").val() + "&nick=" + $("#inform_Nick").val() + "&pwd=" + $("#inform_NowPwd").val() + "&newPwd=" + $("#inform_NewPwd").val(),
+ 		 					data : "pwd=" + $("#inform_NowPwd").val() + "&newPwd=" + $("#inform_NewPwd").val(),
  		 					dataType : "json",
  		 					success : function(data) {	
  		 						if(data == 4101) {
- 		 							var date = new Date();
- 		 							var time = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
- 		 							location.href = "viewMyPage.do?id_index=" + $("#inform_Id_index").val() + "&date=" + time;
+ 		 							location.href = "myInfo.do";
  		 						} else if (data == 4102) {
  		 							$("#inform_NowPwd").val("");
  		 							$("#inform_NowPwdCheck").text("비밀번호가 틀렸습니다.");
  		 						} else if (data == 4103) {
- 		 							alert("db 수정 실패");
+ 		 							alert("비밀번호 db 수정 실패");
  		 						}
  		 					},
  		 					error:function(request,status,error){
- 		 				        alert("수정 실패 : 다시 시도해주세요.");
+ 		 				        alert("비밀번호 수정 실패 : 다시 시도해주세요.");
  		 				       }
  		 				})
  		 			}
  		 		});
- 					
- 		 		$("#inform_CancelBtn").on("click", function() {
- 		 			location.href = "javascript:history.back(-1)";
- 		 		})
  			})

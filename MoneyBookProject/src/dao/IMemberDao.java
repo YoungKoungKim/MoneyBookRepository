@@ -6,8 +6,11 @@ public interface IMemberDao {
 	// 회원가입
 	public int insertMember(Member member);
 
-	// 회원정보 수정
-	public int updateMember(Member member);
+	// 닉네임 수정
+	public int nickUpdate(Member member);
+
+	// 비밀번호 수정
+	public int pwdUpdate(Member member);
 
 	// 회원 삭제
 	public int deleteMember(int id_index);
