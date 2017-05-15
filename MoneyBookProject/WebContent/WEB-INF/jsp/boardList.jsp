@@ -182,7 +182,8 @@ li {
 					</table>
 				</form>
 			</div>
-			<table width="800px" height="500px"
+			<div>
+			<table width="800px" height="100px"
 				style="border-bottom: 1px solid #CCE2D8; background-color: #EAF2EE">
 				<c:forEach var="best" items="${boardBest }">
 					<tr align="center"
@@ -202,11 +203,19 @@ li {
 							alt="" />${best.viewNo }</td>
 					</tr>
 				</c:forEach>
+				</table>
+			</div>
+			<div>
+			<table width="800px" height="500px"
+				style="border-bottom: 1px solid #CCE2D8; background-color: #EAF2EE">
 				<c:forEach var="board" items="${boardList }">
 					<tr align="center" style="border-bottom: 1px solid #CCE2D8;">
 						<td>${board.boardNo }</td>
-						<td align="left"><a style="margin-right: 100px;"
-							href="boardDetailView.do?boardNo=${board.boardNo}&id_index=${board.id_index}">${board.title }</a>
+						<td align="left">
+						<a style="margin-right: 100px;"
+							href="boardDetailView.do?boardNo=${board.boardNo}&id_index=${board.id_index}">${board.title }
+							<span>[${board.commentNum}]</span>
+							</a>
 						</td>
 						<td align="left"><img id="img1"
 							src="homeCss/assets/images/demo/name.png" alt="" />${board.nick }</td>
@@ -217,9 +226,11 @@ li {
 							src="homeCss/assets/images/demo/recommend.png" alt="" />${board.recommend }</td>
 						<td><img id="img1" src="homeCss/assets/images/demo/view.png"
 							alt="" />${board.viewNo }</td>
+					
 					</tr>
 				</c:forEach>
 			</table>
+			</div>
 			<div>
 				<table>
 					<tr align="center">

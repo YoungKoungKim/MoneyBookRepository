@@ -60,7 +60,7 @@
 
 	<select id="selectboardLimit" parameterType="java.util.HashMap"
 		resultType="board">
-		select * from board
+		select *,(select count(*) from comment where comment.boardNo =board.boardNo)as commentNum from board
 		<if test="ageType != 0">
 			where ageType = #{ageType}
 		</if>

@@ -10,7 +10,6 @@ import service.IMoneyBookService;
 
 @Controller
 public class MainPageController {
-	
 	@Autowired
 	private IBoardService boardservice;
 	@Autowired

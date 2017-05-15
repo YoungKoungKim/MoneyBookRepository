@@ -30,7 +30,6 @@ body {
 	font-size: 14px;
 	min-height: 100%;
 }
-
 #left {
 	position: absolute;
 	height: 100%;
@@ -38,7 +37,6 @@ body {
 	width: 15%;
 	background-color: red;
 }
-
 #center {
 	font-family: 'Ubuntu Condensed', sans-serif;
 	position: absolute;
@@ -48,7 +46,6 @@ body {
 	width: 60%;
 	background-color: blue;
 }
-
 #right {
 	position: absolute;
 	height: 100%;
@@ -56,13 +53,11 @@ body {
 	right: 0;
 	background-color: pink;
 }
-
 #calendar {
 	padding-top: 50px;
 	max-width: 700px;
 	margin: 0 auto;
 }
-
 #detail {
 	box-sizing: border-box;
 	table-layout: fixed;
@@ -73,20 +68,16 @@ body {
 	/* 	margin-left: #calendar.margin;
 	margin-right: px; */
 }
-
 .fc-event, .fc-event:hover, .ui-widget .fc-event {
 	color: #000; /* default TEXT color */
 	text-decoration: none; /* if <a> has an href */
 }
-
 .fc-day-number {
 	color: #A9A9A9;
 }
-
 .detailOne:hover {
 	background-color: #91D4B5;
 }
-
 .btn {
 	font-weight: bold;
 	border-radius: 10px;
@@ -96,42 +87,34 @@ body {
 	color: white;
 	border-radius: 10px;
 }
-
 .btn:hover {
 	background-color: grey;
 	color: #fff;
 	text-decoration: none
 }
-
 #borderLine {
 	padding: 5px;
 	margin: 10px;
 	border: 3px solid #1ABC9C;
 }
-
 .modal-body {
 	max-width: 450px;
 }
-
 </style>
 
 <script type="text/javascript">
-
 $('#detail').css('margin', $('calendar').attr('margin'));
-
 jQuery.fn.center = function () {
     this.css("position","absolute");
     this.css("top", Math.max(0, (($(window).height() - $(this).outerHeight()) / 2) + $(window).scrollTop()) + "px");
     this.css("left", Math.max(0, (($(window).width() - $(this).outerWidth()) / 2) + $(window).scrollLeft()) + "px");
     return this;
 }
-
 function moneyBookRegist(id_index){
 	var popUrl = "moneyBookWriteForm.do?id_index=" + id_index;	//팝업창에 출력될 페이지 URL
 	var popOption = "top=200, left=300, width=600, height=500, resizable=no, scrollbars=no, status=no";    //팝업창 옵션(optoin)
 	window.open(popUrl,"가계부입력",popOption);
 }
-
 function bookmarkRegist(id_index){
 	var popUrl = "bookmarkRegistForm.do?id_index=" + id_index;	//팝업창에 출력될 페이지 URL
 	var popOption = "top=200, left=300, width=500, height=400, resizable=no, scrollbars=no, status=no";    //팝업창 옵션(optoin)
@@ -145,7 +128,6 @@ function dateToYYYYMMDD(date){
     }
     return date.getFullYear() + '-' + pad(date.getMonth()+1) + '-' + pad(date.getDate());
 }
-
 function convertCategory(word) {
 	var category = {
 		food : "식비",
@@ -163,7 +145,6 @@ function convertCategory(word) {
 	}
 	return category[word];
 }
-
 	$(document).ready(function() {
 		
 		$(document).on('click', '.detailOne', function() {
@@ -233,7 +214,6 @@ function convertCategory(word) {
 				error : function() {
 					alert("모달에러");
 				}
-
 			});
 		});
 		
@@ -354,7 +334,6 @@ function convertCategory(word) {
 				} else {
 					
 				}
-
 		    }
 		});
 		
@@ -363,13 +342,11 @@ function convertCategory(word) {
         	$('#detailTable thead').hide();
         	$('#detailTable tbody').empty();
         });
-
         // 오른쪽 버튼을 클릭하였을 경우
        	$("button.fc-next-button").click(function() {
        		$('#detailTable thead').hide();
        		$('#detailTable tbody').empty();
         });
-
 	});
 	
 	function loadImage(){
