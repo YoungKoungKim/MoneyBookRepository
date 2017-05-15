@@ -153,11 +153,11 @@ public class BoardController {
 		// }
 	}
 	//
-	//// @RequestMapping("boardDelete.do")
-	//// public ModelAndView boardDelete(int boardNo){
-	//// //게시글삭제
-	//// return null;
-	//// }
+	 @RequestMapping("boardDelete.do")
+	 public String boardDelete(int boardNo){
+		 boardservice.boardDelete(boardNo);
+		 return "redirect:boardList.do";
+	 }
 
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
