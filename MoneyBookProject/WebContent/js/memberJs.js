@@ -250,6 +250,7 @@ $(document).ready(function() {
  		 					dataType : "json",
  		 					success : function(data) {	
  		 						if(data == 4101) {
+ 		 							alert("닉네임이 수정되었습니다.");
  		 							location.href = "myInfo.do";
  		 						} else if (data == 4103) {
  		 							alert("db 수정 실패");

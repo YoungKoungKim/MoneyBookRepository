@@ -107,17 +107,23 @@
 					<div class="col-md-5 piece right_t">
 						<h2 style="margin-bottom: 20px;">닉네임 수정</h2>
 
-						<div style="padding: 5px; height: 20%;">
+						<div class="col-md-12">
 
-							<div class="col-md-4" style="text-align: left;">
-								<h3 style="margin-top: 10px;">닉네임 :</h3>
+							<div class="input-group">
+								<span class="input-group-addon inputLabel">닉네임</span> <input
+									id="inform_Nick" type="text" class="form-control"
+									placeholder="수정할 닉네임을 입력해주세요." style="width: 345px;">
 							</div>
 
-							<div class="col-md-8"
-								style="text-align: left; padding-left: 0px;">
-								<input type="text" id="inform_Nick" class="form-control"
-									placeholder="닉네임을 입력하세요.">
-							</div>
+<!-- 							<div class="col-md-4" style="text-align: left;"> -->
+<!-- 								<h3 style="margin-top: 10px;">닉네임 :</h3> -->
+<!-- 							</div> -->
+
+<!-- 							<div class="col-md-8" -->
+<!-- 								style="text-align: left; padding-left: 0px;"> -->
+<!-- 								<input type="text" id="inform_Nick" class="form-control" -->
+<!-- 									placeholder="닉네임을 입력하세요."> -->
+<!-- 							</div> -->
 
 						</div>
 
