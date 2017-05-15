@@ -24,6 +24,10 @@ select {
  -moz-appearance: none; 
  appearance: none; 
  }
+a:hover {
+	color: black;
+	text-decoration: none;
+}
 
 a:link {
 	color: black;
@@ -33,11 +37,6 @@ a:link {
 a:visited {
 	color: black;
 	text-decoration: none;
-}
-
-a:hover {
-	color: blue;
-	text-decoration: underline;
 }
 
 .root {
@@ -60,6 +59,9 @@ a:hover {
 	height: auto;
 	width: 80%;
 	float: right;
+
+}
+
 }
 
 .bottom {
@@ -67,6 +69,8 @@ a:hover {
 	height: 100%;
 	clear: both;
 }
+
+
 
 ul {
 	list-style: none;
@@ -83,18 +87,32 @@ a {
 	cursor: pointer;
 }
 
-a:hover {
-	color: black;
-	text-decoration: none;
-}
 
 .menu .hide {
 	display: none;
 }
 
-.left .btn btn-default {
-	background: #91D4B5;
-	color: #E9F2EE;
+.myButton {
+	background-color:#ffffff;
+	-moz-border-radius:4px;
+	-webkit-border-radius:4px;
+	border-radius:4px;
+	border:3px solid #ffffff;
+	display:inline-block;
+	cursor:pointer;
+	color:#000000;
+	font-family:Arial;
+	font-size:15px;
+	padding:7px 17px;
+	text-decoration:none;
+	text-shadow:0px 0px 0px #91d4b5;
+}
+.myButton:hover {
+	background-color:#91d4b5;
+}
+.myButton:active {
+	position:relative;
+	top:1px;
 }
 </style>
 <script type="text/javascript">
@@ -117,33 +135,41 @@ a:hover {
 	<div class="root">
 		<div class="left">
 			<div>
-				<br> &nbsp;&nbsp;&nbsp;<input
-					class="btn btn-default" type="button" value="전체게시판"
-					onclick="location.href='boardList.do'">
+				<br> &nbsp;&nbsp;&nbsp;
+				<a class="myButton" href="boardList.do">전체 게시판
+				</a>
 			</div>
 			<div>
 				<br>
 				<ul>
-					<li class="menu"><a>연령별 게시판</a>
+					<li class="menu"><a class="myButton" >연령별 게시판</a>
 						<ul class="hide">
 							
 							<li>
-							<input class="btn btn-default" type="button" value="10대"
-							onclick="location.href='boardList.do?ageType=10'">
+							<a href="boardList.do?ageType=10" class="myButton">
+							10대
+<!-- 							<input class="btn btn-default" type="button" value="10대" -->
+<!-- 							onclick="location.href='boardList.do?ageType=10'"> -->
+							</a>
 							</li>
 							
 							<li>
-							<input class="btn btn-default" type="button" value="20대"
-							onclick="location.href='boardList.do?ageType=20'">
+							<a href="boardList.do?ageType=20" class="myButton">
+							20대
+<!-- 							<input class="btn btn-default" type="button" value="10대" -->
+<!-- 							onclick="location.href='boardList.do?ageType=10'"> -->
+							</a>
 							</li>
 							
 							<li>
-							<input class="btn btn-default" type="button" value="30대"
-							onclick="location.href='boardList.do?ageType=30'">
+							<a href="boardList.do?ageType=30" class="myButton">
+							30대
+							</a>
 							</li>
 							<li>
-							<input class="btn btn-default" type="button" value="40대 이상"
-							onclick="location.href='boardList.do?ageType=40'">
+							<a href="boardList.do?ageType=40" class="myButton">
+							40대 이상
+							</a>
 							</li>
 							
 						</ul>
@@ -221,8 +247,7 @@ a:hover {
 								[${i }]
 							</c:when>
 										<c:otherwise>
-											<a
-												href="boardList.do?page=${i }&ageType=${ageType}&content=${content}&category=${category}">[${i }]</a>
+											<a class="page" href="boardList.do?page=${i }&ageType=${ageType}&content=${content}&category=${category}">[${i }]</a>
 										</c:otherwise>
 									</c:choose>
 								</c:forEach> <c:if test="${end != last }">
@@ -235,118 +260,9 @@ a:hover {
 			</table>
 
 
-
-<!-- 			<div class="bottom"> -->
-				
-<!-- 			</div> -->
 		</div>
 
+</div>
 
-
-		<%-- <div>
-		<input type="button" value="공유" id="form" onclick="location.href='boardWriteForm.do?id_index=4&date=2017-04-28'">
-	</div>
-	<br>
-	<br>
-	<br>
-	<div style="position: relative; left: 250px; top: -10px">
-
-		<input style="background: #91D4B5; color: #E9F2EE;"
-			class="btn btn-default" type="button" value="전체게시판"
-			onclick="location.href='boardList.do'"> <input
-			style="background: #91D4B5; color: #E9F2EE;" class="btn btn-default"
-			type="button" value="10대"
-			onclick="location.href='boardList.do?ageType=10'"> <input
-			style="background: #91D4B5; color: #E9F2EE;" class="btn btn-default"
-			type="button" value="20대"
-			onclick="location.href='boardList.do?ageType=20'"> <input
-			style="background: #91D4B5; color: #E9F2EE;" class="btn btn-default"
-			value="30대" onclick="location.href='boardList.do?ageType=30'">
-		<input style="background: #91D4B5; color: #E9F2EE;"
-			class="btn btn-default" value="40대 이상"
-			onclick="location.href='boardList.do?ageType=40'">
-	</div>
-	<center>
-		<div>
-			<table width="800px" height="500px"
-				style="border-bottom: 1px solid #CCE2D8; background-color: #EAF2EE">
-				<tr style="border-bottom: 1px solid black; background: #91D4B5;">
-					<td align="center" width="30px">No</td>
-					<td align="center" width="200px">제목</td>
-					<td align="center" width="70px">작성자</td>
-					<td align="center" width="100px">날짜</td>
-					<td align="center" width="40px">추천</td>
-					<td align="center" width="40px">조회</td>
-
-				</tr>
-				<c:forEach var="best" items="${boardBest }">
-					<tr align="center"
-						style="border-bottom: 1px solid #CCE2D8; background-color: ##EAF2EE; font-size: 15px; color: red;">
-						<td>공지</td>
-						<td align="left"><a style="color: red;"
-							href="boardDetailView.do?boardNo=${best.boardNo}
-					&id_index=${best.id_index}">${best.title }</a></td>
-						<td>${best.nick }</td>
-						<td><fmt:formatDate value="${best.date }"
-								pattern="yyyy-MM-dd" /></td>
-						<td>${best.recommend }</td>
-						<td>${best.viewNo }</td>
-					</tr>
-				</c:forEach>
-				<c:forEach var="board" items="${boardList }">
-					<tr align="center" style="border-bottom: 1px solid #CCE2D8;">
-						<td>${board.boardNo }</td>
-						<td align="left"><a
-							href="boardDetailView.do?boardNo=${board.boardNo}
-					&id_index=${board.id_index}">${board.title }</a>
-						</td>
-						<td>${board.nick }</td>
-						<td><fmt:formatDate value="${board.date }"
-								pattern="yyyy-MM-dd" /></td>
-						<td>${board.recommend }</td>
-						<td>${board.viewNo }</td>
-					</tr>
-				</c:forEach>
-				</div>
-				<div>
-					<table>
-						<tr align="center">
-							<td width="1250px" colspan="5"><c:if test="${start != 1 }">
-									<a href="boardList.do?page=${start-1 }">[이전]</a>
-								</c:if> <c:forEach begin="${start }" end="${end }" var="i">
-									<c:choose>
-										<c:when test="${i == current }">
-								[${i }]
-							</c:when>
-										<c:otherwise>
-											<a
-												href="boardList.do?page=${i }&ageType=${ageType}&content=${content}&category=${category}">[${i }]</a>
-										</c:otherwise>
-									</c:choose>
-								</c:forEach> <c:if test="${end != last }">
-									<a href="boardList.do?page=${end+1 }">[다음]</a>
-								</c:if></td>
-						</tr>
-					</table>
-				</div>
-				<br>
-			</table>
-
-			<div>
-				<form action="boardList.do">
-					<table>
-						<tr align="center">
-							<td><select name="category">
-									<option value="title">제목</option>
-									<option value="nick">작성자</option>
-							</select></td>
-							<td><input type="text" name="content"> <input
-								type="submit" id="searchWhat" value="검색"></td>
-						</tr>
-					</table>
-				</form>
-
-			</div>
-	</center> --%>
 </body>
 </html>
