@@ -11,13 +11,9 @@
 #myInfoContainer {
 	margin-top: 30px;
 	margin-bottom: 50px;
-	min-height: 700px;
+	min-height: 620px;
 	width: 1100px;
 	vertical-align: middle;
-}
-
-#myInfo_Body {
-	font-size: 18px;
 }
 
 .left_t, .left_b, .right_t, .right_b {
@@ -27,19 +23,73 @@
 	border: 1px solid #dadada;
 	background-color: #eaeae9;
 }
+
+#inform_Nick {
+	height: 45px;
+	font-size: 24px;
+}
+
+#nick_UpdateBtn {
+	background-color: #4CAF50;
+	border: none;
+	color: white;
+	padding: 15px 32px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
+	margin: 4px 2px;
+	cursor: pointer;
+	padding-left: 120px;
+	padding-right: 120px;
+}
+
+#nick_UpdateBtn:ACTIVE {
+	position: relative;
+	top: 1px;
+}
+
+#pwd_UpdateBtn {
+	background-color: blue;
+	border: none;
+	color: white;
+	padding: 15px 32px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
+	margin: 4px 2px;
+	cursor: pointer;
+	padding-left: 120px;
+	padding-right: 120px;
+}
+
+#pwd_UpdateBtn:ACTIVE {
+	position: relative;
+	top: 1px;
+}
+
+.myButton {
+	background-color: #91D4B5;
+	font-size: 17px;
+}
+
+h3 {
+	font-size: 18px;
+}
 </style>
 </head>
-<body id="myInfo_Body">
+<body>
 	<center>
 		<c:choose>
-			<c:when test="${id_index != null }">
+			<c:when test="${id_index == member.id_index }">
 				<h1>회원 정보 관리</h1>
 				<div id="myInfoContainer" align="center">
 					<div class="col-md-5 left_t">
 						<h2>프로필</h2>
 						<div style="padding: 5px; height: 20%;">
-							<div class="col-md-4">
-								<h3>ID :</h3>
+							<div class="col-md-4" style="text-align: left;">
+								<h3>아이디 :</h3>
 							</div>
 							<div class="col-md-8" style="text-align: left;">
 								<h3>${member.id }</h3>
@@ -47,7 +97,7 @@
 						</div>
 
 						<div style="padding: 5px; height: 20%;">
-							<div class="col-md-4">
+							<div class="col-md-4" style="text-align: left;">
 								<h3>닉네임 :</h3>
 							</div>
 							<div class="col-md-8" style="text-align: left;">
@@ -56,19 +106,15 @@
 						</div>
 
 						<div style="padding: 5px; height: 20%;">
-							<div class="col-md-4">
+							<div class="col-md-4" style="text-align: left;">
 								<h3>가입 경로 :</h3>
 							</div>
 							<div class="col-md-8" style="text-align: left;">
 								<h3>
 									<c:choose>
 										<c:when
-											test="${member.pwd eq '4a7d1ed414474e4033ac29ccb8653d9b'}">
-									카카오 아이디
-								</c:when>
-										<c:otherwise>
-									일반 아이디
-								</c:otherwise>
+											test="${member.pwd eq '4a7d1ed414474e4033ac29ccb8653d9b'}">카카오 아이디</c:when>
+										<c:otherwise>일반 아이디</c:otherwise>
 									</c:choose>
 								</h3>
 							</div>
@@ -76,10 +122,89 @@
 
 					</div>
 					<div class="col-md-5 right_t">
-						<h2>닉네임 수정</h2>
+						<h2 style="margin-bottom: 20px;">닉네임 수정</h2>
+
+						<div style="padding: 5px; height: 20%;">
+
+							<div class="col-md-4" style="text-align: left;">
+								<h3 style="margin-top: 10px;">닉네임 :</h3>
+							</div>
+
+							<div class="col-md-8"
+								style="text-align: left; padding-left: 0px;">
+								<input type="text" id="inform_Nick" class="form-control"
+									placeholder="닉네임을 입력하세요.">
+							</div>
+
+						</div>
+
+						<div class="col-md-12" id="inform_NickCheck"
+							style="color: red; padding: 5px; min-height: 45px; font-size: 24px; margin-top: 10px; margin-bottom: 10px;"></div>
+
+						<div class="col-md-12" style="padding: 5px; height: 20%;">
+							<button type="button" id="nick_UpdateBtn">닉네임 수정</button>
+						</div>
+
 					</div>
+					<!-- 			---------------------- 비밀번호------------------------ -->
 					<div class="col-md-5 left_b">
 						<h2>비밀번호 수정</h2>
+
+						<div style="padding-top: 5px;">
+
+							<div class="col-md-4" style="text-align: left;">
+								<h3>현재 비밀번호 :</h3>
+							</div>
+
+							<div class="col-md-8"
+								style="text-align: left; padding-left: 0px;">
+								<input type="text" id="inform_NowPwd" class="form-control"
+									placeholder="현재 비밀번호를 입력하세요.">
+							</div>
+
+						</div>
+
+						<div class="col-md-12" id="inform_PwdCheck"
+							style="color: red; padding-top: 5px; min-height: 24px; font-size: 18px;"></div>
+
+						<div style="padding: 5px; height: 10%;">
+
+							<div class="col-md-4" style="text-align: left;">
+								<h3 style="margin-top: 10px;">수정 비밀번호 :</h3>
+							</div>
+
+							<div class="col-md-8"
+								style="text-align: left; padding-left: 0px;">
+								<input type="text" id="inform_NowPwd" class="form-control"
+									placeholder="현재 비밀번호를 입력하세요.">
+							</div>
+
+						</div>
+
+						<div class="col-md-12" id="inform_PwdCheck"
+							style="color: red; padding: 5px; min-height: 45px; font-size: 24px; margin-top: 10px; margin-bottom: 10px;"></div>
+
+						<div style="padding: 5px; height: 5%;">
+
+							<div class="col-md-4" style="text-align: left;">
+								<h3 style="margin-top: 10px;">비밀번호 확인 :</h3>
+							</div>
+
+							<div class="col-md-8"
+								style="text-align: left; padding-left: 0px;">
+								<input type="text" id="inform_NowPwd" class="form-control"
+									placeholder="현재 비밀번호를 입력하세요.">
+							</div>
+
+						</div>
+
+						<div class="col-md-12" id="inform_PwdCheck"
+							style="color: red; padding: 5px; min-height: 45px; font-size: 24px; margin-top: 10px; margin-bottom: 10px;"></div>
+
+						<div class="col-md-12" style="padding: 5px; height: 5%;">
+							<button type="button" id="pwd_UpdateBtn">비밀번호 수정</button>
+						</div>
+
 					</div>
 					<div class="col-md-5 right_b">
 						<h2>탈퇴</h2>
@@ -93,5 +218,9 @@
 			</c:otherwise>
 		</c:choose>
 	</center>
+	<input type="hidden" value="${member.nick }" id="inform_NickName">
+	<input type="hidden" value="false" id="inform_NickTest">
+	<input type="hidden" value="false" id="inform_NewPwdTest">
+	<input type="hidden" value="false" id="inform_NewPwdOkTest">
 </body>
 </html>

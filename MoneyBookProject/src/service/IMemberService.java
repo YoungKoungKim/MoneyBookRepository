@@ -15,9 +15,12 @@ public interface IMemberService {
 	// 수정할 때 지금 아이디의 비밀번호와 받아온 비밀번호 확인
 	public int IdpwdCheck(String pwd, int id_index);
 
-	// 회원정보 수정
-	public int updateMember(Member member, String newPwd);
+	// 닉네임 수정
+	public int nickUpdate(int id_index, String nick);
 
+	// 비밀번호 수정
+	public int pwdUpdate(int id_index, String pwd, String newPwd);
+	
 	// 로그인 할 때는?
 	// 받는 건 아이디랑 비번
 	public Member login(String id, String pwd);

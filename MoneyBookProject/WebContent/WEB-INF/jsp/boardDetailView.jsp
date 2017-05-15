@@ -102,7 +102,8 @@ function getCommentList() {
 		
 	$(document).ready(function() {
 		getCommentList();
-		
+		var id_index = parseInt('${id_index}');
+			
 		$('#recommendbtn').on('click', function() {
 
 			$.ajax({
@@ -111,13 +112,18 @@ function getCommentList() {
 				data : 'boardNo='+${board.boardNo},
 				dataType : 'json',
 				success : function(data) {
-					$('#recommend').text(data);
+					if(data.code ==0){
+					$('#recommend').text(data.recommend);						
+					}else if(data.code ==1){
+						$('#recommend').text(data.recommend);						
+						alert("회원만 가능합니다.");
+					}
 				}, 
-				error : function(){
-					alert("실패");
+				error : function(data){
 				}
 			});
 		});
+		
 	
 	$('#commentbut').on('click', function() {
 		var content1 = $('#content1').val();
