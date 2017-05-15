@@ -96,6 +96,11 @@ a:hover {
 	background: #91D4B5;
 	color: #E9F2EE;
 }
+#img1{
+	height: 15px;
+	width: auto;
+	margin-right: 5px;
+}
 </style>
 <script type="text/javascript">
 	// html dom 이 다 로딩된 후 실행된다.
@@ -145,13 +150,10 @@ a:hover {
 							<input class="btn btn-default" type="button" value="40대 이상"
 							onclick="location.href='boardList.do?ageType=40'">
 							</li>
-							
 						</ul>
 					</li>
 				</ul>
-
 			</div>
-
 		</div>
 
 		<div class="right" >
@@ -170,43 +172,31 @@ a:hover {
 					</table>
 				</form>
 		</div>
-			<table width="800px" height="500px"
-				style="border-bottom: 1px solid #CCE2D8; background-color: #EAF2EE">
-				<tr style="border-bottom: 1px solid black; background: #91D4B5;">
-					<td align="center" width="30px">No</td>
-					<td align="center" width="200px">제목</td>
-					<td align="center" width="70px">작성자</td>
-					<td align="center" width="100px">날짜</td>
-					<td align="center" width="40px">추천</td>
-					<td align="center" width="40px">조회</td>
-
-				</tr>
+			<table width="800px" height="500px" style="border-bottom: 1px solid #CCE2D8; background-color: #EAF2EE">
 				<c:forEach var="best" items="${boardBest }">
-					<tr align="center"
-						style="border-bottom: 1px solid #CCE2D8; background-color: ##EAF2EE; font-size: 15px; color: red;">
+					<tr align="center" style="border-bottom: 1px solid #CCE2D8; background-color: ##EAF2EE; font-size: 15px; color: red;">
 						<td>공지</td>
-						<td align="left"><a style="color: red;"
-							href="boardDetailView.do?boardNo=${best.boardNo}
-					&id_index=${best.id_index}">${best.title }</a></td>
-						<td>${best.nick }</td>
-						<td><fmt:formatDate value="${best.date }"
-								pattern="yyyy-MM-dd" /></td>
-						<td>${best.recommend }</td>
-						<td>${best.viewNo }</td>
+						<td align="left">
+							<a style="color: red; margin-right: 100px;" href="boardDetailView.do?boardNo=${best.boardNo}&id_index=${best.id_index}">${best.title }</a>
+							</td>
+						<td align="left"><img id="img1" src="homeCss/assets/images/demo/name.png" alt=""/>${best.nick }</td>
+						<td><img id="img1" src="homeCss/assets/images/demo/date.png" alt=""/>
+							<fmt:formatDate value="${best.date }" pattern="yyyy-MM-dd" /></td>
+						<td><img id="img1" src="homeCss/assets/images/demo/recommend.png" alt=""/>${best.recommend }</td>
+						<td><img id="img1" src="homeCss/assets/images/demo/view.png" alt=""/>${best.viewNo }</td>
 					</tr>
 				</c:forEach>
 				<c:forEach var="board" items="${boardList }">
 					<tr align="center" style="border-bottom: 1px solid #CCE2D8;">
 						<td>${board.boardNo }</td>
-						<td align="left"><a
-							href="boardDetailView.do?boardNo=${board.boardNo}
-					&id_index=${board.id_index}">${board.title }</a>
-						</td>
-						<td>${board.nick }</td>
-						<td><fmt:formatDate value="${board.date }"
-								pattern="yyyy-MM-dd" /></td>
-						<td>${board.recommend }</td>
-						<td>${board.viewNo }</td>
+						<td align="left">
+							<a style="margin-right: 100px;" href="boardDetailView.do?boardNo=${board.boardNo}&id_index=${board.id_index}">${board.title }</a>
+							</td>
+						<td align="left"><img id="img1" src="homeCss/assets/images/demo/name.png" alt=""/>${board.nick }</td>
+						<td><img id="img1" src="homeCss/assets/images/demo/date.png" alt=""/>
+							<fmt:formatDate value="${board.date }" pattern="yyyy-MM-dd" /></td>
+						<td><img id="img1" src="homeCss/assets/images/demo/recommend.png" alt=""/>${board.recommend }</td>
+						<td><img id="img1" src="homeCss/assets/images/demo/view.png" alt=""/>${board.viewNo }</td>
 					</tr>
 				</c:forEach>
 				</div>
@@ -218,11 +208,10 @@ a:hover {
 								</c:if> <c:forEach begin="${start }" end="${end }" var="i">
 									<c:choose>
 										<c:when test="${i == current }">
-								[${i }]
-							</c:when>
+											[${i }]
+										</c:when>
 										<c:otherwise>
-											<a
-												href="boardList.do?page=${i }&ageType=${ageType}&content=${content}&category=${category}">[${i }]</a>
+											<a href="boardList.do?page=${i }&ageType=${ageType}&content=${content}&category=${category}">[${i }]</a>
 										</c:otherwise>
 									</c:choose>
 								</c:forEach> <c:if test="${end != last }">
@@ -233,120 +222,8 @@ a:hover {
 				</div>
 				<br>
 			</table>
-
-
-
-<!-- 			<div class="bottom"> -->
-				
-<!-- 			</div> -->
 		</div>
 
 
-
-		<%-- <div>
-		<input type="button" value="공유" id="form" onclick="location.href='boardWriteForm.do?id_index=4&date=2017-04-28'">
-	</div>
-	<br>
-	<br>
-	<br>
-	<div style="position: relative; left: 250px; top: -10px">
-
-		<input style="background: #91D4B5; color: #E9F2EE;"
-			class="btn btn-default" type="button" value="전체게시판"
-			onclick="location.href='boardList.do'"> <input
-			style="background: #91D4B5; color: #E9F2EE;" class="btn btn-default"
-			type="button" value="10대"
-			onclick="location.href='boardList.do?ageType=10'"> <input
-			style="background: #91D4B5; color: #E9F2EE;" class="btn btn-default"
-			type="button" value="20대"
-			onclick="location.href='boardList.do?ageType=20'"> <input
-			style="background: #91D4B5; color: #E9F2EE;" class="btn btn-default"
-			value="30대" onclick="location.href='boardList.do?ageType=30'">
-		<input style="background: #91D4B5; color: #E9F2EE;"
-			class="btn btn-default" value="40대 이상"
-			onclick="location.href='boardList.do?ageType=40'">
-	</div>
-	<center>
-		<div>
-			<table width="800px" height="500px"
-				style="border-bottom: 1px solid #CCE2D8; background-color: #EAF2EE">
-				<tr style="border-bottom: 1px solid black; background: #91D4B5;">
-					<td align="center" width="30px">No</td>
-					<td align="center" width="200px">제목</td>
-					<td align="center" width="70px">작성자</td>
-					<td align="center" width="100px">날짜</td>
-					<td align="center" width="40px">추천</td>
-					<td align="center" width="40px">조회</td>
-
-				</tr>
-				<c:forEach var="best" items="${boardBest }">
-					<tr align="center"
-						style="border-bottom: 1px solid #CCE2D8; background-color: ##EAF2EE; font-size: 15px; color: red;">
-						<td>공지</td>
-						<td align="left"><a style="color: red;"
-							href="boardDetailView.do?boardNo=${best.boardNo}
-					&id_index=${best.id_index}">${best.title }</a></td>
-						<td>${best.nick }</td>
-						<td><fmt:formatDate value="${best.date }"
-								pattern="yyyy-MM-dd" /></td>
-						<td>${best.recommend }</td>
-						<td>${best.viewNo }</td>
-					</tr>
-				</c:forEach>
-				<c:forEach var="board" items="${boardList }">
-					<tr align="center" style="border-bottom: 1px solid #CCE2D8;">
-						<td>${board.boardNo }</td>
-						<td align="left"><a
-							href="boardDetailView.do?boardNo=${board.boardNo}
-					&id_index=${board.id_index}">${board.title }</a>
-						</td>
-						<td>${board.nick }</td>
-						<td><fmt:formatDate value="${board.date }"
-								pattern="yyyy-MM-dd" /></td>
-						<td>${board.recommend }</td>
-						<td>${board.viewNo }</td>
-					</tr>
-				</c:forEach>
-				</div>
-				<div>
-					<table>
-						<tr align="center">
-							<td width="1250px" colspan="5"><c:if test="${start != 1 }">
-									<a href="boardList.do?page=${start-1 }">[이전]</a>
-								</c:if> <c:forEach begin="${start }" end="${end }" var="i">
-									<c:choose>
-										<c:when test="${i == current }">
-								[${i }]
-							</c:when>
-										<c:otherwise>
-											<a
-												href="boardList.do?page=${i }&ageType=${ageType}&content=${content}&category=${category}">[${i }]</a>
-										</c:otherwise>
-									</c:choose>
-								</c:forEach> <c:if test="${end != last }">
-									<a href="boardList.do?page=${end+1 }">[다음]</a>
-								</c:if></td>
-						</tr>
-					</table>
-				</div>
-				<br>
-			</table>
-
-			<div>
-				<form action="boardList.do">
-					<table>
-						<tr align="center">
-							<td><select name="category">
-									<option value="title">제목</option>
-									<option value="nick">작성자</option>
-							</select></td>
-							<td><input type="text" name="content"> <input
-								type="submit" id="searchWhat" value="검색"></td>
-						</tr>
-					</table>
-				</form>
-
-			</div>
-	</center> --%>
 </body>
 </html>

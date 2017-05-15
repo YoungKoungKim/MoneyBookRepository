@@ -233,11 +233,7 @@ function convertCategory(word) {
 
 			});
 		});
-		
-<<<<<<< HEAD
-=======
-		
->>>>>>> branch 'master' of https://github.com/YoungKoungKim/MoneyBookRepository.git
+
 	if('${param.succ}' == "sucess"){
 			window.close();
 			opener.parent.location.reload();
