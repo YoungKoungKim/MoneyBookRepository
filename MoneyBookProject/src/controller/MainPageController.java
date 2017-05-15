@@ -27,5 +27,12 @@ public class MainPageController {
 		System.out.println(result);
 		return "redirect:boardDetailView.do?boardNo="+result;
 	}
+	
+	@RequestMapping("howToUseMoneyBook.do")
+	public String howToUseMoneyBook() {
+		return "howToUseMoneyBook";
+	}
+	
+	
 
 }
