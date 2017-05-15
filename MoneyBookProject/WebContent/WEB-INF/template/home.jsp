@@ -34,11 +34,13 @@ html, body {
 	padding-bottom: 10px;
 }
 #container {
-	min-height: 80%;
+	min-height: 100%;
+	height: auto;
 	background-color: white;
 }
 #container #content {
 	min-height: 300px;
+	background-color: white;
 }
 #footer {
 	margin-top : 50px;

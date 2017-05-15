@@ -11,7 +11,6 @@
 	min-height: 80%;
 	background-color: white;
 }
-
 #container #content {
 	min-height: 300px;
 }
