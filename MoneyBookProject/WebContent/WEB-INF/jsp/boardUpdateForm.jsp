@@ -8,15 +8,13 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-<script src="https://code.jquery.com/jquery-2.2.4.min.js"
-	integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
-	crossorigin="anonymous"></script>
 <style type="text/css">
 .root {
 	margin: 20px auto auto;
 	width: 800px;
 	background-color: #f0f8ff;
 }
+
 .top {
 	width: 100%;
 	height: 100%;
@@ -79,26 +77,11 @@
    -webkit-box-shadow:0px 0px 15px 5px #847F7F; 
    -moz-box-shadow:0px 0px 15px 5px #847F7F; 
  }
- #bottomcss:hover{
- 	cursor: pointer;	
- }
- #bottomcss:active{
- 	position: relative;
- 	top: 1px;
- }
  
 </style>
-<script type="text/javascript">
-	$(document).ready(function(){
-		$("#bottomcss").on("click", function(event){
-			$("#update_Form").submit();
-		});//click
-		
-	})
-</script>
 </head>
 <body>
-	<form action="boardUpdate.do" id="update_Form">
+	<form action="boardUpdate.do">
 		<div class="root">
 			<div class="top">
 					<div class="titlebar">
@@ -255,15 +238,14 @@
 			<textarea id="textarea1" name="content" value="${board.content}">${board.content}</textarea>
 		</div>
 
-		<div class="bottom" align="center">
+		<div class="bottom">
 			<input type="hidden" value="${board.boardNo}" name="boardNo">
 			<input type="hidden" value="${id_index}" name="id_index">
-			<a id="bottomcss"><img src="homeCss/assets/images/demo/confirm.png" alt=""/></a>
-			<a id="bottomcss" onclick="location.href='boardDetailView.do?boardNo=${board.boardNo}&id_index=${id_index}'">
-				<img src="homeCss/assets/images/demo/close.png" alt=""/></a>
+			<input type="submit" value="확인">
+			<input type="button" value="돌아가기"
+					onclick="location.href='boardDetailView.do?boardNo=${board.boardNo}&id_index=${id_index}'">
 		</div>
 	</form>
-	
 
 </body>
 </html>

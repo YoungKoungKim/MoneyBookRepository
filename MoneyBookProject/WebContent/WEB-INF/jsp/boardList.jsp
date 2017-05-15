@@ -25,29 +25,24 @@ select {
  -moz-appearance: none; 
  appearance: none; 
  }
-
 a:link {
 	color: black;
 	text-decoration: none;
 }
-
 a:visited {
 	color: black;
 	text-decoration: none;
 }
-
 a:hover {
 	color: blue;
 	text-decoration: underline;
 }
-
 .root {
 	margin: auto;
 	width: 1000px;
 	height: auto;
 	background-color: #f0f8ff;
 }
-
 .left {
 	height: auto;
 	width: 15%;
@@ -56,43 +51,35 @@ a:hover {
 	border-right: solid red;
 	text-align: center;
 }
-
 .right {
 	height: auto;
 	width: 80%;
 	float: right;
 }
-
 .bottom {
 	width: 100%;
 	height: 100%;
 	clear: both;
 }
-
 ul {
 	list-style: none;
 	padding-left: 0px;
 }
-
 li {
 	padding-left: 10px;
 }
-
 a {
 	text-decoration: none;
 	color: black;
 	cursor: pointer;
 }
-
 a:hover {
 	color: black;
 	text-decoration: none;
 }
-
 .menu .hide {
 	display: none;
 }
-
 .left .btn btn-default {
 	background: #91D4B5;
 	color: #E9F2EE;

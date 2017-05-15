@@ -23,6 +23,7 @@
 
 	<bean class="org.springframework.web.servlet.view.tiles3.TilesViewResolver">
 		<property name="suffix" value=".tiles"></property>
+
 	</bean>
 
 <!-- 	<mvc:interceptors> <mvc:interceptor> <mvc:mapping path="/*.do" /> <mvc:exclude-mapping 
