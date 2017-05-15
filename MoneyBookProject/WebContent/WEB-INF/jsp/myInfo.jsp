@@ -103,7 +103,8 @@
 						</div>
 
 					</div>
-					<div class="col-md-5  piece right_t">
+					
+					<div class="col-md-5 piece right_t">
 						<h2 style="margin-bottom: 20px;">닉네임 수정</h2>
 
 						<div style="padding: 5px; height: 20%;">
@@ -129,7 +130,7 @@
 
 					</div>
 					<!-- ---------------------- 비밀번호------------------------ -->
-					<div class="col-md-5  piece left_b">
+					<div class="col-md-5 piece left_b">
 						<h2>비밀번호 수정</h2>
 
 						<div class="col-md-12">
@@ -167,7 +168,7 @@
 						</div>
 	
 					</div>
-					<div class="col-md-5  piece right_b">
+					<div class="col-md-5 piece right_b">
 						<h2>탈퇴</h2>
 					</div>
 				</div>
