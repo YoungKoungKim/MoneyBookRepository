@@ -34,5 +34,9 @@ public class MainPageController {
 	}
 	
 	
+	@RequestMapping("template.do")
+	public String template() {
+		return "template2";
+	}
 
 }
