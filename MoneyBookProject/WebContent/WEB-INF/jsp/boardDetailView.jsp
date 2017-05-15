@@ -400,6 +400,10 @@ function getCommentList() {
 					<input  class="re_btn" type="button" value="수정"
 						onclick="location.href='boardUpdateForm.do?boardNo=${board.boardNo}'">
 				</c:if>
+				<c:if test="${board.id_index eq id_index }">
+					<input class="re_btn" type="button" value="삭제"
+						onclick="location.href='boardDelete.do?boardNo=${board.boardNo}'">
+				</c:if>
 			</div>
 			<table class="table table-bordered" style="width: 70%;"
 				id="commentTable" align="center">
@@ -431,67 +435,5 @@ function getCommentList() {
 
 	</div>
 
-
-	<%-- 	
-	<center>
-	<div>
-			<table border="1">
-				<tr>
-					<td style="width: 300px;" align="center">${board.title}</td>
-					<td style="width: 150px;" align="center"><fmt:formatDate
-							value="${board.date}" pattern="yyyy-MM-dd" /></td>
-			</table>
-
-	</div>
-	<div>
-			<table border="3">
-				<tr>
-					<td style="width: 400px" align="center">${board.nick }</td>
-
-					<td style="width: 200px;">조회수 : ${board.viewNo }</td>
-					<td style="width: 200px;" id="recommend">추천수 :
-						${board.recommend }</td>
-				</tr>
-				<tr>
-
-				</tr>
-
-				
-				<tr>
-					<td colspan="3" align="center">${board.content }</td>
-				</tr>
-
-
-			</table>
-		</div>
-		<div>
-		<c:forEach items="${list}" var="exboard">
-					<tr>
-						<td colspan="3" align="center">${exboard.category }
-							${exboard.price }</td>
-					</tr>
-
-				</c:forEach>
-		</div>
-		<div>
-			<input type="button" value="추천" id="recommendbtn"> <input
-				type="button" value="목록" onclick="location.href='boardList.do'">
-			<c:if test="${board.id_index eq id_index}">
-				<input type="button" value="수정"
-					onclick="location.href='boardUpdateForm.do?boardNo=${board.boardNo}'">
-			</c:if>
-		</div>
-
-		<table class="table table-bordered" style="width: 70%;"
-			id="commentTable">
-
-		</table>
-		<c:if test="${id_index != null}">
-			<input type="text" value="${nick}" readonly="readonly" id="nick1"
-				name="nick1">
-			<textarea rows="5" cols="120" id="content1" name="content1"></textarea>
-			<input type="button" value="등록" id="commentbut">
-		</c:if>
-	</center> --%>
 </body>
 </html>

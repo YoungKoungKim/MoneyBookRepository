@@ -11,4 +11,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select * from recommend where boardNo = #{boardNo} and 
 		id_index = #{id_index} and commentNo = #{commentNo}
 	</select>
+	
+	<delete id="deleterecommend" parameterType="int">
+		delete from recommend where boardNo = #{boardNo}
+	</delete>
 </mapper>
