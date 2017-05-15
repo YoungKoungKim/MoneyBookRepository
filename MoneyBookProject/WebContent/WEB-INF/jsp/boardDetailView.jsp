@@ -191,12 +191,12 @@ function getCommentList() {
 }
 
 .re_btn {
-	background-color: #A8E7ED;
+	background-color: #91D4B5;
 	font-size: 25px;
 	text-align: center;
 	margin-left: 5px;
 	border-radius: .25em;
-	border-color: #ffffff;
+	border-color: #91D4B5;
 }
 </style>
 </head>
