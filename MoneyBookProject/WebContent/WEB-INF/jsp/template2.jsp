@@ -1,11 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>캘린더 페이지</title>
+<title>Money Book</title>
+
 <link href="./fullcalendar-3.3.1/fullcalendar.css" rel="stylesheet" />
 <link href="./fullcalendar-3.3.1/fullcalendar.print.css"
 	rel="stylesheet" media="print" />
@@ -24,107 +24,9 @@
 <script type="text/javascript"
 	src="./fullcalendar-3.3.1/fullcalendar.js"></script>
 
-<style type="text/css">
-body {
-	padding: 0;
-	font-size: 14px;
-	min-height: 100%;
-}
-
-#left {
-	position: absolute;
-	height: 100%;
-	left: 0;
-	width: 15%;
-	background-color: red;
-}
-
-#center {
-	font-family: 'Ubuntu Condensed', sans-serif;
-	position: absolute;
-	left: 20%;
-	right: 10%;
-	height: 100%;
-	width: 60%;
-	background-color: blue;
-}
-
-#right {
-	position: absolute;
-	height: 100%;
-	width: 10%;
-	right: 0;
-	background-color: pink;
-}
-
-#calendar {
-	padding-top: 50px;
-	max-width: 700px;
-	margin: 0 auto;
-}
-
-#detail {
-	box-sizing: border-box;
-	table-layout: fixed;
-	border-collapse: collapse;
-	border-spacing: 0;
-	font-size: 1em;
-	min-height: 300px;
-	/* 	margin-left: #calendar.margin;
-	margin-right: px; */
-}
-
-.fc-event, .fc-event:hover, .ui-widget .fc-event {
-	color: #000; /* default TEXT color */
-	text-decoration: none; /* if <a> has an href */
-}
-
-.fc-day-number {
-	color: #A9A9A9;
-}
-
-.detailOne:hover {
-	background-color: #91D4B5;
-}
-
-.btn {
-	font-weight: bold;
-	border-radius: 10px;
-	background-color: #1abc9c;
-	padding: 10px 35px;
-	text-align: center;
-	color: white;
-	border-radius: 10px;
-}
-
-.btn:hover {
-	background-color: grey;
-	color: #fff;
-	text-decoration: none
-}
-
-#borderLine {
-	padding: 5px;
-	margin: 10px;
-	border: 3px solid #1ABC9C;
-}
-
-.modal-body {
-	max-width: 450px;
-}
-
-</style>
-
 <script type="text/javascript">
 
 $('#detail').css('margin', $('calendar').attr('margin'));
-
-jQuery.fn.center = function () {
-    this.css("position","absolute");
-    this.css("top", Math.max(0, (($(window).height() - $(this).outerHeight()) / 2) + $(window).scrollTop()) + "px");
-    this.css("left", Math.max(0, (($(window).width() - $(this).outerWidth()) / 2) + $(window).scrollLeft()) + "px");
-    return this;
-}
 
 function moneyBookRegist(id_index){
 	var popUrl = "moneyBookWriteForm.do?id_index=" + id_index;	//팝업창에 출력될 페이지 URL
@@ -371,80 +273,159 @@ function convertCategory(word) {
         });
 
 	});
-	
-	function loadImage(){
-		var popUrl = "";	//팝업창에 출력될 페이지 URL
-		var popOption = "width=650, height=420, resizable=no, scrollbars=no, status=no;";    //팝업창 옵션(optoin)
-		window.open(popUrl,"",popOption);
-	}
+
 </script>
+
+
+<style>
+body {
+	height: 100%;
+	font-size: 14px;
+}
+
+#j-sidebar-left {
+	width: 18%;
+	padding: 20px;
+	margin-right: 20px;
+	margin-bottom: 20px;
+	float: left;
+}
+
+#j-content {
+	width: 60%;
+	padding: 20px;
+	margin-bottom: 20px;
+	float: left;
+}
+
+#j-sidebar-right {
+	width: 18%;
+	padding: 20px;
+	margin-bottom: 20px;
+	float: right;
+}
+
+#calendar {
+	padding-top: 50px;
+	max-width: 700px;
+	margin: 0 auto;
+}
+
+#detail {
+	box-sizing: border-box;
+	table-layout: fixed;
+	border-collapse: collapse;
+	font-size: 1em;
+	border-spacing: 0;
+	min-height: auto;
+
+}
+
+.fc-event, .fc-event:hover, .ui-widget .fc-event {
+	color: #000; /* default TEXT color */
+	text-decoration: none; /* if <a> has an href */
+}
+
+.fc-day-number {
+	color: #A9A9A9;
+}
+
+.detailOne:hover {
+	background-color: #91D4B5;
+}
+
+.btn {
+	font-weight: bold;
+	border-radius: 10px;
+	background-color: #1abc9c;
+	padding: 10px 35px;
+	text-align: center;
+	color: white;
+	border-radius: 10px;
+}
+
+.btn:hover {
+	background-color: grey;
+	color: #fff;
+	text-decoration: none
+}
+
+#borderLine {
+	padding: 5px;
+	margin: 10px;
+	border: 3px solid #1ABC9C;
+}
+
+.modal-body {
+	max-width: 450px;
+}
+</style>
 </head>
 <body>
-	<div id="left">
-		<center>
+	<div id="j-container">
+		<div id="j-sidebar-left">
+			<center>
+				<table>
+					<tr>
+						<td align="center"><h3>Total</h3></td>
+					</tr>
+
+					<tr>
+						<td>Income : <span id="monthIncome">${monthAmount.income }</span></td>
+					</tr>
+
+					<tr>
+						<td>Expense : <span id="monthExpense">${monthAmount.expense }</span></td>
+					</tr>
+				</table>
+				<button onclick="bookmarkRegist(${param.id_index})">즐겨찾기 등록</button>
+			</center>
+		</div>
+		<div id="j-content">
 			<table>
 				<tr>
-					<td align="center"><h3>Total</h3></td>
+					<td><div id="calendar"></div>
+					<td>
 				</tr>
-
 				<tr>
-					<td>Income : <span id="monthIncome">${monthAmount.income }</span></td>
+					<td><br></td>
 				</tr>
-
 				<tr>
-					<td>Expense : <span id="monthExpense">${monthAmount.expense }</span></td>
+					<td>
+						<div id="detail">
+							<table class="table" id="detailTable">
+								<thead>
+									<tr>
+										<th>Category</th>
+										<th>Detail</th>
+										<th>Price</th>
+									</tr>
+								</thead>
+								<tbody class="detailBody">
+								</tbody>
+							</table>
+						</div>
+					</td>
 				</tr>
 			</table>
-			<button onclick="bookmarkRegist(${param.id_index})">즐겨찾기 등록</button>
-		</center>
-	</div>
+		</div>
+		<div id="j-sidebar-right" align="center">
+			<button onclick="moneyBookRegist(${param.id_index})">등록</button>
+			<button onclick="loadImage()">공유</button>
+		</div>
 
-	<div id="center">
-		<table>
-			<tr>
-				<td><div id="calendar"></div>
-				<td>
-			</tr>
-			<tr>
-				<td><br></td>
-			</tr>
-			<tr>
-				<td>
-					<div id="detail">
-						<table class="table" id="detailTable">
-							<thead>
-								<tr>
-									<th>Category</th>
-									<th>Detail</th>
-									<th>Price</th>
-								</tr>
-							</thead>
-							<tbody class="detailBody">
-							</tbody>
-						</table>
-					</div>
-				</td>
-			</tr>
-		</table>
-	</div>
-
-	<div id="right">
-		<button onclick="moneyBookRegist(${param.id_index})">등록</button>
-		<button onclick="loadImage()">공유</button>
-	</div>
-
-	<div class="modal fade" id="layerpop">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div id="borderLine">
-					<!-- header -->
-					<!-- <div class="modal-header">
+		<div class="modal fade" id="layerpop">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div id="borderLine">
+						<!-- header -->
+						<!-- <div class="modal-header">
 					닫기(x) 버튼
 					<button type="button" class="close" data-dismiss="modal">×</button>
 					header title
 					<h4 class="modal-title"> </h4>
 				</div> -->
-					<!-- body -->
+						<!-- body -->
 						<div class="modal-body">
 							<div>
 								<label class="control-label" for="datepicker">Date</label>
@@ -491,19 +472,19 @@ function convertCategory(word) {
 								</div>
 							</div>
 						</div>
-					<!-- Footer -->
-					<div class="modal-footer">
-						<div>
-							<button name="update" class="btn" id="btn_update">수정</button>
-							<button name="delete" class="btn" id="btn_delete">삭제</button>
-							<button name="cancel" class="btn" id="btn_cancel"
-								data-dismiss="modal">취소</button>
+						<!-- Footer -->
+						<div class="modal-footer">
+							<div>
+								<button name="update" class="btn" id="btn_update">수정</button>
+								<button name="delete" class="btn" id="btn_delete">삭제</button>
+								<button name="cancel" class="btn" id="btn_cancel"
+									data-dismiss="modal">취소</button>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-
 </body>
 </html>
