@@ -283,6 +283,7 @@ $(document).ready(function() {
  		 					dataType : "json",
  		 					success : function(data) {	
  		 						if(data == 4101) {
+ 		 							alert("수정되었습니다.");
  		 							location.href = "myInfo.do";
  		 						} else if (data == 4102) {
  		 							$("#inform_NowPwd").val("");
