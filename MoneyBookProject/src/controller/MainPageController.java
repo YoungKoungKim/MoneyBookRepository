@@ -31,4 +31,5 @@ public class MainPageController {
 	public String template() {
 		return "template2";
 	}
+
 }
