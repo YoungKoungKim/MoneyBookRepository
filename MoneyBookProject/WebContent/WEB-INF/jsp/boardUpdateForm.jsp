@@ -259,7 +259,7 @@
 			<input type="hidden" value="${board.boardNo}" name="boardNo">
 			<input type="hidden" value="${id_index}" name="id_index">
 			<a id="bottomcss"><img src="homeCss/assets/images/demo/confirm.png" alt=""/></a>
-			<a id="bottomcss" onclick="location.href='boardDetailView.do?boardNo=${board.boardNo}&id_index=${id_index}'">
+			<a id="bottomcss" onclick="location.href='boardDetailView.do?boardNo=${board.boardNo}'">
 				<img src="homeCss/assets/images/demo/close.png" alt=""/></a>
 		</div>
 	</form>
