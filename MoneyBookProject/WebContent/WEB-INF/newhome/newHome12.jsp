@@ -10,8 +10,8 @@
 	<!-- Mobile Specific Meta -->
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<!-- Bootstrap  -->
-	<link href="homeCss/blur-color-variation/assets/css/bootstrap.min.css" rel="stylesheet">
-<!-- 	<link href="homeCss/blur-color-variation/assets/css/newbootstrap.min.css" rel="stylesheet"> -->
+<!-- 	<link href="homeCss/blur-color-variation/assets/css/bootstrap.min.css" rel="stylesheet"> -->
+	<link href="homeCss/blur-color-variation/assets/css/newbootstrap.min.css" rel="stylesheet">
 	<!-- icon fonts font Awesome -->
 	<link href="homeCss/blur-color-variation/assets/css/font-awesome.min.css" rel="stylesheet">
 	<!-- Custom Styles -->
