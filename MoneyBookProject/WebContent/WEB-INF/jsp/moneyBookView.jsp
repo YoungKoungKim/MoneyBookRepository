@@ -48,15 +48,10 @@ body {
 	font-family: 'Ubuntu Condensed', sans-serif;
 	position: absolute;
 	left: 20%;
-<<<<<<< HEAD
 	right: 10%;
 	height: auto;
 	width: 60%;
 	background-color: blue;
-=======
-	right: 20%;
-	width: 60%;
->>>>>>> branch 'master' of https://github.com/YoungKoungKim/MoneyBookRepository.git
 }
 
 #right {
@@ -255,11 +250,6 @@ function convertCategory(word) {
 
 			});
 		});
-		
-<<<<<<< HEAD
-=======
-		
->>>>>>> branch 'master' of https://github.com/YoungKoungKim/MoneyBookRepository.git
 	if('${param.succ}' == "sucess"){
 			window.close();
 			opener.parent.location.reload();

@@ -196,7 +196,7 @@
 					<div class="col-sm-3">
 						<div class="time-box">
 							<div class="time-box-inner dash seconds_dash animated">
-								<span class="time-name">Information</span>
+								<a href="howToUseMoneyBook.do"><span class="time-name">Information</span></a>
 							</div>
 						</div>
 					</div>
