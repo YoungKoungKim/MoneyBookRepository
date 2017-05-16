@@ -34,7 +34,7 @@ html, body {
 	padding-bottom: 10px;
 }
 #container {
-	min-height: 80%;
+	height: 100%;
 	background-color: white;
 }
 #container #content {

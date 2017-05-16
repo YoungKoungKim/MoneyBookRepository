@@ -34,31 +34,27 @@
 
 body {
 	font-size: 14px;
-	height: 100%;
 }
 
 #left {
 	font-family: 'Ubuntu Condensed', sans-serif;
 	position: absolute;
 	margin-top: 50px;
-	height: 100%;
 	left: 0;
 	width: 20%;
 }
 
 #center {
 	font-family: 'Ubuntu Condensed', sans-serif;
-	position: relative;
+	position: absolute;
 	left: 20%;
 	right: 20%;
-	height: 100%;
 	width: 60%;
 }
 
 #right {
 	position: absolute;
 	margin-top: 90px;
-	height: 100%;
 	width: 20%;
 	right: 0;
 }
@@ -107,7 +103,6 @@ body {
 	text-decoration: none;
 }
 
-<<<<<<< HEAD
 .moneyBookBtn {
 	font-family: NanumBarunpenR;
 	font-style: normal;
@@ -121,8 +116,6 @@ body {
 	text-decoration: none;
 }
 
-=======
->>>>>>> branch 'master' of https://github.com/YoungKoungKim/MoneyBookRepository.git
 #borderLine {
 	padding: 5px;
 	margin: 10px;
@@ -132,7 +125,6 @@ body {
 .modal-body {
 	max-width: 450px;
 }
-
 </style>
 
 <script type="text/javascript">
@@ -257,10 +249,6 @@ function convertCategory(word) {
 			});
 		});
 		
-<<<<<<< HEAD
-=======
-		
->>>>>>> branch 'master' of https://github.com/YoungKoungKim/MoneyBookRepository.git
 	if('${param.succ}' == "sucess"){
 			window.close();
 			opener.parent.location.reload();
@@ -419,7 +407,8 @@ function convertCategory(word) {
 					<td>Expense : <span id="monthExpense">${monthAmount.expense }</span></td>
 				</tr>
 			</table>
-			<button class="btn moneyBookBtn" onclick="bookmarkRegist(${param.id_index})">즐겨찾기 등록</button>
+			<button class="btn moneyBookBtn"
+				onclick="bookmarkRegist(${param.id_index})">즐겨찾기 등록</button>
 		</center>
 	</div>
 
@@ -453,7 +442,8 @@ function convertCategory(word) {
 	</div>
 
 	<div id="right">
-		<button class="btn moneyBookBtn" onclick="moneyBookRegist(${param.id_index})">등록</button>
+		<button class="btn moneyBookBtn"
+			onclick="moneyBookRegist(${param.id_index})">등록</button>
 		<button class="btn moneyBookBtn" onclick="loadImage()">공유</button>
 	</div>
 
@@ -469,60 +459,58 @@ function convertCategory(word) {
 					<h4 class="modal-title"> </h4>
 				</div> -->
 					<!-- body -->
-						<div class="modal-body">
+					<div class="modal-body">
+						<div>
+							<label class="control-label" for="datepicker">Date</label>
 							<div>
-								<label class="control-label" for="datepicker">Date</label>
-								<div>
-									<input class="form-control" type="text" id="datepicker">
-								</div>
-							</div>
-
-							<!-- Select Basic -->
-							<div>
-								<label class="control-label" for="category">Category</label>
-								<div>
-									<select name="category" class="form-control" id="category">
-										<option>카테고리 선택</option>
-										<option value="food">식비</option>
-										<option value="traffic">교통비</option>
-										<option value="commodity">생필품</option>
-										<option value="beauty">미용</option>
-										<option value="medical">의료</option>
-										<option value="education">교육</option>
-										<option value="phonefees">통신비</option>
-										<option value="saving">저축</option>
-										<option value="utilitybills">공과금</option>
-										<option value="culturallife">문화생활</option>
-										<option value="otheritems">기타</option>
-										<option value="income">수입</option>
-									</select>
-								</div>
-							</div>
-
-							<div>
-								<label class="control-label" for="edt_detail">Detail</label>
-								<div>
-									<input name="edt_detail" class="form-control input-md"
-										id="edt_detail" type="text">
-								</div>
-							</div>
-
-							<div>
-								<label class="control-label" for="edt_price">Price</label>
-								<div>
-									<input name="edt_price" class="form-control input-md"
-										id="edt_price" type="text">
-								</div>
+								<input class="form-control" type="text" id="datepicker">
 							</div>
 						</div>
+
+						<!-- Select Basic -->
+						<div>
+							<label class="control-label" for="category">Category</label>
+							<div>
+								<select name="category" class="form-control" id="category">
+									<option>카테고리 선택</option>
+									<option value="food">식비</option>
+									<option value="traffic">교통비</option>
+									<option value="commodity">생필품</option>
+									<option value="beauty">미용</option>
+									<option value="medical">의료</option>
+									<option value="education">교육</option>
+									<option value="phonefees">통신비</option>
+									<option value="saving">저축</option>
+									<option value="utilitybills">공과금</option>
+									<option value="culturallife">문화생활</option>
+									<option value="otheritems">기타</option>
+									<option value="income">수입</option>
+								</select>
+							</div>
+						</div>
+
+						<div>
+							<label class="control-label" for="edt_detail">Detail</label>
+							<div>
+								<input name="edt_detail" class="form-control input-md"
+									id="edt_detail" type="text">
+							</div>
+						</div>
+
+						<div>
+							<label class="control-label" for="edt_price">Price</label>
+							<div>
+								<input name="edt_price" class="form-control input-md"
+									id="edt_price" type="text">
+							</div>
+						</div>
+					</div>
 					<!-- Footer -->
 					<div class="modal-footer">
-						<div>
-							<button name="update" class="btn" id="btn_update">수정</button>
-							<button name="delete" class="btn" id="btn_delete">삭제</button>
-							<button name="cancel" class="btn" id="btn_cancel"
-								data-dismiss="modal">취소</button>
-						</div>
+						<button name="update" class="btn" id="btn_update">수정</button>
+						<button name="delete" class="btn" id="btn_delete">삭제</button>
+						<button name="cancel" class="btn" id="btn_cancel"
+							data-dismiss="modal">취소</button>
 					</div>
 				</div>
 			</div>
