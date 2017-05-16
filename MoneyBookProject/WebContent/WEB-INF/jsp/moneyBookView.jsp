@@ -48,9 +48,10 @@ body {
 	font-family: 'Ubuntu Condensed', sans-serif;
 	position: absolute;
 	left: 20%;
-	right: 10%;
+	right: 20%;
 	height: auto;
 	width: 60%;
+	margin-left: 2%;
 }
 
 #right {
@@ -129,6 +130,7 @@ body {
 </style>
 
 <script type="text/javascript">
+var boardWriteDate;
 
 $('#detail').css('margin', $('calendar').attr('margin'));
 
@@ -270,6 +272,7 @@ function convertCategory(word) {
 			eventLimit : true, // allow "more" link when too many events
 			events : function(start, end, timezone, callback) {
 				var nowDate = $('#calendar').fullCalendar('getDate');
+				boardWriteDate = nowDate.format('YYYY-MM-DD');
 				
 				$.ajax({
 					type : 'post',
@@ -370,6 +373,10 @@ function convertCategory(word) {
 		    }
 		});
 		
+		$(document).on('click', '#boardWriteBtn', function() {
+			location.href = "boardWriteForm.do?id_index=" + ${id_index} + "&date=" + boardWriteDate;
+		});
+		
 		// 왼쪽 버튼을 클릭하였을 경우
         $("button.fc-prev-button").click(function() {
         	$('#detailTable thead').hide();
@@ -384,11 +391,6 @@ function convertCategory(word) {
 
 	});
 	
-	function loadImage(){
-		var popUrl = "";	//팝업창에 출력될 페이지 URL
-		var popOption = "width=650, height=420, resizable=no, scrollbars=no, status=no;";    //팝업창 옵션(optoin)
-		window.open(popUrl,"",popOption);
-	}
 </script>
 </head>
 <body>
@@ -444,7 +446,7 @@ function convertCategory(word) {
 	<div id="right">
 		<button class="btn moneyBookBtn"
 			onclick="moneyBookRegist(${param.id_index})">등록</button>
-		<button class="btn moneyBookBtn" onclick="loadImage()">공유</button>
+		<button class="btn moneyBookBtn" id="boardWriteBtn">공유</button>
 	</div>
 
 	<div class="modal fade" id="layerpop">
