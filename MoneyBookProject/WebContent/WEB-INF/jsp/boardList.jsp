@@ -55,7 +55,7 @@ a:hover {
 	width: 15%;
 	float: left;
 	font-size: 15px;
-	border-right: solid red;
+	border-right: solid #CCE2D8;
 	text-align: center;
 }
 .right {
@@ -171,7 +171,7 @@ li {
 					style="border-bottom: 1px solid #CCE2D8; background-color: #EAF2EE">
 					<c:forEach var="best" items="${boardBest }">
 						<tr align="center"
-							style="border-bottom: 1px solid #CCE2D8; background-color: ##EAF2EE; font-size: 15px; color: red;">
+							style="border-bottom: 1px solid #CCE2D8; background-color: ##EAF2EE; font-size: 15px;">
 							<td>공지</td>
 							
 							<td align="left">
@@ -201,7 +201,7 @@ li {
 					style="border-bottom: 1px solid #CCE2D8; background-color: #EAF2EE">
 					<c:forEach var="board" items="${boardList }">
 						<tr align="center"
-							style="border-bottom: 1px solid #CCE2D8; background-color: ##EAF2EE; font-size: 15px; color: red;">
+							style="border-bottom: 1px solid #CCE2D8; background-color: ##EAF2EE; font-size: 15px;">
 							<td>${board.boardNo }</td>
 							
 							<td align="left">
