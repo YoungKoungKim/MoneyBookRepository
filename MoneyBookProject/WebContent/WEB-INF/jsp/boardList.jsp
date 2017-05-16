@@ -176,7 +176,9 @@ li {
 							
 							<td align="left">
 							<a style="color: red; margin-right: 100px;"
-								href="boardDetailView.do?boardNo=${best.boardNo}">${best.title }</a>
+								href="boardDetailView.do?boardNo=${best.boardNo}">${best.title }
+								<samp>[${bset.commentNum}]</samp>
+								</a>
 							</td>
 							
 							<td align="left"><img id="img1"
