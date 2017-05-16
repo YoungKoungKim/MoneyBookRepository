@@ -28,8 +28,6 @@
 	
 	font-family: 'NanumBarunpenR';
 	src: url(font/NanumBarunpenR.ttf) format('truetype');
-	
-	
 }
 
 html, body {
