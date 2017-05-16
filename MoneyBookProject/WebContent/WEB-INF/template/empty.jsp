@@ -7,14 +7,22 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
+@font-face {
+	font-family: 'NanumBarunpenR';
+	src: url(font/NanumBarunpenR.ttf) format('truetype');
+}
+
 #container {
 	min-height: 80%;
 	background-color: white;
+	font-family: NanumBarunpenR;
 }
 
 #container #content {
 	min-height: 300px;
+	font-family: NanumBarunpenR;
 }
+
 </style>
 </head>
 <body>

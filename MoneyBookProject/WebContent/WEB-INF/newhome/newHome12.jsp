@@ -10,8 +10,7 @@
 	<!-- Mobile Specific Meta -->
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<!-- Bootstrap  -->
-<!-- 	<link href="homeCss/blur-color-variation/assets/css/bootstrap.min.css" rel="stylesheet"> -->
-	<link href="homeCss/blur-color-variation/assets/css/newbootstrap.min.css" rel="stylesheet">
+	<link href="homeCss/blur-color-variation/assets/css/bootstrap.min.css" rel="stylesheet">
 	<!-- icon fonts font Awesome -->
 	<link href="homeCss/blur-color-variation/assets/css/font-awesome.min.css" rel="stylesheet">
 	<!-- Custom Styles -->
@@ -51,9 +50,11 @@
 	
 	$(document).ready(function() {
 		$("#header_Logout").on("click", function() {
+			alert("로그아웃 되었습니다");
 			Kakao.Auth.logout();
 			
 			setTimeout(function() {
+				alert("로그아웃 중");
 				location.href = "logout.do";
 			}, 1500);
 		});
@@ -74,6 +75,7 @@
 .modal-content {
 	width: 523px;
 	height: auto;
+	
 }
 
 .modal-body {
@@ -115,7 +117,8 @@
 				<i class="fa fa-bars"></i>
 			</button> <!-- /.navbar-toggle -->
 		</div> <!-- /.navbar-header -->
-
+	<c:choose>
+		<c:when test="${id_index == null }">
 		<nav class="collapse navbar-collapse">
 			<!-- Main navigation -->
 			<ul id="headernavigation" class="nav navbar-nav">
@@ -127,6 +130,20 @@
 									data-backdrop="static" href="#joinForm" title="회원가입">Join</a></li>		
 			</ul> <!-- /.nav .navbar-nav -->
 		</nav> <!-- /.navbar-collapse  -->
+		</c:when>
+		
+		<c:when test="${id_index != null }">
+		<nav class="collapse navbar-collapse">
+			<!-- Main navigation -->
+			<ul id="headernavigation" class="nav navbar-nav">
+				<li class="active"><a href="new.do">Home</a></li>	
+				<li><a href="new.do">About</a></li>	
+				<li><a href="myInfo.do" title="로그인">MyInfo</a></li>	
+				<li><a href="#" id="header_Logout">Logout</a></li>		
+			</ul> <!-- /.nav .navbar-nav -->
+		</nav> <!-- /.navbar-collapse  -->
+		</c:when>
+	</c:choose>	
 	</div><!-- /#main-menu -->
 	<!-- Main Menu End -->
 
@@ -191,10 +208,10 @@
 	
 	<!-- JoinModal -->
 	<div class="modal fade" id="joinModal" tabindex="-1" role="dialog"
-		aria-labelledby="myModalLabel" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-body" style="border: 2px solid #91D4B5;">
+		aria-labelledby="myModalLabel" aria-hidden="true" style="z-index: 2222;">
+		<div class="modal-dialog" style="z-index: 2222;">
+			<div class="modal-content" style="z-index: 2222;">
+				<div class="modal-body" style="z-index: 2222;">
 					<center>
 						<h1 style="color: black;">회 원 가 입</h1>
 						<table>
@@ -253,10 +270,10 @@
 	
 	<!-- LoginModal -->
 	<div class="modal fade" id="loginModal" tabindex="-1" role="dialog"
-		aria-labelledby="myModalLabel" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-body" style="border: 2px solid #91D4B5;">
+		aria-labelledby="myModalLabel" aria-hidden="true" style="z-index: 2222;">
+		<div class="modal-dialog" style="z-index: 2222;">
+			<div class="modal-content" style="z-index: 2222;">
+				<div class="modal-body" style="border: 2px solid #91D4B5; z-index: 2222;">
 					<center>
 						<h1 id="login_Label">로그인</h1>
 						<table>
@@ -305,8 +322,43 @@
 			</p>
 		</footer>
 		<!-- Footer Section End -->
-
 		
+	<script type='text/javascript'>
+  //<![CDATA[
+    // 사용할 앱의 JavaScript 키를 설정해 주세요.
+    Kakao.init('9712483447f19279ea7f16e2db8de389');
+    // 카카오 로그인 버튼을 생성합니다.
+    Kakao.Auth.createLoginButton({
+      container: '#kakao-login-btn',
+      success: function(authObj) {
+    	  Kakao.API.request({
+    		  url: '/v1/user/me',
+    		  success: function(res) {
+    			  $.ajax({
+    				  url : "kakaoLogin.do",
+    					type : "post",
+    					data : "id=" + res.id + "&nick=" + res.properties.nickname,
+    					success : function() {
+ 								alert(res.properties.nickname + "님 환영합니다!!");
+								location.reload();
+    					},
+    					error:function(error) {
+    				        alert("카카오 로그인 실패 : " + error);
+    				    }
+    			  });
+    		  }, 
+    		  fail: function(error) {
+    			  alert(JSON.stringify(error));
+    		  }
+    	  })
+      },
+      fail: function(err) {
+         alert(JSON.stringify(err));
+      }
+    });
+    //]]>
+    </script>
+    
 		<!-- jQuery Library -->
 		<script type="text/javascript" src="homeCss/blur-color-variation/assets/js/jquery-2.1.0.min.js"></script>
 		<!-- Modernizr js -->

@@ -48,8 +48,15 @@ body {
 	font-family: 'Ubuntu Condensed', sans-serif;
 	position: absolute;
 	left: 20%;
+<<<<<<< HEAD
+	right: 10%;
+	height: auto;
+	width: 60%;
+	background-color: blue;
+=======
 	right: 20%;
 	width: 60%;
+>>>>>>> branch 'master' of https://github.com/YoungKoungKim/MoneyBookRepository.git
 }
 
 #right {
@@ -146,7 +153,7 @@ function moneyBookRegist(id_index){
 
 function bookmarkRegist(id_index){
 	var popUrl = "bookmarkRegistForm.do?id_index=" + id_index;	//팝업창에 출력될 페이지 URL
-	var popOption = "top=200, left=300, width=500, height=400, resizable=no, scrollbars=no, status=no";    //팝업창 옵션(optoin)
+	var popOption = "top=200, left=300, width=600, height=650, resizable=no, scrollbars=no, status=no";    //팝업창 옵션(optoin)
 	window.open(popUrl,"즐겨찾기등록",popOption);
 }
 	
@@ -249,6 +256,10 @@ function convertCategory(word) {
 			});
 		});
 		
+<<<<<<< HEAD
+=======
+		
+>>>>>>> branch 'master' of https://github.com/YoungKoungKim/MoneyBookRepository.git
 	if('${param.succ}' == "sucess"){
 			window.close();
 			opener.parent.location.reload();

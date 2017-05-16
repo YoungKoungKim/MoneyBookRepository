@@ -12,6 +12,9 @@
 	<definition name="*.tiles" extends="tiles">
 		<put-attribute name="content" value="/WEB-INF/jsp/{1}.jsp"></put-attribute>
 	</definition>
+
+
+	<!--팝업창 적용 tiles  -->
 	
 	<definition name="empty" template="/WEB-INF/template/empty.jsp">
         <put-attribute name="content" value=""/>  
@@ -20,11 +23,13 @@
           <put-attribute name="content" value="/WEB-INF/popup/{1}.jsp"></put-attribute>
     </definition>
     
+    <!--tiles  -->
     <definition name="newhome" template="/WEB-INF/template/newHome.jsp">
         <put-attribute name="content" value=""/>  
     </definition>
 	<definition name="newhome/*.*" extends="newhome">
           <put-attribute name="content" value="/WEB-INF/newhome/{1}.jsp"></put-attribute>
     </definition>
+    
 	
 </tiles-definitions>
