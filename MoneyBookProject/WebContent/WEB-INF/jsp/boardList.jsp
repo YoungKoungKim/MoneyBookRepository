@@ -177,7 +177,7 @@ li {
 							<td align="left">
 							<a style="color: red; margin-right: 100px;"
 								href="boardDetailView.do?boardNo=${best.boardNo}">${best.title }
-								<samp>[${bset.commentNum}]</samp>
+								<samp>[${best.commentNum}]</samp>
 								</a>
 							</td>
 							

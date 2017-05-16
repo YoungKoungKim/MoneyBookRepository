@@ -38,7 +38,7 @@
 
 	<select id="selectByWhat" parameterType="java.util.HashMap"
 		resultType="board">
-		select * from board
+		select * from board 
 		<choose>
 			<when test="category eq 'title'">
 				where title like concat ("%", #{content}, "%")
@@ -55,7 +55,7 @@
 	</select>
 
 	<select id="selectBest" resultType="board" parameterType="int">
-		select * from board order by recommend desc limit 0, #{count}
+		select *,(select count(*) from comment where comment.boardNo =board.boardNo)as commentNum from board order by recommend desc limit 0, #{count}
 	</select>
 
 	<select id="selectboardLimit" parameterType="java.util.HashMap"
