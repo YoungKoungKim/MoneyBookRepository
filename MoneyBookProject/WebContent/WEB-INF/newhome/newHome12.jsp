@@ -70,8 +70,12 @@
 </script>
 <style type="text/css">
 @import url(http://fonts.googleapis.com/earlyaccess/hanna.css);
+
 @import url(http://fonts.googleapis.com/css?family=Pacifico);
-@import url(http://fonts.googleapis.com/css?family=Roboto:400,300,400italic,700);
+
+@import
+	url(http://fonts.googleapis.com/css?family=Roboto:400,300,400italic,700)
+	;
 
 @font-face {
 	font-family: 'NanumGothic';
@@ -79,14 +83,14 @@
 	font-family: 'koverwatch';
 	src: url(font/koverwatch.ttf) format('truetype');
 	font-family: 'Hanna', serif;
-	font-family:'Roboto', sans-serif;
+	font-family: 'Roboto', sans-serif;
 }
 
-body{
-	font-family:'Roboto', sans-serif;
-	color:#fff;
-	-webkit-font-smoothing:antialiased;
-	-moz-osx-font-smoothing:grayscale;
+body {
+	font-family: 'Roboto', sans-serif;
+	color: #fff;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
 }
 
 .time-name {
@@ -104,6 +108,7 @@ body{
 }
 
 .modal-body {
+	border: 3px solid #1ABC9C;
 	margin: 10px;
 	width: 500px;
 	height: auto;
@@ -111,8 +116,12 @@ body{
 }
 
 #login_Label {
-	color: #91D4B5;
+	color: #1abc9c;
 	font-family: koverwatch;
+}
+
+#login_table {
+	margin-bottom: 10px;
 }
 
 .btn {
@@ -249,19 +258,18 @@ body{
 					</div>
 				</div>
 
-					<div class="col-sm-3">
-						<div class="time-box">
-							<div class="time-box-inner dash seconds_dash animated">
-								<a href="howToUseMoneyBook.do"><span class="time-name">Information</span></a>
-							</div>
+				<div class="col-sm-3">
+					<div class="time-box">
+						<div class="time-box-inner dash seconds_dash animated">
+							<a href="howToUseMoneyBook.do"><span class="time-name">Information</span></a>
 						</div>
 					</div>
 				</div>
 			</div>
-			<!-- /.time-count-container -->
 		</div>
-		<!-- /.container -->
-	<!-- /.pattern --> </section>
+		<!-- /.time-count-container -->
+	</div>
+	<!-- /.container --> <!-- /.pattern --> </section>
 	<!-- /#page-top -->
 	<!-- Page Top Section  End -->
 
@@ -273,7 +281,7 @@ body{
 			<div class="modal-content" style="z-index: 2222;">
 				<div class="modal-body" style="z-index: 2222;">
 					<center>
-						<h1 style="color: black;">회 원 가 입</h1>
+						<h1 id="login_Label">회 원 가 입</h1>
 						<table>
 							<tr align="center">
 								<td style="color: black;">아이디</td>
@@ -336,41 +344,43 @@ body{
 			<div class="modal-content" style="z-index: 2222;">
 				<div class="modal-body"
 					style="border: 2px solid #91D4B5; z-index: 2222;">
-					<center>
-						<h1 id="login_Label">로그인</h1>
-						<table>
-							<tr align="center">
-								<td style="color: black;">아이디</td>
-								<td width="305px;"><input type="text" id="login_Id"
-									class="form-control" placeholder="이메일을 입력하세요."></td>
-							</tr>
-							<tr>
-								<td></td>
-								<td><span id="login_IdCheck" style="color: red;"></span><br></td>
-							</tr>
-							<tr align="center">
-								<td style="color: black;">비밀번호&nbsp;</td>
-								<td><input type="password" id="login_Pwd"
-									class="form-control" placeholder="비밀번호를 입력해주세요."></td>
-							</tr>
-							<tr>
-								<td></td>
-								<td><span id="login_PwdCheck" style="color: red;"></span><br></td>
-							</tr>
-							<tr align="center">
-								<td colspan="2"><input type="button" value="로그인"
-									class="btn btn-success" id="login_SubmitBtn">
-									&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" value="취소"
-									class="btn btn-info" data-dismiss="modal"></td>
-							</tr>
-							<tr>
-								<td colspan="2" align="center"><br> <a
-									id="kakao-login-btn"></a> <a
-									href="http://developers.kakao.com/logout"></a>
-								<td>
-							</tr>
-						</table>
-					</center>
+					<div id="modal-border">
+						<center>
+							<h1 id="login_Label">로그인</h1>
+							<table id="login_table">
+								<tr align="center">
+									<td style="color: black;">아이디</td>
+									<td width="305px;"><input type="text" id="login_Id"
+										class="form-control" placeholder="이메일을 입력하세요."></td>
+								</tr>
+								<tr>
+									<td></td>
+									<td><span id="login_IdCheck" style="color: red;"></span><br></td>
+								</tr>
+								<tr align="center">
+									<td style="color: black;">비밀번호&nbsp;</td>
+									<td><input type="password" id="login_Pwd"
+										class="form-control" placeholder="비밀번호를 입력해주세요."></td>
+								</tr>
+								<tr>
+									<td></td>
+									<td><span id="login_PwdCheck" style="color: red;"></span><br></td>
+								</tr>
+								<tr align="center">
+									<td colspan="2"><input type="button" value="로그인"
+										class="btn btn-success" id="login_SubmitBtn">
+										&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" value="취소"
+										class="btn btn-info" data-dismiss="modal"></td>
+								</tr>
+								<tr>
+									<td colspan="2" align="center"><br> <a
+										id="kakao-login-btn"></a> <a
+										href="http://developers.kakao.com/logout"></a>
+									<td>
+								</tr>
+							</table>
+						</center>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -388,10 +398,12 @@ body{
 	<!-- Footer Section End -->
 
 	<!-- if user dont login, show modal -->
-	<div class="modal fade" id="noneMember" aria-hidden="true" style="z-index: 2222;">
+	<div class="modal fade" id="noneMember" aria-hidden="true"
+		style="z-index: 2222;">
 		<div class="modal-dialog" style="z-index: 2222;">
 			<div class="modal-content" style="z-index: 2222;">
-				<div class="modal-body" id="noneMemberModal-content" style="z-index: 2222;">
+				<div class="modal-body" id="noneMemberModal-content"
+					style="z-index: 2222;">
 					<div align="center" style="z-index: 2222;">
 						<h3>가계부 작성은 로그인 후 이용 가능합니다.</h3>
 						<button class="btn" id="goToLogin" data-dismiss="modal"
@@ -441,7 +453,6 @@ body{
 			}
 		});
 		//]]>
-	
 	</script>
 
 	<!-- jQuery Library -->
