@@ -249,10 +249,11 @@ body{
 					</div>
 				</div>
 
-				<div class="col-sm-3">
-					<div class="time-box">
-						<div class="time-box-inner dash seconds_dash animated">
-							<span class="time-name">Information</span>
+					<div class="col-sm-3">
+						<div class="time-box">
+							<div class="time-box-inner dash seconds_dash animated">
+								<a href="howToUseMoneyBook.do"><span class="time-name">Information</span></a>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -260,7 +261,6 @@ body{
 			<!-- /.time-count-container -->
 		</div>
 		<!-- /.container -->
-	</div>
 	<!-- /.pattern --> </section>
 	<!-- /#page-top -->
 	<!-- Page Top Section  End -->

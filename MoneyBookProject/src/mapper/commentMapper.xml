@@ -6,7 +6,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<insert id="insertComment" parameterType="java.util.HashMap">
 		insert into comment
 		values (0, #{boardNo}, #{id_index},
-		#{nick},sysdate(),#{content})
+		#{nick},sysdate(),#{content},0)
 	</insert>
 
 	<update id="updateComment" parameterType="java.util.HashMap">
@@ -34,7 +34,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select * from comment WHERE boardNo = #{boardNo}
 	</select>
 
-	<select id="selectOneComment" parameterType="int" resultType="java.util.HashMap">
+	<select id="selectOneComment" parameterType="java.util.HashMap" resultType="java.util.HashMap">
 		select * from comment WHERE commentNo = #{commentNo} and boardNo =
 		#{boardNo}
 	</select>
@@ -42,4 +42,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<delete id="deleteBoardComment" parameterType="int">
 		delete from comment where boardNo = #{boardNo}
 	</delete>
+	
+	<update id="updateRecommend" parameterType="int">
+		update comment set recommend = recommend+1 where commentNo = #{commentNo}
+	</update>
 </mapper>

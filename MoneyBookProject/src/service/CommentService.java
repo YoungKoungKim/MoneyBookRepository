@@ -8,11 +8,15 @@ import org.springframework.stereotype.Service;
 
 import commons.Comment;
 import dao.ICommentDao;
+import dao.IRecommendDao;
+import model.Recommend;
 
 @Service
 public class CommentService implements ICommentService {
 	@Autowired
 	private ICommentDao dao;
+	@Autowired
+	private IRecommendDao rdao;
 
 	@Override
 	public boolean commentWrite(HashMap<String, Object> params) {
@@ -47,5 +51,19 @@ public class CommentService implements ICommentService {
 		} else {
 			return false;
 		}
+	}
+
+	@Override
+	public void commentRecommend(int commentNo) {		 
+		 dao.updateRecommend(commentNo);
+	}
+
+	@Override
+	public HashMap<String, Object> searchOne(int commentNo, int boardNo) {
+		HashMap<String, Object> params = new HashMap<>();
+		params.put(Comment.COMMENTNO,commentNo);
+		params.put(Comment.BOARDNO, boardNo);
+		return  dao.selectOneComment(params);
+		
 	}
 }

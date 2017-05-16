@@ -30,17 +30,19 @@ function getCommentList() {
 					if(id_index == data[comment].id_index)
 					{
 
-					$("#commentTable").html($("#commentTable").html() + 
-							"<tr>	<td>" + data[comment].nick + 
-							"&nbsp;&nbsp;&nbsp;" + time + 
-							"</td></tr><tr><td> <textarea class='comment' id='comment_"+data[comment].commentNo+"' rows='2' cols='100' readonly='readonly'> "+ data[comment].content + "</textarea> <input class='delete' id='"+data[comment].commentNo+"@' name='"+data[comment].commentNo+"' type='button' value='삭제'>"
-							+"<input class='update' type='button' id='"+data[comment].commentNo+"@' name='"+data[comment].commentNo+"' value='수정'> </td> </tr>");
+					$("#commentTable").html($("#commentTable").html() + "<tr>	<td>" + data[comment].nick + "&nbsp;&nbsp;&nbsp;" + time +"&nbsp;&nbsp;&nbsp; 추천:"+ data[comment].recommend
+					+ "</td></tr><tr><td> <textarea class='comment' id='comment_"+data[comment].commentNo+"' rows='2' cols='100' readonly='readonly'> "+ data[comment].content + "</textarea>"
+							+"<input class='delete' id='"+data[comment].commentNo+"@' name='"+data[comment].commentNo+"' type='button' value='삭제'>"
+							+"<input class='update' type='button' id='"+data[comment].commentNo+"@' name='"+data[comment].commentNo+"' value='수정'></td> </tr>"
+							);
 					
 					}else {
 						$("#commentTable").html($("#commentTable").html() + 
 						"<tr>	<td>" + data[comment].nick + 
-						"&nbsp;&nbsp;&nbsp;" + time + 
-						"</td></tr><tr><td> <textarea rows='2' cols='100' readonly='readonly'> "+ data[comment].content + "</textarea></td>	</tr>");						
+						"&nbsp;&nbsp;&nbsp;" + time +"&nbsp;&nbsp;&nbsp; 추천:"+ data[comment].recommend
+						+"</td></tr><tr><td> <textarea rows='2' cols='100' readonly='readonly'> "+ data[comment].content + "</textarea>"
+						+"<input class='recommendcomment' type='button' id='" + data[comment].commentNo + "@' name ='" + data[comment].commentNo + "' value='추천'> </td></tr>"
+						);						
 					}	
 					
 					}
@@ -88,6 +90,31 @@ function getCommentList() {
 							});
 						}
 						
+					});
+					
+					$('.recommendcomment').on('click',function(){
+						var idno = $(this).attr('id').split('@')[0];
+						var commentNo = $(this).attr('name');
+						$.ajax({
+							type : 'post',
+							url : 'commentRecommend.do',
+							data : 'commentNo='+commentNo+"&boardNo="+${board.boardNo},
+							dataType : 'json',
+							success : function(data){
+								if(date.code==0){
+									$('#commentread').text(data.recommend);
+									getCommentList();
+								}else if(data.code ==1){
+										$('#commentread').text(data.recommend);						
+										alert("이미추천하셨습니다.");
+								}else if(data.code==3){
+									alert("로그인해주세여");
+								}
+							},
+							error:function(){
+						      
+						       }
+							});
 					});
 					
 				},

@@ -3,6 +3,8 @@ package controller;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,12 +13,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import commons.Comment;
 import service.ICommentService;
+import service.IRecommendService;
 
 @Controller
 public class CommentController {
 
 	@Autowired
 	private ICommentService commentservice;
+	@Autowired
+	private IRecommendService recommendService;
 	
 	@RequestMapping("commentWrite.do")
 	public @ResponseBody String commentWrite(int boardNo, @RequestParam("nick1")String nick, @RequestParam("content1")String content, int id_index ){
@@ -43,6 +48,36 @@ public class CommentController {
 	public @ResponseBody String commentDelete(int commentNo){
 		commentservice.commentDelete(commentNo);
 		return "true";
+	}
+	
+	@RequestMapping("commentRecommend.do")
+	public @ResponseBody HashMap<String, Object> commentRecommend(int commentNo, HttpSession session, int boardNo){
+		HashMap<String, Object> params = new HashMap<>();
+		if(session.getAttribute("id_index") != null){
+			
+	
+		int id_index = (int) session.getAttribute("id_index");
+		 try {
+			 if( recommendService.Searchrecommend(boardNo, id_index, commentNo) == false){
+				 commentservice.commentRecommend(commentNo);
+				 	recommendService.Writerecommend(boardNo, id_index, commentNo);
+				 	 params.put("code", 0);
+				 	 params.put("recommend",commentservice.searchOne(commentNo, boardNo).get("recommend"));
+			 }
+			 else{
+				 params.put("code", 1);
+				params.put("recommend", commentservice.searchOne(commentNo, boardNo).get("recommend"));
+			 }
+				return params;
+		} catch (NullPointerException e) {
+			// TODO: handle exception
+			}
+		 
+		}else{
+			params.put("code", 3);
+			return params ;			
+		}
+		return params;
 	}
 	
 	@RequestMapping("getCommentList.do")
