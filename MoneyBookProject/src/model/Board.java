@@ -13,6 +13,7 @@ public class Board {
 	private int viewNo;
 	private int recommend;
 	private int commentNum;
+	
 	public int getCommentNum() {
 		return commentNum;
 	}

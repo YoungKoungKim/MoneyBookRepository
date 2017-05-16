@@ -56,8 +56,7 @@ public class BoardController {
 	// }
 
 	@RequestMapping("boardDetailView.do")
-	public ModelAndView boardDetailView(HttpSession session, int boardNo,
-			@RequestParam(defaultValue = "-1") int id_index) {// id_index 빼야됨
+	public ModelAndView boardDetailView(HttpSession session, int boardNo) {// id_index 빼야됨
 		ModelAndView mav = new ModelAndView();
 		try {
 			int readCheck = (int) session.getAttribute("readCheck");

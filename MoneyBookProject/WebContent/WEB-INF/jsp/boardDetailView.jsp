@@ -191,12 +191,12 @@ function getCommentList() {
 }
 
 .re_btn {
-	background-color: #91D4B5;
+	background-color: #A8E7ED;
 	font-size: 25px;
 	text-align: center;
 	margin-left: 5px;
 	border-radius: .25em;
-	border-color: #91D4B5;
+	border-color: #ffffff;
 }
 </style>
 </head>
@@ -399,10 +399,6 @@ function getCommentList() {
 				<c:if test="${board.id_index eq id_index}">
 					<input  class="re_btn" type="button" value="수정"
 						onclick="location.href='boardUpdateForm.do?boardNo=${board.boardNo}'">
-				</c:if>
-				<c:if test="${board.id_index eq id_index }">
-					<input class="re_btn" type="button" value="삭제"
-						onclick="location.href='boardDelete.do?boardNo=${board.boardNo}'">
 				</c:if>
 			</div>
 			<table class="table table-bordered" style="width: 70%;"

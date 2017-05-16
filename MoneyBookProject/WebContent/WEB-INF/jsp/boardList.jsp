@@ -27,35 +27,29 @@ select {
 	-moz-appearance: none;
 	appearance: none;
 }
-
 a:link {
 	color: black;
 	text-decoration: none;
 }
-
 a:visited {
 	color: black;
 	text-decoration: none;
 }
-
 a {
 	text-decoration: none;
 	color: black;
 	cursor: pointer;
 }
-
 a:hover {
 	color: black;
 	text-decoration: none;
 }
-
 .root {
 	margin: auto;
 	width: 1000px;
 	height: auto;
 	background-color: #f0f8ff;
 }
-
 .left {
 	height: auto;
 	width: 15%;
@@ -64,43 +58,35 @@ a:hover {
 	border-right: solid red;
 	text-align: center;
 }
-
 .right {
 	height: auto;
 	width: 80%;
 	float: right;
 }
-
 .bottom {
 	width: 100%;
 	height: 100%;
 	clear: both;
 }
-
 ul {
 	list-style: none;
 	padding-left: 0px;
 }
-
 li {
 	padding-left: 10px;
 }
-
 .menu .hide {
 	display: none;
 }
-
 .left .btn btn-default {
 	background: #91D4B5;
 	color: #E9F2EE;
 }
-
 #img1 {
 	height: 15px;
 	width: auto;
 	margin-right: 5px;
 }
-
 .myButton {
 	background-color: #ffffff;
 	-moz-border-radius: 9px;
@@ -114,11 +100,9 @@ li {
 	padding: 6px 17px;
 	text-decoration: none;
 }
-
 .myButton:hover {
 	background-color: #91D4B5;
 }
-
 .myButton:active {
 	position: relative;
 	top: 1px;
@@ -144,8 +128,8 @@ li {
 	<div class="root">
 		<div class="left">
 			<div>
-				<br> &nbsp;&nbsp;&nbsp;
-				<a class="myButton" href="boardList.do">전체게시판 </a>
+				<br> &nbsp;&nbsp;&nbsp; <a class="myButton" href="boardList.do">전체게시판
+				</a>
 
 			</div>
 			<div>
@@ -183,53 +167,63 @@ li {
 				</form>
 			</div>
 			<div>
-			<table width="800px" height="100px"
-				style="border-bottom: 1px solid #CCE2D8; background-color: #EAF2EE">
-				<c:forEach var="best" items="${boardBest }">
-					<tr align="center"
-						style="border-bottom: 1px solid #CCE2D8; background-color: ##EAF2EE; font-size: 15px; color: red;">
-						<td>공지</td>
-						<td align="left"><a style="color: red; margin-right: 100px;"
-							href="boardDetailView.do?boardNo=${best.boardNo}&id_index=${best.id_index}">${best.title }</a>
-						</td>
-						<td align="left"><img id="img1"
-							src="homeCss/assets/images/demo/name.png" alt="" />${best.nick }</td>
-						<td><img id="img1" src="homeCss/assets/images/demo/date.png"
-							alt="" /> <fmt:formatDate value="${best.date }"
-								pattern="yyyy-MM-dd" /></td>
-						<td><img id="img1"
-							src="homeCss/assets/images/demo/recommend.png" alt="" />${best.recommend }</td>
-						<td><img id="img1" src="homeCss/assets/images/demo/view.png"
-							alt="" />${best.viewNo }</td>
-					</tr>
-				</c:forEach>
+				<table width="800px" height="100px"
+					style="border-bottom: 1px solid #CCE2D8; background-color: #EAF2EE">
+					<c:forEach var="best" items="${boardBest }">
+						<tr align="center"
+							style="border-bottom: 1px solid #CCE2D8; background-color: ##EAF2EE; font-size: 15px; color: red;">
+							<td>공지</td>
+							
+							<td align="left">
+							<a style="color: red; margin-right: 100px;"
+								href="boardDetailView.do?boardNo=${best.boardNo}">${best.title }
+								<samp>[${best.commentNum}]</samp>
+								</a>
+							</td>
+							
+							<td align="left"><img id="img1"
+								src="homeCss/assets/images/demo/name.png" alt="" />${best.nick }</td>
+								
+							<td><img id="img1" src="homeCss/assets/images/demo/date.png"
+								alt="" /> <fmt:formatDate value="${best.date }"
+									pattern="yyyy-MM-dd" /></td>
+									
+							<td><img id="img1"
+								src="homeCss/assets/images/demo/recommend.png" alt="" />${best.recommend }</td>
+							<td><img id="img1" src="homeCss/assets/images/demo/view.png"
+								alt="" />${best.viewNo }</td>
+						</tr>
+					</c:forEach>
 				</table>
 			</div>
 			<div>
-			<table width="800px" height="500px"
-				style="border-bottom: 1px solid #CCE2D8; background-color: #EAF2EE">
-				<c:forEach var="board" items="${boardList }">
-					<tr align="center" style="border-bottom: 1px solid #CCE2D8;">
-						<td>${board.boardNo }</td>
-						<td align="left">
-						<a style="margin-right: 100px;"
-							href="boardDetailView.do?boardNo=${board.boardNo}&id_index=${board.id_index}">${board.title }
-							<span>[${board.commentNum}]</span>
-							</a>
-						</td>
-						<td align="left"><img id="img1"
-							src="homeCss/assets/images/demo/name.png" alt="" />${board.nick }</td>
-						<td><img id="img1" src="homeCss/assets/images/demo/date.png"
-							alt="" /> <fmt:formatDate value="${board.date }"
-								pattern="yyyy-MM-dd" /></td>
-						<td><img id="img1"
-							src="homeCss/assets/images/demo/recommend.png" alt="" />${board.recommend }</td>
-						<td><img id="img1" src="homeCss/assets/images/demo/view.png"
-							alt="" />${board.viewNo }</td>
-					
-					</tr>
-				</c:forEach>
-			</table>
+				<table width="800px" height="500px"
+					style="border-bottom: 1px solid #CCE2D8; background-color: #EAF2EE">
+					<c:forEach var="board" items="${boardList }">
+						<tr align="center"
+							style="border-bottom: 1px solid #CCE2D8; background-color: ##EAF2EE; font-size: 15px; color: red;">
+							<td>${board.boardNo }</td>
+							
+							<td align="left">
+							<a style="margin-right: 100px;"
+								href="boardDetailView.do?boardNo=${board.boardNo}">${board.title }
+									<span>[${board.commentNum}]</span>
+							</a></td>
+							
+							<td align="left"><img id="img1"
+								src="homeCss/assets/images/demo/name.png" alt="" />${board.nick }</td>
+								
+							<td><img id="img1" src="homeCss/assets/images/demo/date.png"
+								alt="" /> <fmt:formatDate value="${board.date }"
+									pattern="yyyy-MM-dd" /></td>
+							<td><img id="img1"
+								src="homeCss/assets/images/demo/recommend.png" alt="" />${board.recommend }</td>
+							<td><img id="img1" src="homeCss/assets/images/demo/view.png"
+								alt="" />${board.viewNo }</td>
+
+						</tr>
+					</c:forEach>
+				</table>
 			</div>
 			<div>
 				<table>

@@ -15,18 +15,19 @@
 
 
 	<!--팝업창 적용 tiles  -->
+	
 	<definition name="empty" template="/WEB-INF/template/empty.jsp">
-        <put-attribute name="content" value=""/>
+        <put-attribute name="content" value=""/>  
     </definition>
-	<definition name="empty/*.*" extends="empty">	
+	<definition name="empty/*.*" extends="empty">
           <put-attribute name="content" value="/WEB-INF/popup/{1}.jsp"></put-attribute>
     </definition>
     
     <!--tiles  -->
-    <definition name="newHome" template="/WEB-INF/template/newHome.jsp">
-        <put-attribute name="content" value=""/>
+    <definition name="newhome" template="/WEB-INF/template/newHome.jsp">
+        <put-attribute name="content" value=""/>  
     </definition>
-    <definition name="newHome/*.*" extends="newHome">
+	<definition name="newhome/*.*" extends="newhome">
           <put-attribute name="content" value="/WEB-INF/newhome/{1}.jsp"></put-attribute>
     </definition>
     
