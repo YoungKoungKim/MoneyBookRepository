@@ -35,7 +35,7 @@
 	background-color: #eaeae9;
 }
 
-#nick_UpdateBtn, #pwd_UpdateBtn {
+#nick_UpdateBtn, #pwd_UpdateBtn, #user_DeleteBtn {
 	background-color: #4CAF50;
 	border: none;
 	color: white;
@@ -92,8 +92,12 @@
 								<h3>
 									<c:choose>
 										<c:when
-											test="${member.pwd eq '4a7d1ed414474e4033ac29ccb8653d9b'}">카카오 아이디</c:when>
-										<c:otherwise>일반 아이디</c:otherwise>
+											test="${member.pwd eq '4a7d1ed414474e4033ac29ccb8653d9b'}">카카오 아이디
+											<input type="hidden" id="user_Type" value="kakao">
+										</c:when>
+										<c:otherwise>일반 아이디
+											<input type="hidden" id="user_Type" value="nomal">
+										</c:otherwise>
 									</c:choose>
 								</h3>
 							</div>
@@ -182,10 +186,20 @@
 							</h2>
 						</div>
 
-						<div class="col-md-12" style="margin-top: 20px;">
-							<button type="button" id="pwd_UpdateBtn">회원 탈퇴</button>
-						</div>
 
+						<c:if test="${member.pwd ne '4a7d1ed414474e4033ac29ccb8653d9b'}">
+							<div class="col-md-12" style="margin-top: 20px;">
+								<div class="input-group">
+									<span class="input-group-addon inputLabel">비밀번호</span> <input
+										id="delete_PwdInput" type="password" class="form-control"
+										placeholder="현재 비밀번호를 입력해주세요." style="width: 345px;">
+								</div>
+							</div>
+						</c:if>
+
+						<div class="col-md-12" style="margin-top: 20px;">
+							<button type="button" id="user_DeleteBtn">회원 탈퇴</button>
+						</div>
 
 					</div>
 				</div>

@@ -91,6 +91,9 @@ public class MemberService implements IMemberService {
 		// TODO Auto-generated method stub
 		// 수정할때 현재비밀번호랑 입력한비밀번호랑 같은지
 		// 1200번대, 요구사항 명세서의 password_check 커맨드랑 같다고 봄
+		
+		//로 만들 생각이였으나 회원 삭제할 때 쓰기로 함.
+		
 		String old = memberDao.selectOneMember(id_index).getPwd();
 		String userPwd = changePwd(pwd);
 
