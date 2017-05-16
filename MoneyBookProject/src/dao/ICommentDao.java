@@ -20,4 +20,6 @@ public interface ICommentDao {
 	public HashMap<String, Object> selectOneComment(HashMap<String, Object> params);
 	
 	public boolean deleteBoardComment(int boardNo);
+	
+	public int updateRecommend(int commentNo);
 }

@@ -7,6 +7,6 @@ public class Comment {
 	public static String NICK = "nick";
 	public static String DATE = "date";
 	public static String CONTENT="content";
-	
+	public static String RECOMMEND ="recommend";
 	
 }
