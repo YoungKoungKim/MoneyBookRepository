@@ -25,18 +25,28 @@
 	src="./fullcalendar-3.3.1/fullcalendar.js"></script>
 
 <style type="text/css">
+@font-face {
+	font-family: 'NanumGothic';
+	src: url(font/NanumBarunGothic_0.ttf) format('truetype');
+	font-family: 'NanumBarunpenR';
+	src: url(font/NanumBarunpenR.ttf) foramt('truetype');
+}
+
 body {
-	padding: 0;
 	font-size: 14px;
 	min-height: 100%;
 }
+
 #left {
+	font-family: 'Ubuntu Condensed', sans-serif;
 	position: absolute;
+	margin-top: 50px;
 	height: 100%;
 	left: 0;
-	width: 15%;
-	background-color: red;
+	width: 20%;
+	min-width: 150px;
 }
+
 #center {
 	font-family: 'Ubuntu Condensed', sans-serif;
 	position: absolute;
@@ -44,20 +54,22 @@ body {
 	right: 10%;
 	height: 100%;
 	width: 60%;
-	background-color: blue;
 }
+
 #right {
 	position: absolute;
+	margin-top: 90px;
 	height: 100%;
-	width: 10%;
+	width: 20%;
 	right: 0;
-	background-color: pink;
 }
+
 #calendar {
 	padding-top: 50px;
 	max-width: 700px;
 	margin: 0 auto;
 }
+
 #detail {
 	box-sizing: border-box;
 	table-layout: fixed;
@@ -68,30 +80,47 @@ body {
 	/* 	margin-left: #calendar.margin;
 	margin-right: px; */
 }
+
 .fc-event, .fc-event:hover, .ui-widget .fc-event {
 	color: #000; /* default TEXT color */
 	text-decoration: none; /* if <a> has an href */
 }
+
 .fc-day-number {
 	color: #A9A9A9;
 }
+
 .detailOne:hover {
 	background-color: #91D4B5;
 }
+
 .btn {
-	font-weight: bold;
 	border-radius: 10px;
 	background-color: #1abc9c;
 	padding: 10px 35px;
 	text-align: center;
 	color: white;
-	border-radius: 10px;
 }
+
 .btn:hover {
 	background-color: grey;
 	color: #fff;
-	text-decoration: none
+	text-decoration: none;
 }
+
+.moneyBookBtn {
+	font-family: NanumBarunpenR;
+	font-style: normal;
+	background-color: #91D4B5;
+	border-radius: 2px;
+}
+
+.moneyBookBtn:hover {
+	background-color: grey;
+	color: #fff;
+	text-decoration: none;
+}
+
 #borderLine {
 	padding: 5px;
 	margin: 10px;
@@ -100,6 +129,7 @@ body {
 .modal-body {
 	max-width: 450px;
 }
+
 </style>
 
 <script type="text/javascript">
@@ -372,7 +402,7 @@ function convertCategory(word) {
 					<td>Expense : <span id="monthExpense">${monthAmount.expense }</span></td>
 				</tr>
 			</table>
-			<button onclick="bookmarkRegist(${param.id_index})">즐겨찾기 등록</button>
+			<button class="btn moneyBookBtn" onclick="bookmarkRegist(${param.id_index})">즐겨찾기 등록</button>
 		</center>
 	</div>
 
@@ -406,8 +436,8 @@ function convertCategory(word) {
 	</div>
 
 	<div id="right">
-		<button onclick="moneyBookRegist(${param.id_index})">등록</button>
-		<button onclick="loadImage()">공유</button>
+		<button class="btn moneyBookBtn" onclick="moneyBookRegist(${param.id_index})">등록</button>
+		<button class="btn moneyBookBtn" onclick="loadImage()">공유</button>
 	</div>
 
 	<div class="modal fade" id="layerpop">

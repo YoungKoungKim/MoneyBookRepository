@@ -7,6 +7,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 <script src="https://code.jquery.com/jquery-2.2.4.min.js"
 	integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
 	crossorigin="anonymous"></script>
@@ -19,7 +21,7 @@
 	$(document).ready(function() {
 		$("#header_Logout").on("click", function() {
 			Kakao.Auth.logout();
-			
+
 			setTimeout(function() {
 				location.href = "logout.do";
 			}, 1500);
@@ -40,12 +42,14 @@
 <style type="text/css">
 @CHARSET "UTF-8";
 /************* Common *************/
+@import url(http://fonts.googleapis.com/earlyaccess/hanna.css);
+
 @font-face {
 	font-family: 'NanumGothic';
 	src: url(font/NanumBarunGothic_0.ttf) format('truetype');
-	
 	font-family: 'koverwatch';
 	src: url(font/koverwatch.ttf) format('truetype');
+	font-family: 'Hanna', serif;
 }
 
 .modal-content {
@@ -64,6 +68,33 @@
 	color: #91D4B5;
 	font-family: koverwatch;
 }
+
+.btn {
+	font-family: Hanna;
+	border-radius: 10px;
+	background-color: #1abc9c;
+	padding: 5px 15px;
+	margin-top: 5px;
+	margin-bottom: 15px;
+	text-align: center;
+	color: white;
+	border-radius: 10px;
+}
+
+.btn:hover {
+	background-color: grey;
+	color: #fff;
+	text-decoration: none
+}
+
+#noneMemberModal-content {
+	padding: 5px;
+	margin: 10px;
+	border: 3px solid #1ABC9C;
+	font-family: Hanna;
+	font-size: 18px;
+	color: black;
+}
 </style>
 </head>
 <body>
@@ -80,7 +111,8 @@
 								<!-- 공유게시판 -->
 								<a href="boardList.do" title="공유게시판">BulletinBoard</a>
 								<!-- 가계부 -->
-								<a href="#" title="가계부">MyMoneyBook</a>
+								<a href="#noneMember" data-toggle="modal"
+									data-target="#noneMember" data-backdrop="static" title="가계부">MyMoneyBook</a>
 								<!-- 로그인 -->
 								<a data-toggle="modal" data-target="#loginModal"
 									data-backdrop="static" href="#loginForm" title="로그인">Login</a>
@@ -225,41 +257,60 @@
 		</div>
 	</div>
 
+	<!-- if user dont login, show modal -->
+	<div class="modal fade" id="noneMember" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-body" id="noneMemberModal-content">
+					<div align="center">
+						<h3>가계부 작성은 로그인 후 이용 가능합니다.</h3>
+						<button class="btn" id="goToLogin" data-dismiss="modal" data-toggle="modal" data-target="#loginModal"
+						data-backdrop="static" href="#loginForm">
+							로그인&nbsp;<i class="fa fa-sign-out" aria-hidden="true"></i>
+						</button>
+						<button class="btn" data-dismiss="modal">취소</button>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
 	<script type='text/javascript'>
-  //<![CDATA[
-    // 사용할 앱의 JavaScript 키를 설정해 주세요.
-    Kakao.init('9712483447f19279ea7f16e2db8de389');
-    // 카카오 로그인 버튼을 생성합니다.
-    Kakao.Auth.createLoginButton({
-      container: '#kakao-login-btn',
-      success: function(authObj) {
-    	  Kakao.API.request({
-    		  url: '/v1/user/me',
-    		  success: function(res) {
-    			  $.ajax({
-    				  url : "kakaoLogin.do",
-    					type : "post",
-    					data : "id=" + res.id + "&nick=" + res.properties.nickname,
-    					success : function() {
- 								alert(res.properties.nickname + "님 환영합니다!!");
+		//<![CDATA[
+		// 사용할 앱의 JavaScript 키를 설정해 주세요.
+		Kakao.init('9712483447f19279ea7f16e2db8de389');
+		// 카카오 로그인 버튼을 생성합니다.
+		Kakao.Auth.createLoginButton({
+			container : '#kakao-login-btn',
+			success : function(authObj) {
+				Kakao.API.request({
+					url : '/v1/user/me',
+					success : function(res) {
+						$.ajax({
+							url : "kakaoLogin.do",
+							type : "post",
+							data : "id=" + res.id + "&nick=" + res.properties.nickname,
+							success : function() {
+								alert(res.properties.nickname + "님 환영합니다!!");
 								location.reload();
-    					},
-    					error:function(error) {
-    				        alert("카카오 로그인 실패 : " + error);
-    				    }
-    			  });
-    		  }, 
-    		  fail: function(error) {
-    			  alert(JSON.stringify(error));
-    		  }
-    	  })
-      },
-      fail: function(err) {
-         alert(JSON.stringify(err));
-      }
-    });
-  //]]>
-</script>
+							},
+							error : function(error) {
+								alert("카카오 로그인 실패 : " + error);
+							}
+						});
+					},
+					fail : function(error) {
+						alert(JSON.stringify(error));
+					}
+				})
+			},
+			fail : function(err) {
+				alert(JSON.stringify(err));
+			}
+		});
+		//]]>
+	</script>
 
 	<!-- JAVASCRIPT FILES PLACED AT THE BOTTOM TO REDUCE THE LOADING TIME  -->
 	<!-- CORE JQUERY  SCRIPTS -->
