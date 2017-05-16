@@ -179,8 +179,8 @@ $(document).ready(function() {
  		 									$("#inform_NickCheck").text("이미 있는 닉네임입니다.");
  		 									$("#inform_NickTest").val("false");
  		 								} else {
- 		 									$("#inform_NickCheck").text("");
- 		 									$("#inform_NickTest").val("true");
+ 		 									$("#inform_NickCheck").text("현재 닉네임과 같습니다.");
+ 		 									$("#inform_NickTest").val("false");
  		 								}
  		 							}
  		 						},
@@ -237,6 +237,7 @@ $(document).ready(function() {
  		 		
  		 		//버튼을 2개로 나눠서 닉네임 따로 해야 함 true 체크
  		 		
+ 		 		//닉네임 수정
  		 		$("#nick_UpdateBtn").on("click", function() {
  		 			if ($("#inform_NickTest").val() != "true") {
  		 				$("#inform_Nick").focus();
@@ -249,6 +250,7 @@ $(document).ready(function() {
  		 					dataType : "json",
  		 					success : function(data) {	
  		 						if(data == 4101) {
+ 		 							alert("닉네임이 수정되었습니다.");
  		 							location.href = "myInfo.do";
  		 						} else if (data == 4103) {
  		 							alert("db 수정 실패");
@@ -261,7 +263,7 @@ $(document).ready(function() {
  		 			}
  		 		})
  		 		
- 		 		//이건 비밀번호체크로 바꿔야함
+ 		 		//이건 비밀번호 수정
  		 		$("#pwd_UpdateBtn").on("click", function() {
  		 			if($("#inform_NowPwd").val() == "") {
  		 				alert("현재 비밀번호를 입력해주세요.");
@@ -276,12 +278,13 @@ $(document).ready(function() {
  		 				return;
  		 			} else {
  		 				$.ajax({
- 		 					url : "informUpdate.do",
+ 		 					url : "pwdUpdate.do",
  		 					type : "post",
  		 					data : "pwd=" + $("#inform_NowPwd").val() + "&newPwd=" + $("#inform_NewPwd").val(),
  		 					dataType : "json",
  		 					success : function(data) {	
  		 						if(data == 4101) {
+ 		 							alert("수정되었습니다.");
  		 							location.href = "myInfo.do";
  		 						} else if (data == 4102) {
  		 							$("#inform_NowPwd").val("");

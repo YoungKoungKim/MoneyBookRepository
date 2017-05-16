@@ -118,6 +118,14 @@ public class MemberController {
 
 		return memberService.pwdUpdate((int) session.getAttribute("id_index"), pwd, newPwd);
 	}
+	
+	//회원 탈퇴
+	@RequestMapping("userDelete.do")
+	public @ResponseBody int userDelete(HttpSession session, String pwd) {
+		
+		
+		return 0;
+	}
 
 	// 카카오 로그인
 	@RequestMapping("kakaoLogin.do")
