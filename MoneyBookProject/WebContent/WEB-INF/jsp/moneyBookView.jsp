@@ -42,7 +42,7 @@ body {
 	position: absolute;
 	left: 20%;
 	right: 10%;
-	height: 100%;
+	height: auto;
 	width: 60%;
 	background-color: blue;
 }
@@ -117,7 +117,7 @@ function moneyBookRegist(id_index){
 }
 function bookmarkRegist(id_index){
 	var popUrl = "bookmarkRegistForm.do?id_index=" + id_index;	//팝업창에 출력될 페이지 URL
-	var popOption = "top=200, left=300, width=500, height=400, resizable=no, scrollbars=no, status=no";    //팝업창 옵션(optoin)
+	var popOption = "top=200, left=300, width=600, height=650, resizable=no, scrollbars=no, status=no";    //팝업창 옵션(optoin)
 	window.open(popUrl,"즐겨찾기등록",popOption);
 }
 	

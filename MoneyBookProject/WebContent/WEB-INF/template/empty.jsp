@@ -7,13 +7,26 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
+@import url(http://fonts.googleapis.com/earlyaccess/hanna.css);
+@font-face {
+	font-family: 'NanumGothic';
+	src: url(font/NanumBarunGothic_0.ttf) format('truetype');
+	
+	font-family: 'Hanna';
+	
+	
+}
+
 #container {
 	min-height: 80%;
 	background-color: white;
+	font-family: Hanna;
 }
 #container #content {
 	min-height: 300px;
+	font-family: Hanna;
 }
+
 </style>
 </head>
 <body>
