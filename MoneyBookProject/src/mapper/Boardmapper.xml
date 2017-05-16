@@ -69,6 +69,7 @@
 				where ageType = #{ageType}
 			</when>
 		</choose>
+		order by boardNo desc limit #{skip}, #{count}
 	</select>
 
 	<select id="getBoardCount" resultType="int">
