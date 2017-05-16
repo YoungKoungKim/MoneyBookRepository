@@ -198,6 +198,8 @@ function getCommentList() {
 	font-size: 20px;
 	border-top: solid #d3d3d3;
 	border-bottom: solid #d3d3d3; 
+    padding: 20px 100px;
+	
 }
 
 .bottom {
@@ -326,7 +328,6 @@ function getCommentList() {
 			</table>
 
 			<table>
-				<br>
 
 				<tr style="width: 50px">
 					<c:forEach items="${list}" var="exboard">
@@ -372,7 +373,6 @@ function getCommentList() {
 				</tr>
 			</table>
 			<table>
-				<br>
 
 				<tr>
 					<c:forEach items="${list}" var="exboard">
@@ -424,9 +424,7 @@ function getCommentList() {
 		</div>
 		
 		<div class="right">
-			<br>
-			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ${board.content }
+			${board.content }
 		</div>
 
 		<div class="bottom">

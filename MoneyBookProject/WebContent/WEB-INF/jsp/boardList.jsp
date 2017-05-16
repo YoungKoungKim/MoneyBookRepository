@@ -42,7 +42,7 @@
 .tablelist{
 	border-bottom: 1px solid #CCE2D8;
 	background-color: #EAF2EE;
-
+	display: inline-block;
 }
 
 td{
@@ -91,7 +91,6 @@ a:hover {
 .root {
 	margin: auto;
 	width: 1000px;
-	height: auto;
 	background-color: #f0f8ff;
 }
 
@@ -102,12 +101,12 @@ a:hover {
 	font-size: 15px;
 	border-right: solid #CCE2D8;
 	text-align: center;
+	display:inline-block; 
 }
 
 .right {
-	height: auto;
 	width: 80%;
-	float: right;
+	display: inline-block;
 }
 
 .bottom {
@@ -271,7 +270,7 @@ li {
 					</c:forEach>
 				</table>
 			</div>
-			<div c>
+			<div>
 				<table>
 					<tr align="center">
 						<td width="1250px" colspan="5"><c:if test="${start != 1 }">

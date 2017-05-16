@@ -42,12 +42,12 @@ html, body {
 	padding-bottom: 10px;
 }
 #container {
-	height: 100%;
+	height: auto;
 	background-color: white;
 	font-family: NanumBarunpenR;
 }
 #container #content {
-	min-height: 300px;
+	min-height: 800px;
 	font-family: NanumBarunpenR;
 }
 #footer {
