@@ -10,7 +10,6 @@ import service.IMoneyBookService;
 
 @Controller
 public class MainPageController {
-	
 	@Autowired
 	private IBoardService boardservice;
 	@Autowired
@@ -27,10 +26,11 @@ public class MainPageController {
 		System.out.println(result);
 		return "redirect:boardDetailView.do?boardNo="+result;
 	}
-	
+
 	@RequestMapping("new.do")
 	public String newHome() {
 		return "newhome/newHome12";
 	}
+	
 
 }
