@@ -25,33 +25,45 @@
 	src="./fullcalendar-3.3.1/fullcalendar.js"></script>
 
 <style type="text/css">
+@font-face {
+	font-family: 'NanumGothic';
+	src: url(font/NanumBarunGothic_0.ttf) format('truetype');
+	font-family: 'NanumBarunpenR';
+	src: url(font/NanumBarunpenR.ttf) foramt('truetype');
+}
+
 body {
-	padding: 0;
 	font-size: 14px;
-	height: 100%;
 }
 
 #left {
+	font-family: 'Ubuntu Condensed', sans-serif;
 	position: absolute;
-	height: 100%;
+	margin-top: 50px;
 	left: 0;
 	width: 20%;
 }
 
 #center {
 	font-family: 'Ubuntu Condensed', sans-serif;
-	position: relative;
+	position: absolute;
 	left: 20%;
+<<<<<<< HEAD
+	right: 10%;
+	height: auto;
+	width: 60%;
+	background-color: blue;
+=======
 	right: 20%;
-	height: 100%;
-	width: 70%;
+	width: 60%;
+>>>>>>> branch 'master' of https://github.com/YoungKoungKim/MoneyBookRepository.git
 }
 
 #right {
-	position: relative;
-	height: 100%;
-	width: 10%;
-	right: 0%;
+	position: absolute;
+	margin-top: 90px;
+	width: 20%;
+	right: 0;
 }
 
 #calendar {
@@ -85,19 +97,30 @@ body {
 }
 
 .btn {
-	font-weight: bold;
 	border-radius: 10px;
 	background-color: #1abc9c;
 	padding: 10px 35px;
 	text-align: center;
 	color: white;
-	border-radius: 10px;
 }
 
 .btn:hover {
 	background-color: grey;
 	color: #fff;
-	text-decoration: none
+	text-decoration: none;
+}
+
+.moneyBookBtn {
+	font-family: NanumBarunpenR;
+	font-style: normal;
+	background-color: #91D4B5;
+	border-radius: 2px;
+}
+
+.moneyBookBtn:hover {
+	background-color: grey;
+	color: #fff;
+	text-decoration: none;
 }
 
 #borderLine {
@@ -109,7 +132,6 @@ body {
 .modal-body {
 	max-width: 450px;
 }
-
 </style>
 
 <script type="text/javascript">
@@ -131,7 +153,7 @@ function moneyBookRegist(id_index){
 
 function bookmarkRegist(id_index){
 	var popUrl = "bookmarkRegistForm.do?id_index=" + id_index;	//팝업창에 출력될 페이지 URL
-	var popOption = "top=200, left=300, width=500, height=400, resizable=no, scrollbars=no, status=no";    //팝업창 옵션(optoin)
+	var popOption = "top=200, left=300, width=600, height=650, resizable=no, scrollbars=no, status=no";    //팝업창 옵션(optoin)
 	window.open(popUrl,"즐겨찾기등록",popOption);
 }
 	
@@ -396,7 +418,8 @@ function convertCategory(word) {
 					<td>Expense : <span id="monthExpense">${monthAmount.expense }</span></td>
 				</tr>
 			</table>
-			<button onclick="bookmarkRegist(${param.id_index})">즐겨찾기 등록</button>
+			<button class="btn moneyBookBtn"
+				onclick="bookmarkRegist(${param.id_index})">즐겨찾기 등록</button>
 		</center>
 	</div>
 
@@ -430,8 +453,9 @@ function convertCategory(word) {
 	</div>
 
 	<div id="right">
-		<button onclick="moneyBookRegist(${param.id_index})">등록</button>
-		<button onclick="loadImage()">공유</button>
+		<button class="btn moneyBookBtn"
+			onclick="moneyBookRegist(${param.id_index})">등록</button>
+		<button class="btn moneyBookBtn" onclick="loadImage()">공유</button>
 	</div>
 
 	<div class="modal fade" id="layerpop">
@@ -446,60 +470,58 @@ function convertCategory(word) {
 					<h4 class="modal-title"> </h4>
 				</div> -->
 					<!-- body -->
-						<div class="modal-body">
+					<div class="modal-body">
+						<div>
+							<label class="control-label" for="datepicker">Date</label>
 							<div>
-								<label class="control-label" for="datepicker">Date</label>
-								<div>
-									<input class="form-control" type="text" id="datepicker">
-								</div>
-							</div>
-
-							<!-- Select Basic -->
-							<div>
-								<label class="control-label" for="category">Category</label>
-								<div>
-									<select name="category" class="form-control" id="category">
-										<option>카테고리 선택</option>
-										<option value="food">식비</option>
-										<option value="traffic">교통비</option>
-										<option value="commodity">생필품</option>
-										<option value="beauty">미용</option>
-										<option value="medical">의료</option>
-										<option value="education">교육</option>
-										<option value="phonefees">통신비</option>
-										<option value="saving">저축</option>
-										<option value="utilitybills">공과금</option>
-										<option value="culturallife">문화생활</option>
-										<option value="otheritems">기타</option>
-										<option value="income">수입</option>
-									</select>
-								</div>
-							</div>
-
-							<div>
-								<label class="control-label" for="edt_detail">Detail</label>
-								<div>
-									<input name="edt_detail" class="form-control input-md"
-										id="edt_detail" type="text">
-								</div>
-							</div>
-
-							<div>
-								<label class="control-label" for="edt_price">Price</label>
-								<div>
-									<input name="edt_price" class="form-control input-md"
-										id="edt_price" type="text">
-								</div>
+								<input class="form-control" type="text" id="datepicker">
 							</div>
 						</div>
+
+						<!-- Select Basic -->
+						<div>
+							<label class="control-label" for="category">Category</label>
+							<div>
+								<select name="category" class="form-control" id="category">
+									<option>카테고리 선택</option>
+									<option value="food">식비</option>
+									<option value="traffic">교통비</option>
+									<option value="commodity">생필품</option>
+									<option value="beauty">미용</option>
+									<option value="medical">의료</option>
+									<option value="education">교육</option>
+									<option value="phonefees">통신비</option>
+									<option value="saving">저축</option>
+									<option value="utilitybills">공과금</option>
+									<option value="culturallife">문화생활</option>
+									<option value="otheritems">기타</option>
+									<option value="income">수입</option>
+								</select>
+							</div>
+						</div>
+
+						<div>
+							<label class="control-label" for="edt_detail">Detail</label>
+							<div>
+								<input name="edt_detail" class="form-control input-md"
+									id="edt_detail" type="text">
+							</div>
+						</div>
+
+						<div>
+							<label class="control-label" for="edt_price">Price</label>
+							<div>
+								<input name="edt_price" class="form-control input-md"
+									id="edt_price" type="text">
+							</div>
+						</div>
+					</div>
 					<!-- Footer -->
 					<div class="modal-footer">
-						<div>
-							<button name="update" class="btn" id="btn_update">수정</button>
-							<button name="delete" class="btn" id="btn_delete">삭제</button>
-							<button name="cancel" class="btn" id="btn_cancel"
-								data-dismiss="modal">취소</button>
-						</div>
+						<button name="update" class="btn" id="btn_update">수정</button>
+						<button name="delete" class="btn" id="btn_delete">삭제</button>
+						<button name="cancel" class="btn" id="btn_cancel"
+							data-dismiss="modal">취소</button>
 					</div>
 				</div>
 			</div>

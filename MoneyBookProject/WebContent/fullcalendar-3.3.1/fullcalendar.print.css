@@ -28,7 +28,7 @@
 /* Table & Day-Row Restyling
 --------------------------------------------------------------------------------------------------*/
 .fc th, .fc td, .fc hr, .fc thead, .fc tbody, .fc-row {
-	border-color: #ccc !important;
+	border-color: #DCDCDC !important;
 	background: #fff !important;
 }
 

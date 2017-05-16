@@ -22,6 +22,14 @@
 <style type="text/css">
 @import url('http://fonts.googleapis.com/css?family=Lato');
 @import url('https://fonts.googleapis.com/css?family=Amatic+SC');
+@font-face {
+	font-family: 'NanumGothic';
+	src: url(font/NanumBarunGothic_0.ttf) format('truetype');
+	
+	font-family: 'NanumBarunpenR';
+	src: url(font/NanumBarunpenR.ttf) format('truetype');
+}
+
 html, body {
 	height: 100%;
 /* 	margin: 0;
@@ -34,11 +42,13 @@ html, body {
 	padding-bottom: 10px;
 }
 #container {
-	min-height: 80%;
+	height: 100%;
 	background-color: white;
+	font-family: NanumBarunpenR;
 }
 #container #content {
 	min-height: 300px;
+	font-family: NanumBarunpenR;
 }
 #footer {
 	margin-top : 50px;
@@ -58,7 +68,6 @@ html, body {
 			<tiles:insertAttribute name="content"></tiles:insertAttribute>
 		</div>
 	</div>
-	
 	
 	<div id="footer">
 		<tiles:insertAttribute name="footer"></tiles:insertAttribute>

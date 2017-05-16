@@ -176,6 +176,18 @@ $(document).ready(function() {
 });
 </script>
 <style type="text/css">
+@font-face {
+
+	font-family: 'koverwatch';
+	src: url(font/koverwatch.ttf) format('truetype');
+}
+
+#index_div{
+font-family: koverwatch;
+font-size: 30px;
+
+}
+
 .btn {
 	font-weight: bold; border-radius : 10px;
 	background-color: #1abc9c;
@@ -311,12 +323,10 @@ margin-left: 5px;
 				</SELECT>
 			</div>
 
-			<div id="bookmark_bar_div">
-				<h4>
+			<div id="index_div">
 				<span style="color: #1abc9c; font-weight: bold;">
 					<i class="fa fa-bookmark" aria-hidden="true"></i> 즐겨찾기
 					</span>
-				</h4>
 			</div>
 
 			<div id="bookmark_list_div">

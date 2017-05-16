@@ -33,11 +33,10 @@ $(document).ready(function() {
 	$(document).on("click",".update_btn", function(){
 		var id_index = $(this).attr('id').replace("update_btn", "");
 		var price =$('#price_val'+id_index).val();
-		alert(price);
 		$('#price'+id_index).html("<input type='text' value='"+price
 				+"'id='price_update"+id_index+"'>");
 		
- 		$('#update_btn'+id_index).val("확인");
+ 		/* $('#update_btn'+id_index).val("확인"); */
 		$('#update_btn'+id_index).attr({
 		id : 'confirm_btn'+id_index,
 		class : 'confirm_btn'
@@ -45,7 +44,7 @@ $(document).ready(function() {
 	})
 		$(document).on("click",".confirm_btn", function(){
 		var id_index = $(this).attr('id').replace("confirm_btn", "");
-		alert($('#price_update'+id_index).val());
+		/* alert($('#price_update'+id_index).val()); */
 
 		$.ajax({
 			url : 'bookmarkUpdate.do',
@@ -126,7 +125,7 @@ function isNumber(checkValue) {
 			type: 'post',
 			success : function(data){
 				alert(data.msg)
-				$('#bookmarklist'+id_index ).remove();
+				$('#bookmarklist'+id_index).remove();
 			}
 		});
 	});
@@ -156,7 +155,7 @@ function isNumber(checkValue) {
 		+"placeholder='사용내역을 입력하세요.' id='detail"+addCount+"'></td>"
 		+"<td><input type='text' name='price' "
 		+"id='price"+addCount+"' placeholder='가격을 입력하세요.'></td>"
-		+"<td><a href = '#' target='' id='add_line_btn"+addCount+"'class='add_line_btn'>"
+		+"<td><a href = '#' target=''id='add_line_btn"+addCount+"'class='add_line_btn'>"
 		+"<i class='fa fa-plus-circle' aria-hidden='true'></i></a>"
 		+"</td>"
 		+"</tr>" ;
@@ -169,6 +168,18 @@ function isNumber(checkValue) {
 <title>북마크 등록</title>
 </head>
 <style type="text/css">
+@font-face {
+
+	font-family: 'koverwatch';
+	src: url(font/koverwatch.ttf) format('truetype');
+}
+
+#index_div{
+font-family: koverwatch;
+font-size: 30px;
+
+}
+
 .btn {
 	font-weight: bold; border-radius : 10px;
 	background-color: #1abc9c;
@@ -231,14 +242,14 @@ div {
 }
 
 .update_btn {
-	color: #808080;
+	color:#808080;
 	font-size: 25px;
 	text-align: center;
 	margin-left: 5px;
 }
 
 .category_td {
-	color:#000000;
+	color: #000000;
 	font-size: 30px;
 	text-align: center;
 	/* margin-left: 5px; */
@@ -253,16 +264,10 @@ div {
 
 .custab {
 	border: 1px solid #E6E6FA;
-	/* padding: 5px; */
-	/* margin: 5% 0;  */
 	box-shadow: 3px 3px 2px #E6E6FA;
 	transition: 0.5s;
 }
 
-/* .custab:hover {
-	box-shadow: 3px 3px 0px transparent;
-	transition: 0.5s;
-} */
 </style>
 
 <title>즐겨찾기 등록</title>
@@ -270,12 +275,10 @@ div {
 <body>
 	<form action="bookmarkRegist.do" id="bookmarkRegistForm">
 		<div id="main_div">
-			<div id="bookmark_bar_div">
-				<h4>
+			<div id="index_div">
 					<span style="color: #1abc9c; font-weight: bold;"> <i
 						class="fa fa-list" aria-hidden="true"></i> 즐겨찾기 목록
 					</span>
-				</h4>
 			</div>
 			<div id="bookmark_list_div" class="container">
 				<div class="row col-md-6 col-md-offset-2 custyle">
@@ -357,12 +360,9 @@ div {
 								</span>
 								
 								</td>
-								<%-- <td><input type="text" value="${bm.price}"
-									id="price${status.index}" readonly="readonly"></td> --%>
 								<td><a href="#" target="" id="update_btn${status.index}"
-									class="update_btn"> <i class="fa fa-refresh"
-										aria-hidden="true"></i></a> <a href="#" target=""
-									id="delete_btn${status.index}" class="delete_btn"> <i
+									class="update_btn"><i class="fa fa-scissors" aria-hidden="true"></i></a>
+									<a href="#" target="" id="delete_btn${status.index}" class="delete_btn"> <i
 										class="fa fa-trash" aria-hidden="true"></i>
 								</a></td>
 							</tr>
@@ -373,9 +373,11 @@ div {
 				</div>
 			</div>
 			<h4>
+			<div id="index_div">
 				<span style="color: #1abc9c; font-weight: bold;"> <i
-					class="fa fa-check" aria-hidden="true"></i></i>즐겨찾기 등록하기
+					class="fa fa-check" aria-hidden="true"></i></i> 즐겨찾기 등록하기
 				</span>
+				</div>
 			</h4>
 			<div id="list_div">
 				<input type="hidden" name="id_index" value="${param.id_index}">

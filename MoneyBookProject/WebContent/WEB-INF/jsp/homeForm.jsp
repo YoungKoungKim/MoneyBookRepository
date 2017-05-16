@@ -112,8 +112,8 @@
 			<a href="homerecommend.do"> <img class="" src="homeCss/assets/images/demo/demo1.png" alt="image"></a>
             <a href="homerecommend.do" class="tag"><h2>Best</h2></a></div>
 		<div class="gig-thumb" id="div1">
-			<a href="boardList.do"> <img class="" src="homeCss/assets/images/demo/demo1.png" alt="image"></a>
-            <a href="boardList.do" class="tag"><h2>Information 작업해야됨</h2></a></div>
+			<a href="howToUseMoneyBook.do"> <img class="" src="homeCss/assets/images/demo/demo1.png" alt="image"></a>
+            <a href="howToUseMoneyBook.do" class="tag"><h2>Information 작업해야됨</h2></a></div>
 	</div>
 </div>
 </body>
