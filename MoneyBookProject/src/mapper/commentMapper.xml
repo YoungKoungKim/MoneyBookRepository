@@ -38,4 +38,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select * from comment WHERE commentNo = #{commentNo} and boardNo =
 		#{boardNo}
 	</select>
+	
+	<delete id="deleteBoardComment" parameterType="int">
+		delete from comment where boardNo = #{boardNo}
+	</delete>
 </mapper>

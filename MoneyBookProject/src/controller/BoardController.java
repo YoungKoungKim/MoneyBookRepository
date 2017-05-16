@@ -3,7 +3,6 @@ package controller;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
@@ -17,16 +16,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import dao.IExtraBoardDao;
 import model.Board;
-import model.ExtraBoard;
-import model.MoneyBook;
-import service.BoardService;
-import service.ExtraBoardService;
 import service.IBoardService;
-import service.ICommentService;
-import service.IExtraService;
-import service.IMoneyBookService;
 import service.IRecommendService;
 
 @Controller
@@ -35,16 +26,14 @@ public class BoardController {
 	@Autowired
 	private IBoardService boardservice;
 	@Autowired
-	private IExtraService extraboardservice;
-	@Autowired
 	private IRecommendService recommendservice;
-
+	
 	@RequestMapping("boardList.do")
 	public ModelAndView boardList(@RequestParam(defaultValue = "1") int page,
 			@RequestParam(defaultValue = "0") String ageType, @RequestParam(defaultValue = "0") String category,
 			@RequestParam(defaultValue = "0") String content) {
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("boardBest", boardservice.bestView(3));
+		 mav.addObject("boardBest", boardservice.bestView(3));
 		mav.addAllObjects(boardservice.getboardList(page, ageType, category, content));
 		mav.setViewName("boardList");
 		return mav;
@@ -67,8 +56,7 @@ public class BoardController {
 	// }
 
 	@RequestMapping("boardDetailView.do")
-	public ModelAndView boardDetailView(HttpSession session, int boardNo,
-			@RequestParam(defaultValue = "-1") int id_index) {// id_index 빼야됨
+	public ModelAndView boardDetailView(HttpSession session, int boardNo) {// id_index 빼야됨
 		ModelAndView mav = new ModelAndView();
 		try {
 			int readCheck = (int) session.getAttribute("readCheck");
@@ -145,19 +133,14 @@ public class BoardController {
 	public String boardWrite(Board board, Date date2) {
 		boardservice.boardWrite(board, date2);
 		return "redirect:boardList.do";
-
-		// Iterator<String> iter = totalAmountByCategory.keySet().iterator();
-		// while(iter.hasNext()){
-		// String key = iter.next();
-		// System.out.println(key);
-		// }
+	
 	}
-	//
-	//// @RequestMapping("boardDelete.do")
-	//// public ModelAndView boardDelete(int boardNo){
-	//// //게시글삭제
-	//// return null;
-	//// }
+
+	 @RequestMapping("boardDelete.do")
+	 public String boardDelete(int boardNo){
+		 boardservice.boardDelete(boardNo);
+		 return "redirect:boardList.do";
+	 }
 
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {

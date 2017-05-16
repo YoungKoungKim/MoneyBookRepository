@@ -243,7 +243,7 @@
 			<input type="hidden" value="${id_index}" name="id_index">
 			<input type="submit" value="확인">
 			<input type="button" value="돌아가기"
-					onclick="location.href='boardDetailView.do?boardNo=${board.boardNo}&id_index=${id_index}'">
+					onclick="location.href='boardDetailView.do?boardNo=${board.boardNo}'">
 		</div>
 	</form>
 
