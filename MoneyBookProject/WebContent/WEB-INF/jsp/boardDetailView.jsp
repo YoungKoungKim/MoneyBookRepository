@@ -103,7 +103,6 @@ function getCommentList() {
 							success : function(data){
 								if(date.code==0){
 									$('#commentread').text(data.recommend);
-									getCommentList();
 								}else if(data.code ==1){
 										$('#commentread').text(data.recommend);						
 										alert("이미추천하셨습니다.");

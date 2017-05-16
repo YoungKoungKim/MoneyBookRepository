@@ -13,6 +13,45 @@
 	integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
 	crossorigin="anonymous"></script>
 <style type="text/css">
+
+.boardNo{
+	width: 50px;
+	text-align: center;
+}
+.title{
+	width: 300px;
+	text-align: left;
+	
+}
+.nick{
+	width: 150px;
+	text-align: left;
+}
+.date{
+	width: 150px;
+	text-align: center;
+}
+.recommend{
+	width: 70px;
+	text-align: center;
+}
+.ViewNo{
+	width: 70px;
+	text-align: center;
+}
+.tablelist{
+	border-bottom: 1px solid #CCE2D8;
+	background-color: #EAF2EE;
+
+}
+
+td{
+ border-bottom: 1px solid #CCE2D8; 
+ background-color: ##EAF2EE; 
+ font-size: 15px;
+ padding: 8px 5px;
+}
+
 select {
 	width: 70px; /* 원하는 너비설정 */
 	padding: .3em .3em; /* 여백으로 높이 설정 */
@@ -27,29 +66,35 @@ select {
 	-moz-appearance: none;
 	appearance: none;
 }
+
 a:link {
 	color: black;
 	text-decoration: none;
 }
+
 a:visited {
 	color: black;
 	text-decoration: none;
 }
+
 a {
 	text-decoration: none;
 	color: black;
 	cursor: pointer;
 }
+
 a:hover {
 	color: black;
 	text-decoration: none;
 }
+
 .root {
 	margin: auto;
 	width: 1000px;
 	height: auto;
 	background-color: #f0f8ff;
 }
+
 .left {
 	height: auto;
 	width: 15%;
@@ -58,35 +103,44 @@ a:hover {
 	border-right: solid #CCE2D8;
 	text-align: center;
 }
+
 .right {
 	height: auto;
 	width: 80%;
 	float: right;
 }
+
 .bottom {
 	width: 100%;
 	height: 100%;
 	clear: both;
 }
+
 ul {
 	list-style: none;
 	padding-left: 0px;
 }
+
 li {
 	padding-left: 10px;
 }
+
 .menu .hide {
 	display: none;
 }
+
 .left .btn btn-default {
 	background: #91D4B5;
 	color: #E9F2EE;
+	background-color: #CCE2D8;
 }
+
 #img1 {
 	height: 15px;
 	width: auto;
 	margin-right: 5px;
 }
+
 .myButton {
 	background-color: #ffffff;
 	-moz-border-radius: 9px;
@@ -100,9 +154,11 @@ li {
 	padding: 6px 17px;
 	text-decoration: none;
 }
+
 .myButton:hover {
 	background-color: #91D4B5;
 }
+
 .myButton:active {
 	position: relative;
 	top: 1px;
@@ -152,6 +208,7 @@ li {
 		</div>
 
 		<div class="right">
+
 			<div align="right" style="margin-bottom: 20px;">
 				<form action="boardList.do">
 					<table>
@@ -167,65 +224,60 @@ li {
 				</form>
 			</div>
 			<div>
-				<table width="800px" height="100px"
-					style="border-bottom: 1px solid #CCE2D8; background-color: #EAF2EE">
+				<table class="tablelist">
 					<c:forEach var="best" items="${boardBest }">
-						<tr align="center"
-							style="border-bottom: 1px solid #CCE2D8; background-color: ##EAF2EE; font-size: 15px;">
-							<td>공지</td>
-							
-							<td align="left">
+						<tr>
+							<td class="boardNo" >best</td>
+
+							<td class="title">
 							<a style="color: red; margin-right: 100px;"
 								href="boardDetailView.do?boardNo=${best.boardNo}">${best.title }
-								<samp>[${best.commentNum}]</samp>
-								</a>
+									<samp>[${best.commentNum}]</samp>
+							</a>
 							</td>
-							
-							<td align="left"><img id="img1"
+
+							<td class="nick"><img id="img1"
 								src="homeCss/assets/images/demo/name.png" alt="" />${best.nick }</td>
-								
-							<td><img id="img1" src="homeCss/assets/images/demo/date.png"
+
+							<td class="Date"><img id="img1" src="homeCss/assets/images/demo/date.png"
 								alt="" /> <fmt:formatDate value="${best.date }"
 									pattern="yyyy-MM-dd" /></td>
-									
-							<td><img id="img1"
+
+							<td class="recommend"><img id="img1"
 								src="homeCss/assets/images/demo/recommend.png" alt="" />${best.recommend }</td>
-							<td><img id="img1" src="homeCss/assets/images/demo/view.png"
+							<td class="ViewNo"><img id="img1" src="homeCss/assets/images/demo/view.png"
 								alt="" />${best.viewNo }</td>
 						</tr>
 					</c:forEach>
 				</table>
 			</div>
 			<div>
-				<table width="800px" height="500px"
-					style="border-bottom: 1px solid #CCE2D8; background-color: #EAF2EE">
+				<table class="tablelist" >
 					<c:forEach var="board" items="${boardList }">
-						<tr align="center"
-							style="border-bottom: 1px solid #CCE2D8; background-color: ##EAF2EE; font-size: 15px;">
-							<td>${board.boardNo }</td>
-							
-							<td align="left">
-							<a style="margin-right: 100px;"
+						<tr>
+							<td class="boardNo" >${board.boardNo }</td>
+
+							<td class="title" ><a style="margin-right: 100px;"
 								href="boardDetailView.do?boardNo=${board.boardNo}">${board.title }
 									<span>[${board.commentNum}]</span>
 							</a></td>
-							
-							<td align="left"><img id="img1"
+
+							<td class="nick"><img id="img1"
 								src="homeCss/assets/images/demo/name.png" alt="" />${board.nick }</td>
-								
-							<td><img id="img1" src="homeCss/assets/images/demo/date.png"
+
+							<td class="Date"><img id="img1" src="homeCss/assets/images/demo/date.png"
 								alt="" /> <fmt:formatDate value="${board.date }"
 									pattern="yyyy-MM-dd" /></td>
-							<td><img id="img1"
+							<td class="recommend"><img id="img1"
 								src="homeCss/assets/images/demo/recommend.png" alt="" />${board.recommend }</td>
-							<td><img id="img1" src="homeCss/assets/images/demo/view.png"
+							<td class="ViewNo"><img id="img1" src="homeCss/assets/images/demo/view.png"
 								alt="" />${board.viewNo }</td>
 
 						</tr>
 					</c:forEach>
 				</table>
 			</div>
-			<div>
+			<div c>
 				<table>
 					<tr align="center">
 						<td width="1250px" colspan="5"><c:if test="${start != 1 }">
