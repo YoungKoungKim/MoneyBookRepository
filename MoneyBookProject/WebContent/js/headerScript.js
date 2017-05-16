@@ -1,6 +1,5 @@
 function viewMyPage(id_index) {
 	var date = dateToYYYYMMDD(new Date());
-	alert(id_index);
 	location.href = "viewMyPage.do?id_index=" + id_index + "&date=" + date;
 }
 
@@ -11,3 +10,4 @@ function dateToYYYYMMDD(date){
     }
     return date.getFullYear() + '-' + pad(date.getMonth()+1) + '-' + pad(date.getDate());
 }
+

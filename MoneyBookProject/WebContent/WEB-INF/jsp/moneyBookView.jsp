@@ -25,14 +25,22 @@
 	src="./fullcalendar-3.3.1/fullcalendar.js"></script>
 
 <style type="text/css">
+@font-face {
+	font-family: 'NanumGothic';
+	src: url(font/NanumBarunGothic_0.ttf) format('truetype');
+	font-family: 'NanumBarunpenR';
+	src: url(font/NanumBarunpenR.ttf) foramt('truetype');
+}
+
 body {
-	padding: 0;
 	font-size: 14px;
 	height: 100%;
 }
 
 #left {
+	font-family: 'Ubuntu Condensed', sans-serif;
 	position: absolute;
+	margin-top: 50px;
 	height: 100%;
 	left: 0;
 	width: 20%;
@@ -42,17 +50,24 @@ body {
 	font-family: 'Ubuntu Condensed', sans-serif;
 	position: relative;
 	left: 20%;
+<<<<<<< HEAD
 	right: 10%;
 	height: auto;
 	width: 60%;
 	background-color: blue;
+=======
+	right: 20%;
+	height: 100%;
+	width: 60%;
+>>>>>>> branch 'master' of https://github.com/YoungKoungKim/MoneyBookRepository.git
 }
 
 #right {
-	position: relative;
+	position: absolute;
+	margin-top: 90px;
 	height: 100%;
-	width: 10%;
-	right: 0%;
+	width: 20%;
+	right: 0;
 }
 
 #calendar {
@@ -86,21 +101,35 @@ body {
 }
 
 .btn {
-	font-weight: bold;
 	border-radius: 10px;
 	background-color: #1abc9c;
 	padding: 10px 35px;
 	text-align: center;
 	color: white;
-	border-radius: 10px;
 }
 
 .btn:hover {
 	background-color: grey;
 	color: #fff;
-	text-decoration: none
+	text-decoration: none;
 }
 
+<<<<<<< HEAD
+.moneyBookBtn {
+	font-family: NanumBarunpenR;
+	font-style: normal;
+	background-color: #91D4B5;
+	border-radius: 2px;
+}
+
+.moneyBookBtn:hover {
+	background-color: grey;
+	color: #fff;
+	text-decoration: none;
+}
+
+=======
+>>>>>>> branch 'master' of https://github.com/YoungKoungKim/MoneyBookRepository.git
 #borderLine {
 	padding: 5px;
 	margin: 10px;
@@ -394,7 +423,7 @@ function convertCategory(word) {
 					<td>Expense : <span id="monthExpense">${monthAmount.expense }</span></td>
 				</tr>
 			</table>
-			<button onclick="bookmarkRegist(${param.id_index})">즐겨찾기 등록</button>
+			<button class="btn moneyBookBtn" onclick="bookmarkRegist(${param.id_index})">즐겨찾기 등록</button>
 		</center>
 	</div>
 
@@ -428,8 +457,8 @@ function convertCategory(word) {
 	</div>
 
 	<div id="right">
-		<button onclick="moneyBookRegist(${param.id_index})">등록</button>
-		<button onclick="loadImage()">공유</button>
+		<button class="btn moneyBookBtn" onclick="moneyBookRegist(${param.id_index})">등록</button>
+		<button class="btn moneyBookBtn" onclick="loadImage()">공유</button>
 	</div>
 
 	<div class="modal fade" id="layerpop">
