@@ -177,12 +177,14 @@ function getCommentList() {
 	margin: auto;
 	width: 800px;
 	background-color: #f0f8ff;
+	border: solid #d3d3d3;
 }
 
 .top {
 	width: 100%;
 	height: 100%;
 	text-align: center;
+	border-bottom: dashed #d3d3d3;
 }
 
 .left {
@@ -195,6 +197,8 @@ function getCommentList() {
 	width: 100%;
 	text-align: left;
 	font-size: 20px;
+	border-top: solid #d3d3d3;
+	border-bottom: solid #d3d3d3; 
 }
 
 .bottom {
