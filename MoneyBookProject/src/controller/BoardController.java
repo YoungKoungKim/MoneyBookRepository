@@ -39,22 +39,6 @@ public class BoardController {
 		return mav;
 	}
 
-	// @RequestMapping("boardSearch.do")
-	// public ModelAndView boardSearch(
-	// @RequestParam(defaultValue="1")int page,
-	// @RequestParam(defaultValue="0")String ageType,
-	// @RequestParam(defaultValue="0")String category,
-	// @RequestParam(defaultValue="0")String content)
-	// {
-	// ModelAndView mav = new ModelAndView();
-	//
-	//
-	// mav.addAllObjects(boardservice.getboardList(page,
-	// ageType,category,content));
-	// mav.setViewName("boardList");
-	// return mav;
-	// }
-
 	@RequestMapping("boardDetailView.do")
 	public ModelAndView boardDetailView(HttpSession session, int boardNo) {// id_index 빼야됨
 		ModelAndView mav = new ModelAndView();

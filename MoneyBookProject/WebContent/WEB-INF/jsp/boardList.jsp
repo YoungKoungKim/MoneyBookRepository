@@ -129,12 +129,6 @@ li {
 	display: none;
 }
 
-.left .btn btn-default {
-	background: #91D4B5;
-	color: #E9F2EE;
-	background-color: #CCE2D8;
-}
-
 #img1 {
 	height: 15px;
 	width: auto;

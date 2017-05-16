@@ -228,6 +228,28 @@ function getCommentList() {
 	border-radius: .25em;
 	border-color: #ffffff;
 }
+.myButton {
+	background-color: #ffffff;
+	-moz-border-radius: 9px;
+	-webkit-border-radius: 9px;
+	border-radius: 9px;
+	display: inline-block;
+	cursor: pointer;
+	color: #000000;
+	font-family: Arial;
+	font-size: 15px;
+	padding: 6px 17px;
+	text-decoration: none;
+}
+
+.myButton:hover {
+	background-color: #91D4B5;
+}
+
+.myButton:active {
+	position: relative;
+	top: 1px;
+}
 </style>
 </head>
 <body>
@@ -420,15 +442,19 @@ function getCommentList() {
 
 			<div align="center">
 
-				<button class="re_btn" id="recommendbtn">
+				<button class="myButton" id="recommendbtn">
 					추천 <span id="recommend"> ${board.recommend } </span>
 				</button>
 
-				<input class="re_btn" type="button" value="목록"
+				<input class="myButton" type="button" value="목록"
 					onclick="location.href='boardList.do'">
 				<c:if test="${board.id_index eq id_index}">
-					<input  class="re_btn" type="button" value="수정"
+					<input  class="myButton" type="button" value="수정"
 						onclick="location.href='boardUpdateForm.do?boardNo=${board.boardNo}'">
+				</c:if>
+				<c:if test="${board.id_index eq id_index }">
+					<input class="myButton" type="button" value="삭제"
+						onclick="location.href='boardDelete.do?boardNo=${board.boardNo}'">
 				</c:if>
 			</div>
 			<table class="table table-bordered" style="width: 70%;"
