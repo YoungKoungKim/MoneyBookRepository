@@ -11,11 +11,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import dao.IBoardDao;
-import dao.ICommentDao;
 import dao.IExtraBoardDao;
 import dao.IMemberDao;
 import dao.IMoneyBookDao;
-import dao.IRecommendDao;
 import model.Board;
 import model.ExtraBoard;
 import model.Member;
@@ -32,9 +30,8 @@ public class BoardService implements IBoardService {
 	@Autowired
 	private IMoneyBookService moneybookservice;
 	@Autowired
-	private ICommentDao cdao;
-	@Autowired
-	private IRecommendDao rdao;
+	private IMoneyBookDao mbdao;
+	
 	
 	@Override
 	public int boardRecommand(int boardNo) {
@@ -167,15 +164,6 @@ public class BoardService implements IBoardService {
 		board.setViewNo(board.getViewNo() + 1);
 		bDao.updateBoard(board);
 
-	}
-
-	@Override
-	public int boardDelete(int boardNo) {
-		bDao.deleteBoard(boardNo);
-		ebDao.deleteExtraBoard(boardNo);
-		cdao.deleteBoardComment(boardNo);
-		rdao.deleterecommend(boardNo);
-		return 0;
 	}
 
 

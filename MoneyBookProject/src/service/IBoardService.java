@@ -18,6 +18,5 @@ public interface IBoardService {
 	public void boardWrite(Board board, Date date2);
 	public HashMap<String, Object> getboardList(int page, String ageType, String category,
 			String content);
-	public int boardDelete(int boardNo);
 	
 }

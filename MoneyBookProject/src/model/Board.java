@@ -12,13 +12,7 @@ public class Board {
 	private int id_index;
 	private int viewNo;
 	private int recommend;
-	private int commentNum;
-	public int getCommentNum() {
-		return commentNum;
-	}
-	public void setCommentNum(int commentNum) {
-		this.commentNum = commentNum;
-	}
+	
 	public int getBoardNo() {
 		return boardNo;
 	}

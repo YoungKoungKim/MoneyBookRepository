@@ -256,6 +256,43 @@ select {
 		</form>
 
 	</div>
+	<%-- 
+	<center>
+	<table>
+	<form action="boardWrite.do" method="get">
 	
+		<tr>
+			<td width="100px"><select id="ageType" name="ageType">
+					<option value="10">10대</option>
+					<option value="20">20대</option>
+					<option value="30">30대</option>
+					<option value="40">40대이상</option>
+				</select> 
+			</td>
+			<td width="300px">
+				제목 : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<input type="text" name="title" placeholder="제목을 입력하세요">
+			</td>
+			<td width="200px" id="nowDate">
+			</td>
+		</tr>
+		<tr>
+			<td colspan="3">
+			${monthContent}
+			${monthAmount}
+			${date }
+			<textarea rows="30" cols="100" id="content" name="content" placeholder="내용을 입력하세요"></textarea></td>
+		</tr>
+		<input type="hidden" value="${date}" name="date2">
+		<input type="hidden" value="${nick}" name="nick">
+		<input type="hidden" value="${id_index}" name="id_index">
+		<input type="submit" value="확인 작업중" id="writeBtn">
+	</form>
+	</table> 
+	
+	<div>
+		<input type="button" value="돌아가기" onclick="location.href='boardList.do'">
+	</div>
+	</center> --%>
 </body>
 </html>
