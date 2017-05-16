@@ -26,10 +26,11 @@ public class MainPageController {
 		System.out.println(result);
 		return "redirect:boardDetailView.do?boardNo="+result;
 	}
-	
-	@RequestMapping("template.do")
-	public String template() {
-		return "template2";
+
+	@RequestMapping("new.do")
+	public String newHome() {
+		return "newhome/newHome12";
 	}
+	
 
 }

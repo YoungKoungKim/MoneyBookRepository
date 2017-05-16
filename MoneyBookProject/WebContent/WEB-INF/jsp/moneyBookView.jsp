@@ -34,7 +34,7 @@
 
 body {
 	font-size: 14px;
-	min-height: 100%;
+	height: 100%;
 }
 
 #left {
@@ -44,14 +44,13 @@ body {
 	height: 100%;
 	left: 0;
 	width: 20%;
-	min-width: 150px;
 }
 
 #center {
 	font-family: 'Ubuntu Condensed', sans-serif;
-	position: absolute;
+	position: relative;
 	left: 20%;
-	right: 10%;
+	right: 20%;
 	height: 100%;
 	width: 60%;
 }
@@ -108,6 +107,7 @@ body {
 	text-decoration: none;
 }
 
+<<<<<<< HEAD
 .moneyBookBtn {
 	font-family: NanumBarunpenR;
 	font-style: normal;
@@ -121,11 +121,14 @@ body {
 	text-decoration: none;
 }
 
+=======
+>>>>>>> branch 'master' of https://github.com/YoungKoungKim/MoneyBookRepository.git
 #borderLine {
 	padding: 5px;
 	margin: 10px;
 	border: 3px solid #1ABC9C;
 }
+
 .modal-body {
 	max-width: 450px;
 }
@@ -133,18 +136,22 @@ body {
 </style>
 
 <script type="text/javascript">
+
 $('#detail').css('margin', $('calendar').attr('margin'));
+
 jQuery.fn.center = function () {
     this.css("position","absolute");
     this.css("top", Math.max(0, (($(window).height() - $(this).outerHeight()) / 2) + $(window).scrollTop()) + "px");
     this.css("left", Math.max(0, (($(window).width() - $(this).outerWidth()) / 2) + $(window).scrollLeft()) + "px");
     return this;
 }
+
 function moneyBookRegist(id_index){
 	var popUrl = "moneyBookWriteForm.do?id_index=" + id_index;	//팝업창에 출력될 페이지 URL
 	var popOption = "top=200, left=300, width=600, height=500, resizable=no, scrollbars=no, status=no";    //팝업창 옵션(optoin)
 	window.open(popUrl,"가계부입력",popOption);
 }
+
 function bookmarkRegist(id_index){
 	var popUrl = "bookmarkRegistForm.do?id_index=" + id_index;	//팝업창에 출력될 페이지 URL
 	var popOption = "top=200, left=300, width=500, height=400, resizable=no, scrollbars=no, status=no";    //팝업창 옵션(optoin)
@@ -158,6 +165,7 @@ function dateToYYYYMMDD(date){
     }
     return date.getFullYear() + '-' + pad(date.getMonth()+1) + '-' + pad(date.getDate());
 }
+
 function convertCategory(word) {
 	var category = {
 		food : "식비",
@@ -175,6 +183,7 @@ function convertCategory(word) {
 	}
 	return category[word];
 }
+
 	$(document).ready(function() {
 		
 		$(document).on('click', '.detailOne', function() {
@@ -244,9 +253,14 @@ function convertCategory(word) {
 				error : function() {
 					alert("모달에러");
 				}
+
 			});
 		});
 		
+<<<<<<< HEAD
+=======
+		
+>>>>>>> branch 'master' of https://github.com/YoungKoungKim/MoneyBookRepository.git
 	if('${param.succ}' == "sucess"){
 			window.close();
 			opener.parent.location.reload();
@@ -364,6 +378,7 @@ function convertCategory(word) {
 				} else {
 					
 				}
+
 		    }
 		});
 		
@@ -372,11 +387,13 @@ function convertCategory(word) {
         	$('#detailTable thead').hide();
         	$('#detailTable tbody').empty();
         });
+
         // 오른쪽 버튼을 클릭하였을 경우
        	$("button.fc-next-button").click(function() {
        		$('#detailTable thead').hide();
        		$('#detailTable tbody').empty();
         });
+
 	});
 	
 	function loadImage(){

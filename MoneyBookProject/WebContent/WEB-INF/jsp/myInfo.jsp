@@ -19,7 +19,6 @@
 .check {
 	margin-top: 4px;
 	margin-bottom: 4px;
-	
 	color: red;
 }
 
@@ -28,7 +27,7 @@
 }
 
 .piece {
-/* 	background-image: url("bg_char.jpg"); */
+	/* 	background-image: url("bg_char.jpg"); */
 	width: 538px;
 	height: 300px;
 	margin: 5px;
@@ -51,8 +50,6 @@
 	padding-right: 120px;
 	padding-top: 5px;
 	padding-bottom: 5px;
-	
-	
 }
 
 #nick_UpdateBtn:ACTIVE {
@@ -103,7 +100,7 @@
 						</div>
 
 					</div>
-					
+
 					<div class="col-md-5 piece right_t">
 						<h2 style="margin-bottom: 20px;">닉네임 수정</h2>
 
@@ -114,16 +111,6 @@
 									id="inform_Nick" type="text" class="form-control"
 									placeholder="수정할 닉네임을 입력해주세요." style="width: 345px;">
 							</div>
-
-<!-- 							<div class="col-md-4" style="text-align: left;"> -->
-<!-- 								<h3 style="margin-top: 10px;">닉네임 :</h3> -->
-<!-- 							</div> -->
-
-<!-- 							<div class="col-md-8" -->
-<!-- 								style="text-align: left; padding-left: 0px;"> -->
-<!-- 								<input type="text" id="inform_Nick" class="form-control" -->
-<!-- 									placeholder="닉네임을 입력하세요."> -->
-<!-- 							</div> -->
 
 						</div>
 
@@ -139,43 +126,67 @@
 					<div class="col-md-5 piece left_b">
 						<h2>비밀번호 수정</h2>
 
-						<div class="col-md-12">
-							<div class="input-group">
-								<span class="input-group-addon inputLabel">현재 비밀번호</span> <input
-									id="inform_NowPwd" type="password" class="form-control"
-									placeholder="현재 비밀번호를 입력해주세요." style="width: 345px;">
-							</div>
-						</div>
-						
-						<div class="col-md-12 check">&nbsp;</div>
-						
-						<div class="col-md-12">
-							<div class="input-group">
-								<span class="input-group-addon inputLabel">새 비밀번호</span> <input
-									id="inform_NewPwd" type="password" class="form-control"
-									placeholder="새 비밀번호를 입력해주세요." style="width: 345px;">
-							</div>
-						</div>
-						
-						<div class="col-md-12 check" id="inform_NewPwdCheck">&nbsp;</div>
-						
-						<div class="col-md-12">
-							<div class="input-group">
-								<span class="input-group-addon inputLabel">새 비밀번호 확인</span> <input
-									id="inform_NewPwdOk" type="password" class="form-control"
-									placeholder="새 비밀번호를 다시 입력해주세요." style="width: 345px;">
-							</div>
-						</div>
+						<c:choose>
+							<c:when
+								test="${member.pwd eq '4a7d1ed414474e4033ac29ccb8653d9b'}">
+								<div class="col-md-12">
+									<h2>
+										카카오 아이디는 비밀번호를 <br> 수정할 수 없습니다.
+									</h2>
+								</div>
+							</c:when>
+							<c:otherwise>
+								<div class="col-md-12">
+									<div class="input-group">
+										<span class="input-group-addon inputLabel">현재 비밀번호</span> <input
+											id="inform_NowPwd" type="password" class="form-control"
+											placeholder="현재 비밀번호를 입력해주세요." style="width: 345px;">
+									</div>
+								</div>
 
-						<div class="col-md-12 check" id="inform_NewPwdOkCheck">&nbsp;</div>
+								<div class="col-md-12 check">&nbsp;</div>
 
-						<div class="col-md-12" style="height: 20%; margin-top: 2px;">
-							<button type="button" id="pwd_UpdateBtn">비밀번호 수정</button>
-						</div>
-	
+								<div class="col-md-12">
+									<div class="input-group">
+										<span class="input-group-addon inputLabel">새 비밀번호</span> <input
+											id="inform_NewPwd" type="password" class="form-control"
+											placeholder="새 비밀번호를 입력해주세요." style="width: 345px;">
+									</div>
+								</div>
+
+								<div class="col-md-12 check" id="inform_NewPwdCheck">&nbsp;</div>
+
+								<div class="col-md-12">
+									<div class="input-group">
+										<span class="input-group-addon inputLabel">새 비밀번호 확인</span> <input
+											id="inform_NewPwdOk" type="password" class="form-control"
+											placeholder="새 비밀번호를 다시 입력해주세요." style="width: 345px;">
+									</div>
+								</div>
+
+								<div class="col-md-12 check" id="inform_NewPwdOkCheck">&nbsp;</div>
+
+								<div class="col-md-12" style="height: 20%; margin-top: 2px;">
+									<button type="button" id="pwd_UpdateBtn">비밀번호 수정</button>
+								</div>
+							</c:otherwise>
+						</c:choose>
+
 					</div>
 					<div class="col-md-5 piece right_b">
 						<h2>탈퇴</h2>
+
+						<div class="col-md-12">
+							<h2>
+								탈퇴를 하면 작성한 글과 댓글이 <br> 모두 삭제됩니다.
+							</h2>
+						</div>
+
+						<div class="col-md-12" style="margin-top: 20px;">
+							<button type="button" id="pwd_UpdateBtn">회원 탈퇴</button>
+						</div>
+
+
 					</div>
 				</div>
 			</c:when>
