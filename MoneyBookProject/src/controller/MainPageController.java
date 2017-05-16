@@ -15,11 +15,6 @@ public class MainPageController {
 	@Autowired
 	private IMoneyBookService moneyBookService;
 	
-	@RequestMapping("home.do")
-	public String home() {
-		return "homeForm";
-	}
-	
 	@RequestMapping("homerecommend.do")
 	public String maxrecommend(){
 		int result = boardservice.bestView(1).get(0).getBoardNo();
