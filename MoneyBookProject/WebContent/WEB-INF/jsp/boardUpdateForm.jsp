@@ -13,6 +13,7 @@
 	margin: 20px auto auto;
 	width: 800px;
 	background-color: #f0f8ff;
+	border: solid #CCE2D8;
 }
 
 .top {
