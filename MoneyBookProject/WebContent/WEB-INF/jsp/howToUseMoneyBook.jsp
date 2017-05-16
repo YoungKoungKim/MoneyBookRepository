@@ -127,13 +127,13 @@
       <!-- Wrapper for slides -->
       <div class="carousel-inner">
         <div class="item active">
-          <img src="jpg/feature1.PNG" alt="...">
+          <img src="jpg/feature1-1.PNG" alt="즐겨찾기 기능으로 편리한 가계부">
           <div class="carousel-caption">
             <!-- <h2>Heading</h2> -->
           </div>
         </div>
         <div class="item">
-          <img src="jpg/feature2.PNG" alt="...">
+          <img src="jpg/feature2-1.PNG" alt="피드백이 가능한 가계부">
           <div class="carousel-caption">
             <!-- <h2>Heading</h2> -->
           </div>
