@@ -31,7 +31,7 @@ function getCommentList() {
 					{
 
 					$("#commentTable").html($("#commentTable").html() + "<tr>	<td>" + data[comment].nick + "&nbsp;&nbsp;&nbsp;" + time +"&nbsp;&nbsp;&nbsp; 추천:"+ data[comment].recommend
-					+ "</td></tr><tr><td> <textarea class='comment' id='comment_"+data[comment].commentNo+"' rows='2' cols='100' readonly='readonly'> "+ data[comment].content + "</textarea>"
+					+ "</td></tr><tr><td> <textarea class='comment' style='resize: none;' id='comment_"+data[comment].commentNo+"' rows='2' cols='100' readonly='readonly'> "+ data[comment].content + "</textarea>"
 							+"<input class='delete' id='"+data[comment].commentNo+"@' name='"+data[comment].commentNo+"' type='button' value='삭제'>"
 							+"<input class='update' type='button' id='"+data[comment].commentNo+"@' name='"+data[comment].commentNo+"' value='수정'></td> </tr>"
 							);
@@ -40,7 +40,7 @@ function getCommentList() {
 						$("#commentTable").html($("#commentTable").html() + 
 						"<tr>	<td>" + data[comment].nick + 
 						"&nbsp;&nbsp;&nbsp;" + time +"&nbsp;&nbsp;&nbsp; 추천:"+ data[comment].recommend
-						+"</td></tr><tr><td> <textarea rows='2' cols='100' readonly='readonly'> "+ data[comment].content + "</textarea>"
+						+"</td></tr><tr><td> <textarea class='comment' style='resize: none;' rows='2' cols='100' readonly='readonly'> "+ data[comment].content + "</textarea>"
 						+"<input class='recommendcomment' type='button' id='" + data[comment].commentNo + "@' name ='" + data[comment].commentNo + "' value='추천'> </td></tr>"
 						);						
 					}	
@@ -220,15 +220,7 @@ function getCommentList() {
 	text-align: center;
 }
 
-.re_btn {
-	background-color: #A8E7ED;
-	font-size: 25px;
-	text-align: center;
-	margin-left: 5px;
-	border-radius: .25em;
-	border-color: #ffffff;
-}
-.myButton {
+.myButton, .update, .delete, .recommendcomment{
 	background-color: #ffffff;
 	-moz-border-radius: 9px;
 	-webkit-border-radius: 9px;
@@ -242,11 +234,11 @@ function getCommentList() {
 	text-decoration: none;
 }
 
-.myButton:hover {
+.myButton, .update, .delete, .recommendcomment:hover {
 	background-color: #91D4B5;
 }
 
-.myButton:active {
+.myButton, .update, .delete, .recommendcomment:active {
 	position: relative;
 	top: 1px;
 }
@@ -472,7 +464,7 @@ function getCommentList() {
 
 					</tr>
 					<tr>
-						<td><textarea rows="2" cols="80" id="content1"
+						<td><textarea style="resize: none;" rows="2" cols="80" id="content1"
 								name="content1"></textarea></td>
 						<td><input type="button" value="등록" id="commentbut">
 						</td>
