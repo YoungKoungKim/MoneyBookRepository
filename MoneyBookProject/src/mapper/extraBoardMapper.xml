@@ -3,21 +3,30 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="dao.IExtraBoardDao">
- 
+
 	<insert id="insertExtraBoard" parameterType="extraBoard">
-		insert into extraboard values(0, #{id_index}, #{boardNo}, #{category}, #{price}, #{month})
+		insert into
+		extraboard values(0, #{id_index}, #{boardNo}, #{category}, #{price},
+		#{month})
 	</insert>
 
 	<update id="updateExtraBoard" parameterType="extraBoard">
-		update extraboard set percent = #{percent} where id_index = #{id_index} and  category = #{category}
+		update extraboard
+		set percent = #{percent} where id_index = #{id_index} and category =
+		#{category}
 	</update>
 
 	<delete id="deleteExtraBoard" parameterType="int">
-		delete from extraboard where boardNo = #{boardNo}
+		delete from
+		extraboard where boardNo = #{boardNo}
 	</delete>
 
 	<select id="selectOne" parameterType="int" resultType="extraBoard">
-		select * from extraboard where boardNo = #{boardNo}
-		 
+		select *
+		from extraboard where boardNo = #{boardNo}
 	</select>
+
+	<delete id="deleteExtraBoardById_index" parameterType="int">
+		delete from extraboard where id_index = #{id_index}
+	</delete>
 </mapper>
