@@ -150,6 +150,17 @@ body {
 	font-size: 18px;
 	color: black;
 }
+
+body,
+.section-style {
+  background: -webkit-linear-gradient(90deg, #649173 10%, #DBD5A4 90%); /* Chrome 10+, Saf5.1+ */
+  background:    -moz-linear-gradient(90deg, #649173 10%, #DBD5A4 90%); /* FF3.6+ */
+  background:     -ms-linear-gradient(90deg, #649173 10%, #DBD5A4 90%); /* IE10 */
+  background:      -o-linear-gradient(90deg, #649173 10%, #DBD5A4 90%); /* Opera 11.10+ */
+  background:         linear-gradient(90deg, #649173 10%, #DBD5A4 90%); /* W3C */
+}
+
+
 </style>
 </head>
 <body>
