@@ -27,6 +27,8 @@
 	src="./fullcalendar-3.3.1/fullcalendar.js"></script>
 
 <style type="text/css">
+@import url(https://fonts.googleapis.com/css?family=Arimo);
+
 @font-face {
 	font-family: 'NanumGothic';
 	src: url(font/NanumBarunGothic_0.ttf) format('truetype');
@@ -116,6 +118,7 @@ body {
 	font-style: normal;
 	background-color: #91D4B5;
 	border-radius: 2px;
+	margin: 20px auto;
 }
 
 .moneyBookBtn:hover {
@@ -134,27 +137,116 @@ body {
 	max-width: 450px;
 }
 
-.bookmark_btn{
+.bookmark_btn {
 	font-family: NanumBarunpenR;
 	font-style: normal;
-	background-color: #91D4B5; 
-	border: 1px solid #1abc9c; ;
+	background-color: #91D4B5;
+	border: 1px solid #1abc9c;;
 	border-radius: 2px;
 	width: 70pt;
 	height: 30pt;
 	text-align: center;
 	padding-left: 10px;
 	padding-right: 10px;
-	margin-bottom : 5px;
+	margin-bottom: 5px;
 	color: black;
+}
+
+#bookmark_list_div {
+	/* border: 1px solid #1abc9c; */
 	
 }
 
-
-#bookmark_list_div{
-	/* border: 1px solid #1abc9c; */
+/* 계산기 Css  */
+.clearfix:after {
+	content: "";
+	display: block;
+	clear: both;
+	visibility: hidden;
+	font-size: 0;
+	height: 0;
 }
 
+#calculator {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	/* background: #222; */
+	margin: 0;
+	padding: 0;
+	font-family: 'Arimo', sans-serif;
+}
+
+*, *:before, *:after {
+	-webkit-box-sizing: inherit;
+	-moz-box-sizing: inherit;
+	box-sizing: inherit;
+}
+
+#wrapper {
+	background: #1f1f1f;
+	width: 260px;
+	padding: 0 8px 10px;
+	border: 1px solid #141414;
+	margin: 20px auto;
+	border-radius: 5px;
+}
+
+main {
+	padding: 0;
+	width: 240px;
+	margin: auto;
+	background: #141212;
+}
+
+#screen {
+	width: 240px;
+	background: white;
+	margin: 15px 0 2px 0;
+	padding: 10px 10px;
+	border-radius: 4px;
+	font-size: 3em;
+	text-align: right;
+}
+
+#calculator button {
+	color: #AAA;
+	float: left;
+	width: 60px;
+	font-size: 1.2em;
+	height: 60px;
+	outline: none;
+	background: #3e3e3e;
+	border: 1px solid #1f1f1f;
+	border-radius: 3px;
+}
+
+#calculator button:hover {
+	background: #424242;
+}
+
+#calculator button.blue {
+	background: #007191;
+	color: black;
+}
+
+#calculator button.darker {
+	color: #BBB;
+	background: #2b2b2b;
+}
+
+#calculator button.active {
+	border: 3px solid #555;
+}
+
+#calculator button.dimmed {
+	color: #555 !important;
+}
+
+#calculator .btn-wide {
+	height: 60px !important;
+	width: 120px !important;
+}
 </style>
 
 <script type="text/javascript">
@@ -208,8 +300,173 @@ function convertCategory(word) {
 	return category[word];
 }
 
+var data = {
+		  entry: [],
+		  entries: [],
+		  currOperator: '',
+		  addToEntry: function (val) {
+		    this.entry.push(val);
+		  },
+		  clearAll: function () {
+		    this.entry = [];
+		    this.entries = [];
+		  },
+		  clearEntry: function () {
+		    this.entry = [];
+		  },
+		  backspaceEntry: function () {
+		    this.entry.pop();
+		  },
+		  toggleNegative: function () {
+		    if (this.entry[0] !== '-') {
+		      this.entry.unshift('-');
+		    } else if (this.entry[0] === '-') {
+		      this.entry.shift();
+		    }
+		  },
+		  insertDecimal: function () {
+		    if(this.entry.indexOf('.') === -1 && this.entry.length < 1) {
+		      this.entry.push('0', '.');
+		    } else if (this.entry.indexOf('.') === -1) {
+		      this.entry.push('.');
+		    }
+		  },
+		  calculate: function (operator) {
+		    // reset chain of operations if "=" is pressed with no operator afterwords
+		    if (this.currOperator === "=" && this.entry.length > 0) {
+		      this.entries = [];
+		    } 
+		    
+		    // if current entry isn't blank, add to entries
+		    if (this.entry.length > 0 ) {
+		      this.entries.push(this.entry.join(''));
+		    }
+
+		    // perform operation for every two entries
+		    if (this.entries.length >= 2) {
+		      this.entries.splice(1, 0, this.currOperator);
+		      var total = eval(this.entries.join(' '));
+		      this.entries = [total];
+		      this.currOperator = '=';
+		    } 
+		    
+		    if (operator) {
+		      this.currOperator = operator;
+		    }   
+		    this.clearEntry();
+		  }
+		}
+
+var controller = {
+		  init: function () {
+		    view.render();
+		    $('#calculator button').click(function () {
+		            
+		      var button = $(this).text();
+		      if (!isNaN(parseInt(button))) {
+		        button = parseInt(button);
+		      } 
+		      
+		      if (button === "=") {
+		        data.calculate('=');
+		      } else if (button === "+/-") {
+		        data.toggleNegative();
+		      } else if (button === "AC") {
+		        data.clearAll();
+		      } else if (button === 'C') {
+		        data.clearEntry();
+		      } else if (button === ' ') {
+		        data.backspaceEntry();
+		      } else if (button === "+") {
+		        data.calculate('+');
+		      } else if (button === "-") {
+		        data.calculate('-');
+		      } else if (button === "×") {
+		        data.calculate('*');
+		      } else if (button === "÷") {
+		        data.calculate('/');
+		      } else if (button === ".") {
+		        data.insertDecimal();
+		      } else {
+		        data.addToEntry(button);
+		      }
+		        
+		      view.render();
+		    });
+		  },
+		  // get display number for screen  -- returns entry if not currently blank, returns previous entry if not 
+		  getScreenVal: function () {
+		    if (data.entry.length > 0) {
+		      view.isEntryBlank = false;
+		      return data.entry.join(''); 
+		    } else if (data.entry.length === 0 && data.entries[0]) {
+		      view.isEntryBlank = true;
+		      return data.entries[0];
+		    } else {
+		      view.isEntryBlank = true;
+		      return 0;
+		    }
+		  },
+		  getCurrentOperator: function () {
+		    // return operator only when screen entry is blank
+		    if (data.currOperator && data.entries.length >= 1 && data.entry.length < 1) {
+		      return data.currOperator;
+		    } 
+		  }
+		}
+
+var view = {
+		  render: function () {
+		    // render current total
+		    var screenText = view.sciNotationFormat(controller.getScreenVal());
+		    $('#screen').text(screenText);
+		    view.highlightOperator();
+		    
+		    
+		    // switch between AC and C if entry on screen / dim backspace when no entry
+		    if (view.isEntryBlank) {
+		      $('#clear').text('AC');
+		      $('#back').addClass('dimmed');
+		    } else {
+		      $('#clear').text('C');
+		      $('#back').removeClass('dimmed');
+		    }
+		  },
+		  // highlight current operator (+, -, *, /)
+		  highlightOperator: function (target) {
+		    var op = controller.getCurrentOperator();
+		    $('.darker').removeClass('active');
+		    if (op === '+') {
+		      $('#add').addClass('active');
+		    } else if (op === '-') {
+		      $('#subtract').addClass('active');
+		    } else if (op === '*') {
+		      $('#multiply').addClass('active');
+		    } else if (op === '/') {
+		      $('#divide').addClass('active');
+		    }
+		  },
+		  isEntryBlank: true,
+		  sciNotationFormat: function (num) {
+
+		    if (typeof num === 'string') {
+		      var numLength = num.length;
+		      num = parseInt(num);
+		    } else if (typeof num === 'number') {
+		      var numLength = num.toString().length;
+		    }
+		    
+		    if (numLength >= 8) {
+		      return num.toExponential(2);
+		    } else {
+		      return num;
+		    }   
+		  }
+		}
+
+
 	$(document).ready(function() {
-		
+		controller.init();
 		
 		$(document).on("click",".bookmark_btn", function(){
 			var id_index = $(this).attr('id').replace("bookmark_btn", "");
@@ -471,16 +728,17 @@ function convertCategory(word) {
 			</table>
 			<button class="btn moneyBookBtn"
 				onclick="bookmarkRegist(${param.id_index})">즐겨찾기 등록</button>
-			
-			
+
+
 			<div id="bookmark_list_div">
-					<h4><span style="font-family:NanumBarunpenR; font-weight: bold; ">
-					<i class="fa fa-bookmark" aria-hidden="true"></i> 즐겨찾기 목록
+				<h4>
+					<span style="font-family: NanumBarunpenR; font-weight: bold;">
+						<i class="fa fa-bookmark" aria-hidden="true"></i> 즐겨찾기 목록
 					</span>
-					</h4>
+				</h4>
 				<c:forEach var="bm" items="${bookMarkList}" varStatus="status">
 					<c:if test="${bm.category=='food'}">
-						<button  class="bookmark_btn" id="bookmark_btn${status.index}">
+						<button class="bookmark_btn" id="bookmark_btn${status.index}">
 							<span style="color: #ADD8E6;"> <i class="fa fa-cutlery"
 								aria-hidden="true"></i>
 							</span> ${bm.detail}
@@ -488,7 +746,7 @@ function convertCategory(word) {
 					</c:if>
 
 					<c:if test="${bm.category=='education'}">
-						<button  class="bookmark_btn" id="bookmark_btn${status.index}">
+						<button class="bookmark_btn" id="bookmark_btn${status.index}">
 							<span style="color: #DDA0DD;"> <i class="fa fa-book"
 								aria-hidden="true"></i>
 							</span> ${bm.detail}
@@ -496,7 +754,7 @@ function convertCategory(word) {
 					</c:if>
 
 					<c:if test="${bm.category=='medical'}">
-						<button  class="bookmark_btn" id="bookmark_btn${status.index}">
+						<button class="bookmark_btn" id="bookmark_btn${status.index}">
 							<span style="color: #708090;"> <i class="fa fa-medkit"
 								aria-hidden="true"></i>
 							</span> ${bm.detail}
@@ -574,18 +832,18 @@ function convertCategory(word) {
 							</span> ${bm.detail}
 						</button>
 					</c:if>
-					<input type = "hidden" value="${bm.price}" 
-					id="price_val${status.index}">
-					
-					<input type = "hidden" value="${bm.category}" 
-					id="category_val${status.index}">
-					
-					<input type = "hidden" value="${bm.detail}" 
-					id="detail_val${status.index}">
-					
+					<input type="hidden" value="${bm.price}"
+						id="price_val${status.index}">
+
+					<input type="hidden" value="${bm.category}"
+						id="category_val${status.index}">
+
+					<input type="hidden" value="${bm.detail}"
+						id="detail_val${status.index}">
+
 					<c:if test="${status.index==1 or status.index==3}">
 						<br>
-					
+
 					</c:if>
 				</c:forEach>
 			</div>
@@ -626,6 +884,43 @@ function convertCategory(word) {
 		<button class="btn moneyBookBtn"
 			onclick="moneyBookRegist(${param.id_index})">등록</button>
 		<button class="btn moneyBookBtn" id="boardWriteBtn">공유</button>
+
+		<div id="calculator">
+			<div class="clearfix" id="wrapper">
+				<main>
+				<div id="screen"></div>
+				<div class="cal_row">
+					<button class="darker ion-backspace" id="back"></button>
+					<button class="darker" id="clear">AC</button>
+					<button class="darker">+/-</button>
+					<button class="darker" id="divide">&divide;</button>
+				</div>
+				<div class="cal_row">
+					<button>7</button>
+					<button>8</button>
+					<button>9</button>
+					<button class="darker" id="multiply">&#215;</button>
+				</div>
+				<div class="cal_row">
+					<button>4</button>
+					<button>5</button>
+					<button>6</button>
+					<button class="darker" id="add">+</button>
+				</div>
+				<div class="cal_row">
+					<button>1</button>
+					<button>2</button>
+					<button>3</button>
+					<button class="darker" id="subtract">-</button>
+				</div>
+				<div class="cal_row">
+					<button class="btn-wide">0</button>
+					<button>.</button>
+					<button class="blue">=</button>
+				</div>
+				</main>
+			</div>
+		</div>
 	</div>
 
 	<div class="modal fade" id="layerpop">
