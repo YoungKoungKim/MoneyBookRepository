@@ -12,6 +12,7 @@ public interface IMoneyBookDao {
 	int insertMoneyBook(MoneyBook mb);
 	int updateMoneyBook(MoneyBook mb);
 	int deleteMoneyBook(HashMap<String, Object> params);
+	int dropMoneyBook(int id_index);
 	List<MoneyBook> selectByDate(HashMap<String, Object> params);
 	List<MoneyBook> selectOneMonth(HashMap<String, Object> params);
 
