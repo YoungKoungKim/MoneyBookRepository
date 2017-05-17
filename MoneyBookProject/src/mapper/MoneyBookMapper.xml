@@ -17,6 +17,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		delete from moneybook where moneyBookNo = #{moneyBookNo} and id_index=#{id_index}
 	</delete>
 	
+	<delete id="dropMoneyBook" parameterType="int">
+		delete from moneybook where id_index = #{id_index}
+	</delete>
+	
 	<select id="selectByDate" parameterType="java.util.HashMap" resultType="moneyBook">
 		select * from moneybook where DATE(date)=#{date} and id_index=#{id_index}
 	</select>
