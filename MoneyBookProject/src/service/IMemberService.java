@@ -26,4 +26,7 @@ public interface IMemberService {
 	public Member login(String id, String pwd);
 	
 	public Member memberInfo(int id_index);
+	
+	//회원 삭제
+	public void userDelete(int id_index);
 }

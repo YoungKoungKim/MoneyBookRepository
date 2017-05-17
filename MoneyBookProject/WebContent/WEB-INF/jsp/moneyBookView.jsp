@@ -107,6 +107,10 @@ body {
 	text-decoration: none;
 }
 
+.modal_btn {
+	margin-bottom: 0px;
+}
+
 .moneyBookBtn {
 	font-family: NanumBarunpenR;
 	font-style: normal;
@@ -684,9 +688,9 @@ function convertCategory(word) {
 					</div>
 					<!-- Footer -->
 					<div class="modal-footer">
-						<button name="update" class="btn" id="btn_update">수정</button>
-						<button name="delete" class="btn" id="btn_delete">삭제</button>
-						<button name="cancel" class="btn" id="btn_cancel"
+						<button name="update" class="modal_btn btn" id="btn_update">수정</button>
+						<button name="delete" class="modal_btn btn" id="btn_delete">삭제</button>
+						<button name="cancel" class="modal_btn btn" id="btn_cancel"
 							data-dismiss="modal">취소</button>
 					</div>
 				</div>

@@ -130,10 +130,9 @@ public class MemberController {
 	// 회원 탈퇴
 	@RequestMapping("userDelete.do")
 	public String userDelete(HttpSession session, String pwd) {
+		memberService.userDelete((int) session.getAttribute("id_index"));
 
-		System.out.println("삭제부분!!");
-
-		return "redirect:home.do";
+		return "redirect:logout.do";
 	}
 
 	// 카카오 로그인

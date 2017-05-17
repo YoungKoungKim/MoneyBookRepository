@@ -18,4 +18,7 @@ public interface IBoardDao {
 	public List<Board> selectboardLimit(HashMap<String, Object> params);
 	public int getBoardCount(HashMap<String, Object> params);
 	public Board selectMaxRecommend();
+	
+	public List<Integer> selectBoardNo(int id_index);
+	public int deleteBoardById_index(int id_index);
 }

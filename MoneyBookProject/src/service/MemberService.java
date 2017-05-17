@@ -2,12 +2,19 @@ package service;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.List;
 
 import org.apache.ibatis.binding.BindingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import dao.IBoardDao;
+import dao.IBookMarkDao;
+import dao.ICommentDao;
+import dao.IExtraBoardDao;
 import dao.IMemberDao;
+import dao.IMoneyBookDao;
+import dao.IRecommendDao;
 import model.Member;
 
 @Component
@@ -15,6 +22,18 @@ public class MemberService implements IMemberService {
 
 	@Autowired
 	private IMemberDao memberDao;
+	@Autowired
+	private IBoardDao boardDao;
+	@Autowired
+	private IExtraBoardDao extraBoardDao;
+	@Autowired
+	private IBookMarkDao bookmarkDao;
+	@Autowired
+	private IMoneyBookDao moneybookDao;
+	@Autowired
+	private ICommentDao commentDao;
+	@Autowired
+	private IRecommendDao recommendDao;
 
 	public String changePwd(String pwd) {
 		MessageDigest md;
@@ -91,9 +110,9 @@ public class MemberService implements IMemberService {
 		// TODO Auto-generated method stub
 		// 수정할때 현재비밀번호랑 입력한비밀번호랑 같은지
 		// 1200번대, 요구사항 명세서의 password_check 커맨드랑 같다고 봄
-		
-		//로 만들 생각이였으나 회원 삭제할 때 쓰기로 함.
-		
+
+		// 로 만들 생각이였으나 회원 삭제할 때 쓰기로 함.
+
 		String old = memberDao.selectOneMember(id_index).getPwd();
 		String userPwd = changePwd(pwd);
 
@@ -186,5 +205,32 @@ public class MemberService implements IMemberService {
 		Member member = memberDao.selectOneMember(id_index);
 
 		return member;
+	}
+
+	@Override
+	public void userDelete(int id_index) {
+		// 작성한 게시글 boardNo 리스트<Integer>
+		List<Integer> boardNoList = boardDao.selectBoardNo(id_index);
+
+		if (!boardNoList.isEmpty()) {
+			// 게시글 전부 삭제
+			boardDao.deleteBoardById_index(id_index);
+			// 엑스트라 보드 전부 삭제
+			extraBoardDao.deleteExtraBoardById_index(id_index);
+		}
+
+		// 머니북 전부 삭제
+		moneybookDao.dropMoneyBook(id_index);
+		// 북마크 전부 삭제
+		bookmarkDao.dropBookmark(id_index);
+		for (int i = 0; i < boardNoList.size(); i++) {
+			// 자기 게시글에 달린 댓글들 삭제
+			commentDao.deleteBoardComment(boardNoList.get(i));
+			// 자기 게시글 추천삭제
+			recommendDao.deleterecommend(boardNoList.get(i));
+		}
+
+		// 회원 정보 삭제
+		memberDao.deleteMember(id_index);
 	}
 }

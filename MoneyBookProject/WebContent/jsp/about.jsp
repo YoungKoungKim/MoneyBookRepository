@@ -10,6 +10,18 @@
 <meta name="author" content="">
 
 <title>Intro Team</title>
+<style type="text/css">
+#nextLine {
+	margin-left: 115px;
+}
+.social-buttons li a{
+	padding-top: 10px;
+}
+.team-member img {
+	width: 225px;
+	height: 225px;
+}
+</style>
 
 <!-- Bootstrap Core CSS -->
 <link href="../aboutCss/vendor/bootstrap/css/bootstrap.min.css"
@@ -53,8 +65,7 @@
 				<span class="sr-only">Toggle navigation</span> Menu <i
 					class="fa fa-bars"></i>
 			</button>
-			<a class="navbar-brand page-scroll" href="#page-top">Start
-				Bootstrap</a>
+			<a class="navbar-brand page-scroll" href="../home.do">MoneyBook</a>
 		</div>
 
 	</div>
@@ -66,16 +77,15 @@
 		<div class="row">
 			<div class="col-lg-12 text-center">
 				<h2 class="section-heading">Our Amazing Team</h2>
-				<h3 class="section-subheading text-muted">Lorem ipsum dolor sit
-					amet consectetur.</h3>
+				<h3 class="section-subheading text-muted">"If you sleep now, you only dream about it. If you do it now, you have your dream come true."</h3>
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-sm-4">
 				<div class="team-member">
-					<img src="../aboutCss/img/team/1.jpg" class="img-responsive img-circle" alt="">
-					<h4>Kay Garland</h4>
-					<p class="text-muted">Lead Designer</p>
+					<img src="../aboutCss/img/team/1al.PNG" class="img-responsive img-circle" alt="">
+					<h4>First al - Kang MinGi</h4>
+					<p class="text-muted">Momo's super fan</p>
 					<ul class="list-inline social-buttons">
 						<li><a href="#"><i class="fa fa-twitter"></i></a></li>
 						<li><a href="#"><i class="fa fa-facebook"></i></a></li>
@@ -85,9 +95,9 @@
 			</div>
 			<div class="col-sm-4">
 				<div class="team-member">
-					<img src="../aboutCss/img/team/2.jpg" class="img-responsive img-circle" alt="">
-					<h4>Larry Parker</h4>
-					<p class="text-muted">Lead Marketer</p>
+					<img src="../aboutCss/img/team/2al.PNG" class="img-responsive img-circle" alt="">
+					<h4>Second al - Shin HyeonJae</h4>
+					<p class="text-muted">Buyeo zzang</p>
 					<ul class="list-inline social-buttons">
 						<li><a href="#"><i class="fa fa-twitter"></i></a></li>
 						<li><a href="#"><i class="fa fa-facebook"></i></a></li>
@@ -97,8 +107,32 @@
 			</div>
 			<div class="col-sm-4">
 				<div class="team-member">
-					<img src="../aboutCss/img/team/3.jpg" class="img-responsive img-circle" alt="">
-					<h4>Diana Pertersen</h4>
+					<img src="../aboutCss/img/team/3al.PNG" class="img-responsive img-circle" alt="">
+					<h4>Third al - Kang InUk</h4>
+					<p class="text-muted">Trash</p>
+					<ul class="list-inline social-buttons">
+						<li><a href="#"><i class="fa fa-twitter"></i></a></li>
+						<li><a href="#"><i class="fa fa-facebook"></i></a></li>
+						<li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+					</ul>
+				</div>
+			</div>
+			<div class="col-sm-5" id="nextLine">
+				<div class="team-member">
+					<img src="../aboutCss/img/team/apeach.PNG" class="img-responsive img-circle" alt="">
+					<h4>Hyeree4046</h4>
+					<p class="text-muted">Fire Punch</p>
+					<ul class="list-inline social-buttons">
+						<li><a href="#"><i class="fa fa-twitter"></i></a></li>
+						<li><a href="#"><i class="fa fa-facebook"></i></a></li>
+						<li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+					</ul>
+				</div>
+			</div>
+			<div class="col-sm-4">
+				<div class="team-member">
+					<img src="../aboutCss/img/team/gayz.PNG" class="img-responsive img-circle" alt="">
+					<h4>YK KIM</h4>
 					<p class="text-muted">Lead Developer</p>
 					<ul class="list-inline social-buttons">
 						<li><a href="#"><i class="fa fa-twitter"></i></a></li>

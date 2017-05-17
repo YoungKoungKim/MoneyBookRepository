@@ -60,7 +60,6 @@
 
 .modal-body {
    margin: 10px;
-   width: 500px;
    height: auto;
    font-family: NanumGothic;
 }
@@ -197,9 +196,9 @@
                      </tr>
                      <tr align="center">
                         <td colspan="2"><input type="button" value="확인"
-                           class="btn btn-success" id="join_SubmitBtn">
+                           class="btn" id="join_SubmitBtn">
                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="button" value="취소"
-                           class="btn btn-info" data-dismiss="modal"></td>
+                           class="btn" data-dismiss="modal"></td>
                      </tr>
                   </table>
                   <input type="hidden" value="false" id="join_IdTest"> <input
@@ -241,15 +240,15 @@
                      </tr>
                      <tr align="center">
                         <td colspan="2"><input type="button" value="로그인"
-                           class="btn btn-success" id="login_SubmitBtn">
+                           class="btn" id="login_SubmitBtn">
                            &nbsp;&nbsp;&nbsp;&nbsp;<input type="button" value="취소"
-                           class="btn btn-info" data-dismiss="modal"></td>
+                           class="btn" data-dismiss="modal"></td>
                      </tr>
                      <tr>
-                        <td colspan="2" align="center">
-                        	<a id="kakao-login-btn"></a>
-                        	<a href="http://developers.kakao.com/logout"></a>
-                        </td>
+                        <td colspan="2" align="center"><br> <a
+                           id="kakao-login-btn"></a> <a
+                           href="http://developers.kakao.com/logout"></a>
+                        <td>
                      </tr>
                   </table>
                </center>
