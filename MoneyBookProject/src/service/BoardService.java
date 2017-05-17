@@ -106,7 +106,6 @@ public class BoardService implements IBoardService {
 		eboard.setId_index(board.getId_index());
 		
 		eboard.setMonth(date2);
-		
 
 		 HashMap<String, Object> category= (HashMap<String, Object>) moneybookservice.totalAmountByCategory(board.getId_index(),date2);
 		
