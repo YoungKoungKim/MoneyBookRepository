@@ -191,6 +191,7 @@ public class MoneyBookController {
 	public ModelAndView viewMyPage(int id_index, Date date) {
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("monthAmount", moneyBookService.totalMonthAmount(id_index, date));
+		mav.addObject("bookMarkList", bookMarkService.bookMarkSearch(id_index));
 		mav.setViewName("moneyBookView");
 		return mav;
 	}

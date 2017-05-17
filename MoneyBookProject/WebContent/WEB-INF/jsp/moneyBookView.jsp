@@ -411,6 +411,94 @@ function convertCategory(word) {
 			</table>
 			<button class="btn moneyBookBtn"
 				onclick="bookmarkRegist(${param.id_index})">즐겨찾기 등록</button>
+			<div >
+				<table>
+				<c:forEach var="bm" items="${bookMarkList}" varStatus="status">
+							<tr id="bookmarklist${status.index}" class="text-center">
+								<td class="category_td">
+								<c:if test="${bm.category=='medical'}">
+										<span style="color: #708090;"> 
+										<i class="fa fa-medkit" aria-hidden="true"></i>
+										</span>
+									</c:if> 
+									<c:if test="${bm.category=='food'}">
+										<span style="color: #ADD8E6;"> 
+										<i class="fa fa-cutlery" aria-hidden="true"></i></span>
+									</c:if> 
+									<c:if test="${bm.category=='traffic'}">
+									<span style="color: #FF6347;"> 
+										<i class="fa fa-bus" aria-hidden="true"></i>
+										</span>
+									</c:if> 
+									<c:if test="${bm.category=='commodity'}">
+									<span style="color: #FFA500;"> 
+										<i class="fa fa-shopping-cart" aria-hidden="true"></i>
+										</span>
+									</c:if> 
+									<c:if test="${bm.category=='beauty'}">
+									<span style="color: #F08080;"> 
+										<i class="fa fa-bath" aria-hidden="true"></i>
+										</span>
+									</c:if> 
+									<c:if test="${bm.category=='education'}">
+									<span style="color:#DDA0DD;">
+										<i class="fa fa-book" aria-hidden="true"></i>
+										</span>
+									</c:if> 
+									<c:if test="${bm.category=='phonefees'}">
+									<span style="color: #1E90FF;">
+										<i class="fa fa-mobile" aria-hidden="true"></i>
+									</span>
+									</c:if> 
+									<c:if test="${bm.category=='saving'}">
+									<span style="color: #DAA520;"> 
+										<i class="fa fa-database" aria-hidden="true"></i>
+										</span>
+									</c:if> 
+									<c:if test="${bm.category=='utilitybills'}">
+									<span style="color: #6A5ACD;"> 
+										<i class="fa fa-plug" aria-hidden="true"></i>
+										</span>
+									</c:if> 
+									<c:if test="${bm.category=='culturallife'}">
+									<span style="color: #3CB371;"> 
+										<i class="fa fa-film" aria-hidden="true"></i>
+										</span>
+									</c:if> 
+									<c:if test="${bm.category == 'otheritems'}">
+									<span style="color: #FA8072;"> 
+										<i class="fa fa-minus-circle" aria-hidden="true"></i>
+										</span>
+									</c:if>  
+									<c:if test="${bm.category=='income'}">
+									<span style="color: #9ACD32;"> 
+										<i class="fa fa-krw" aria-hidden="true"></i>
+									</span>
+									</c:if>
+									</td>
+								<td>${bm.detail}</td>
+								
+								<td>
+								<input type = "hidden" value="${bm.price}" id="price_val${status.index}">
+								<span id="price${status.index}">
+								<fmt:formatNumber value="${bm.price}" type="currency"/>
+								</span>
+								
+								</td>
+								<td><a href="#" target="" id="update_btn${status.index}"
+									class="update_btn"><i class="fa fa-scissors" aria-hidden="true"></i></a>
+									<a href="#" target="" id="delete_btn${status.index}" class="delete_btn"> <i
+										class="fa fa-trash" aria-hidden="true"></i>
+								</a></td>
+							</tr>
+							<input type="hidden" id="bookmarkNo${status.index}"
+								value="${bm.bookmarkNo}">
+						</c:forEach>
+				
+				
+				
+				</table>		
+			</div>	
 		</center>
 	</div>
 
