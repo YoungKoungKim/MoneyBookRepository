@@ -191,7 +191,7 @@ body,
 			<c:when test="${id_index == null }">
 				<nav class="collapse navbar-collapse"> <!-- Main navigation -->
 				<ul id="headernavigation" class="nav navbar-nav">
-					<li class="active"><a href="new.do">Home</a></li>
+					<li class="active"><a href="home.do">Home</a></li>
 					<li><a href="jsp/about.jsp">About</a></li>
 					<li><a data-toggle="modal" data-target="#loginModal"
 						data-backdrop="static" href="#loginForm" title="로그인">Login</a></li>
