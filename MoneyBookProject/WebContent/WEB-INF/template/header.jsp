@@ -60,7 +60,6 @@
 
 .modal-body {
    margin: 10px;
-   width: 500px;
    height: auto;
    font-family: NanumGothic;
 }

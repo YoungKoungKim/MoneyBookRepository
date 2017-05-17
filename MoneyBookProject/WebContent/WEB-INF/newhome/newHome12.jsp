@@ -111,7 +111,6 @@ body {
 .modal-body {
 	border: 3px solid #1ABC9C;
 	margin: 10px;
-	width: 500px;
 	height: auto;
 	font-family: NanumGothic;
 }
