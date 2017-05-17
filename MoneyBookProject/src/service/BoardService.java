@@ -1,25 +1,21 @@
 package service;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import dao.IBoardDao;
 import dao.ICommentDao;
 import dao.IExtraBoardDao;
 import dao.IMemberDao;
-import dao.IMoneyBookDao;
 import dao.IRecommendDao;
 import model.Board;
 import model.ExtraBoard;
 import model.Member;
-import model.MoneyBook;
 
 @Service
 public class BoardService implements IBoardService {
@@ -88,7 +84,6 @@ public class BoardService implements IBoardService {
 		Board board = bDao.selectOneBoard(boardNo);
 		List<ExtraBoard> extraList = ebDao.selectOne(boardNo);
 		 
-		 
 		params.put("board", board);
 		params.put("list", extraList);
 		return params;
@@ -121,12 +116,13 @@ public class BoardService implements IBoardService {
 			eboard.setPercent( ((int)category.get(key))/expense*100 );
 			ebDao.insertExtraBoard(eboard);
 		}
+
+		for(String key : amount.keySet()){
+			eboard.setCategory(key);
+			eboard.setPrice((int)amount.get(key));
+			ebDao.insertExtraBoard(eboard);
+		}
 		
-//		for(String key : amount.keySet()){
-//			eboard.setCategory(key);
-//			eboard.setPrice(amount.get(key));
-//		}
-//		
 	}
 
 	@Override

@@ -201,13 +201,20 @@ function getCommentList() {
 						+"<i id='it' style='color: #FA8072;' class='fa fa-minus-circle' aria-hidden='true'></i>"
 						+"</span><br><span> "+data.list[i].price +"</span> </div>");
 						}//기타
-						else if(data.list[i].category == 'income'){
+						else if(data.list[i].category == 'incomes'){
 						$('#left').append("<div class ='div_category'>"
 						+"<span>"
 						+"<i id='it' style='color: #9ACD32;'class='fa fa-krw' aria-hidden='true'></i>"
 						+"</span><br><span> "+data.list[i].price +"</span> </div>");
 						}//수입
 						
+					}
+					for(var i in data.list) {
+						if(data.list[i].category =='expense'){
+						$('#left').append("<div class='div_all'><span> 총 지출 : "+data.list[i].price +" </span> </div>");							
+						}else if(data.list[i].category =='income'){
+						$('#left').append("<div class='div_all'><span> 총 수입 : "+data.list[i].price +" </span> </div>");							
+						}
 					}
 				},
 				error : function() {
@@ -322,6 +329,10 @@ function getCommentList() {
 	/* margin-left: 5px; */
 }
 
+.div_all{
+	font-size: 24px;
+}
+
 .categoryfont {
 	font-size: 20px;
 	text-align: center;
@@ -381,6 +392,7 @@ function getCommentList() {
 		</div>
 
 		<div class="left" id="left" >
+		
 		</div>
 		
 		<div class="right">
