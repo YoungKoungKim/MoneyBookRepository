@@ -189,7 +189,7 @@ font-size: 30px;
 }
 
 .btn {
-	font-weight: bold; border-radius : 10px;
+	font-weight: bold;
 	background-color: #1abc9c;
 	padding: 10px 35px;
 	text-align: center;
