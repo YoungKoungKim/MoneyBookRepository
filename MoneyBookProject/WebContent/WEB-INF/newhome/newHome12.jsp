@@ -205,7 +205,7 @@ body,
 			<c:when test="${id_index != null }">
 				<nav class="collapse navbar-collapse"> <!-- Main navigation -->
 				<ul id="headernavigation" class="nav navbar-nav">
-					<li class="active"><a href="new.do">Home</a></li>
+					<li class="active"><a href="home.do">Home</a></li>
 					<li><a href="jsp/about.jsp">About</a></li>
 					<li><a href="myInfo.do" title="로그인">MyInfo</a></li>
 					<li><a href="#" id="header_Logout">Logout</a></li>
