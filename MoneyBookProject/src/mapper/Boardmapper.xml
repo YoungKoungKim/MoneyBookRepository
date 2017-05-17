@@ -90,4 +90,11 @@
 		</if>
 	</select>
 	
+	<select id="selectBoardNo" parameterType="int" resultType="int">
+		select * from board WHERE id_index = #{id_index}
+	</select>
+	
+	<delete id="deleteBoardById_index" parameterType="int">
+		delete from board WHERE id_index = #{id_index}
+	</delete>
 </mapper>
