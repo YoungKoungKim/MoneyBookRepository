@@ -246,10 +246,10 @@
                            class="btn btn-info" data-dismiss="modal"></td>
                      </tr>
                      <tr>
-                        <td colspan="2" align="center"><br> <a
-                           id="kakao-login-btn"></a> <a
-                           href="http://developers.kakao.com/logout"></a>
-                        <td>
+                        <td colspan="2" align="center">
+                        	<a id="kakao-login-btn"></a>
+                        	<a href="http://developers.kakao.com/logout"></a>
+                        </td>
                      </tr>
                   </table>
                </center>
