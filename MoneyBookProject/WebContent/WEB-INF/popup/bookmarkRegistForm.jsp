@@ -27,6 +27,7 @@ $(document).ready(function() {
 	}
 	
 	$("#cancle_btn").click(function(){
+		opener.parent.location.reload();
 		window.close();	
 	});
 	
@@ -416,7 +417,8 @@ div {
 			<br> <br>
 			<div id="btn_list_div">
 				<input type="submit" value="등록" class="btn"
-					id="book_mark_regist_btn"> <input type="button" class="btn"
+					id="book_mark_regist_btn"> 
+				<input type="button" class="btn"
 					id="cancle_btn" value="취소">
 			</div>
 		</div>

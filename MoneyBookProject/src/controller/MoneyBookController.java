@@ -6,9 +6,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
-import javax.swing.plaf.synth.SynthSeparatorUI;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -19,9 +17,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.mysql.fabric.HashShardMapping;
 
 import commons.BookMark;
+import model.ExtraBoard;
 import model.MoneyBook;
 import service.IBoardService;
 import service.IBookMarkService;
@@ -35,10 +33,7 @@ public class MoneyBookController {
 	private IMoneyBookService moneyBookService;
 	@Autowired
 	private IBookMarkService bookMarkService;
-	@Autowired
-	private IBoardService boardService;
-	@Autowired
-	private IExtraService extraService;
+
 
 	@RequestMapping("bookmarkDelete.do")
 	public @ResponseBody HashMap<String, Object> bookmarkDelete(int id_index, int bookmarkNo) {
@@ -117,12 +112,20 @@ public class MoneyBookController {
 				int result = bookMarkService.bookMarkWrite(params);
 				if (result == 3101) {
 					// 성공
-					mav.addObject("msg", "즐겨찾기 등록에 성공");
+					//mav.addObject("msg", "즐겨찾기 등록에 성공");
+					mav.addObject("succ", "sucess");
+					mav.setViewName("redirect:/popup.do");
+				}else{
+					mav.setViewName("redirect:/bookmarkRegistForm.do");
 				}
 			}
 		}
+		
+		String date = (String) moneyBookService.searchDate(new Date()).get("date");
+		System.out.println("date : "+date);
 		mav.addObject("id_index", id_index);
-		mav.setViewName("redirect:/bookmarkRegistForm.do");
+		mav.addObject("date", date);
+	
 		return mav;
 
 	}
@@ -231,20 +234,31 @@ public class MoneyBookController {
 	}
 
 	@RequestMapping("boardWriteForm.do")
-	public ModelAndView boardWriteForm(int id_index, Date date) {
+	public ModelAndView boardWriteForm(HttpSession session, Date date) {
 		ModelAndView mav = new ModelAndView();
-		HashMap<String, Object> moneybook=moneyBookService.totalAmountByCategory(id_index, date);
-		mav.addAllObjects(moneybook);
-			HashMap<String, Object> keys = new HashMap<>();
-		 for( String key : moneybook.keySet() ){
-	            keys.put("category"+key, key);
-	        }
-		mav.addAllObjects(keys);
+		
+	    int id_index = (int) session.getAttribute("id_index");
+	    
+	    mav.addAllObjects(moneyBookService.totalAmountByCategory(id_index, date));
 		mav.addObject("monthAmount", moneyBookService.totalMonthAmount(id_index, date));
 		mav.addAllObjects(moneyBookService.searchDate(date));
 		mav.setViewName("boardWriteForm");
 		return mav;
 	}
+	
+	@RequestMapping("boardWriteList.do")
+	public @ResponseBody HashMap<String, Object> boardWriteList(HttpSession session, Date date) {
+		HashMap<String, Object> params = new HashMap<>();
+	    
+		int id_index = (int) session.getAttribute("id_index");
+
+		params.putAll(moneyBookService.totalAmountByCategory(id_index, date));
+	    params.putAll(moneyBookService.totalMonthAmount(id_index, date));
+	    params.putAll(moneyBookService.searchDate(date));
+
+		return params;
+	}
+	
 
 	@RequestMapping("moneyBookWriteForm.do")
 	public ModelAndView moneyBookWriteForm(int id_index) {
@@ -304,10 +318,11 @@ public class MoneyBookController {
 		}
 
 		if (resultCount == category_arr.length) {
-			mav.setViewName("redirect:/viewMyPage.do");
+/*			mav.setViewName("redirect:/viewMyPage.do");
 			mav.addObject("id_index", id_index);
-			mav.addObject("date", date2);
+			mav.addObject("date", date2);*/
 			mav.addObject("succ", "sucess");
+			mav.setViewName("redirect:/popup.do");
 			
 		} else {
 			mav.setViewName("redirect:/moneyBookRegist.do");
@@ -315,6 +330,14 @@ public class MoneyBookController {
 		
 		return mav;
 	}
+	
+	@RequestMapping("popup.do")
+	public String popup(){
+		return "empty/popupEmpty";
+		
+	}
+	
+	
 	
 	//가계부 화면에서 즐겨찾기 ajax 처리
 	@RequestMapping("addBookMarkAtMoneybook.do")

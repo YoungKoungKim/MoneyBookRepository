@@ -10,7 +10,7 @@
 <link href="./fullcalendar-3.3.1/fullcalendar.print.css"
 	rel="stylesheet" media="print" />
 <link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
 
 <link rel="stylesheet"
@@ -270,7 +270,7 @@ function moneyBookRegist(id_index){
 
 function bookmarkRegist(id_index){
 	var popUrl = "bookmarkRegistForm.do?id_index=" + id_index;	//팝업창에 출력될 페이지 URL
-	var popOption = "top=200, left=300, width=600, height=300, resizable=no, scrollbars=no, status=no";    //팝업창 옵션(optoin)
+	var popOption = "top=200, left=300, width=600, height=450, resizable=no, scrollbars=no, status=no";    //팝업창 옵션(optoin)
 	window.open(popUrl,"즐겨찾기등록",popOption);
 }
 	
@@ -567,11 +567,10 @@ var view = {
 
 			});
 		});
-	if('${param.succ}' == "sucess"){
-			window.close();
+/* 	if('${param.succ}' == "sucess"){
 			opener.parent.location.reload();
-			//location.reload();
-	} 
+			window.close();
+	}  */
 		
 		$('#detailTable thead').hide();
 		var today = new Date();
@@ -691,7 +690,7 @@ var view = {
 		});
 		
 		$(document).on('click', '#boardWriteBtn', function() {
-			location.href = "boardWriteForm.do?id_index=" + ${id_index} + "&date=" + boardWriteDate;
+			location.href = "boardWriteForm.do?date=" + boardWriteDate;
 		});
 		
 		// 왼쪽 버튼을 클릭하였을 경우

@@ -15,11 +15,12 @@
 <script type="text/javascript">
 
 function addextraList(){
+	
 	$.ajax({
-		type : 'post',
-		url : 'boardDetailList.do',
-		data : 'boardNo='+${board.boardNo},
-		dataType :  'json',
+		type : "post",
+		url : "boardWriteList.do",
+		data : "date="+ $('#date2').val(),
+		dataType :  "json",
 		success :  function (data) {
 			for(var i in data.list) {
 				if(data.list[i].category == 'food'){
@@ -96,16 +97,17 @@ function addextraList(){
 				}//수입
 				
 			}
-			for(var i in data.list) {
-				if(data.list[i].category =='expense'){
-				$('#left').append("<div class='div_all'><span> 총 지출 : "+data.list[i].price +" </span> </div>");							
-				}else if(data.list[i].category =='income'){
-				$('#left').append("<div class='div_all'><span> 총 수입 : "+data.list[i].price +" </span> </div>");							
-				}
-			}
+				
+				$('#left').append("<div class='div_all'><span> 총 지출 : "+data.expense +" </span> </div>");							
+				
+				$('#left').append("<div class='div_all'><span> 총 수입 : "+data.income +" </span> </div>");							
+				
+			
 		},
-		error : function() {
+		error : function(request,status,error) {
 			alert('실패');
+			alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+
 		}
 	});
 }
@@ -113,6 +115,7 @@ function addextraList(){
 
 
 	$(document).ready(function() {
+		
 		addextraList();
 		var today = new Date();
 		var dd = today.getDate();
@@ -130,6 +133,17 @@ function addextraList(){
 	});
 </script>
 <style type="text/css">
+#it{
+	font-size: 70px;
+}
+.div_category{
+	width: 170px; 
+	height: 100px; 
+	display: inline-block;
+}
+.div_all{
+	font-size: 24px;
+}
 .root {
 margin: auto;
 	width: 800px;
@@ -208,13 +222,14 @@ select {
 	position: relative;
 	top: 1px;
 }
+
 </style>
 </head>
 
 <body>
 	<div class="root">
 		<form action="boardWrite.do" method="post">
-					<input type="hidden" value="${date}" name="date2">
+					<input type="hidden" value="${date}" name="date2" id="date2">
 					<input type="hidden" value="${nick}" name="nick">
 					<input type="hidden" value="${id_index}" name="id_index">
 			<div class="top">
@@ -232,20 +247,23 @@ select {
 							&nbsp;
 							 <input style="width: 400px" type="text" name="title" placeholder="제목을 입력하세요">
 						</td>
-						<td width="200px" id="nowDate" align="right"></td>
+						<td>
+							<span id="nowDate"></span>
+						</td>
 					</tr>
 
 				</table>
 
 			</div>
 
-			<div class="left" align="center">
-
+			<div class="left" align="center" id="left">
+					<div><h2> 2017 년 ${nowMonth } 가계부 공유 </h2><br></div>
+					
+					
 			</div>
 			<div class="bottom">
 				<br>
-				<textarea rows="10" cols="110" id="content" name="content"
-					placeholder="내용을 입력하세요"></textarea>
+				<textarea style="resize: inherit;" rows="15" cols="110" name="content" placeholder="내용을 입력하세요"></textarea>
 				<br> 
 				<input type="submit" class="myButton" value="확인"> 
 				<input type="button" class="myButton" value="취소" onclick="location.href='history.back()'">
