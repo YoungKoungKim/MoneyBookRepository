@@ -153,24 +153,34 @@ $(document).ready(function() {
 			
 		$('#list_table').append(tag);
 	});
+		
 	
 
    	$('#regist_btn').click(function (){
    		var list_size = parseInt($('.add_line_btn').attr("id").replace("add_line_btn",""));
  		for(var i=1; i<=list_size;i++){
 				if($('#category'+i).val() !=""){
-					if( $.isNumeric($('#price'+i).val()) == false  ){
+					//alert($.isNumeric($('#price'+i).val()));
+					if($.isNumeric($('#price'+i).val()) == false && $('#price'+i).val() !='' ){
 						alert("금액은 숫자만 입력해주세요.");
 						//break;
 						return false;
 					}
-					
-					if(($('#detail'+i).val()=="" || $('#price'+i).val() =="")){
-						alert('항목을 모두 입력해주세요.');
-						return false;
-				}
+		}else{
+			if(i != 1){
+				alert(i);
+				alert("하이염");
+			}
+			/* alert("모든 항목을 입력해주세요.");
+			break;
+			return false; */
+			
 		}
+				
+				
  	}
+ 		
+ 		
  		
 });  
 });

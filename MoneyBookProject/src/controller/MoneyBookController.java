@@ -117,12 +117,20 @@ public class MoneyBookController {
 				int result = bookMarkService.bookMarkWrite(params);
 				if (result == 3101) {
 					// 성공
-					mav.addObject("msg", "즐겨찾기 등록에 성공");
+					//mav.addObject("msg", "즐겨찾기 등록에 성공");
+					mav.addObject("succ", "sucess");
+					mav.setViewName("redirect:/popup.do");
+				}else{
+					mav.setViewName("redirect:/bookmarkRegistForm.do");
 				}
 			}
 		}
+		
+		String date = (String) moneyBookService.searchDate(new Date()).get("date");
+		System.out.println("date : "+date);
 		mav.addObject("id_index", id_index);
-		mav.setViewName("redirect:/bookmarkRegistForm.do");
+		mav.addObject("date", date);
+	
 		return mav;
 
 	}
@@ -304,10 +312,11 @@ public class MoneyBookController {
 		}
 
 		if (resultCount == category_arr.length) {
-			mav.setViewName("redirect:/viewMyPage.do");
+/*			mav.setViewName("redirect:/viewMyPage.do");
 			mav.addObject("id_index", id_index);
-			mav.addObject("date", date2);
+			mav.addObject("date", date2);*/
 			mav.addObject("succ", "sucess");
+			mav.setViewName("redirect:/popup.do");
 			
 		} else {
 			mav.setViewName("redirect:/moneyBookRegist.do");
@@ -315,6 +324,14 @@ public class MoneyBookController {
 		
 		return mav;
 	}
+	
+	@RequestMapping("popup.do")
+	public String popup(){
+		return "empty/popupEmpty";
+		
+	}
+	
+	
 	
 	//가계부 화면에서 즐겨찾기 ajax 처리
 	@RequestMapping("addBookMarkAtMoneybook.do")
