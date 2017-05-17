@@ -12,4 +12,6 @@ public interface IBookMarkDao {
 	public List<HashMap<String, Object>> selectBookmarkList(int id_index);		
 	public int countBookmarkNo(int id_index);
 	public HashMap<String, Object> selectOneBookmark(HashMap<String, Object> params);
+	public int dropBookmark(int id_index);
+	
 }
