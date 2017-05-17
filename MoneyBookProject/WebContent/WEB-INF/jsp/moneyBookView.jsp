@@ -263,7 +263,7 @@ function convertCategory(word) {
 			header : {
 				left : 'prev,next today',
 				center : 'title',
-				right : 'month,listWeek'
+				right : 'month'
 			},
  			defaultDate : today,
 			navLinks : false, // can click day/week names to navigate views
