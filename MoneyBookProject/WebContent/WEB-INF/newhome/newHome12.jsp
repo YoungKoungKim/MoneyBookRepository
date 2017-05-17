@@ -39,6 +39,7 @@
 <!-- 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css"> -->
 <!-- 	모달때문에 끝 -->
 <script type="text/javascript">
+
 	function today() {
 		var date = new Date();
 		var dd = date.getDate();
@@ -120,10 +121,6 @@ body {
 	font-family: koverwatch;
 }
 
-#login_table {
-	margin-bottom: 10px;
-}
-
 .btn {
 	font-family: Hanna;
 	border-radius: 10px;
@@ -187,7 +184,7 @@ body {
 				<nav class="collapse navbar-collapse"> <!-- Main navigation -->
 				<ul id="headernavigation" class="nav navbar-nav">
 					<li class="active"><a href="new.do">Home</a></li>
-					<li><a href="new.do">About</a></li>
+					<li><a href="jsp/about.jsp">About</a></li>
 					<li><a data-toggle="modal" data-target="#loginModal"
 						data-backdrop="static" href="#loginForm" title="로그인">Login</a></li>
 					<li><a data-toggle="modal" data-target="#joinModal"
@@ -373,9 +370,10 @@ body {
 										class="btn btn-info" data-dismiss="modal"></td>
 								</tr>
 								<tr>
-									<td colspan="2" align="center"><br> <a
-										id="kakao-login-btn"></a> <a
-										href="http://developers.kakao.com/logout"></a>
+									<td colspan="2" align="center"><br><a
+										id="kakao-login-btn"></a><a
+										href="http://developers.kakao.com/logout"
+										></a>
 									<td>
 								</tr>
 							</table>
