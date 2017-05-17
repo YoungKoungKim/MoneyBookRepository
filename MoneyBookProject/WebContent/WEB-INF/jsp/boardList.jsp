@@ -45,7 +45,7 @@
 	display: inline-block;
 }
 
-td{
+.right td{
  border-bottom: 1px solid #CCE2D8; 
  background-color: ##EAF2EE; 
  font-size: 15px;
@@ -107,6 +107,7 @@ a:hover {
 .right {
 	width: 80%;
 	display: inline-block;
+	margin-left: 30px;
 }
 
 .bottom {

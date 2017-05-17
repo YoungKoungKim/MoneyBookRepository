@@ -3,6 +3,7 @@ package controller;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import model.Board;
+import model.ExtraBoard;
 import service.IBoardService;
 import service.IRecommendService;
 
@@ -59,6 +61,12 @@ public class BoardController {
 		return mav;
 	}
 
+	@RequestMapping("boardDetailList.do")
+	public @ResponseBody HashMap<String, Object>boardDetailList(int boardNo) {// id_index 빼야됨
+		return boardservice.searchText(boardNo);
+	}
+	
+	
 	@RequestMapping("boardBest.do")
 	public ModelAndView boardBest() {
 		ModelAndView mav = new ModelAndView();

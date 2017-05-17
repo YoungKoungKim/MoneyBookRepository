@@ -87,6 +87,8 @@ public class BoardService implements IBoardService {
 		HashMap<String, Object> params = new HashMap<>();
 		Board board = bDao.selectOneBoard(boardNo);
 		List<ExtraBoard> extraList = ebDao.selectOne(boardNo);
+		 
+		 
 		params.put("board", board);
 		params.put("list", extraList);
 		return params;
@@ -120,6 +122,11 @@ public class BoardService implements IBoardService {
 			ebDao.insertExtraBoard(eboard);
 		}
 		
+//		for(String key : amount.keySet()){
+//			eboard.setCategory(key);
+//			eboard.setPrice(amount.get(key));
+//		}
+//		
 	}
 
 	@Override
