@@ -315,6 +315,27 @@ public class MoneyBookController {
 		
 		return mav;
 	}
+	
+	//가계부 화면에서 즐겨찾기 ajax 처리
+	@RequestMapping("addBookMarkAtMoneybook.do")
+	public @ResponseBody HashMap<String, Object> addBookMarkAtMoneybook(int id_index, String category, String detail, String price, Date date) {
+		MoneyBook mb = new MoneyBook();
+		mb.setId_index(id_index);
+		mb.setCategory(category);
+		mb.setDetail(detail);
+		mb.setPrice(Integer.parseInt(price));
+		mb.setDate(date);
+		
+		int result = moneyBookService.moneyBookRegist(mb);
+		HashMap<String, Object> response = new HashMap<>();
+		if (result == 3201) {
+			response.put("msg", "가계부에 등록되었습니다.");
+		} else {
+			response.put("msg", "가계부 등록 실패");
+		}
+		return response;
+		
+	}
 
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {

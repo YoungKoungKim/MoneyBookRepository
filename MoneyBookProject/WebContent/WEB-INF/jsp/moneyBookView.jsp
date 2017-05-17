@@ -11,6 +11,8 @@
 	rel="stylesheet" media="print" />
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+
+
 <link rel="stylesheet"
 	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
@@ -127,10 +129,33 @@ body {
 .modal-body {
 	max-width: 450px;
 }
+
+.bookmark_btn{
+	font-family: NanumBarunpenR;
+	font-style: normal;
+	background-color: #91D4B5; 
+	border: 1px solid #1abc9c; ;
+	border-radius: 2px;
+	width: 70pt;
+	height: 30pt;
+	text-align: center;
+	padding-left: 10px;
+	padding-right: 10px;
+	margin-bottom : 5px;
+	color: black;
+	
+}
+
+
+#bookmark_list_div{
+	/* border: 1px solid #1abc9c; */
+}
+
 </style>
 
 <script type="text/javascript">
 var boardWriteDate;
+var clickDate;
 
 $('#detail').css('margin', $('calendar').attr('margin'));
 
@@ -149,7 +174,7 @@ function moneyBookRegist(id_index){
 
 function bookmarkRegist(id_index){
 	var popUrl = "bookmarkRegistForm.do?id_index=" + id_index;	//팝업창에 출력될 페이지 URL
-	var popOption = "top=200, left=300, width=600, height=650, resizable=no, scrollbars=no, status=no";    //팝업창 옵션(optoin)
+	var popOption = "top=200, left=300, width=600, height=300, resizable=no, scrollbars=no, status=no";    //팝업창 옵션(optoin)
 	window.open(popUrl,"즐겨찾기등록",popOption);
 }
 	
@@ -180,6 +205,36 @@ function convertCategory(word) {
 }
 
 	$(document).ready(function() {
+		
+		
+		$(document).on("click",".bookmark_btn", function(){
+			var id_index = $(this).attr('id').replace("bookmark_btn", "");
+ 			//alert("눌림");
+			
+			if(clickDate == undefined){
+				clickDate = boardWriteDate;
+			}
+
+			$.ajax({
+				url : 'addBookMarkAtMoneybook.do',
+				data : "id_index="+${param.id_index}+
+				"&category="+$('#category_val'+id_index).val()+
+				"&detail="+$('#detail_val'+id_index).val()+
+				"&price="+$('#price_val'+id_index).val()+
+				"&date="+clickDate,
+				dataType : 'json',
+				type: 'post',
+				success : function(data){
+					alert(data.msg);
+					location.reload();
+				},
+				error : function(data) {
+					alert('에러');
+					alert(data.msg);
+				}
+			}); 
+		})
+		
 		
 		$(document).on('click', '.detailOne', function() {
 			$("#datepicker").datepicker();
@@ -318,6 +373,7 @@ function convertCategory(word) {
 				$('#detailTable tbody').empty();
 				var current = $('#calendar').fullCalendar('getDate');
 				var now = dateToYYYYMMDD(today);
+				clickDate = date.format();
 				
 				if (date.format().substring(0, 7) == current.format('YYYY-MM-DD').substring(0,7)) {
 					$('.fc-day').css('background-color', '#ffffff');
@@ -411,95 +467,126 @@ function convertCategory(word) {
 			</table>
 			<button class="btn moneyBookBtn"
 				onclick="bookmarkRegist(${param.id_index})">즐겨찾기 등록</button>
-			<div >
-				<table>
+			
+			
+			<div id="bookmark_list_div">
+					<h4><span style="font-family:NanumBarunpenR; font-weight: bold; ">
+					<i class="fa fa-bookmark" aria-hidden="true"></i> 즐겨찾기 목록
+					</span>
+					</h4>
 				<c:forEach var="bm" items="${bookMarkList}" varStatus="status">
-							<tr id="bookmarklist${status.index}" class="text-center">
-								<td class="category_td">
-								<c:if test="${bm.category=='medical'}">
-										<span style="color: #708090;"> 
-										<i class="fa fa-medkit" aria-hidden="true"></i>
-										</span>
-									</c:if> 
-									<c:if test="${bm.category=='food'}">
-										<span style="color: #ADD8E6;"> 
-										<i class="fa fa-cutlery" aria-hidden="true"></i></span>
-									</c:if> 
-									<c:if test="${bm.category=='traffic'}">
-									<span style="color: #FF6347;"> 
-										<i class="fa fa-bus" aria-hidden="true"></i>
-										</span>
-									</c:if> 
-									<c:if test="${bm.category=='commodity'}">
-									<span style="color: #FFA500;"> 
-										<i class="fa fa-shopping-cart" aria-hidden="true"></i>
-										</span>
-									</c:if> 
-									<c:if test="${bm.category=='beauty'}">
-									<span style="color: #F08080;"> 
-										<i class="fa fa-bath" aria-hidden="true"></i>
-										</span>
-									</c:if> 
-									<c:if test="${bm.category=='education'}">
-									<span style="color:#DDA0DD;">
-										<i class="fa fa-book" aria-hidden="true"></i>
-										</span>
-									</c:if> 
-									<c:if test="${bm.category=='phonefees'}">
-									<span style="color: #1E90FF;">
-										<i class="fa fa-mobile" aria-hidden="true"></i>
-									</span>
-									</c:if> 
-									<c:if test="${bm.category=='saving'}">
-									<span style="color: #DAA520;"> 
-										<i class="fa fa-database" aria-hidden="true"></i>
-										</span>
-									</c:if> 
-									<c:if test="${bm.category=='utilitybills'}">
-									<span style="color: #6A5ACD;"> 
-										<i class="fa fa-plug" aria-hidden="true"></i>
-										</span>
-									</c:if> 
-									<c:if test="${bm.category=='culturallife'}">
-									<span style="color: #3CB371;"> 
-										<i class="fa fa-film" aria-hidden="true"></i>
-										</span>
-									</c:if> 
-									<c:if test="${bm.category == 'otheritems'}">
-									<span style="color: #FA8072;"> 
-										<i class="fa fa-minus-circle" aria-hidden="true"></i>
-										</span>
-									</c:if>  
-									<c:if test="${bm.category=='income'}">
-									<span style="color: #9ACD32;"> 
-										<i class="fa fa-krw" aria-hidden="true"></i>
-									</span>
-									</c:if>
-									</td>
-								<td>${bm.detail}</td>
-								
-								<td>
-								<input type = "hidden" value="${bm.price}" id="price_val${status.index}">
-								<span id="price${status.index}">
-								<fmt:formatNumber value="${bm.price}" type="currency"/>
-								</span>
-								
-								</td>
-								<td><a href="#" target="" id="update_btn${status.index}"
-									class="update_btn"><i class="fa fa-scissors" aria-hidden="true"></i></a>
-									<a href="#" target="" id="delete_btn${status.index}" class="delete_btn"> <i
-										class="fa fa-trash" aria-hidden="true"></i>
-								</a></td>
-							</tr>
-							<input type="hidden" id="bookmarkNo${status.index}"
-								value="${bm.bookmarkNo}">
-						</c:forEach>
-				
-				
-				
-				</table>		
-			</div>	
+					<c:if test="${bm.category=='food'}">
+						<button  class="bookmark_btn" id="bookmark_btn${status.index}">
+							<span style="color: #ADD8E6;"> <i class="fa fa-cutlery"
+								aria-hidden="true"></i>
+							</span> ${bm.detail}
+						</button>
+					</c:if>
+
+					<c:if test="${bm.category=='education'}">
+						<button  class="bookmark_btn" id="bookmark_btn${status.index}">
+							<span style="color: #DDA0DD;"> <i class="fa fa-book"
+								aria-hidden="true"></i>
+							</span> ${bm.detail}
+						</button>
+					</c:if>
+
+					<c:if test="${bm.category=='medical'}">
+						<button  class="bookmark_btn" id="bookmark_btn${status.index}">
+							<span style="color: #708090;"> <i class="fa fa-medkit"
+								aria-hidden="true"></i>
+							</span> ${bm.detail}
+						</button>
+					</c:if>
+
+					<c:if test="${bm.category=='traffic'}">
+						<button class="bookmark_btn" id="bookmark_btn${status.index}">
+							<span style="color: #FF6347;"> <i class="fa fa-bus"
+								aria-hidden="true"></i>
+							</span> ${bm.detail}
+						</button>
+					</c:if>
+
+					<c:if test="${bm.category=='commodity'}">
+						<button class="bookmark_btn" id="bookmark_btn${status.index}">
+							<span style="color: #FFA500;"> <i
+								class="fa fa-shopping-cart" aria-hidden="true"></i>
+							</span> ${bm.detail}
+						</button>
+					</c:if>
+
+					<c:if test="${bm.category=='beauty'}">
+						<button class="bookmark_btn" id="bookmark_btn${status.index}">
+							<span style="color: #F08080;"> <i class="fa fa-bath"
+								aria-hidden="true"></i>
+							</span> ${bm.detail}
+						</button>
+					</c:if>
+
+					<c:if test="${bm.category=='phonefees'}">
+						<button class="bookmark_btn" id="bookmark_btn${status.index}">
+							<span style="color: #1E90FF;"> <i class="fa fa-mobile"
+								aria-hidden="true"></i>
+							</span> ${bm.detail}
+						</button>
+					</c:if>
+
+					<c:if test="${bm.category=='saving'}">
+						<button class="bookmark_btn" id="bookmark_btn${status.index}">
+							<span style="color: #DAA520;"> <i class="fa fa-database"
+								aria-hidden="true"></i>
+							</span> ${bm.detail}
+						</button>
+					</c:if>
+
+					<c:if test="${bm.category=='utilitybills'}">
+						<button class="bookmark_btn" id="bookmark_btn${status.index}">
+							<span style="color: #6A5ACD;"> <i class="fa fa-plug"
+								aria-hidden="true"></i>
+							</span> ${bm.detail}
+						</button>
+					</c:if>
+
+					<c:if test="${bm.category=='culturallife'}">
+						<button class="bookmark_btn" id="bookmark_btn${status.index}">
+							<span style="color: #3CB371;"> <i class="fa fa-film"
+								aria-hidden="true"></i>
+							</span> ${bm.detail}
+						</button>
+					</c:if>
+
+					<c:if test="${bm.category == 'otheritems'}">
+						<button class="bookmark_btn" id="bookmark_btn${status.index}">
+							<span style="color: #FA8072;"> <i
+								class="fa fa-minus-circle" aria-hidden="true"></i>
+							</span> ${bm.detail}
+						</button>
+					</c:if>
+
+					<c:if test="${bm.category=='income'}">
+						<button class="bookmark_btn" id="bookmark_btn${status.index}">
+							<span style="color: #9ACD32;"> <i class="fa fa-krw"
+								aria-hidden="true"></i>
+							</span> ${bm.detail}
+						</button>
+					</c:if>
+					<input type = "hidden" value="${bm.price}" 
+					id="price_val${status.index}">
+					
+					<input type = "hidden" value="${bm.category}" 
+					id="category_val${status.index}">
+					
+					<input type = "hidden" value="${bm.detail}" 
+					id="detail_val${status.index}">
+					
+					<c:if test="${status.index==1 or status.index==3}">
+						<br>
+					
+					</c:if>
+				</c:forEach>
+			</div>
 		</center>
+
 	</div>
 
 	<div id="center">
