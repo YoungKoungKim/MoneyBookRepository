@@ -65,7 +65,7 @@
 				<span class="sr-only">Toggle navigation</span> Menu <i
 					class="fa fa-bars"></i>
 			</button>
-			<a class="navbar-brand page-scroll" href="#page-top">MoneyBook</a>
+			<a class="navbar-brand page-scroll" href="../home.do">MoneyBook</a>
 		</div>
 
 	</div>
