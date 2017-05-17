@@ -283,14 +283,14 @@ function getCommentList() {
 	margin: auto;
 	width: 800px;
 	background-color: #f0f8ff;
-	border: solid #d3d3d3;
+	border: solid #CCE2D8;
 }
 
 .top {
 	width: 100%;
 	height: 100%;
 	text-align: center;
-	border-bottom: dashed #d3d3d3;
+	border-bottom: dashed #CCE2D8;
 }
 
 .left {
@@ -304,8 +304,8 @@ function getCommentList() {
 	width: 100%;
 	text-align: left;
 	font-size: 20px;
-	border-top: solid #d3d3d3;
-	border-bottom: solid #d3d3d3; 
+	border-top: solid #CCE2D8;
+	border-bottom: solid #CCE2D8; 
     padding: 20px 100px;
 	
 }
@@ -392,7 +392,7 @@ function getCommentList() {
 		</div>
 
 		<div class="left" id="left" >
-		
+			
 		</div>
 		
 		<div class="right">
@@ -402,7 +402,7 @@ function getCommentList() {
 		<div class="bottom">
 			<br>
 
-			<div align="center">
+			<div align="center" style="padding-bottom: 30px;">
 
 				<button class="myButton" id="recommendbtn">
 					추천 <span id="recommend"> ${board.recommend } </span>
@@ -436,7 +436,7 @@ function getCommentList() {
 					<tr>
 						<td><textarea style="resize: none;" rows="2" cols="80" id="content1"
 								name="content1"></textarea></td>
-						<td><input type="button" value="등록" id="commentbut">
+						<td><input class="myButton" type="button" value="등록" id="commentbut">
 						</td>
 					</tr>
 				</table>
