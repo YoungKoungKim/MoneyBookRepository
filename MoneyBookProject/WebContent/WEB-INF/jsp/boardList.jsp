@@ -135,7 +135,7 @@ li {
 }
 
 .myButton {
-	background-color: #ffffff;
+	background-color: #f0f8ff;
 	-moz-border-radius: 9px;
 	-webkit-border-radius: 9px;
 	border-radius: 9px;
