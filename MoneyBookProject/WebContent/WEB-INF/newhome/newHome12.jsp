@@ -109,6 +109,7 @@ body {
 }
 
 .modal-body {
+	border: 3px solid #1ABC9C;
 	margin: 10px;
 	width: 500px;
 	height: auto;
@@ -346,8 +347,7 @@ body,
 		style="z-index: 2222;">
 		<div class="modal-dialog" style="z-index: 2222;">
 			<div class="modal-content" style="z-index: 2222;">
-				<div class="modal-body"
-					style="border: 2px solid #91D4B5; z-index: 2222;">
+				<div class="modal-body" z-index: 2222;">
 					<center>
 						<h1 id="login_Label">로그인</h1>
 						<table>
