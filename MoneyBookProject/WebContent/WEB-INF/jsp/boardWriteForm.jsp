@@ -13,7 +13,110 @@
 	integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
 	crossorigin="anonymous"></script>
 <script type="text/javascript">
+
+function addextraList(){
+	
+	$.ajax({
+		type : "post",
+		url : "boardWriteList.do",
+		data : "date="+ $('#date2').val(),
+		dataType :  "json",
+		success :  function (data) {
+			for(var i in data.list) {
+				if(data.list[i].category == 'food'){
+				$('#left').append("<div class ='div_category'>"
+				+"<span>"
+				+"<i id='it' style='color: #ADD8E6;' class='fa fa-cutlery' aria-hidden='true'></i>"
+				+"</span><br><span> "+data.list[i].price +"</span> </div>");
+				}//식비
+				else if(data.list[i].category == 'traffic'){
+				$('#left').append("<div class ='div_category'>"
+				+"<span>"
+				+"<i id='it'style='color: #FF6347;' class='fa fa-bus' aria-hidden='true'></i>"
+				+"</span><br><span> "+data.list[i].price +"</span> </div>");
+				}//교통비
+				else if(data.list[i].category == 'commodity'){
+				$('#left').append("<div class ='div_category'>"
+				+"<span>"
+				+"<i id ='it' style='color: #FFA500;' class='fa fa-shopping-cart' aria-hidden='true'></i>"
+				+"</span><br><span> "+data.list[i].price +"</span> </div>");
+				}//생필품
+				else if(data.list[i].category == 'beauty'){
+				$('#left').append("<div class ='div_category'>"
+				+"<span>"
+				+"<i id='it' style='color: #FFB6C1; 'class='fa fa-bath' aria-hidden='true'></i>"
+				+"</span><br><span> "+data.list[i].price +"</span> </div>");
+				}//미용
+				else if(data.list[i].category == 'medical'){
+				$('#left').append("<div class ='div_category'>"
+				+"<span>"
+				+"<i id='it'style='color: #6A5ACD;'class='fa fa-medkit' aria-hidden='true'></i></td>"
+				+"</span><br><span> "+data.list[i].price +"</span> </div>");
+				}//의료
+				else if(data.list[i].category == 'education'){
+				$('#left').append("<div class ='div_category'>"
+				+"<span>"
+				+"<i id='it' style='color: #DDA0DD;'class='fa fa-book' aria-hidden='true'></i>"
+				+"</span><br><span> "+data.list[i].price +"</span> </div>");
+				}//교육
+				else if(data.list[i].category == 'phonefees'){
+				$('#left').append("<div class ='div_category'>"
+				+"<span>"
+				+"<i id='it' style='color: #1E90FF;' class='fa fa-mobile' aria-hidden='true'></i>"
+				+"</span><br><span> "+data.list[i].price +"</span> </div>");
+				}//통신비
+				else if(data.list[i].category == 'saving'){
+				$('#left').append("<div class ='div_category'>"
+				+"<span>"
+				+"<i id='it' style='color: #DAA520;' class='fa fa-database' aria-hidden='true'></i>"
+				+"</span><br><span> "+data.list[i].price +"</span> </div>");
+				}//저축
+				else if(data.list[i].category == 'utilitybills'){
+				$('#left').append("<div class ='div_category'>"
+				+"<span>"
+				+"<i id='it'style='color: #708090;'class='fa fa-plug' aria-hidden='true'></i>"
+				+"</span><br><span> "+data.list[i].price +"</span> </div>");
+				}//공과금
+				else if(data.list[i].category == 'culturallife'){
+				$('#left').append("<div class ='div_category'>"
+				+"<span>"
+				+"<i id='it' style='color: #3CB371;' class='fa fa-film' aria-hidden='true'></i>"
+				+"</span><br><span> "+data.list[i].price +"</span> </div>");
+				}//문화생활비
+				else if(data.list[i].category == 'otheritems'){
+				$('#left').append("<div class ='div_category'>"
+				+"<span>"
+				+"<i id='it' style='color: #FA8072;' class='fa fa-minus-circle' aria-hidden='true'></i>"
+				+"</span><br><span> "+data.list[i].price +"</span> </div>");
+				}//기타
+				else if(data.list[i].category == 'incomes'){
+				$('#left').append("<div class ='div_category'>"
+				+"<span>"
+				+"<i id='it' style='color: #9ACD32;'class='fa fa-krw' aria-hidden='true'></i>"
+				+"</span><br><span> "+data.list[i].price +"</span> </div>");
+				}//수입
+				
+			}
+				
+				$('#left').append("<div class='div_all'><span> 총 지출 : "+data.expense +" </span> </div>");							
+				
+				$('#left').append("<div class='div_all'><span> 총 수입 : "+data.income +" </span> </div>");							
+				
+			
+		},
+		error : function(request,status,error) {
+			alert('실패');
+			alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+
+		}
+	});
+}
+
+
+
 	$(document).ready(function() {
+		
+		addextraList();
 		var today = new Date();
 		var dd = today.getDate();
 		var mm = today.getMonth() + 1; //January is 0!
@@ -27,25 +130,41 @@
 		today = yyyy + '-' + mm + '-' + dd;
 		$("#nowDate").text("날짜 : " + today); //날짜 표시
 
-	})
+	});
 </script>
 <style type="text/css">
+#it{
+	font-size: 70px;
+}
+.div_category{
+	width: 170px; 
+	height: 100px; 
+	display: inline-block;
+}
+.div_all{
+	font-size: 24px;
+}
 .root {
-	margin: auto;
+margin: auto;
 	width: 800px;
 	background-color: #f0f8ff;
+	border: solid #CCE2D8;
+	margin-top: 50px;
 }
 
 .top {
 	width: 100%;
 	height: 100%;
 	text-align: center;
+	border-bottom: dashed #CCE2D8;
+	padding: 20px 5px;
 }
 
 
 .left {
 	width: 100%;
-	margin: auto;
+	padding: 40px 40px;
+	text-align: center;
 }
 
 .bottom {
@@ -53,6 +172,7 @@
 	height: 100%;
 	clear: both;
 	text-align: center;
+	padding: 30px 5px;
 }
 
 .category_td {
@@ -80,19 +200,40 @@ select {
  -moz-appearance: none; 
  appearance: none; 
  }
+ .myButton {
+	background-color: #f0f8ff;
+	-moz-border-radius: 9px;
+	-webkit-border-radius: 9px;
+	border-radius: 9px;
+	display: inline-block;
+	cursor: pointer;
+	color: #000000;
+	font-family: Arial;
+	font-size: 15px;
+	padding: 6px 17px;
+	text-decoration: none;
+}
+
+.myButton:hover {
+	background-color: #91D4B5;
+}
+
+.myButton:active {
+	position: relative;
+	top: 1px;
+}
+
 </style>
 </head>
 
 <body>
 	<div class="root">
-			<br>
 		<form action="boardWrite.do" method="post">
-					<input type="hidden" value="${date}" name="date2">
+					<input type="hidden" value="${date}" name="date2" id="date2">
 					<input type="hidden" value="${nick}" name="nick">
 					<input type="hidden" value="${id_index}" name="id_index">
 			<div class="top">
 				<table align="center">
-
 					<tr>
 						<td width="100px"><select id="ageType" name="ageType">
 								<option value="10">10대</option>
@@ -106,152 +247,26 @@ select {
 							&nbsp;
 							 <input style="width: 400px" type="text" name="title" placeholder="제목을 입력하세요">
 						</td>
-						<td width="200px" id="nowDate" align="right"></td>
+						<td>
+							<span id="nowDate"></span>
+						</td>
 					</tr>
 
 				</table>
 
 			</div>
 
-			<div class="left" align="center">
-				<br>
-				<table>
-
-					<tr style="width: 50px">
-						<c:if test="${categoryfood eq 'food'}">
-							<td class="category_td"><i style="color: #ADD8E6;"
-								class="fa fa-cutlery" aria-hidden="true"></i> </span></td>
-						</c:if>
-
-						<c:if test="${categorytraffic eq 'traffic'}">
-							<td class="category_td"><i style="color: #FF6347;"
-								class="fa fa-bus" aria-hidden="true"></i></td>
-						</c:if>
-
-						<c:if test="${categorycommodity eq 'commodity'}">
-							<td class="category_td"><i style="color: #FFA500;"
-								class="fa fa-shopping-cart" aria-hidden="true"></i></td>
-						</c:if>
-
-						<c:if test="${categorybeauty eq 'beauty'}">
-							<td class="category_td"><i style="color: #FFB6C1;"
-								class="fa fa-bath" aria-hidden="true"></i></td>
-						</c:if>
-
-					</tr>
-
-					<tr style="width: 50px;" class="categoryfont" id="tre">
-						<c:if test="${categoryfood eq 'food'}">
-							<td id="food">식비<br>${food }</td>
-						</c:if>
-						<c:if test="${categorytraffic eq 'traffic'}">
-							<td>교통비<br>${traffic}</td>
-						</c:if>
-
-						<c:if test="${categorycommodity eq 'commodity'}">
-							<td>생필품<br>${commodity }</td>
-						</c:if>
-
-						<c:if test="${categorybeauty eq 'beauty'}">
-							<td>미용<br>${beauty }</td>
-						</c:if>
-					</tr>
-
-
-				</table>
-
-				<table>
-					<br>
-
-					<tr style="width: 50px">
-						<c:if test="${categorymedical eq 'medical'}">
-							<td class="category_td"><i style="color: #708090"
-								class="fa fa-medkit" aria-hidden="true"></i></td>
-						</c:if>
-						<c:if test="${categoryeducation eq 'education'}">
-							<td class="category_td"><i style="color: #DDA0DD;"
-								class="fa fa-book" aria-hidden="true"></i></td>
-						</c:if>
-						<c:if test="${categoryphonefees eq 'phonefees'}">
-							<td class="category_td"><i style="color: #1E90FF;"
-								class="fa fa-mobile" aria-hidden="true"></i></td>
-						</c:if>
-						<c:if test="${categorysaving eq 'saving'}">
-							<td class="category_td"><i style="color: #DAA520;"
-								class="fa fa-database" aria-hidden="true"></i></td>
-						</c:if>
-
-					</tr>
-					<tr style="width: 50px;" class="categoryfont">
-
-						<c:if test="${categorymedical eq 'medical'}">
-							<td>의료<br>${medical }</td>
-						</c:if>
-
-						<c:if test="${categoryeducation eq 'education'}">
-							<td>교육<br>${education }</td>
-						</c:if>
-
-						<c:if test="${categoryphonefees eq 'phonefees'}">
-							<td>통신비<br>${phonefees }</td>
-						</c:if>
-
-						<c:if test="${categorysaving eq 'saving'}">
-							<td>저축<br>${saving }</td>
-						</c:if>
-
-					</tr>
-				</table>
-				<table>
-					<br>
-
-					<tr>
-						<c:if test="${categoryutilitybills eq 'utilitybills'}">
-							<td class="category_td"><i style="color: #6A5ACD;"
-								class="fa fa-plug" aria-hidden="true"></i></td>
-						</c:if>
-						<c:if test="${categoryculturallife eq 'culturallife'}">
-							<td class="category_td"><i style="color: #3CB371;"
-								class="fa fa-film" aria-hidden="true"></i></td>
-						</c:if>
-						<c:if test="${categoryotheritems eq 'otheritems'}">
-							<td class="category_td"><i style="color: #FA8072;"
-								class="fa fa-minus-circle" aria-hidden="true"></i></td>
-						</c:if>
-						<c:if test="${categoryincome eq 'income'}">
-							<td class="category_td"><i style="color: #9ACD32;"
-								class="fa fa-krw" aria-hidden="true"></i></td>
-						</c:if>
-
-					</tr>
-					<tr style="width: 50px;" class="categoryfont">
-						<c:if test="${categoryutilitybills eq 'utilitybills'}">
-							<td>공과금<br>${utilitybills}</td>
-						</c:if>
-
-						<c:if test="${categoryculturallife eq 'culturallife'}">
-							<td>문화생활비<br>${culturallife}</td>
-						</c:if>
-
-						<c:if test="${categoryotheritems eq 'otheritems'}">
-							<td>기타<br>${otheritems}</td>
-						</c:if>
-
-						<c:if test="${categoryincome eq 'income'}">
-							<td>수입<br>${income}</td>
-						</c:if>
-					</tr>
-
-
-				</table>
-
+			<div class="left" align="center" id="left">
+					<div><h2> 2017 년 ${nowMonth } 가계부 공유 </h2><br></div>
+					
+					
 			</div>
 			<div class="bottom">
 				<br>
-				<textarea rows="10" cols="110" id="content" name="content"
-					placeholder="내용을 입력하세요"></textarea>
-				<br> <input type="submit" value="확인"> <input
-					type="button" value="취소" onclick="location.href='history.back()'">
+				<textarea style="resize: inherit;" rows="15" cols="110" name="content" placeholder="내용을 입력하세요"></textarea>
+				<br> 
+				<input type="submit" class="myButton" value="확인"> 
+				<input type="button" class="myButton" value="취소" onclick="location.href='history.back()'">
 			</div>
 		</form>
 

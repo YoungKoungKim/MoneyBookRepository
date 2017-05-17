@@ -433,7 +433,7 @@ function convertCategory(word) {
 		});
 		
 		$(document).on('click', '#boardWriteBtn', function() {
-			location.href = "boardWriteForm.do?id_index=" + ${id_index} + "&date=" + boardWriteDate;
+			location.href = "boardWriteForm.do?date=" + boardWriteDate;
 		});
 		
 		// 왼쪽 버튼을 클릭하였을 경우

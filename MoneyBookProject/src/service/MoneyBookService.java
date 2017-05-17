@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import dao.IMoneyBookDao;
+import model.ExtraBoard;
 import model.MoneyBook;
 
 @Component
@@ -63,8 +64,7 @@ public class MoneyBookService implements IMoneyBookService {
 		int culturallife = 0;// 문화생활비
 		int otheritems = 0;// 기타
 		int income = 0; // 수입
-
-		int expense = (int) totalMonthAmount(id_index, date).get("expense");
+		int expense = 0;
 
 		for (int i = 0; i < list.size(); i++) {
 			if (list.get(i).getCategory().trim().equals("food")) {
@@ -94,6 +94,7 @@ public class MoneyBookService implements IMoneyBookService {
 			}
 		}
 
+				
 		if (food != 0) {
 			params.put("food", food);
 			}
@@ -130,7 +131,15 @@ public class MoneyBookService implements IMoneyBookService {
 		if (otheritems != 0) {
 			params.put("otheritems", otheritems);
 		}
-
+		List<ExtraBoard> extraboard = new ArrayList<>();
+		for(String key : params.keySet()){
+			ExtraBoard exboard = new ExtraBoard();
+			exboard.setCategory(key);
+			exboard.setPrice((int)params.get(key));
+			extraboard.add(exboard);
+			
+		}
+		params.put("list", extraboard);
 		return params;
 	}
 
