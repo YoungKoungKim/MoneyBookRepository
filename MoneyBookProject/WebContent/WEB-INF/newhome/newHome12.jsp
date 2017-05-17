@@ -39,7 +39,6 @@
 <!-- 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css"> -->
 <!-- 	모달때문에 끝 -->
 <script type="text/javascript">
-
 	function today() {
 		var date = new Date();
 		var dd = date.getDate();
@@ -53,7 +52,8 @@
 			mm = '0' + mm
 		}
 		today = yyyy + '-' + mm + '-' + dd;
-		return location.href = "viewMyPage.do?id_index=" + id_index + "&date=" + today;
+		return location.href = "viewMyPage.do?id_index=" + id_index + "&date="
+				+ today;
 	} //today()
 
 	$(document).ready(function() {
@@ -109,7 +109,6 @@ body {
 }
 
 .modal-body {
-	border: 3px solid #1ABC9C;
 	margin: 10px;
 	width: 500px;
 	height: auto;
@@ -117,7 +116,7 @@ body {
 }
 
 #login_Label {
-	color: #1abc9c;
+	color: #91D4B5;
 	font-family: koverwatch;
 }
 
@@ -147,7 +146,6 @@ body {
 	font-size: 18px;
 	color: black;
 }
-
 body,
 .section-style {
   background: -webkit-linear-gradient(90deg, #649173 10%, #DBD5A4 90%); /* Chrome 10+, Saf5.1+ */
@@ -156,8 +154,6 @@ body,
   background:      -o-linear-gradient(90deg, #649173 10%, #DBD5A4 90%); /* Opera 11.10+ */
   background:         linear-gradient(90deg, #649173 10%, #DBD5A4 90%); /* W3C */
 }
-
-
 </style>
 </head>
 <body>
@@ -195,7 +191,7 @@ body,
 				<nav class="collapse navbar-collapse"> <!-- Main navigation -->
 				<ul id="headernavigation" class="nav navbar-nav">
 					<li class="active"><a href="new.do">Home</a></li>
-					<li><a href="jsp/about.jsp">About</a></li>
+					<li><a href="new.do">About</a></li>
 					<li><a data-toggle="modal" data-target="#loginModal"
 						data-backdrop="static" href="#loginForm" title="로그인">Login</a></li>
 					<li><a data-toggle="modal" data-target="#joinModal"
@@ -222,8 +218,8 @@ body,
 	<!-- Main Menu End -->
 
 	<!-- Page Top Section -->
-	<section id="page-top" class="section-style"
-		data-background-image="homeCss/blur-color-variation/images/background/page-top.jpg">
+	<section id="page-top" class="section-style">
+<!-- 		data-background-image="homeCss/blur-color-variation/images/background/page-top.jpg" -->
 	<div class="pattern height-resize">
 		<div class="container">
 			<h1 class="site-title">MoneyBook</h1>
@@ -289,7 +285,7 @@ body,
 			<div class="modal-content" style="z-index: 2222;">
 				<div class="modal-body" style="z-index: 2222;">
 					<center>
-						<h1 id="login_Label">회 원 가 입</h1>
+						<h1 style="color: black;">회 원 가 입</h1>
 						<table>
 							<tr align="center">
 								<td style="color: black;">아이디</td>
@@ -352,44 +348,41 @@ body,
 			<div class="modal-content" style="z-index: 2222;">
 				<div class="modal-body"
 					style="border: 2px solid #91D4B5; z-index: 2222;">
-					<div id="modal-border">
-						<center>
-							<h1 id="login_Label">로그인</h1>
-							<table id="login_table">
-								<tr align="center">
-									<td style="color: black;">아이디</td>
-									<td width="305px;"><input type="text" id="login_Id"
-										class="form-control" placeholder="이메일을 입력하세요."></td>
-								</tr>
-								<tr>
-									<td></td>
-									<td><span id="login_IdCheck" style="color: red;"></span><br></td>
-								</tr>
-								<tr align="center">
-									<td style="color: black;">비밀번호&nbsp;</td>
-									<td><input type="password" id="login_Pwd"
-										class="form-control" placeholder="비밀번호를 입력해주세요."></td>
-								</tr>
-								<tr>
-									<td></td>
-									<td><span id="login_PwdCheck" style="color: red;"></span><br></td>
-								</tr>
-								<tr align="center">
-									<td colspan="2"><input type="button" value="로그인"
-										class="btn btn-success" id="login_SubmitBtn">
-										&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" value="취소"
-										class="btn btn-info" data-dismiss="modal"></td>
-								</tr>
-								<tr>
-									<td colspan="2" align="center"><br><a
-										id="kakao-login-btn"></a><a
-										href="http://developers.kakao.com/logout"
-										></a>
-									<td>
-								</tr>
-							</table>
-						</center>
-					</div>
+					<center>
+						<h1 id="login_Label">로그인</h1>
+						<table>
+							<tr align="center">
+								<td style="color: black;">아이디</td>
+								<td width="305px;"><input type="text" id="login_Id"
+									class="form-control" placeholder="이메일을 입력하세요."></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td><span id="login_IdCheck" style="color: red;"></span><br></td>
+							</tr>
+							<tr align="center">
+								<td style="color: black;">비밀번호&nbsp;</td>
+								<td><input type="password" id="login_Pwd"
+									class="form-control" placeholder="비밀번호를 입력해주세요."></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td><span id="login_PwdCheck" style="color: red;"></span><br></td>
+							</tr>
+							<tr align="center">
+								<td colspan="2"><input type="button" value="로그인"
+									class="btn btn-success" id="login_SubmitBtn">
+									&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" value="취소"
+									class="btn btn-info" data-dismiss="modal"></td>
+							</tr>
+							<tr>
+								<td colspan="2" align="center"><br> <a
+									id="kakao-login-btn"></a> <a
+									href="http://developers.kakao.com/logout"></a>
+								<td>
+							</tr>
+						</table>
+					</center>
 				</div>
 			</div>
 		</div>
@@ -442,7 +435,8 @@ body,
 						$.ajax({
 							url : "kakaoLogin.do",
 							type : "post",
-							data : "id=" + res.id + "&nick=" + res.properties.nickname,
+							data : "id=" + res.id + "&nick="
+									+ res.properties.nickname,
 							success : function() {
 								alert(res.properties.nickname + "님 환영합니다!!");
 								location.reload();
