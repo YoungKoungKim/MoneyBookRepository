@@ -165,54 +165,36 @@ $(document).ready(function() {
 			
 		$('#list_table').append(tag);
 	});
-
 	
-/* 	$(document).on("blur",".price",function(){
- 		var i = parseInt($(this).attr("id").replace("price",""));
-		$('#category'+i).attr('style', 'background-color:#FFFFFF');
-		$('#category'+(i+1)).removeAttr('disabled');
-		$('#category'+(i+1)).attr('style', 'background-color:#FFEFD5');
-			
-		$('#price'+i).attr('style', 'background-color:#FFFFFF');
-		$("#price"+(i+1)).attr("readonly",false);
-		$("#price"+(i+1)).attr('style', 'background-color:#FFEFD5');
-
-					 
-		$('#detail'+i).attr('style', 'background-color:#FFFFFF');
-		$("#detail"+(i+1)).attr("readonly",false);
-		$("#detail"+(i+1)).attr('style', 'background-color:#FFEFD5');
-		
-	}); */
-	
-	
-	$('.price').blur(function() {
+	$('.price').keyup(function() {
 		var i = parseInt($(this).attr("id").replace("price",""));
-		$('#category'+(i+1)).removeAttr('disabled');
+	 	$('#category'+(i+1)).removeAttr('disabled'); 
 		$("#price"+(i+1)).attr("readonly",false);
 		$("#detail"+(i+1)).attr("readonly",false);
-
+	});
+	
+ 	 $('.price').blur(function() {
+		var i = parseInt($(this).attr("id").replace("price",""));
 		$("#detail"+i).attr('style', 'background-color:#FFFFFF'); 
 		$("#price"+i).attr('style', 'background-color:#FFFFFF'); 
 		$("#category"+i).attr('style', 'background-color:#FFFFFF'); 
 		
-	});
+	}); 
 	
-	
-		$('.category' ).focus(function() {
+ 	 $(".category").focus(function() {
 			var i = parseInt($(this).attr("id").replace("category",""));
-			/* alert(i); */
+			$("select:not(#category"+i+")").attr('style', 'background-color:#FFFFFF'); 
+			$("input[type=text]:not(#price"+i+")").attr('style', 'background-color:#FFFFFF'); 
+			$("input[type=text]:not(#detail"+i+")").attr('style', 'background-color:#FFFFFF'); 
+			
+			
 			$('#category'+i).attr('style', 'background-color:#FFEFD5');
 			$("#price"+i).attr('style', 'background-color:#FFEFD5');
 			$('#detail'+i).attr('style', 'background-color:#FFEFD5');
 			
 		});
-	
-	
 
-		
    	$('#regist_btn').click(function (){
-   		
-   		
    		var list_size = parseInt($('.add_line_btn').attr("id").replace("add_line_btn",""));
    		var last_input = 0;
    		
@@ -323,6 +305,7 @@ div {
 	text-align: right;
 	margin-left: 5px;
 }
+
 </style>
 <title>가계부 등록</title>
 </head>
@@ -407,8 +390,7 @@ div {
 			<div id="list_div">
 				<input type="hidden" name="id_index" value="${param.id_index}">
 				<table id="list_table">
-				
-				<tr id="table_1" class="input_table">
+				<tr>
 							<td><select id="category1" name="category" class='category'>
 									<option value='' selected>카테고리 선택</option>
 									<option value="food">식비</option>
@@ -430,9 +412,8 @@ div {
 								id="price1" placeholder="가격을 입력하세요." > 
 							</td>
 						</tr>
-						
 					<c:forEach begin="2" end="5" varStatus="status">
-						<tr id="table_${status.index}" class="input_table">
+						<tr>
 							<td><select id="category${status.index}" class='category' name="category" disabled="disabled">
 									<option value='' selected>카테고리 선택</option>
 									<option value="food">식비</option>
