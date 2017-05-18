@@ -184,7 +184,7 @@ body {
 
 #wrapper {
 	background: #1f1f1f;
-	width: 260px;
+	width: 180px;
 	padding: 0 8px 10px;
 	border: 1px solid #141414;
 	margin: 20px auto;
@@ -193,27 +193,27 @@ body {
 
 main {
 	padding: 0;
-	width: 240px;
+	width: 160px;
 	margin: auto;
 	background: #141212;
 }
 
 #screen {
-	width: 240px;
+	width: 160px;
 	background: white;
 	margin: 15px 0 2px 0;
-	padding: 10px 10px;
+	padding: 5px 5px;
 	border-radius: 4px;
-	font-size: 3em;
+	font-size: 2em;
 	text-align: right;
 }
 
 #calculator button {
 	color: #AAA;
 	float: left;
-	width: 60px;
+	width: 40px;
 	font-size: 1.2em;
-	height: 60px;
+	height: 40px;
 	outline: none;
 	background: #3e3e3e;
 	border: 1px solid #1f1f1f;
@@ -243,8 +243,8 @@ main {
 }
 
 #calculator .btn-wide {
-	height: 60px !important;
-	width: 120px !important;
+	height: 40px !important;
+	width: 80px !important;
 }
 </style>
 
