@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>여기다 써야되나</title>
+<title>MoneyBook Main</title>
 <style type="text/css">
 
 </style>
