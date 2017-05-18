@@ -28,7 +28,7 @@ function addextraList(){
 				+"<span>"
 				+"<i id='it' style='color: #ADD8E6;' class='fa fa-cutlery' aria-hidden='true'></i>"
 				+"</span><br><span> "+data.list[i].price +"원</span><br>"
-				+"<span>"+data.list[i].percent+"</span></div>");
+				+"<span>"+data.list[i].percent+"%</span></div>");
 				}//식비
 				
 				else if(data.list[i].category == 'traffic'){
@@ -36,7 +36,7 @@ function addextraList(){
 				+"<span>"
 				+"<i id='it'style='color: #FF6347;' class='fa fa-bus' aria-hidden='true'></i>"
 				+"</span><br><span> "+data.list[i].price +"원</span><br>"
-				+"<span>"+data.list[i].percent+"</span></div>");
+				+"<span>"+data.list[i].percent+"%</span></div>");
 				}//교통비
 				
 				else if(data.list[i].category == 'commodity'){
@@ -44,7 +44,7 @@ function addextraList(){
 				+"<span>"
 				+"<i id ='it' style='color: #FFA500;' class='fa fa-shopping-cart' aria-hidden='true'></i>"
 				+"</span><br><span> "+data.list[i].price +"원</span><br>"
-				+"<span>"+data.list[i].percent+"</span></div>");
+				+"<span>"+data.list[i].percent+"%</span></div>");
 				}//생필품
 				
 				else if(data.list[i].category == 'beauty'){
@@ -52,7 +52,7 @@ function addextraList(){
 				+"<span>"
 				+"<i id='it' style='color: #FFB6C1; 'class='fa fa-bath' aria-hidden='true'></i>"
 				+"</span><br><span> "+data.list[i].price +"원</span><br>"
-				+"<span>"+data.list[i].percent+"</span></div>");
+				+"<span>"+data.list[i].percent+"%</span></div>");
 				}//미용
 				
 				else if(data.list[i].category == 'medical'){
@@ -60,7 +60,7 @@ function addextraList(){
 				+"<span>"
 				+"<i id='it'style='color: #6A5ACD;'class='fa fa-medkit' aria-hidden='true'></i></td>"
 				+"</span><br><span> "+data.list[i].price +"원</span><br>"
-				+"<span>"+data.list[i].percent+"</span></div>");
+				+"<span>"+data.list[i].percent+"%</span></div>");
 				}//의료
 				
 				else if(data.list[i].category == 'education'){
@@ -68,7 +68,7 @@ function addextraList(){
 				+"<span>"
 				+"<i id='it' style='color: #DDA0DD;'class='fa fa-book' aria-hidden='true'></i>"
 				+"</span><br><span> "+data.list[i].price +"원</span><br>"
-				+"<span>"+data.list[i].percent+"</span></div>");
+				+"<span>"+data.list[i].percent+"%</span></div>");
 				}//교육
 				
 				else if(data.list[i].category == 'phonefees'){
@@ -76,7 +76,7 @@ function addextraList(){
 				+"<span>"
 				+"<i id='it' style='color: #1E90FF;' class='fa fa-mobile' aria-hidden='true'></i>"
 				+"</span><br><span> "+data.list[i].price +"원</span><br>"
-				+"<span>"+data.list[i].percent+"</span></div>");
+				+"<span>"+data.list[i].percent+"%</span></div>");
 				}//통신비
 				
 				else if(data.list[i].category == 'saving'){
@@ -84,7 +84,7 @@ function addextraList(){
 				+"<span>"
 				+"<i id='it' style='color: #DAA520;' class='fa fa-database' aria-hidden='true'></i>"
 				+"</span><br><span> "+data.list[i].price +"원</span><br>"
-				+"<span>"+data.list[i].percent+"</span></div>");
+				+"<span>"+data.list[i].percent+"%</span></div>");
 				}//저축
 				
 				else if(data.list[i].category == 'utilitybills'){
@@ -92,7 +92,7 @@ function addextraList(){
 				+"<span>"
 				+"<i id='it'style='color: #708090;'class='fa fa-plug' aria-hidden='true'></i>"
 				+"</span><br><span> "+data.list[i].price +"원</span><br>"
-				+"<span>"+data.list[i].percent+"</span></div>");
+				+"<span>"+data.list[i].percent+"%</span></div>");
 				}//공과금
 				
 				else if(data.list[i].category == 'culturallife'){
@@ -100,7 +100,7 @@ function addextraList(){
 				+"<span>"
 				+"<i id='it' style='color: #3CB371;' class='fa fa-film' aria-hidden='true'></i>"
 				+"</span><br><span> "+data.list[i].price +"원</span><br>"
-				+"<span>"+data.list[i].percent+"</span></div>");
+				+"<span>"+data.list[i].percent+"%</span></div>");
 				}//문화생활비
 				
 				else if(data.list[i].category == 'otheritems'){
@@ -108,7 +108,7 @@ function addextraList(){
 				+"<span>"
 				+"<i id='it' style='color: #FA8072;' class='fa fa-minus-circle' aria-hidden='true'></i>"
 				+"</span><br><span> "+data.list[i].price +"원</span><br>"
-				+"<span>"+data.list[i].percent+"</span></div>");
+				+"<span>"+data.list[i].percent+"%</span></div>");
 				}//기타
 				
 				else if(data.list[i].category == 'incomes'){
@@ -116,7 +116,7 @@ function addextraList(){
 				+"<span>"
 				+"<i id='it' style='color: #9ACD32;'class='fa fa-krw' aria-hidden='true'></i>"
 				+"</span><br><span> "+data.list[i].price +"원</span><br>"
-				+"<span>"+data.list[i].percent+"</span></div>");
+				+"<span>"+data.list[i].percent+"%</span></div>");
 				}//수입
 				
 			}
