@@ -36,8 +36,9 @@ public class MoneyBookController {
 
 
 	@RequestMapping("bookmarkDelete.do")
-	public @ResponseBody HashMap<String, Object> bookmarkDelete(int id_index, int bookmarkNo) {
+	public @ResponseBody HashMap<String, Object> bookmarkDelete(HttpSession session, int bookmarkNo) {
 		HashMap<String, Object> params = new HashMap<>();
+		int id_index = (int) session.getAttribute("id_index");
 		params.put(BM.BOOKMARKNO, bookmarkNo);
 		params.put(BM.ID_INDEX, id_index);
 		int result = bookMarkService.bookMarkDelete(params);
@@ -57,8 +58,10 @@ public class MoneyBookController {
 	}
 	
 	@RequestMapping("bookmarkUpdate.do")
-	public @ResponseBody HashMap<String, Object> bookmarkUpdate(int id_index, int bookmarkNo,
+	public @ResponseBody HashMap<String, Object> bookmarkUpdate(HttpSession session, int bookmarkNo,
 			int price){
+		int id_index = (int) session.getAttribute("id_index");
+
 		HashMap<String, Object> params = new HashMap<>();
 		params.put(BM.BOOKMARKNO, bookmarkNo);
 		params.put(BM.ID_INDEX, id_index);
@@ -78,7 +81,9 @@ public class MoneyBookController {
 	}
 
 	@RequestMapping("bookmarkRegist.do")
-	public ModelAndView bookMarkRegist(int id_index, String category, String detail, String price) {
+	public ModelAndView bookMarkRegist(HttpSession session, String category, String detail, String price) {
+		int id_index = (int) session.getAttribute("id_index");
+
 		ModelAndView mav = new ModelAndView();
 		int resultCount = 0;
 
@@ -132,7 +137,9 @@ public class MoneyBookController {
 	}
 
 	@RequestMapping("findBookMark.do")
-	public @ResponseBody HashMap<String, Object> findBookMark(int id_index, int bookmarkNo) {
+	public @ResponseBody HashMap<String, Object> findBookMark(HttpSession session, int bookmarkNo) {
+		int id_index = (int) session.getAttribute("id_index");
+
 		HashMap<String, Object> response = new HashMap<>();
 		HashMap<String, Object> bmParams = new HashMap<>();
 		bmParams.put("id_index", id_index);
@@ -148,7 +155,9 @@ public class MoneyBookController {
 
 	@RequestMapping("moneyBookUpdateForm.do")
 	public 
-	@ResponseBody HashMap<String, Object> moneyBookUpdateForm(int id_index, Date date, int moneyBookNo) {
+	@ResponseBody HashMap<String, Object> moneyBookUpdateForm(HttpSession session, Date date, int moneyBookNo) {
+		int id_index = (int) session.getAttribute("id_index");
+
 		HashMap<String, Object> params = new HashMap<>();
 		String mbDate = moneyBookService.searchDate(date).get("date").toString();
 		// 클릭한 가계부 중 하나의 정보를 얻어옴 (selectOne)
@@ -158,7 +167,9 @@ public class MoneyBookController {
 	}
 
 	@RequestMapping("moneyBookDelete.do")
-	public @ResponseBody HashMap<String, Object> moneyBookDelete(int id_index, int moneyBookNo) {
+	public @ResponseBody HashMap<String, Object> moneyBookDelete(HttpSession session, int moneyBookNo) {
+		int id_index = (int) session.getAttribute("id_index");
+
 		HashMap<String, Object> response = new HashMap<>();
 		int result = moneyBookService.moneyBookDelete(moneyBookNo, id_index);
 
@@ -190,7 +201,9 @@ public class MoneyBookController {
 
 	// 혜리언니
 	@RequestMapping("viewMyPage.do")
-	public ModelAndView viewMyPage(int id_index, Date date) {
+	public ModelAndView viewMyPage(HttpSession session, Date date) {
+		int id_index = (int) session.getAttribute("id_index");
+
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("monthAmount", moneyBookService.totalMonthAmount(id_index, date));
 		mav.addObject("bookMarkList", bookMarkService.bookMarkSearch(id_index));
@@ -200,7 +213,9 @@ public class MoneyBookController {
 
 	// 달력에 가계부 내역 뿌리는 ajax용 리퀘스트
 	@RequestMapping("moneyBookView.do")
-	public @ResponseBody HashMap<String, Object> moneyBookView(int id_index, Date date) {
+	public @ResponseBody HashMap<String, Object> moneyBookView(HttpSession session, Date date) {
+		int id_index = (int) session.getAttribute("id_index");
+
 		List<String[]> amountList = new ArrayList<>();
 		amountList = moneyBookService.oneMonthAmount(id_index, date);
 
@@ -260,7 +275,9 @@ public class MoneyBookController {
 	
 
 	@RequestMapping("moneyBookWriteForm.do")
-	public ModelAndView moneyBookWriteForm(int id_index) {
+	public ModelAndView moneyBookWriteForm(HttpSession session) {
+		int id_index = (int) session.getAttribute("id_index");
+
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("bookMarkList", bookMarkService.bookMarkSearch(id_index));
 		mav.setViewName("empty/moneyBookAdd");
@@ -269,7 +286,9 @@ public class MoneyBookController {
 
 	// 북마크 입력창
 	@RequestMapping("bookmarkRegistForm.do")
-	public ModelAndView bookmarkRegistForm(int id_index) {
+	public ModelAndView bookmarkRegistForm(HttpSession session) {
+		int id_index = (int) session.getAttribute("id_index");
+
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("bookMarkList", bookMarkService.bookMarkSearch(id_index));
 		mav.setViewName("empty/bookmarkRegistForm");
@@ -278,13 +297,16 @@ public class MoneyBookController {
 
 	@RequestMapping("moneyBookDetailView.do")
 	public 
-	@ResponseBody List<MoneyBook> moneyBookDetailView(int id_index, Date date) {
+	@ResponseBody List<MoneyBook> moneyBookDetailView(HttpSession session, Date date) {
+		int id_index = (int) session.getAttribute("id_index");
 		return moneyBookService.getDayContent(date, id_index);
 	}
 
 	@RequestMapping("moneyBookRegist.do")
-	public ModelAndView moneyBookRegist(int id_index, String category, String detail, String price, int year, int month,
+	public ModelAndView moneyBookRegist(HttpSession session, String category, String detail, String price, int year, int month,
 			int day) {
+		int id_index = (int) session.getAttribute("id_index");
+
 		System.out.println("가계부 등록 요청에 왔다");
 		ModelAndView mav = new ModelAndView();
 		int resultCount = 0;
@@ -340,7 +362,8 @@ public class MoneyBookController {
 	
 	//가계부 화면에서 즐겨찾기 ajax 처리
 	@RequestMapping("addBookMarkAtMoneybook.do")
-	public @ResponseBody HashMap<String, Object> addBookMarkAtMoneybook(int id_index, String category, String detail, String price, Date date) {
+	public @ResponseBody HashMap<String, Object> addBookMarkAtMoneybook(HttpSession session, String category, String detail, String price, Date date) {
+		int id_index = (int) session.getAttribute("id_index");
 		MoneyBook mb = new MoneyBook();
 		mb.setId_index(id_index);
 		mb.setCategory(category);
