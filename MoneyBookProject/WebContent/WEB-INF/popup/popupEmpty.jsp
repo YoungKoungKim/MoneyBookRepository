@@ -4,13 +4,22 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script src="https://code.jquery.com/jquery-2.2.4.min.js"
+	integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+	crossorigin="anonymous"></script>
 <title>Insert title here</title>
 <script type="text/javascript">
-if('${param.succ}' == "sucess"){
-	opener.parent.location.reload();
-	window.close();
-	//location.reload();
-} 
+$(document).ready(function() {
+	if('${param.succ}' == "sucess"){
+		opener.parent.location.reload();
+		window.close();
+		//location.reload();
+	} 
+	
+});
+
+
+
 </script>
 </head>
 <body>

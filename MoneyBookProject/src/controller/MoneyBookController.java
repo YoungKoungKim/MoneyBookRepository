@@ -83,20 +83,22 @@ public class MoneyBookController {
 		int resultCount = 0;
 
 		int num = bookMarkService.checkbookNo(id_index);
-
-		if (num >= 6) {
+		String[] category_arr = category.split(",");
+		
+		System.out.println(category_arr.length);
+		num= num + category_arr.length;
+		if (num > 6) {
 			mav.addObject("msg", "북마크는 6개 이상 등록할 수 없습니다.");
+			mav.setViewName("redirect:/bookmarkRegistForm.do");
 		} else {
-			String[] category_arr = category.split(",");
+			//String[] category_arr = category.split(",");
 			String[] detail_arr = detail.split(",");
 			String[] price_arr = price.split(",");
 			List<HashMap<String, Object>> bookmarkList = bookMarkService.bookMarkSearch(id_index);
 
 			for (int i = 0; i < category_arr.length; i++) {
 				for (int j = 0; j < bookmarkList.size(); j++) {
-					System.out.println(j + "a");
 					if (bookmarkList.get(j).get("detail").equals(detail_arr[i])) {
-						System.out.println(bookmarkList.get(j).get("detail"));
 						mav.addObject("id_index", id_index);
 						mav.addObject("msg", "이미 있는 즐겨찾기 입니다.");
 						mav.setViewName("redirect:/bookmarkRegistForm.do");
@@ -112,7 +114,7 @@ public class MoneyBookController {
 				int result = bookMarkService.bookMarkWrite(params);
 				if (result == 3101) {
 					// 성공
-					//mav.addObject("msg", "즐겨찾기 등록에 성공");
+					mav.addObject("msg", "즐겨찾기 등록에 성공");
 					mav.addObject("succ", "sucess");
 					mav.setViewName("redirect:/popup.do");
 				}else{
@@ -122,7 +124,6 @@ public class MoneyBookController {
 		}
 		
 		String date = (String) moneyBookService.searchDate(new Date()).get("date");
-		System.out.println("date : "+date);
 		mav.addObject("id_index", id_index);
 		mav.addObject("date", date);
 	
@@ -132,8 +133,6 @@ public class MoneyBookController {
 
 	@RequestMapping("findBookMark.do")
 	public @ResponseBody HashMap<String, Object> findBookMark(int id_index, int bookmarkNo) {
-		System.out.println("북마크 하나 찾으러 왔다");
-		System.out.println(id_index);
 		HashMap<String, Object> response = new HashMap<>();
 		HashMap<String, Object> bmParams = new HashMap<>();
 		bmParams.put("id_index", id_index);
