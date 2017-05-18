@@ -489,7 +489,7 @@ var view = {
 
 			$.ajax({
 				url : 'addBookMarkAtMoneybook.do',
-				data : "id_index="+${param.id_index}+
+				data : "id_index="+${id_index}+
 				"&category="+$('#category_val'+id_index).val()+
 				"&detail="+$('#detail_val'+id_index).val()+
 				"&price="+$('#price_val'+id_index).val()+
