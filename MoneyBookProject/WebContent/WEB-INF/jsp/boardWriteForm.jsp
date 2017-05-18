@@ -152,6 +152,24 @@ function addextraList(){
 		today = yyyy + '-' + mm + '-' + dd;
 		$("#nowDate").text("날짜 : " + today); //날짜 표시
 
+		$('#back').on('click', function () {
+			location.href="viewMyPage.do?id_index=${id_index}&date=${date}";
+		});
+		
+		$("#formsubmitBtn").on("click", function() {
+			var content1 = $('#textContent').val(); 
+			var title = $('#title1').val();
+		 	var result = content1.replace(/\s+$/, '');
+			var result2 = title.replace(/\s+$/, '');
+			if(result2 == ""){
+				  alert("제목을 입력해주세요");
+				  }	else if(result == ""){
+					  alert("내용을 입력해주세요");
+				  } else {
+					  $("#formsubmit").submit();
+				  }
+			 
+		 });
 	});
 </script>
 <style type="text/css">
@@ -250,7 +268,8 @@ select {
 
 <body>
 	<div class="root">
-		<form action="boardWrite.do" method="post">
+	
+		<form action="boardWrite.do" method="post" id="formsubmit">
 					<input type="hidden" value="${date}" name="date2" id="date2">
 					<input type="hidden" value="${nick}" name="nick">
 					<input type="hidden" value="${id_index}" name="id_index">
@@ -267,7 +286,7 @@ select {
 						<td>
 						제목 
 							&nbsp;
-							 <input style="width: 400px" type="text" name="title" placeholder="제목을 입력하세요">
+							 <input style="width: 400px" type="text" id="title1" name="title" placeholder="제목을 입력하세요">
 						</td>
 						<td>
 							<span id="nowDate"></span>
@@ -284,11 +303,10 @@ select {
 					
 			</div>
 			<div class="bottom">
-				<br>
-				<textarea style="resize: inherit;" rows="15" cols="110" name="content" placeholder="내용을 입력하세요"></textarea>
-				<br> 
-				<input type="submit" class="myButton" value="확인"> 
-				<input type="button" class="myButton" value="취소" onclick="location.href='history.back()'">
+				<textarea style="resize: inherit;" rows="15" cols="110" name="content" id="textContent" placeholder="내용을 입력하세요"></textarea>
+			<br>
+				<span><input type="button" class="myButton" value="확인" id="formsubmitBtn"></span>
+				<span></span><input type="button" id="back" class="myButton" value="취소"></span>
 			</div>
 		</form>
 
