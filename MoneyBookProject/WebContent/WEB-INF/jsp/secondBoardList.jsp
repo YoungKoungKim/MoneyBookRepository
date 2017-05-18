@@ -163,6 +163,11 @@ li {
 			// a 옆의 태그중 ul 태그에 hide 클래스 태그를 넣던지 빼던지 한다.
 			$(this).next("ul").toggleClass("hide");
 		});
+		
+		$("#backback").click(function(){
+			alert("로그인을 해주세요");
+		});
+		
 	});
 </script>
 </head>
@@ -224,7 +229,7 @@ li {
 							<td class="boardNo" >${board.boardNo }</td>
 
 							<td class="title" ><a style="margin-right: 100px;"
-								href="boardDetailView.do?boardNo=${board.boardNo}">${board.title }
+								href="secondBoardDetailView.do?boardNo=${board.boardNo}">${board.title }
 									<span>[${board.commentNum}]</span></a></td>
 
 							<td class="nick"><img id="img1"
@@ -261,9 +266,18 @@ li {
 								<a href="secondBoardList.do?page=${end+1 }">[다음]</a>
 							</c:if>
 						</td>
-						<td>
-							<input type="button" value="글쓰기" onclick="location.href='secondBoardWriteForm.do?date='">
-						</td>
+						<c:choose>
+							<c:when test="${id_index != null }">
+								<td>
+									<input type="button" value="글쓰기" onclick="location.href='secondBoardWriteForm.do'">
+								</td>
+							</c:when>
+							<c:when test="${id_index == null }">
+								<td>
+									<input type="button" value="글쓰기" id="backback">
+								</td>
+							</c:when>
+						</c:choose>
 					</tr>
 				</table>
 			</div>

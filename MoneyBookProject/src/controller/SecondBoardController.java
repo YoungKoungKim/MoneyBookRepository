@@ -52,9 +52,9 @@ public class SecondBoardController {
 			session.setAttribute("readCheck", boardNo);
 			boardservice.boardReadCount(boardNo);
 		}
-
 		mav.addAllObjects(boardservice.searchText(boardNo));
 		mav.setViewName("secondBoardDetailView");
+		
 		return mav;
 	}
 
@@ -119,9 +119,14 @@ public class SecondBoardController {
 	}
 
 	@RequestMapping("secondBoardWrite.do")
-	public String boardWrite(Board board, Date date2) {
-		boardservice.boardWrite(board, date2);
+	public String boardWrite(Board board) {
+		boardservice.boardWrite(board);
 		return "redirect:secondBoardList.do";
+	}
+	
+	@RequestMapping("secondBoardWriteForm.do")
+	public String boardWrite() {
+		return "secondBoardWriteForm";
 	}
 
 	 @RequestMapping("secondBoardDelete.do")

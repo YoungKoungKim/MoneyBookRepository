@@ -94,7 +94,7 @@ public class SecondBoardService implements ISecondBoardService {
 	}
 
 	@Override
-	public void boardWrite(Board board, Date date2) {
+	public void boardWrite(Board board) {
 		bDao.insertBoard(board);
 	}
 
