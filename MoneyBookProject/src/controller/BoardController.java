@@ -123,6 +123,7 @@ public class BoardController {
 
 	@RequestMapping("boardWrite.do")
 	public String boardWrite(Board board, Date date2) {
+		System.out.println(date2);
 		boardservice.boardWrite(board, date2);
 		return "redirect:boardList.do";
 	

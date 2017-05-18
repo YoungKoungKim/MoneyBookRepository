@@ -284,7 +284,9 @@ function addextraList(){
 				</div>
 			</div>
 
-			<div class="left" id="left"></div>
+			<div class="left" id="left">
+					<div><h2> ${year} 년 ${nowMonth }월 가계부 공유 </h2><br></div>
+			</div>
 
 			<div class="right">
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;

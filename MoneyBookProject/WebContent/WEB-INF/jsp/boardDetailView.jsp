@@ -415,6 +415,7 @@ function getCommentList() {
 		</div>
 
 		<div class="left" id="left" >
+		<div><h2> ${year} 년 ${nowMonth }월 가계부 공유 </h2><br></div>
 			
 		</div>
 		
