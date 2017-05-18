@@ -93,17 +93,23 @@ public class BoardController {
 			if (session.getAttribute("id_index") != null) {
 				int id_index = (int) session.getAttribute("id_index");
 				if (recommendservice.Searchrecommend(boardNo, id_index, commentNo) == false) {
+					//처음 추천을 하는 상황
 					boardservice.boardRecommand(boardNo);
 					recommendservice.Writerecommend(boardNo, id_index, commentNo);
 					board = (Board) boardservice.searchText(boardNo).get("board");
 					params.put("code", 0);
 					params.put("recommend", board.getRecommend());
+				} else {
+					//이미 추천을 했어
+					params.put("code", 3);
 				}
 			}else{
+				//로그인을 해야지
 				params.put("code", 1);
 				params.put("recommend", board.getRecommend());
 			}
 		} catch (NullPointerException e) {
+			
 		}
 
 		return params;

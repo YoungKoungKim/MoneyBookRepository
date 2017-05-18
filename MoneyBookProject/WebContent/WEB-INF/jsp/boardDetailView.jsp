@@ -30,7 +30,7 @@ function getCommentList() {
 					if(id_index == data[comment].id_index)
 					{
 
-					$("#commentTable").html($("#commentTable").html() + "<tr>	<td>" + data[comment].nick + "&nbsp;&nbsp;&nbsp;" + time +"&nbsp;&nbsp;&nbsp; <span id='spanrecommend'>추천:"+ data[comment].recommend+"</span>"
+					$("#commentTable").html($("#commentTable").html() + "<tr>	<td>" + data[comment].nick + "&nbsp;&nbsp;&nbsp;" + time +"&nbsp;&nbsp;&nbsp; <span id='rec_" + data[comment].commentNo + "'>추천:"+ data[comment].recommend+"</span>"
 					+ "</td></tr><tr><td> <textarea class='comment' style='resize: none;' id='comment_"+data[comment].commentNo+"' rows='2' cols='100' readonly='readonly'> "+ data[comment].content + "</textarea>"
 							+"<input class='delete' id='"+data[comment].commentNo+"@' name='"+data[comment].commentNo+"' type='button' value='삭제'>"
 							+"<input class='update' type='button' id='"+data[comment].commentNo+"@' name='"+data[comment].commentNo+"' value='수정'></td> </tr>"
@@ -39,7 +39,7 @@ function getCommentList() {
 					}else {
 						$("#commentTable").html($("#commentTable").html() + 
 						"<tr>	<td>" + data[comment].nick + 
-						"&nbsp;&nbsp;&nbsp;" + time +"&nbsp;&nbsp;&nbsp; <span id='spanrecommend'>추천:"+ data[comment].recommend+"</span>"
+						"&nbsp;&nbsp;&nbsp;" + time +"&nbsp;&nbsp;&nbsp; <span id='rec_" + data[comment].commentNo + "'>추천:"+ data[comment].recommend+"</span>"
 						+"</td></tr><tr><td> <textarea class='comment' style='resize: none;' rows='2' cols='100' readonly='readonly'> "+ data[comment].content + "</textarea>"
 						+"<input class='recommendcomment' type='button' id='" + data[comment].commentNo + "@' name ='" + data[comment].commentNo + "' value='추천'> </td></tr>"
 						);						
@@ -95,6 +95,7 @@ function getCommentList() {
 					$('.recommendcomment').on('click',function(){
 						var idno = $(this).attr('id').split('@')[0];
 						var commentNo = $(this).attr('name');
+						
 						$.ajax({
 							type : 'post',
 							url : 'commentRecommend.do',
@@ -102,7 +103,7 @@ function getCommentList() {
 							dataType : 'json',
 							success : function(data){
 								if(data.code ==0){
-									$('#spanrecommend').text('추천 :'+data.recommend);
+									$('#rec_' + idno).text('추천 :'+data.recommend);
 									alert("추천되었습니다.");
 								}else if(data.code ==1){
 										$('#spanrecommend').text('추천 :'+data.recommend);						
@@ -115,6 +116,7 @@ function getCommentList() {
 						      
 						       }
 							});
+						
 					});
 					
 				},
@@ -267,12 +269,15 @@ function getCommentList() {
 				dataType : 'json',
 				success : function(data) {
 					if(data.code ==0){
-					$('#recommend').text(data.recommend);						
+						//추천 성공
+						$('#recommend').text(data.recommend);	
+						alert("추천하셨습니다.");
 					}else if(data.code ==1){
-						$('#recommend').text(data.recommend);						
-						alert("회원만 가능합니다.");
+						//로그인해
+						alert("로그인해주세요.");
 					}else if(data.code==3){
-						alert("이미추천하셨습니다.");
+						//이미 추천해썽
+						alert("이미 추천한 게시글입니다.");
 					}
 				}, 
 				error : function(data){
