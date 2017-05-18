@@ -172,6 +172,7 @@ body {
 	margin: 0;
 	padding: 0;
 	font-family: 'Arimo', sans-serif;
+	opacity: 0.85;
 }
 
 #calculator, #calculator:before, #calculator:after {
@@ -218,11 +219,11 @@ main {
 }
 
 #calculator button:hover {
-	background: #424242;
+	background: #52615A;
 }
 
 #calculator button.blue {
-	background: #007191;
+	background: #1ABC9C;
 	color: black;
 }
 
