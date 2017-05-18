@@ -1,19 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>아무말 대잔치 게시판</title>
 <script src="https://code.jquery.com/jquery-2.2.4.min.js"
 	integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
 	crossorigin="anonymous"></script>
 <style type="text/css">
-
 .boardNo{
 	width: 50px;
 	text-align: center;
@@ -57,9 +54,8 @@ select {
 	padding: .3em .3em; /* 여백으로 높이 설정 */
 	margin-right: 10px;
 	font-family: inherit; /* 폰트 상속 */
-	background:
-		url(https://farm1.staticflickr.com/379/19928272501_4ef877c265_t.jpg)
-		no-repeat 95% 50%; /* 네이티브 화살표 대체 */
+	background: url(https://farm1.staticflickr.com/379/19928272501_4ef877c265_t.jpg)
+				no-repeat 95% 50%; /* 네이티브 화살표 대체 */
 	border: 1px solid #999;
 	border-radius: 0px; /* iOS 둥근모서리 제거 */
 	-webkit-appearance: none; /* 네이티브 외형 감추기 */
@@ -169,11 +165,8 @@ li {
 		});
 	});
 </script>
-
 </head>
 <body>
-	<!-- 		<input type="button" value="공유" id="form" onclick="location.href='boardWriteForm.do?id_index=4&date=2017-04-28'"> -->
-
 	<br>
 	<div class="root">
 		<div class="left">
@@ -181,29 +174,12 @@ li {
 				<br> &nbsp;&nbsp;&nbsp; <a class="myButton" href="boardList.do">전체게시판</a>
 				<br> &nbsp;&nbsp;&nbsp; <a class="myButton" href="secondBoardList.do">아무말대잔치</a>
 			</div>
-			<div>
-				<br>
-				<ul>
-					<li class="menu"><a class="myButton">연령별 게시판</a>
-						<ul class="hide">
-
-							<li><a class="myButton" href="boardList.do?ageType=10">10대</a>
-							<li><a class="myButton" href="boardList.do?ageType=20">20대
-							</a></li>
-
-							<li><a class="myButton" href="boardList.do?ageType=30">
-									30대</a></li>
-							<li><a class="myButton" href="boardList.do?ageType=40">40대
-									이상 </a></li>
-						</ul></li>
-				</ul>
-			</div>
 		</div>
 
 		<div class="right">
 
 			<div align="right" style="margin-bottom: 20px;">
-				<form action="boardList.do">
+				<form action="secondBoardList.do">
 					<table>
 						<tr align="center">
 							<td><select name="category">
@@ -218,26 +194,23 @@ li {
 			</div>
 			<div>
 				<table class="tablelist">
-					<c:forEach var="best" items="${boardBest }">
+					<c:forEach var="best" items="${boardBest}">
 						<tr>
 							<td class="boardNo" >best</td>
-
 							<td class="title">
-							<a style="color: red; margin-right: 100px;"
-								href="boardDetailView.do?boardNo=${best.boardNo}">${best.title }
-									<samp>[${best.commentNum}]</samp>
-							</a>
-							</td>
+								<a style="color: red; margin-right: 100px;"
+									href="secondBoardDetailView.do?boardNo=${best.boardNo}">${best.title}
+										<samp>[${best.commentNum}]</samp></a></td>
 
 							<td class="nick"><img id="img1"
 								src="homeCss/assets/images/demo/name.png" alt="" />${best.nick }</td>
 
 							<td class="Date"><img id="img1" src="homeCss/assets/images/demo/date.png"
-								alt="" /> <fmt:formatDate value="${best.date }"
-									pattern="yyyy-MM-dd" /></td>
+								alt="" /> <fmt:formatDate value="${best.date }" pattern="yyyy-MM-dd" /></td>
 
-							<td class="recommend"><img id="img1"
-								src="homeCss/assets/images/demo/recommend.png" alt="" />${best.recommend }</td>
+							<td class="recommend"><img id="img1" src="homeCss/assets/images/demo/recommend.png" 
+								alt="" />${best.recommend }</td>
+							
 							<td class="ViewNo"><img id="img1" src="homeCss/assets/images/demo/view.png"
 								alt="" />${best.viewNo }</td>
 						</tr>
@@ -252,8 +225,7 @@ li {
 
 							<td class="title" ><a style="margin-right: 100px;"
 								href="boardDetailView.do?boardNo=${board.boardNo}">${board.title }
-									<span>[${board.commentNum}]</span>
-							</a></td>
+									<span>[${board.commentNum}]</span></a></td>
 
 							<td class="nick"><img id="img1"
 								src="homeCss/assets/images/demo/name.png" alt="" />${board.nick }</td>
@@ -261,11 +233,12 @@ li {
 							<td class="Date"><img id="img1" src="homeCss/assets/images/demo/date.png"
 								alt="" /> <fmt:formatDate value="${board.date }"
 									pattern="yyyy-MM-dd" /></td>
-							<td class="recommend"><img id="img1"
-								src="homeCss/assets/images/demo/recommend.png" alt="" />${board.recommend }</td>
+									
+							<td class="recommend"><img id="img1" src="homeCss/assets/images/demo/recommend.png" 
+								alt="" />${board.recommend }</td>
+								
 							<td class="ViewNo"><img id="img1" src="homeCss/assets/images/demo/view.png"
 								alt="" />${board.viewNo }</td>
-
 						</tr>
 					</c:forEach>
 				</table>
@@ -274,26 +247,29 @@ li {
 				<table>
 					<tr align="center">
 						<td width="1250px" colspan="5"><c:if test="${start != 1 }">
-								<a href="boardList.do?page=${start-1 }">[이전]</a>
+								<a href="secondBoardList.do?page=${start-1 }">[이전]</a>
 							</c:if> <c:forEach begin="${start }" end="${end }" var="i">
 								<c:choose>
 									<c:when test="${i == current }">
 											[${i }]
 										</c:when>
 									<c:otherwise>
-										<a
-											href="boardList.do?page=${i }&ageType=${ageType}&content=${content}&category=${category}">[${i }]</a>
+										<a href="secondBoardList.do?page=${i }&content=${content}&category=${category}">[${i }]</a>
 									</c:otherwise>
 								</c:choose>
 							</c:forEach> <c:if test="${end != last }">
-								<a href="boardList.do?page=${end+1 }">[다음]</a>
-							</c:if></td>
+								<a href="secondBoardList.do?page=${end+1 }">[다음]</a>
+							</c:if>
+						</td>
+						<td>
+							<input type="button" value="글쓰기" onclick="location.href='secondBoardWriteForm.do?date='">
+						</td>
 					</tr>
 				</table>
 			</div>
 			<br>
 		</div>
 	</div>
-
+	
 </body>
 </html>
