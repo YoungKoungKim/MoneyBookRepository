@@ -362,7 +362,6 @@ var controller = {
 		    $('#calculator button').click(function () {
 		            
 		      var button = $(this).text();
-		    	alert(button);
 		      if (!isNaN(parseInt(button))) {
 		        button = parseInt(button);
 		      } 
