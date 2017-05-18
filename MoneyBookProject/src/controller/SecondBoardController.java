@@ -3,7 +3,6 @@ package controller;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
@@ -18,30 +17,28 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import model.Board;
-import model.ExtraBoard;
-import service.IBoardService;
 import service.IRecommendService;
+import service.ISecondBoardService;
 
 @Controller
-public class BoardController {
-
+public class SecondBoardController {
 	@Autowired
-	private IBoardService boardservice;
+	private ISecondBoardService boardservice;
 	@Autowired
 	private IRecommendService recommendservice;
 	
-	@RequestMapping("boardList.do")
+	@RequestMapping("secondBoardList.do")
 	public ModelAndView boardList(@RequestParam(defaultValue = "1") int page,
-			@RequestParam(defaultValue = "0") String ageType, @RequestParam(defaultValue = "0") String category,
-			@RequestParam(defaultValue = "0") String content) {
+								@RequestParam(defaultValue = "0") String category,
+								@RequestParam(defaultValue = "0") String content) {
 		ModelAndView mav = new ModelAndView();
-		 mav.addObject("boardBest", boardservice.bestView(3));
-		mav.addAllObjects(boardservice.getboardList(page, ageType, category, content));
-		mav.setViewName("boardList");
+		mav.addObject("boardBest", boardservice.bestView(3));
+		mav.addAllObjects(boardservice.getboardList(page, category, content));
+		mav.setViewName("secondBoardList");
 		return mav;
 	}
 
-	@RequestMapping("boardDetailView.do")
+	@RequestMapping("secondBoardDetailView.do")
 	public ModelAndView boardDetailView(HttpSession session, int boardNo) {// id_index 빼야됨
 		ModelAndView mav = new ModelAndView();
 		try {
@@ -57,36 +54,35 @@ public class BoardController {
 		}
 
 		mav.addAllObjects(boardservice.searchText(boardNo));
-		mav.setViewName("boardDetailView");
+		mav.setViewName("secondBoardDetailView");
 		return mav;
 	}
 
-	@RequestMapping("boardDetailList.do")
+	@RequestMapping("secondBoardDetailList.do")
 	public @ResponseBody HashMap<String, Object>boardDetailList(int boardNo) {// id_index 빼야됨
 		return boardservice.searchText(boardNo);
 	}
 	
-	
-	@RequestMapping("boardBest.do")
+	@RequestMapping("secondBoardBest.do")
 	public ModelAndView boardBest() {
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("boardBest", boardservice.bestView(3));
-		mav.setViewName("boardDetailView");
+		mav.setViewName("secondBoardDetailView");
 		return mav;
 	}
 
-	@RequestMapping("boardUpdateForm.do")
+	@RequestMapping("secondBoardUpdateForm.do")
 	public ModelAndView boardUpdateForm(int boardNo) {
 		// 일단 리스트로 받기
 		ModelAndView mav = new ModelAndView();
 		mav.addAllObjects(boardservice.searchText(boardNo));
-		mav.setViewName("boardUpdateForm");
+		mav.setViewName("secondBoardUpdateForm");
 		return mav;
 	}
 
-	@RequestMapping("boardRecommend.do")
+	@RequestMapping("secondBoardRecommend.do")
 	public @ResponseBody HashMap<String, Object> boardRecommend(int boardNo, HttpSession session,
-			@RequestParam(defaultValue = "0") int commentNo) {
+													@RequestParam(defaultValue = "0") int commentNo) {
 		Board board = null;
 		HashMap<String, Object> params = new HashMap<>();
 		try {
@@ -104,40 +100,40 @@ public class BoardController {
 				params.put("recommend", board.getRecommend());
 			}
 		} catch (NullPointerException e) {
+		
 		}
 
 		return params;
 	}
 
-	@RequestMapping("boardUpdate.do")
+	@RequestMapping("secondBoardUpdate.do")
 	public String boardUpdate(Board board) {
 		int result = boardservice.boardUpdate(board);
 		if (result == 4001) {
 			System.out.println("성공");
-			return "redirect:boardDetailView.do?boardNo=" + board.getBoardNo();
+			return "redirect:secondBoardDetailView.do?boardNo=" + board.getBoardNo();
 		} else {
 			System.out.println("실패");
-			return "redirect:boardUpdateForm.do?boardNo=" + board.getBoardNo();
+			return "redirect:secondBoardUpdateForm.do?boardNo=" + board.getBoardNo();
 		}
 	}
 
-	@RequestMapping("boardWrite.do")
+	@RequestMapping("secondBoardWrite.do")
 	public String boardWrite(Board board, Date date2) {
 		boardservice.boardWrite(board, date2);
-		return "redirect:boardList.do";
-	
+		return "redirect:secondBoardList.do";
 	}
 
-	 @RequestMapping("boardDelete.do")
+	 @RequestMapping("secondBoardDelete.do")
 	 public String boardDelete(int boardNo){
 		 boardservice.boardDelete(boardNo);
-		 return "redirect:boardList.do";
+		 return "redirect:secondBoardList.do";
 	 }
 	
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		binder.registerCustomEditor(Date.class, new CustomDateEditor(sdf, true));
-
 	}
+
 }
