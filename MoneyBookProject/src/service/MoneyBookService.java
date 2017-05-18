@@ -227,6 +227,7 @@ public class MoneyBookService implements IMoneyBookService {
 
 		HashMap<String, Object> params = new HashMap<>();
 		params.put("date", format.format(date));
+		params.put("year", year);
 		params.put("nowMonth", calendar.get(calendar.MONTH) + 1);
 		params.put("startMonth", format.format(firstMonth));
 		params.put("endMonth", format.format(endMonth));

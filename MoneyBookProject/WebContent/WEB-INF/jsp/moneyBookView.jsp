@@ -249,6 +249,7 @@ main {
 <script type="text/javascript">
 var boardWriteDate;
 var clickDate;
+var modifyMoneyBookNo;
 
 $('#detail').css('margin', $('calendar').attr('margin'));
 
@@ -453,8 +454,17 @@ var view = {
 		      var numLength = num.toString().length;
 		    }
 		    
-		    if (numLength >= 8) {
-		      return num.toExponential(2);
+		    if (numLength >= 11) {
+		    	var cipher = num.toString().split('.');
+		    	if (cipher[1] == undefined) {
+		    		return num.toExponential(4);
+		    	} else if (cipher[1].length > 0) {
+		    		var effectiveNum = cipher[1].substr(0, 2);
+		    		var resultNum = cipher[0] + "." + effectiveNum;
+		    		return resultNum;
+		    	} else {
+		    		return num.toExponential(4);
+		    	}
 		    } else {
 		      return num;
 		    }   
@@ -510,52 +520,7 @@ var view = {
 					$('#category').val(data.moneyBook.category);
 					$('#edt_detail').val(data.moneyBook.detail);
 					$('#edt_price').val(data.moneyBook.price);
-					
-					$('#btn_delete').click(function() {
-						$.ajax({
-							type : 'post',
-							url : 'moneyBookDelete.do',
-							dataType : 'json',
-							data : 'id_index=${id_index}&moneyBookNo='
-									+ data.moneyBook.moneyBookNo,
-							success : function(data) {
-								alert(data.msg);
-								if (data.result) {
-									location.reload();
-								} else {
-									//창 냅두기
-								}
-							},
-							error : function() {
-								alert('error');
-							}
-						});
-					});
-					
-					$('#btn_update').click(function() {
-						$.ajax({
-							type : 'post',
-							url : 'moneyBookUpdate.do',
-							dataType : 'json',
-							data : 'id_index=${id_index}'
-									+ '&moneyBookNo=' + data.moneyBook.moneyBookNo
-									+ '&category=' + $('#category').val()
-									+ '&detail=' + $('#edt_detail').val()
-									+ '&price=' + $('#edt_price').val()
-									+ '&date=' + $('#datepicker').val(),
-							success : function(data) {
-								alert(data.msg);
-								if (data.result) {
-									location.reload();
-								} else {
-									//창 냅두기
-								}
-							},
-							error : function() {
-								alert('error');
-							}
-						});
-					});
+					modifyMoneyBookNo = data.moneyBook.moneyBookNo;
 					
 				},
 				error : function() {
@@ -654,9 +619,9 @@ var view = {
 							success : function(data) {
 								if (data.length == 0) {
 									$('#detailTable thead').hide();
-									var img = "<center><br><h5>아직 등록된 데이터가 없습니다!</h5>"
-												+"<img src='assets/img/ryan_broken.gif'"+
-												"style='width='200px'; height='200px''></center>";
+									var img = "<center><br><br>"
+												+"<img src='jpg/no_data.png'"+
+												"></center>";
 									$('#detailTable tbody').append(img);
 								} else {
 									$('#detailTable thead').show();
@@ -684,6 +649,52 @@ var view = {
 				}
 
 		    }
+		});
+		
+		$('#btn_delete').click(function() {
+			$.ajax({
+				type : 'post',
+				url : 'moneyBookDelete.do',
+				dataType : 'json',
+				data : 'id_index=${id_index}&moneyBookNo='
+						+ modifyMoneyBookNo,
+				success : function(data) {
+					alert(data.msg);
+					if (data.result) {
+						location.reload();
+					} else {
+						//창 냅두기
+					}
+				},
+				error : function() {
+					alert('error');
+				}
+			});
+		});
+		
+		$('#btn_update').click(function() {
+			$.ajax({
+				type : 'post',
+				url : 'moneyBookUpdate.do',
+				dataType : 'json',
+				data : 'id_index=${id_index}'
+						+ '&moneyBookNo=' + modifyMoneyBookNo
+						+ '&category=' + $('#category').val()
+						+ '&detail=' + $('#edt_detail').val()
+						+ '&price=' + $('#edt_price').val()
+						+ '&date=' + $('#datepicker').val(),
+				success : function(data) {
+					alert(data.msg);
+					if (data.result) {
+						location.reload();
+					} else {
+						//창 냅두기
+					}
+				},
+				error : function() {
+					alert('error');
+				}
+			});
 		});
 		
 		$(document).on('click', '#boardWriteBtn', function() {
@@ -922,13 +933,6 @@ var view = {
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div id="borderLine">
-					<!-- header -->
-					<!-- <div class="modal-header">
-					닫기(x) 버튼
-					<button type="button" class="close" data-dismiss="modal">×</button>
-					header title
-					<h4 class="modal-title"> </h4>
-				</div> -->
 					<!-- body -->
 					<div class="modal-body">
 						<div>
