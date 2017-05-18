@@ -158,44 +158,41 @@ $(document).ready(function() {
 
    	$('#regist_btn').click(function (){
    		var list_size = parseInt($('.add_line_btn').attr("id").replace("add_line_btn",""));
- 		for(var i=1; i<=list_size;i++){
-				if($('#category'+i).val() !=""){
-					//alert($.isNumeric($('#price'+i).val()));
-					if($.isNumeric($('#price'+i).val()) == false && $('#price'+i).val() !='' ){
-						alert("금액은 숫자만 입력해주세요.");
-						//break;
-						return false;
-					}
-		}else{
-			if(i != 1){
-				alert(i);
-				alert("하이염");
-			}
-			/* alert("모든 항목을 입력해주세요.");
-			break;
-			return false; */
-			
-		}
-				
-				
+   		var last_input = 0;
+ 	for(var i =1; i <= list_size; i++){
+		if($('#category'+i).val() !="" || $('#price'+i).val() !="" || $('#detail'+i).val() !=""){
+			last_input = i;
+		} 		
  	}
- 		
- 		
- 		
+ 	
+ 	if(last_input == 0){
+		alert("모든 항목을 입력해주세요.");
+		return false;
+	} 
+ 	
+  	for(var i= 1; i <= last_input; i++){
+ 		if($('#category'+i).val() =="" || $('#price'+i).val() =="" || $('#detail'+i).val() ==""){
+ 			alert("모든 항목을 입력해주세요.");
+			return false;
+		}else{
+			if($.isNumeric($('#price'+i).val()) == false && $('#price'+i).val() !='' ){
+				alert("금액은 숫자만 입력해주세요.");
+				return false;
+		}	
+	}
+ 	} 
 });  
 });
 </script>
 <style type="text/css">
 @font-face {
-
 	font-family: 'koverwatch';
 	src: url(font/koverwatch.ttf) format('truetype');
 }
 
-#index_div{
-font-family: koverwatch;
-font-size: 30px;
-
+#index_div {
+	font-family: koverwatch;
+	font-size: 30px;
 }
 
 .btn {
@@ -205,7 +202,6 @@ font-size: 30px;
 	text-align: center;
 	color: white;
 	border-radius: 10px;
-	
 }
 
 .bookmark2 {
@@ -216,9 +212,8 @@ font-size: 30px;
 	margin: 3px;
 }
 
-
 #main_div {
-	background-color:#f3f3f3;
+	background-color: #f3f3f3;
 	border: 3px solid #1abc9c;
 }
 
@@ -235,7 +230,6 @@ font-size: 30px;
 	top: 350px;
 	left: 200px;
 	padding-left: 150px;
-	
 }
 
 #year, #month, #day {
@@ -262,13 +256,14 @@ input[type="text"] {
 }
 
 div {
- padding:5px; 
+	padding: 5px;
 }
+
 .add_line_btn {
-color: #000000;
-font-size: 25px;
-text-align: right;
-margin-left: 5px;
+	color: #000000;
+	font-size: 25px;
+	text-align: right;
+	margin-left: 5px;
 }
 </style>
 <title>가계부 등록</title>
@@ -334,14 +329,14 @@ margin-left: 5px;
 			</div>
 
 			<div id="index_div">
-				<span style="color: #1abc9c; font-weight: bold;">
-					<i class="fa fa-bookmark" aria-hidden="true"></i> 즐겨찾기
-					</span>
+				<span style="color: #1abc9c; font-weight: bold;"> <i
+					class="fa fa-bookmark" aria-hidden="true"></i> 즐겨찾기
+				</span>
 			</div>
 
 			<div id="bookmark_list_div">
 				<c:forEach var="bm" items="${bookMarkList}" varStatus="status">
-						<input type="button" class="btn bookmark2"
+					<input type="button" class="btn bookmark2"
 						id="bookmark_select${status.index}" value="${bm.detail}">
 					<input type="hidden" id="abookmark_select${status.index}"
 						value="${bm.bookmarkNo}">
@@ -374,15 +369,13 @@ margin-left: 5px;
 							<td><input type="text" name="detail"
 								placeholder="사용내역을 입력하세요." id="detail${status.index}"></td>
 							<td><input type="text" name="price"
-								id="price${status.index}" placeholder="가격을 입력하세요.">
-								<c:if test="${status.last}">
-								<td>
-									<a href = "#" target="" id="add_line_btn${status.index}" class="add_line_btn">
-									<i class="fa fa-plus-circle fa-2x;" aria-hidden="true"></i>
-									</a>
-									</td>
-								</c:if>
-							</td>
+								id="price${status.index}" placeholder="가격을 입력하세요."> <c:if
+									test="${status.last}">
+									<td><a href="#" target="" id="add_line_btn${status.index}"
+										class="add_line_btn"> <i class="fa fa-plus-circle fa-2x;"
+											aria-hidden="true"></i>
+									</a></td>
+								</c:if></td>
 						</tr>
 					</c:forEach>
 				</table>

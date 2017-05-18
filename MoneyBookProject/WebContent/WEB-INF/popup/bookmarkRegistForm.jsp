@@ -45,8 +45,6 @@ $(document).ready(function() {
 	})
 		$(document).on("click",".confirm_btn", function(){
 		var id_index = $(this).attr('id').replace("confirm_btn", "");
-		/* alert($('#price_update'+id_index).val()); */
-
 		$.ajax({
 			url : 'bookmarkUpdate.do',
 			data : "id_index="+${param.id_index}+
@@ -56,7 +54,6 @@ $(document).ready(function() {
 			type: 'post',
 			success : function(data){
 				alert(data.msg);
-/* 				$('#price'+id_index).text($('#price_update'+id_index).val());*/
 				
 				var result = addComma($('#price_update'+id_index).val());
 				$('#price'+id_index).text(result); 
@@ -68,7 +65,9 @@ $(document).ready(function() {
 		});
 	})
 	
-	function addComma(value) {
+	
+//천 단위마다 콤마 추가하기	
+function addComma(value) {
   var num = isNumber(value);
   if (!num) return;
 
@@ -162,6 +161,37 @@ function isNumber(checkValue) {
 		+"</tr>" ;
 	$('#list_table').append(tag);
 });
+	
+	$('#book_mark_regist_btn').click(function (){
+   		var list_size = parseInt($('.add_line_btn').attr("id").replace("add_line_btn",""));
+   		var last_input = 0;
+ 	for(var i =1; i <= list_size; i++){
+		if($('#category'+i).val() !="" || $('#price'+i).val() !="" || $('#detail'+i).val() !=""){
+			last_input = i;
+		} 		
+ 	}
+ 	
+ 	if(last_input == 0){
+		alert("모든 항목을 입력해주세요.");
+		return false;
+	} 
+ 	
+  	for(var i= 1; i <= last_input; i++){
+ 		if($('#category'+i).val() =="" || $('#price'+i).val() =="" || $('#detail'+i).val() ==""){
+ 			alert("모든 항목을 입력해주세요.");
+			return false;
+		}else{
+			if($.isNumeric($('#price'+i).val()) == false && $('#price'+i).val() !='' ){
+				alert("금액은 숫자만 입력해주세요.");
+				return false;
+		}	
+	}
+ 	} 
+}); 
+	
+	
+	
+	
 
 });
 </script>
