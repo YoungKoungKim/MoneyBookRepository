@@ -52,6 +52,7 @@ public class MoneyBookService implements IMoneyBookService {
 	public HashMap<String, Object> totalAmountByCategory(int id_index, Date date) {
 		List<MoneyBook> list = getMonthContent(id_index, date);
 		HashMap<String, Object> params = new HashMap<>();
+		HashMap<String, Object> percent = new HashMap<>();
 		int food = 0; // 식비
 		int traffic = 0;// 교통비
 		int commodity = 0; // 생필품
@@ -64,8 +65,9 @@ public class MoneyBookService implements IMoneyBookService {
 		int culturallife = 0;// 문화생활비
 		int otheritems = 0;// 기타
 		int income = 0; // 수입
-		int expense = 0;
-
+		
+		int expense = (int) totalMonthAmount(id_index, date).get("expense");
+		
 		for (int i = 0; i < list.size(); i++) {
 			if (list.get(i).getCategory().trim().equals("food")) {
 				food += list.get(i).getPrice();
@@ -97,48 +99,72 @@ public class MoneyBookService implements IMoneyBookService {
 				
 		if (food != 0) {
 			params.put("food", food);
+			percent.put("foodPercent",  (int) (((double)food/(double)expense)*100));
 			}
 		if (traffic != 0) {
 			params.put("traffic", traffic);
+			percent.put("trafficPercent",  (int) (((double)traffic/(double)expense)*100));
+
 		}
 		if (medical != 0) {
 			params.put("medical", medical);
+			percent.put("medicalPercent", (int) (((double)medical/(double)expense)*100));
 		}
 		if (beauty != 0) {
 			params.put("beauty", beauty);
+			percent.put("beautyPercent",(int) (((double)beauty/(double)expense)*100));
 		}
 		if (commodity != 0) {
 			params.put("commodity", commodity);
+			percent.put("commodityPercent", (int) (((double)commodity/(double)expense)*100));
 		}
 		if (education != 0) {
 			params.put("education", education);
+			percent.put("educationPercent", (int) (((double)education/(double)expense)*100));
+
 		}
 		if (phonefees != 0) {
 			params.put("phonefees", phonefees);
+			percent.put("phonefeesPercent", (int) (((double)phonefees/(double)expense)*100));
+
 		}
 		if (saving != 0) {
 			params.put("saving", saving);
+			percent.put("savingPercent", (int) (((double)saving/(double)expense)*100));
+
 		}
 		if (utilitybills != 0) {
 			params.put("utilitybills", utilitybills);
+			percent.put("utilitybillsPercent", (int) (((double)utilitybills/(double)expense)*100));
+
 		}
 		if (culturallife != 0) {
 			params.put("culturallife", culturallife);
+			percent.put("culturallifePercent", (int) (((double)culturallife/(double)expense)*100));
+
 		}
 		if (income != 0) {
 			params.put("incomes", income);
+
 		}
 		if (otheritems != 0) {
 			params.put("otheritems", otheritems);
+			percent.put("otheritemsPercent", (int) (((double)otheritems/(double)expense)*100));
+
 		}
 		List<ExtraBoard> extraboard = new ArrayList<>();
 		for(String key : params.keySet()){
 			ExtraBoard exboard = new ExtraBoard();
 			exboard.setCategory(key);
 			exboard.setPrice((int)params.get(key));
+			for(String keys : percent.keySet()){
+				if((key+"Percent").trim().equals(keys)){
+					exboard.setPercent((int) percent.get(key+"Percent"));				
+				}
+			}
 			extraboard.add(exboard);
-			
 		}
+	
 		params.put("list", extraboard);
 		return params;
 	}

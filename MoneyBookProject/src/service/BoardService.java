@@ -108,17 +108,17 @@ public class BoardService implements IBoardService {
 		eboard.setMonth(date2);
 
 		 HashMap<String, Object> category= (HashMap<String, Object>) moneybookservice.totalAmountByCategory(board.getId_index(),date2);
-		
-		for (String key : category.keySet() ){
-			eboard.setCategory(key);
-			eboard.setPrice((int) category.get(key));
-			eboard.setPercent( ((int)category.get(key))/expense*100 );
-			ebDao.insertExtraBoard(eboard);
-		}
-
+		 	List<ExtraBoard> list= (List<ExtraBoard>) category.get("list");
+		 	for(int i = 0 ; i< list.size(); i++ ){
+		 		eboard.setCategory(list.get(i).getCategory());
+		 		eboard.setPrice(list.get(i).getPrice());
+		 		eboard.setPercent(list.get(i).getPercent());
+				ebDao.insertExtraBoard(eboard);
+		 	}		 	
 		for(String key : amount.keySet()){
 			eboard.setCategory(key);
 			eboard.setPrice((int)amount.get(key));
+			eboard.setPercent(0);
 			ebDao.insertExtraBoard(eboard);
 		}
 		
