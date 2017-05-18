@@ -55,7 +55,6 @@ body {
 	right: 20%;
 	height: auto;
 	width: 60%;
-	margin-left: 2%;
 }
 
 #right {
@@ -68,7 +67,6 @@ body {
 #calendar {
 	padding-top: 50px;
 	max-width: 700px;
-	margin: 0 auto;
 }
 
 #detail {
@@ -184,24 +182,23 @@ body {
 
 #wrapper {
 	background: #1f1f1f;
-	width: 180px;
-	padding: 0 8px 10px;
+	width: 196px;
+	padding: 0 6px 6px;
 	border: 1px solid #141414;
-	margin: 20px auto;
 	border-radius: 5px;
 }
 
 main {
 	padding: 0;
-	width: 160px;
+	width: 180px;
 	margin: auto;
 	background: #141212;
 }
 
 #screen {
-	width: 160px;
+	width: 180px;
 	background: white;
-	margin: 15px 0 2px 0;
+	margin: 7px 0 2px 0;
 	padding: 5px 5px;
 	border-radius: 4px;
 	font-size: 2em;
@@ -211,9 +208,9 @@ main {
 #calculator button {
 	color: #AAA;
 	float: left;
-	width: 40px;
+	width: 45px;
 	font-size: 1.2em;
-	height: 40px;
+	height: 45px;
 	outline: none;
 	background: #3e3e3e;
 	border: 1px solid #1f1f1f;
@@ -243,8 +240,8 @@ main {
 }
 
 #calculator .btn-wide {
-	height: 40px !important;
-	width: 80px !important;
+	height: 45px !important;
+	width: 90px !important;
 }
 </style>
 
@@ -850,10 +847,9 @@ var view = {
 	</div>
 
 	<div id="center">
-		<table>
+		<table align="center">
 			<tr>
-				<td><div id="calendar"></div>
-				<td>
+				<td><div id="calendar"></div></td>
 			</tr>
 			<tr>
 				<td><br></td>
