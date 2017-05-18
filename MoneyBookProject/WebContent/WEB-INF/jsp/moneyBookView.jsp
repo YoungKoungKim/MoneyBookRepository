@@ -68,7 +68,6 @@ body {
 #calendar {
 	padding-top: 50px;
 	max-width: 700px;
-	margin: 0 auto;
 }
 
 #detail {
@@ -187,7 +186,6 @@ body {
 	width: 180px;
 	padding: 0 8px 10px;
 	border: 1px solid #141414;
-	margin: 20px auto;
 	border-radius: 5px;
 }
 
@@ -850,10 +848,9 @@ var view = {
 	</div>
 
 	<div id="center">
-		<table>
+		<table align="center">
 			<tr>
-				<td><div id="calendar"></div>
-				<td>
+				<td><div id="calendar"></div></td>
 			</tr>
 			<tr>
 				<td><br></td>
