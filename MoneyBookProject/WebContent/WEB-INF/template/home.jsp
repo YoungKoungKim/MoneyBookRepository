@@ -38,7 +38,7 @@ html, body {
 #header {
 	background-color: #91D4B5;
 	color: #fff;
-	padding-top: 30px;
+	padding-top: 15px;
 	padding-bottom: 10px;
 }
 #container {

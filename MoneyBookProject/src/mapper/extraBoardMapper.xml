@@ -7,7 +7,7 @@
 	<insert id="insertExtraBoard" parameterType="extraBoard">
 		insert into
 		extraboard values(0, #{id_index}, #{boardNo}, #{category}, #{price},
-		#{month})
+		#{month},#{percent})
 	</insert>
 
 	<update id="updateExtraBoard" parameterType="extraBoard">

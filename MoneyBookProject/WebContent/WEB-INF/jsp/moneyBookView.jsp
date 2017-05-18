@@ -172,6 +172,7 @@ body {
 	margin: 0;
 	padding: 0;
 	font-family: 'Arimo', sans-serif;
+	opacity: 0.85;
 }
 
 #calculator, #calculator:before, #calculator:after {
@@ -218,11 +219,11 @@ main {
 }
 
 #calculator button:hover {
-	background: #424242;
+	background: #52615A;
 }
 
 #calculator button.blue {
-	background: #007191;
+	background: #1ABC9C;
 	color: black;
 }
 
@@ -248,6 +249,7 @@ main {
 <script type="text/javascript">
 var boardWriteDate;
 var clickDate;
+var modifyMoneyBookNo;
 
 $('#detail').css('margin', $('calendar').attr('margin'));
 
@@ -509,52 +511,7 @@ var view = {
 					$('#category').val(data.moneyBook.category);
 					$('#edt_detail').val(data.moneyBook.detail);
 					$('#edt_price').val(data.moneyBook.price);
-					
-					$('#btn_delete').click(function() {
-						$.ajax({
-							type : 'post',
-							url : 'moneyBookDelete.do',
-							dataType : 'json',
-							data : 'id_index=${id_index}&moneyBookNo='
-									+ data.moneyBook.moneyBookNo,
-							success : function(data) {
-								alert(data.msg);
-								if (data.result) {
-									location.reload();
-								} else {
-									//창 냅두기
-								}
-							},
-							error : function() {
-								alert('error');
-							}
-						});
-					});
-					
-					$('#btn_update').click(function() {
-						$.ajax({
-							type : 'post',
-							url : 'moneyBookUpdate.do',
-							dataType : 'json',
-							data : 'id_index=${id_index}'
-									+ '&moneyBookNo=' + data.moneyBook.moneyBookNo
-									+ '&category=' + $('#category').val()
-									+ '&detail=' + $('#edt_detail').val()
-									+ '&price=' + $('#edt_price').val()
-									+ '&date=' + $('#datepicker').val(),
-							success : function(data) {
-								alert(data.msg);
-								if (data.result) {
-									location.reload();
-								} else {
-									//창 냅두기
-								}
-							},
-							error : function() {
-								alert('error');
-							}
-						});
-					});
+					modifyMoneyBookNo = data.moneyBook.moneyBookNo;
 					
 				},
 				error : function() {
@@ -683,6 +640,52 @@ var view = {
 				}
 
 		    }
+		});
+		
+		$('#btn_delete').click(function() {
+			$.ajax({
+				type : 'post',
+				url : 'moneyBookDelete.do',
+				dataType : 'json',
+				data : 'id_index=${id_index}&moneyBookNo='
+						+ modifyMoneyBookNo,
+				success : function(data) {
+					alert(data.msg);
+					if (data.result) {
+						location.reload();
+					} else {
+						//창 냅두기
+					}
+				},
+				error : function() {
+					alert('error');
+				}
+			});
+		});
+		
+		$('#btn_update').click(function() {
+			$.ajax({
+				type : 'post',
+				url : 'moneyBookUpdate.do',
+				dataType : 'json',
+				data : 'id_index=${id_index}'
+						+ '&moneyBookNo=' + modifyMoneyBookNo
+						+ '&category=' + $('#category').val()
+						+ '&detail=' + $('#edt_detail').val()
+						+ '&price=' + $('#edt_price').val()
+						+ '&date=' + $('#datepicker').val(),
+				success : function(data) {
+					alert(data.msg);
+					if (data.result) {
+						location.reload();
+					} else {
+						//창 냅두기
+					}
+				},
+				error : function() {
+					alert('error');
+				}
+			});
 		});
 		
 		$(document).on('click', '#boardWriteBtn', function() {
@@ -921,13 +924,6 @@ var view = {
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div id="borderLine">
-					<!-- header -->
-					<!-- <div class="modal-header">
-					닫기(x) 버튼
-					<button type="button" class="close" data-dismiss="modal">×</button>
-					header title
-					<h4 class="modal-title"> </h4>
-				</div> -->
 					<!-- body -->
 					<div class="modal-body">
 						<div>

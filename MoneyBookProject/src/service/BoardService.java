@@ -1,6 +1,8 @@
 package service;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -83,7 +85,18 @@ public class BoardService implements IBoardService {
 		HashMap<String, Object> params = new HashMap<>();
 		Board board = bDao.selectOneBoard(boardNo);
 		List<ExtraBoard> extraList = ebDao.selectOne(boardNo);
-		 
+		
+		Date date=extraList.get(0).getMonth();
+		
+		Calendar c = Calendar.getInstance(); //객체 생성 및 현재 일시분초...셋팅
+		c.setTime(date);
+		
+		int year =  c.get(c.YEAR);
+		int month = c.get(c.MONTH)+1;
+		
+		
+		params.put("year", year);
+		params.put("nowMonth", month);
 		params.put("board", board);
 		params.put("list", extraList);
 		return params;
@@ -108,17 +121,17 @@ public class BoardService implements IBoardService {
 		eboard.setMonth(date2);
 
 		 HashMap<String, Object> category= (HashMap<String, Object>) moneybookservice.totalAmountByCategory(board.getId_index(),date2);
-		
-		for (String key : category.keySet() ){
-			eboard.setCategory(key);
-			eboard.setPrice((int) category.get(key));
-			eboard.setPercent( ((int)category.get(key))/expense*100 );
-			ebDao.insertExtraBoard(eboard);
-		}
-
+		 	List<ExtraBoard> list= (List<ExtraBoard>) category.get("list");
+		 	for(int i = 0 ; i< list.size(); i++ ){
+		 		eboard.setCategory(list.get(i).getCategory());
+		 		eboard.setPrice(list.get(i).getPrice());
+		 		eboard.setPercent(list.get(i).getPercent());
+				ebDao.insertExtraBoard(eboard);
+		 	}		 	
 		for(String key : amount.keySet()){
 			eboard.setCategory(key);
 			eboard.setPrice((int)amount.get(key));
+			eboard.setPercent(0);
 			ebDao.insertExtraBoard(eboard);
 		}
 		
