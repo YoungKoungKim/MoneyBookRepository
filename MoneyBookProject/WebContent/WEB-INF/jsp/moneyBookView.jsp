@@ -454,8 +454,17 @@ var view = {
 		      var numLength = num.toString().length;
 		    }
 		    
-		    if (numLength >= 8) {
-		      return num.toExponential(2);
+		    if (numLength >= 11) {
+		    	var cipher = num.toString().split('.');
+		    	if (cipher[1] == undefined) {
+		    		return num.toExponential(4);
+		    	} else if (cipher[1].length > 0) {
+		    		var effectiveNum = cipher[1].substr(0, 2);
+		    		var resultNum = cipher[0] + "." + effectiveNum;
+		    		return resultNum;
+		    	} else {
+		    		return num.toExponential(4);
+		    	}
 		    } else {
 		      return num;
 		    }   
@@ -610,9 +619,9 @@ var view = {
 							success : function(data) {
 								if (data.length == 0) {
 									$('#detailTable thead').hide();
-									var img = "<center><br><h5>아직 등록된 데이터가 없습니다!</h5>"
-												+"<img src='assets/img/ryan_broken.gif'"+
-												"style='width='200px'; height='200px''></center>";
+									var img = "<center><br><br>"
+												+"<img src='jpg/no_data.png'"+
+												"></center>";
 									$('#detailTable tbody').append(img);
 								} else {
 									$('#detailTable thead').show();
