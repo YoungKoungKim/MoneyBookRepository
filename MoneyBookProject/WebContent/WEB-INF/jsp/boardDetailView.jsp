@@ -30,7 +30,7 @@ function getCommentList() {
 					if(id_index == data[comment].id_index)
 					{
 
-					$("#commentTable").html($("#commentTable").html() + "<tr>	<td>" + data[comment].nick + "&nbsp;&nbsp;&nbsp;" + time +"&nbsp;&nbsp;&nbsp; 추천:"+ data[comment].recommend
+					$("#commentTable").html($("#commentTable").html() + "<tr>	<td>" + data[comment].nick + "&nbsp;&nbsp;&nbsp;" + time +"&nbsp;&nbsp;&nbsp; <span id='spanrecommend'>추천:"+ data[comment].recommend+"</span>"
 					+ "</td></tr><tr><td> <textarea class='comment' style='resize: none;' id='comment_"+data[comment].commentNo+"' rows='2' cols='100' readonly='readonly'> "+ data[comment].content + "</textarea>"
 							+"<input class='delete' id='"+data[comment].commentNo+"@' name='"+data[comment].commentNo+"' type='button' value='삭제'>"
 							+"<input class='update' type='button' id='"+data[comment].commentNo+"@' name='"+data[comment].commentNo+"' value='수정'></td> </tr>"
@@ -39,7 +39,7 @@ function getCommentList() {
 					}else {
 						$("#commentTable").html($("#commentTable").html() + 
 						"<tr>	<td>" + data[comment].nick + 
-						"&nbsp;&nbsp;&nbsp;" + time +"&nbsp;&nbsp;&nbsp; 추천:"+ data[comment].recommend
+						"&nbsp;&nbsp;&nbsp;" + time +"&nbsp;&nbsp;&nbsp; <span id='spanrecommend'>추천:"+ data[comment].recommend+"</span>"
 						+"</td></tr><tr><td> <textarea class='comment' style='resize: none;' rows='2' cols='100' readonly='readonly'> "+ data[comment].content + "</textarea>"
 						+"<input class='recommendcomment' type='button' id='" + data[comment].commentNo + "@' name ='" + data[comment].commentNo + "' value='추천'> </td></tr>"
 						);						
@@ -101,10 +101,11 @@ function getCommentList() {
 							data : 'commentNo='+commentNo+"&boardNo="+${board.boardNo},
 							dataType : 'json',
 							success : function(data){
-								if(date.code==0){
-									$('#commentread').text(data.recommend);
+								if(data.code ==0){
+									$('#spanrecommend').text('추천 :'+data.recommend);
+									alert("추천되었습니다.");
 								}else if(data.code ==1){
-										$('#commentread').text(data.recommend);						
+										$('#spanrecommend').text('추천 :'+data.recommend);						
 										alert("이미추천하셨습니다.");
 								}else if(data.code==3){
 									alert("로그인해주세여");
@@ -270,6 +271,8 @@ function getCommentList() {
 					}else if(data.code ==1){
 						$('#recommend').text(data.recommend);						
 						alert("회원만 가능합니다.");
+					}else if(data.code==3){
+						alert("이미추천하셨습니다.");
 					}
 				}, 
 				error : function(data){
@@ -281,6 +284,8 @@ function getCommentList() {
 	$('#commentbut').on('click', function() {
 		var content1 = $('#content1').val();
 		var nick1 = $('#nick1').val();
+		  var result = content1.replace(/\s+$/, '');
+		if(result){
 		$.ajax({
 			type : 'post',
 			url : 'commentWrite.do',
@@ -294,14 +299,19 @@ function getCommentList() {
 				alert('실패');
 			}
 		});
+	
+		}else{
+			alert("내용을 입력하세요!");
+		}
 	});
 		
 });
 </script>
 <style type="text/css">
-#it{
+#it {
 	font-size: 70px;
 }
+
 .root {
 	margin: auto;
 	width: 800px;
@@ -328,15 +338,16 @@ function getCommentList() {
 	text-align: left;
 	font-size: 20px;
 	border-top: solid #CCE2D8;
-	border-bottom: solid #CCE2D8; 
-    padding: 20px 100px;
-	
+	border-bottom: solid #CCE2D8;
+	padding: 20px 100px;
 }
-.div_category{
-	width: 170px; 
-	height: 150px; 
+
+.div_category {
+	width: 170px;
+	height: 150px;
 	display: inline-block;
 }
+
 .bottom {
 	width: 100%;
 	height: 100%;
@@ -352,7 +363,7 @@ function getCommentList() {
 	/* margin-left: 5px; */
 }
 
-.div_all{
+.div_all {
 	font-size: 24px;
 }
 
@@ -361,7 +372,7 @@ function getCommentList() {
 	text-align: center;
 }
 
-.myButton, .update, .delete, .recommendcomment{
+.myButton, .update, .delete, .recommendcomment {
 	background-color: #ffffff;
 	-moz-border-radius: 9px;
 	-webkit-border-radius: 9px;
@@ -414,14 +425,15 @@ function getCommentList() {
 			</div>
 		</div>
 
-		<div class="left" id="left" >
-		<div><h2> ${year} 년 ${nowMonth }월 가계부 공유 </h2><br></div>
-			
+		<div class="left" id="left">
+			<div>
+				<h2>${year} 년 ${nowMonth }월 가계부 공유</h2>
+				<br>
+			</div>
+
 		</div>
-		
-		<div class="right">
-			${board.content }
-		</div>
+
+		<div class="right">${board.content }</div>
 
 		<div class="bottom">
 			<br>
@@ -435,7 +447,7 @@ function getCommentList() {
 				<input class="myButton" type="button" value="목록"
 					onclick="location.href='boardList.do'">
 				<c:if test="${board.id_index eq id_index}">
-					<input  class="myButton" type="button" value="수정"
+					<input class="myButton" type="button" value="수정"
 						onclick="location.href='boardUpdateForm.do?boardNo=${board.boardNo}'">
 				</c:if>
 				<c:if test="${board.id_index eq id_index }">
@@ -458,10 +470,10 @@ function getCommentList() {
 
 					</tr>
 					<tr>
-						<td><textarea style="resize: none;" rows="2" cols="80" id="content1"
-								name="content1"></textarea></td>
-						<td><input class="myButton" type="button" value="등록" id="commentbut">
-						</td>
+						<td><textarea style="resize: none;" rows="2" cols="80"
+								id="content1" name="content1" placeholder="내용을 입력하세요"></textarea></td>
+						<td><input class="myButton" type="button" value="등록"
+							id="commentbut"></td>
 					</tr>
 				</table>
 				<input type="hidden" value="${nick}" readonly="readonly" id="nick1"
@@ -472,6 +484,6 @@ function getCommentList() {
 		</div>
 
 	</div>
-		
+
 </body>
 </html>
