@@ -85,14 +85,25 @@ public class BoardService implements IBoardService {
 		HashMap<String, Object> params = new HashMap<>();
 		Board board = bDao.selectOneBoard(boardNo);
 		List<ExtraBoard> extraList = ebDao.selectOne(boardNo);
+		Date date = null;
+		int year = 0;
+		int month = 0;
+		try {
+			
+			 date = extraList.get(0).getMonth();
+				
+			 Calendar c = Calendar.getInstance(); //객체 생성 및 현재 일시분초...셋팅
+			 c.setTime(date);
+				
+			 year =  c.get(c.YEAR);
+			 month = c.get(c.MONTH)+1;
+			
+		} catch (IndexOutOfBoundsException e) {
+			// TODO: handle exception
+		} catch (NullPointerException e) {
+			// TODO: handle exception
+		}
 		
-		Date date=extraList.get(0).getMonth();
-		
-		Calendar c = Calendar.getInstance(); //객체 생성 및 현재 일시분초...셋팅
-		c.setTime(date);
-		
-		int year =  c.get(c.YEAR);
-		int month = c.get(c.MONTH)+1;
 		
 		
 		params.put("year", year);
