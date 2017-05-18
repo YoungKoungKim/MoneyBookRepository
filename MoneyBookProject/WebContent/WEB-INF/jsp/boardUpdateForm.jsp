@@ -24,8 +24,7 @@
 	width: 100%;
 	height: 100%;
 	text-align: center;
-		border-bottom: dashed #CCE2D8;
-	
+	border-bottom: dashed #CCE2D8;
 }
 
 .left {
@@ -49,7 +48,11 @@
 }
 
 .bottom {
-	
+	width: 100%;
+	height: 100%;
+	clear: both;
+	text-align: center;
+	padding: 30px 5px;
 }
 
 .category_td {
@@ -97,17 +100,21 @@
 	-webkit-box-shadow: 0px 0px 15px 5px #847F7F;
 	-moz-box-shadow: 0px 0px 15px 5px #847F7F;
 }
-#it{
+
+#it {
 	font-size: 70px;
 }
-.div_category{
-	width: 170px; 
-	height: 150px; 
+
+.div_category {
+	width: 170px;
+	height: 150px;
 	display: inline-block;
 }
-.div_all{
+
+.div_all {
 	font-size: 24px;
 }
+
 .myButton {
 	background-color: #f0f8ff;
 	-moz-border-radius: 9px;
@@ -130,7 +137,6 @@
 	position: relative;
 	top: 1px;
 }
-
 </style>
 
 <script type="text/javascript">
@@ -253,13 +259,33 @@ function addextraList(){
 		}
 	});
 }
+function formCheck() {
+	
+}
 	$(document).ready(function() {
 		 addextraList();
+		
+		 $("#formsubmitBtn").on("click", function() {
+			var content1 = $('#textContent').val(); 
+			var title = $('#title1').val();
+		 	var result = content1.replace(/\s+$/, '');
+			var result2 = title.replace(/\s+$/, '');
+			if(result2 == ""){
+				  alert("제목을 입력해주세요");
+				  }	else if(result == ""){
+					  alert("내용을 입력해주세요");
+				  } else {
+					  $("#formsubmit").submit();
+				  }
+			 
+		 });
+		 
+		 		 
 	});
 </script>
 </head>
 <body>
-	<form action="boardUpdate.do">
+	<form method="post" id="formsubmit" action="boardUpdate.do">
 		<div class="root">
 			<div class="top">
 				<div class="titlebar">
@@ -268,7 +294,8 @@ function addextraList(){
 						<option value="20">20대</option>
 						<option value="30">30대</option>
 						<option value="40">40대</option>
-					</select> <input type="text" id="title1" name="title" value="${board.title}">
+					</select> <input type="text" id="title1" name="title"
+						placeholder="제목을 입력하세요" value="${board.title}">
 				</div>
 				<div align="right">
 					<table>
@@ -285,21 +312,26 @@ function addextraList(){
 			</div>
 
 			<div class="left" id="left">
-					<div><h2> ${year} 년 ${nowMonth }월 가계부 공유 </h2><br></div>
+				<div>
+					<h2>${year}년${nowMonth }월가계부공유</h2>
+					<br>
+				</div>
 			</div>
 
 			<div class="right">
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				<textarea id="textarea1" name="content" style="resize:inherit;" value="${board.content}">${board.content}</textarea>
+				<textarea id="textContent" name="content" style="resize: inherit;" rows="15" cols="85" placeholder="내용을 입력하세요">${board.content}</textarea>
 			</div>
-	
+
 			<div class="bottom">
 				<input type="hidden" value="${board.boardNo}" name="boardNo">
-				<input type="hidden" value="${id_index}" name="id_index">
-				 <input type="submit" class="myButton" value="확인"> 
-				 <input type="button" class="myButton" value="돌아가기" onclick="location.href='boardDetailView.do?boardNo=${board.boardNo}'">
+				<input type="hidden" value="${id_index}" name="id_index"> 
+				
+				<input type="button" class="myButton" value="확인" id="formsubmitBtn">
+				<input type="button" class="myButton" value="돌아가기"
+					onclick="location.href='boardDetailView.do?boardNo=${board.boardNo}'">
 			</div>
-	</div>
+		</div>
 	</form>
 
 </body>

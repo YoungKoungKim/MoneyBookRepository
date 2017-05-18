@@ -74,7 +74,7 @@ body {
 	table-layout: fixed;
 	border-collapse: collapse;
 	border-spacing: 0;
-	font-size: 1em;
+	font-size: 1.1em;
 	min-height: 300px;
 	/* 	margin-left: #calendar.margin;
 	margin-right: px; */
@@ -243,6 +243,10 @@ main {
 #calculator .btn-wide {
 	height: 45px !important;
 	width: 90px !important;
+}
+
+.price {
+	color: #FF6753;
 }
 </style>
 
@@ -633,7 +637,7 @@ var view = {
 												+ "data-target='#layerpop' data-toggle='modal'>"
 												+ "<td>" + convertCategory(data[i].category) + "</td>"
 												+ "<td>" + data[i].detail + "</td>"
-												+ "<td>" + data[i].price + "</td>"
+												+ "<td class='price'>" + data[i].price + "</td>"
 												+ "</tr>"
 										$('#detailTable').append(td);
 									})

@@ -55,6 +55,11 @@
 		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
 	</bean>
 	
+	<bean class="org.mybatis.spring.mapper.MapperFactoryBean" id="secondboardDao">
+		<property name="mapperInterface" value="dao.ISecondBoardDao"></property>
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+	</bean>
+	
 	<bean
 		class="org.springframework.jdbc.datasource.DataSourceTransactionManager"
 		id="txManager">

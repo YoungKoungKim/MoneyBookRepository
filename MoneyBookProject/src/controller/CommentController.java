@@ -59,7 +59,7 @@ public class CommentController {
 		int id_index = (int) session.getAttribute("id_index");
 		 try {
 			 if( recommendService.Searchrecommend(boardNo, id_index, commentNo) == false){
-				 commentservice.commentRecommend(commentNo);
+				 	commentservice.commentRecommend(commentNo);
 				 	recommendService.Writerecommend(boardNo, id_index, commentNo);
 				 	 params.put("code", 0);
 				 	 params.put("recommend",commentservice.searchOne(commentNo, boardNo).get("recommend"));
