@@ -171,13 +171,12 @@ body {
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	box-sizing: border-box;
-	/* background: #222; */
 	margin: 0;
 	padding: 0;
 	font-family: 'Arimo', sans-serif;
 }
 
-*, *:before, *:after {
+#calculator, #calculator:before, #calculator:after {
 	-webkit-box-sizing: inherit;
 	-moz-box-sizing: inherit;
 	box-sizing: inherit;
@@ -363,6 +362,7 @@ var controller = {
 		    $('#calculator button').click(function () {
 		            
 		      var button = $(this).text();
+		    	alert(button);
 		      if (!isNaN(parseInt(button))) {
 		        button = parseInt(button);
 		      } 
@@ -889,7 +889,7 @@ var view = {
 				<main>
 				<div id="screen"></div>
 				<div class="cal_row">
-					<button class="darker ion-backspace" id="back"></button>
+					<button class="darker ion-backspace" id="back"> </button>
 					<button class="darker" id="clear">AC</button>
 					<button class="darker">+/-</button>
 					<button class="darker" id="divide">&divide;</button>
