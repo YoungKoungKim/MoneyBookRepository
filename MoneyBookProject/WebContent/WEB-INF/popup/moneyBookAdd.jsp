@@ -165,9 +165,10 @@ $(document).ready(function() {
  	}
  	
  	if(last_input == 0){
-		alert("모든 항목을 입력해주세요.1");
+		alert("모든 항목을 입력해주세요.");
 		return false;
-	} else if(last_input >1){
+		
+	} else if(last_input >= 1){
 		for(var i =1; i <= last_input; i++){
 			if($('#category'+i).val() =="" && $('#price'+i).val() =="" && $('#detail'+i).val() =="")
  			{

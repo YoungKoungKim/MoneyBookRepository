@@ -167,6 +167,8 @@ function isNumber(checkValue) {
 });
 	
 	$('#book_mark_regist_btn').click(function (){
+		
+		
    		var list_size = parseInt($('.add_line_btn').attr("id").replace("add_line_btn",""));
    		var last_input = 0;
  	for(var i =1; i <= list_size; i++){
@@ -191,6 +193,9 @@ function isNumber(checkValue) {
 		}	
 	}
  	} 
+  	
+  	
+  	
 }); 
 });
 </script>
