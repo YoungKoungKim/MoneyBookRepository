@@ -147,18 +147,17 @@ $(document).ready(function() {
 			+"<td><input type='text' name='price' "
 			+"id='price"+addCount+"' placeholder='가격을 입력하세요.'></td>"
 			+"<td><a href = '#' target='' id='add_line_btn"+addCount+"'class='add_line_btn'>"
-			+"<i class='fa fa-plus-circle' aria-hidden='true'></i></a>"
+			+"<i class='fa fa-plus-circle' aria-hidden='true' title='항목을 추가하고 싶으면 클릭하세요'></i></a>"
 			+"</td>"
 			+"</tr>" ;
 			
 		$('#list_table').append(tag);
 	});
-		
-	
 
    	$('#regist_btn').click(function (){
    		var list_size = parseInt($('.add_line_btn').attr("id").replace("add_line_btn",""));
    		var last_input = 0;
+   		
  	for(var i =1; i <= list_size; i++){
 		if($('#category'+i).val() !="" || $('#price'+i).val() !="" || $('#detail'+i).val() !=""){
 			last_input = i;
@@ -166,21 +165,32 @@ $(document).ready(function() {
  	}
  	
  	if(last_input == 0){
-		alert("모든 항목을 입력해주세요.");
+		alert("모든 항목을 입력해주세요.1");
 		return false;
-	} 
- 	
-  	for(var i= 1; i <= last_input; i++){
- 		if($('#category'+i).val() =="" || $('#price'+i).val() =="" || $('#detail'+i).val() ==""){
- 			alert("모든 항목을 입력해주세요.");
-			return false;
-		}else{
-			if($.isNumeric($('#price'+i).val()) == false && $('#price'+i).val() !='' ){
-				alert("금액은 숫자만 입력해주세요.");
-				return false;
-		}	
+	} else if(last_input >1){
+		for(var i =1; i <= last_input; i++){
+			if($('#category'+i).val() =="" && $('#price'+i).val() =="" && $('#detail'+i).val() =="")
+ 			{
+
+ 				for(var j =1; j < list_size; j++){
+ 					$('#table_'+i).remove();
+ 				}
+ 			}else{
+ 				
+ 			 		if($('#category'+i).val() =="" || $('#price'+i).val() =="" || $('#detail'+i).val() ==""){
+ 			 			alert("모든 항목을 입력해주세요.");
+ 						return false;
+ 					}else{
+ 						if($.isNumeric($('#price'+i).val()) == false && $('#price'+i).val() !='' ){
+ 							alert("금액은 숫자만 입력해주세요.");
+ 							return false;
+ 					}	
+ 				}
+ 			 	
+ 			}
+		}
 	}
- 	} 
+ 	
 });  
 });
 </script>
@@ -350,7 +360,7 @@ div {
 				<input type="hidden" name="id_index" value="${param.id_index}">
 				<table id="list_table">
 					<c:forEach begin="1" end="5" varStatus="status">
-						<tr>
+						<tr id="table_${status.index}">
 							<td><select id="category${status.index}" name="category">
 									<option value='' selected>카테고리 선택</option>
 									<option value="food">식비</option>
@@ -373,7 +383,7 @@ div {
 									test="${status.last}">
 									<td><a href="#" target="" id="add_line_btn${status.index}"
 										class="add_line_btn"> <i class="fa fa-plus-circle fa-2x;"
-											aria-hidden="true"></i>
+											aria-hidden="true" title="항목을 추가하고 싶으면 클릭하세요"></i>
 									</a></td>
 								</c:if></td>
 						</tr>

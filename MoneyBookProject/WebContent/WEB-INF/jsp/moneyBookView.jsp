@@ -610,9 +610,9 @@ var view = {
 							success : function(data) {
 								if (data.length == 0) {
 									$('#detailTable thead').hide();
-									var img = "<center><br><h5>아직 등록된 데이터가 없습니다!</h5>"
-												+"<img src='assets/img/ryan_broken.gif'"+
-												"style='width='200px'; height='200px''></center>";
+									var img = "<center><br><br>"
+												+"<img src='jpg/no_data.png'"+
+												"></center>";
 									$('#detailTable tbody').append(img);
 								} else {
 									$('#detailTable thead').show();

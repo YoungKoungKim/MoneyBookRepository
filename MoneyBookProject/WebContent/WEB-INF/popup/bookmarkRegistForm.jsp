@@ -38,6 +38,7 @@ $(document).ready(function() {
 				+"'id='price_update"+id_index+"'>");
 		
  		/* $('#update_btn'+id_index).val("확인"); */
+									
 		$('#update_btn'+id_index).attr({
 		id : 'confirm_btn'+id_index,
 		class : 'confirm_btn'
@@ -45,6 +46,8 @@ $(document).ready(function() {
 	})
 		$(document).on("click",".confirm_btn", function(){
 		var id_index = $(this).attr('id').replace("confirm_btn", "");
+		var result = addComma($('#price_update'+id_index).val());
+		
 		$.ajax({
 			url : 'bookmarkUpdate.do',
 			data : "id_index="+${param.id_index}+
@@ -54,13 +57,13 @@ $(document).ready(function() {
 			type: 'post',
 			success : function(data){
 				alert(data.msg);
-				
-				var result = addComma($('#price_update'+id_index).val());
 				$('#price'+id_index).text(result); 
 				$('#confirm_btn'+id_index).attr({
 				id : 'update_btn'+id_index,
 				class : 'update_btn'
 				});
+				location.reload();
+				
 			}
 		});
 	})
@@ -107,8 +110,9 @@ function addComma(value) {
 // 숫자 유무 판단
 function isNumber(checkValue) {
   checkValue = '' + checkValue;
+  
   if (isNaN(checkValue) || checkValue == "") {
-    alert('숫자만 입력해 주세요!!!');
+    alert('금액은 숫자만 입력해 주세요.');
     return;
   }
   return checkValue;
@@ -152,11 +156,11 @@ function isNumber(checkValue) {
 		+"	<option value='income'>수입</option>"
 		+"</select></td>" 
 		+"<td><input type='text' name='detail'" 
-		+"placeholder='사용내역을 입력하세요.' id='detail"+addCount+"'></td>"
+		+"placeholder='사용내역을 입력하세요.' id='regist_detail"+addCount+"'></td>"
 		+"<td><input type='text' name='price' "
-		+"id='price"+addCount+"' placeholder='가격을 입력하세요.'></td>"
+		+"id='regist_price"+addCount+"' placeholder='가격을 입력하세요.'></td>"
 		+"<td><a href = '#' target=''id='add_line_btn"+addCount+"'class='add_line_btn'>"
-		+"<i class='fa fa-plus-circle' aria-hidden='true'></i></a>"
+		+"<i class='fa fa-plus-circle' aria-hidden='true' title='항목을 추가하고 싶으면 클릭하세요'></i></a>"
 		+"</td>"
 		+"</tr>" ;
 	$('#list_table').append(tag);
@@ -166,7 +170,7 @@ function isNumber(checkValue) {
    		var list_size = parseInt($('.add_line_btn').attr("id").replace("add_line_btn",""));
    		var last_input = 0;
  	for(var i =1; i <= list_size; i++){
-		if($('#category'+i).val() !="" || $('#price'+i).val() !="" || $('#detail'+i).val() !=""){
+		if($('#category'+i).val() !="" || $('#regist_price'+i).val() !="" || $('#regist_detail'+i).val() !=""){
 			last_input = i;
 		} 		
  	}
@@ -177,22 +181,17 @@ function isNumber(checkValue) {
 	} 
  	
   	for(var i= 1; i <= last_input; i++){
- 		if($('#category'+i).val() =="" || $('#price'+i).val() =="" || $('#detail'+i).val() ==""){
+ 		if($('#category'+i).val() =="" || $('#regist_price'+i).val() =="" || $('#regist_detail'+i).val() ==""){
  			alert("모든 항목을 입력해주세요.");
 			return false;
 		}else{
-			if($.isNumeric($('#price'+i).val()) == false && $('#price'+i).val() !='' ){
+			if($.isNumeric($('#regist_price'+i).val()) == false && $('#regist_price'+i).val() !='' ){
 				alert("금액은 숫자만 입력해주세요.");
 				return false;
 		}	
 	}
  	} 
 }); 
-	
-	
-	
-	
-
 });
 </script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -392,9 +391,12 @@ div {
 								
 								</td>
 								<td><a href="#" target="" id="update_btn${status.index}"
-									class="update_btn"><i class="fa fa-scissors" aria-hidden="true"></i></a>
+									class="update_btn"><i class="fa fa-scissors" aria-hidden="true" 
+									title="즐겨찾기 가격 수정"></i></a>
 									<a href="#" target="" id="delete_btn${status.index}" class="delete_btn"> <i
-										class="fa fa-trash" aria-hidden="true"></i>
+										class="fa fa-trash" aria-hidden="true"
+										title="즐겨찾기 삭제"
+										></i>
 								</a></td>
 							</tr>
 							<input type="hidden" id="bookmarkNo${status.index}"
@@ -437,7 +439,7 @@ div {
 								<c:if test="${status.last}">
 									<td><a href="#" target="" id="add_line_btn${status.index}"
 										class="add_line_btn"> <i class="fa fa-plus-circle"
-											aria-hidden="true"></i>
+											aria-hidden="true" title="항목을 추가하고 싶으면 클릭하세요"></i>
 									</a></td>
 								</c:if>
 						</tr>
