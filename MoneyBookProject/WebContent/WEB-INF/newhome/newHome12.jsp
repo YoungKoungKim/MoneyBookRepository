@@ -52,8 +52,7 @@
 			mm = '0' + mm
 		}
 		today = yyyy + '-' + mm + '-' + dd;
-		return location.href = "viewMyPage.do?id_index=" + id_index + "&date="
-				+ today;
+		return location.href = "viewMyPage.do?date="+ today;
 	} //today()
 
 	$(document).ready(function() {
