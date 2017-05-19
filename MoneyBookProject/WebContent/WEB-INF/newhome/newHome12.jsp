@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>뉴 홈 작 업 중</title>
+<title>가계이득</title>
 <!-- Mobile Specific Meta -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- Bootstrap  -->
@@ -52,8 +52,7 @@
 			mm = '0' + mm
 		}
 		today = yyyy + '-' + mm + '-' + dd;
-		return location.href = "viewMyPage.do?id_index=" + id_index + "&date="
-				+ today;
+		return location.href = "viewMyPage.do?date="+ today;
 	} //today()
 
 	$(document).ready(function() {
