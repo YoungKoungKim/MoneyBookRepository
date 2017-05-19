@@ -214,7 +214,7 @@ li {
 			</div>
 			<div>
 				<table class="tablelist">
-					<c:forEach var="best" items="${boardBest}">
+					<c:forEach var="Best" items="${boardBest}">
 						<tr>
 							<td class="boardNo">best</td>
 							<td class="title"><a
