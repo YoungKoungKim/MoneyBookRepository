@@ -140,7 +140,7 @@ html, body {
 	font-family: NanumBarunpenR;
 	font-style: normal;
 	background-color: #91D4B5;
-	border: 1px solid #1abc9c;;
+	border: 1px solid #1abc9c;
 	border-radius: 2px;
 	width: 70pt;
 	height: 30pt;
