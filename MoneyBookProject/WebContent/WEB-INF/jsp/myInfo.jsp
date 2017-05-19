@@ -113,7 +113,7 @@
 							<div class="input-group">
 								<span class="input-group-addon inputLabel">닉네임</span> <input
 									id="inform_Nick" type="text" class="form-control"
-									placeholder="수정할 닉네임을 입력해주세요." style="width: 345px;">
+									placeholder="2~12자로 수정할 닉네임을 입력해주세요." style="width: 345px;">
 							</div>
 
 						</div>
@@ -154,7 +154,7 @@
 									<div class="input-group">
 										<span class="input-group-addon inputLabel">새 비밀번호</span> <input
 											id="inform_NewPwd" type="password" class="form-control"
-											placeholder="새 비밀번호를 입력해주세요." style="width: 345px;">
+											placeholder="6~20자 영문 대 소문자, 숫자는 필수입니다." style="width: 345px;">
 									</div>
 								</div>
 

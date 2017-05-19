@@ -297,7 +297,7 @@ body,
 							<tr align="center">
 								<td style="color: black;">닉네임</td>
 								<td><input type="text" id="join_Nick" class="form-control"
-									placeholder="닉네임을 입력하세요."></td>
+									placeholder="2~12자로 닉네임을 입력하세요."></td>
 							</tr>
 							<tr>
 								<td></td>
@@ -306,7 +306,7 @@ body,
 							<tr align="center">
 								<td style="color: black;">비밀번호</td>
 								<td><input type="password" id="join_Pwd"
-									class="form-control" placeholder="비밀번호를 입력해주세요."></td>
+									class="form-control" placeholder="6~20자 영문 대 소문자, 숫자는 필수입니다."></td>
 							</tr>
 							<tr>
 								<td></td>
