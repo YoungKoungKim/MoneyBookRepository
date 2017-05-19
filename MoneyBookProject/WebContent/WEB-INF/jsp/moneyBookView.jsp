@@ -36,8 +36,9 @@
 	src: url(font/NanumBarunpenR.ttf) foramt('truetype');
 }
 
-body {
+html, body {
 	font-size: 14px;
+	height: auto;
 }
 
 #left {
@@ -53,8 +54,8 @@ body {
 	position: absolute;
 	left: 20%;
 	right: 20%;
-	height: auto;
 	width: 60%;
+	height: 100%;
 }
 
 #right {
@@ -71,11 +72,9 @@ body {
 
 #detail {
 	box-sizing: border-box;
-	table-layout: fixed;
 	border-collapse: collapse;
 	border-spacing: 0;
 	font-size: 1.1em;
-	min-height: 300px;
 	/* 	margin-left: #calendar.margin;
 	margin-right: px; */
 }
@@ -677,28 +676,43 @@ var view = {
 		});
 		
 		$('#btn_update').click(function() {
-			$.ajax({
-				type : 'post',
-				url : 'moneyBookUpdate.do',
-				dataType : 'json',
-				data : 'id_index=${id_index}'
-						+ '&moneyBookNo=' + modifyMoneyBookNo
-						+ '&category=' + $('#category').val()
-						+ '&detail=' + $('#edt_detail').val()
-						+ '&price=' + $('#edt_price').val()
-						+ '&date=' + $('#datepicker').val(),
-				success : function(data) {
-					alert(data.msg);
-					if (data.result) {
-						location.reload();
-					} else {
-						//창 냅두기
+			var mod_category = $('#category').val();
+			var mod_detail = $('#edt_detail').val();
+			var mod_price = $('#edt_price').val();
+			var date = $('#datepicker').val();
+			var dateFormat = /^(19[7-9][0-9]|20\d{2})-(0[0-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/;
+
+			if (mod_detail == "" || mod_price == "") {
+				alert('사용 내용을 입력하세요.');
+			} else if (!$.isNumeric(mod_price)) {
+				alert('가격은 숫자만 입력 가능합니다.');
+			} else if (!dateFormat.test(date)) {
+				alert('날짜 형식이 다릅니다.');
+			} else {
+				$.ajax({
+					type : 'post',
+					url : 'moneyBookUpdate.do',
+					dataType : 'json',
+					data : 'id_index=${id_index}'
+							+ '&moneyBookNo=' + modifyMoneyBookNo
+							+ '&category=' + mod_category
+							+ '&detail=' + mod_detail
+							+ '&price=' + mod_price
+							+ '&date=' + date,
+					success : function(data) {
+						alert(data.msg);
+						if (data.result) {
+							location.reload();
+						} else {
+							//창 냅두기
+						}
+					},
+					error : function() {
+						alert('error');
 					}
-				},
-				error : function() {
-					alert('error');
-				}
-			});
+				});
+			}
+			
 		});
 		
 		$(document).on('click', '#boardWriteBtn', function() {
@@ -900,7 +914,7 @@ var view = {
 				<main>
 				<div id="screen"></div>
 				<div class="cal_row">
-					<button class="darker ion-backspace" id="back"> </button>
+					<button class="darker ion-backspace" id="back"></button>
 					<button class="darker" id="clear">AC</button>
 					<button class="darker">+/-</button>
 					<button class="darker" id="divide">&divide;</button>
@@ -951,7 +965,7 @@ var view = {
 							<label class="control-label" for="category">Category</label>
 							<div>
 								<select name="category" class="form-control" id="category">
-									<option>카테고리 선택</option>
+									<option disabled="disabled">카테고리 선택</option>
 									<option value="food">식비</option>
 									<option value="traffic">교통비</option>
 									<option value="commodity">생필품</option>

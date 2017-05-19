@@ -31,7 +31,7 @@
 }
 
 html, body {
-	height: 100%;
+	height: auto;
 /* 	margin: 0;
 	padding: 0; */
 }
@@ -42,11 +42,11 @@ html, body {
 	padding-bottom: 10px;
 }
 #container {
-	height: auto;
 	background-color: white;
 	font-family: NanumBarunpenR;
 }
 #container #content {
+	height: 100%;
 	min-height: 800px;
 	font-family: NanumBarunpenR;
 }

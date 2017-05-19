@@ -19,6 +19,7 @@
 }
 
 #container #content {
+	height: auto;
 	min-height: 300px;
 	font-family: NanumBarunpenR;
 }
