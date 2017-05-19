@@ -33,6 +33,7 @@ function DaysInMonth(WhichMonth, WhichYear)
   return DaysInMonth;
 }
 
+/* 월 별 날짜가 다르니까 ex) 2월이면 28, 29일까지 그 일을 조절해주는 함수 */
 function ChangeOptionDays(Which)
 {
   DaysObject = eval("document.Form1." + Which + "Day");
@@ -62,18 +63,34 @@ function ChangeOptionDays(Which)
     if (DaysObject.selectedIndex < 0) DaysObject.selectedIndex == 0;
 }
 
+/* 오늘 날짜로 설정해주는 함수 */
 function SetToToday(Which)
 {
-  DaysObject = eval("document.Form1." + Which + "Day");
-  MonthObject = eval("document.Form1." + Which + "Month");
-  YearObject = eval("document.Form1." + Which + "Year");
-
-  YearObject[0+5].selected = true;
-  MonthObject[NowMonth].selected = true;
-
-  ChangeOptionDays(Which);
-
-  DaysObject[NowDay-1].selected = true;
+	if (Which == "FirstSelect") {
+		  DaysObject = eval("document.Form1." + Which + "Day");
+		  MonthObject = eval("document.Form1." + Which + "Month");
+		  YearObject = eval("document.Form1." + Which + "Year");
+		
+		  YearObject[0+5].selected = true;
+		  MonthObject[NowMonth].selected = true;
+		
+		  ChangeOptionDays(Which);
+		
+		  DaysObject[NowDay-1].selected = true;
+	} else {
+		 var todayList = Which.split("-");
+		
+		 DaysObject = eval("document.Form1.FirstSelectDay");
+		  MonthObject = eval("document.Form1.FirstSelectMonth");
+		  YearObject = eval("document.Form1.FirstSelectYear");
+		  
+		  YearObject[0+5].selected = true;
+		  MonthObject[Number(todayList[1])-1].selected = true;
+		
+		  ChangeOptionDays('FirstSelect');
+		
+		  DaysObject[Number(todayList[2])-1].selected = true;
+	}
 }
 
 function WriteYearOptions(YearsAhead)
@@ -312,7 +329,7 @@ div {
 </style>
 <title>가계부 등록</title>
 </head>
-<body onload="SetToToday('FirstSelect');">
+<body onload="SetToToday('${date}');">
 
 	<Form action="moneyBookRegist.do" name="Form1">
 		<div id="main_div">

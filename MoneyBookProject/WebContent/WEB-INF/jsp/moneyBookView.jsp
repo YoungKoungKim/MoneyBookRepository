@@ -62,9 +62,10 @@ html, body {
 
 #right {
 	position: absolute;
-	margin-top: 90px;
-	width: 20%;
-	right: 0;
+   margin-top: 90px;
+   width: 20%;
+   right: 80px;
+   top: 70px
 }
 
 #calendar {
@@ -265,8 +266,8 @@ jQuery.fn.center = function () {
     return this;
 }
 
-function moneyBookRegist(id_index){
-	var popUrl = "moneyBookWriteForm.do?id_index=" + id_index;	//팝업창에 출력될 페이지 URL
+function moneyBookRegist(id_index, date){
+	var popUrl = "moneyBookWriteForm.do?id_index=" + id_index + "&date=" + date;	//팝업창에 출력될 페이지 URL
 	var popOption = "top=200, left=300, width=600, height=500, resizable=no, scrollbars=no, status=no";    //팝업창 옵션(optoin)
 	window.open(popUrl,"가계부입력",popOption);
 }
@@ -571,6 +572,14 @@ var view = {
 									start : data.income[i].start,
 									textColor : "#1ABC9C"
 								});
+								if (data.expense[i].title != 0) {
+									events.push({
+										/* 지출 */
+										title : data.expense[i].title,
+										start : data.expense[i].start,
+										textColor : "#FA8072"
+									});
+								}
 							} else {
 								events.push({
 									/* 수입 */
@@ -578,16 +587,16 @@ var view = {
 									start : data.income[i].start,
 									textColor : "#FFFFFF"
 								});
+								if (data.expense[i].title != 0) {
+									events.push({
+										/* 지출 */
+										title : data.expense[i].title,
+										start : data.expense[i].start,
+										textColor : "#FA8072"
+									});
+								}
 							}
 							
-							if (data.expense[i].title != 0) {
-								events.push({
-									/* 지출 */
-									title : data.expense[i].title,
-									start : data.expense[i].start,
-									textColor : "#FA8072"
-								});
-							}
 						}
 						callback(events);
 						
@@ -719,6 +728,10 @@ var view = {
 		
 		$(document).on('click', '#boardWriteBtn', function() {
 			location.href = "boardWriteForm.do?date=" + boardWriteDate;
+		});
+		
+		$(document).on('click', '#moneyBookWriteBtn', function() {
+			moneyBookRegist(${id_index}, clickDate);
 		});
 		
 		// 왼쪽 버튼을 클릭하였을 경우
@@ -907,8 +920,7 @@ var view = {
 	</div>
 
 	<div id="right">
-		<button class="btn moneyBookBtn"
-			onclick="moneyBookRegist(${param.id_index})">등록</button>
+		<button class="btn moneyBookBtn" id="moneyBookWriteBtn">등록</button>
 		<button class="btn moneyBookBtn" id="boardWriteBtn">공유</button>
 
 		<div id="calculator">

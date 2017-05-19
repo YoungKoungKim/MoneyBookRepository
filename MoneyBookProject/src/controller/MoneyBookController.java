@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -33,8 +34,7 @@ public class MoneyBookController {
 	private IMoneyBookService moneyBookService;
 	@Autowired
 	private IBookMarkService bookMarkService;
-
-
+	
 	@RequestMapping("bookmarkDelete.do")
 	public @ResponseBody HashMap<String, Object> bookmarkDelete(HttpSession session, int bookmarkNo) {
 		HashMap<String, Object> params = new HashMap<>();
@@ -275,11 +275,18 @@ public class MoneyBookController {
 	
 
 	@RequestMapping("moneyBookWriteForm.do")
-	public ModelAndView moneyBookWriteForm(HttpSession session) {
+	public ModelAndView moneyBookWriteForm(HttpSession session, @RequestParam(value="date", required=false)String date) {
+		System.out.println(date);
 		int id_index = (int) session.getAttribute("id_index");
 
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("bookMarkList", bookMarkService.bookMarkSearch(id_index));
+		
+		if (date.equals("undefined")) {
+			mav.addObject("date", "FirstSelect");
+		} else {
+			mav.addObject("date", date);
+		}
 		mav.setViewName("empty/moneyBookAdd");
 		return mav;
 	}
