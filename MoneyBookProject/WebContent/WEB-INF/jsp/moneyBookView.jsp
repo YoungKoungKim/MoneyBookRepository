@@ -50,13 +50,14 @@ html, body {
 }
 
 #center {
-	font-family: 'Ubuntu Condensed', sans-serif;
-	position: absolute;
+	display: inline-block; 
+	font-family : 'Ubuntu Condensed', sans-serif;
+	margin-left: 280px;
 	left: 20%;
 	right: 20%;
 	width: 60%;
-	min-height: 100%;
-	height: auto;
+	height: 100%;
+	font-family: 'Ubuntu Condensed', sans-serif;
 }
 
 #right {
@@ -570,15 +571,6 @@ var view = {
 									start : data.income[i].start,
 									textColor : "#1ABC9C"
 								});
-								
-								if (data.expense[i].title != 0) {
-									events.push({
-										/* 지출 */
-										title : data.expense[i].title,
-										start : data.expense[i].start,
-										textColor : "#FA8072"
-									});
-								}
 							} else {
 								events.push({
 									/* 수입 */
@@ -586,17 +578,16 @@ var view = {
 									start : data.income[i].start,
 									textColor : "#FFFFFF"
 								});
-								
-								if (data.expense[i].title != 0) {
-									events.push({
-										/* 지출 */
-										title : data.expense[i].title,
-										start : data.expense[i].start,
-										textColor : "#FA8072"
-									});
-								}
 							}
 							
+							if (data.expense[i].title != 0) {
+								events.push({
+									/* 지출 */
+									title : data.expense[i].title,
+									start : data.expense[i].start,
+									textColor : "#FA8072"
+								});
+							}
 						}
 						callback(events);
 						
@@ -650,11 +641,9 @@ var view = {
 												+ "<td class='price'>" + data[i].price + "</td>"
 												+ "</tr>"
 										$('#detailTable').append(td);
-									});
-									$('#center').animate({
-										height : $('#detail').height()
-									});
+									})
 								}
+								
 							},
 							error : function() {
 								alert('error');
@@ -663,6 +652,7 @@ var view = {
 				} else {
 					
 				}
+
 		    }
 		});
 		
