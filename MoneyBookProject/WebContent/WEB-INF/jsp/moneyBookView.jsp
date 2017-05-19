@@ -55,7 +55,8 @@ html, body {
 	left: 20%;
 	right: 20%;
 	width: 60%;
-	height: 100%;
+	min-height: 100%;
+	height: auto;
 }
 
 #right {
@@ -649,9 +650,11 @@ var view = {
 												+ "<td class='price'>" + data[i].price + "</td>"
 												+ "</tr>"
 										$('#detailTable').append(td);
-									})
+									});
+									$('#center').animate({
+										height : $('#detail').height()
+									});
 								}
-								
 							},
 							error : function() {
 								alert('error');
