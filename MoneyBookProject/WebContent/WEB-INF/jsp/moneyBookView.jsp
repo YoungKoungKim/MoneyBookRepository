@@ -569,6 +569,15 @@ var view = {
 									start : data.income[i].start,
 									textColor : "#1ABC9C"
 								});
+								
+								if (data.expense[i].title != 0) {
+									events.push({
+										/* 지출 */
+										title : data.expense[i].title,
+										start : data.expense[i].start,
+										textColor : "#FA8072"
+									});
+								}
 							} else {
 								events.push({
 									/* 수입 */
@@ -576,16 +585,17 @@ var view = {
 									start : data.income[i].start,
 									textColor : "#FFFFFF"
 								});
+								
+								if (data.expense[i].title != 0) {
+									events.push({
+										/* 지출 */
+										title : data.expense[i].title,
+										start : data.expense[i].start,
+										textColor : "#FA8072"
+									});
+								}
 							}
 							
-							if (data.expense[i].title != 0) {
-								events.push({
-									/* 지출 */
-									title : data.expense[i].title,
-									start : data.expense[i].start,
-									textColor : "#FA8072"
-								});
-							}
 						}
 						callback(events);
 						
@@ -650,7 +660,6 @@ var view = {
 				} else {
 					
 				}
-
 		    }
 		});
 		
