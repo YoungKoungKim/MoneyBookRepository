@@ -231,7 +231,7 @@ function getCommentList() {
 						+"<span>"
 						+"<i id='it' style='color: #9ACD32;'class='fa fa-krw' aria-hidden='true'></i>"
 						+"</span><br><span> "+data.list[i].price +"원</span><br>"
-						+"<span>"+data.list[i].percent+"%</span></div>");
+						+"</div>");
 						}//수입
 						
 					}
@@ -329,6 +329,7 @@ function getCommentList() {
 	height: 100%;
 	text-align: center;
 	border-bottom: dashed #CCE2D8;
+	padding: 10px 0px 0px 5px;
 }
 
 .left {
@@ -409,7 +410,7 @@ function getCommentList() {
 
 				<table>
 					<tr>
-						<td style="width: 300px; font-size: 30px;" align="center">${board.title}</td>
+						<td style="width: auto; font-size: 30px;" align="center">${board.title}</td>
 				</table>
 			</center>
 			<div align="right">
