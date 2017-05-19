@@ -114,15 +114,18 @@ $(document).ready(function() {
 						$('#detail'+i).val(data.detail);
 						$('#price'+i).val(data.price);
 						
+						$('#category'+(i-1)).attr('style', 'background-color:#FFFFFF')
 						$('#category'+i).attr('style', 'background-color:#FFFFFF');
 						$('#category'+(i+1)).removeAttr('disabled');
 						$('#category'+(i+1)).attr('style', 'background-color:#FFEFD5');
 				
+						$('#price'+(i-1)).attr('style', 'background-color:#FFFFFF');
 						$('#price'+i).attr('style', 'background-color:#FFFFFF');
 						 $("#price"+(i+1)).attr("readonly",false);
 						 $("#price"+(i+1)).attr('style', 'background-color:#FFEFD5');
 
 						 
+						$('#detail'+(i-1)).attr('style', 'background-color:#FFFFFF');
 						$('#detail'+i).attr('style', 'background-color:#FFFFFF');
 						 $("#detail"+(i+1)).attr("readonly",false);
 						 $("#detail"+(i+1)).attr('style', 'background-color:#FFEFD5');
