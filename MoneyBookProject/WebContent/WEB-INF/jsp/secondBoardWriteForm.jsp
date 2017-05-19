@@ -27,7 +27,7 @@ $(document).ready(function() {
 	$("#nowDate").text("날짜 : " + today); //날짜 표시
 	
 	$("#submitBtn").on("click", function(){
-		if($("#content").val() == "" || $("#title").val() == ""){
+		if($("#content1").val() == "" || $("#title").val() == ""){
 			alert("내용을 입력해주세요");
 			return false;
 		}
@@ -148,7 +148,7 @@ select {
 			</div>
 			<div class="bottom">
 				<br>
-				<textarea style="resize: inherit;" rows="15" cols="110" name="content" id="content" placeholder="내용을 입력하세요"></textarea>
+				<textarea style="resize: inherit;" rows="15" cols="110" name="content" id="content1" placeholder="내용을 입력하세요"></textarea>
 				<br> 
 				<input type="submit" class="myButton" value="확인" id="submitBtn"> 
 				<input type="button" class="myButton" value="취소" onclick="location.href='secondBoardList.do'">

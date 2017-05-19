@@ -153,19 +153,24 @@ function getCommentList() {
 	$('#commentbut').on('click', function() {
 		var content1 = $('#content1').val();
 		var nick1 = $('#nick1').val();
-		$.ajax({
-			type : 'post',
-			url : 'commentWrite.do',
-			data : 'boardNo='+${board.boardNo}+'&nick1='+ nick1 +'&content1='+ content1 +'&id_index='+'${id_index}',
-			dataType : 'json',
-			success :  function () {
-				$('#content1').val(' ');
-				getCommentList();
-			},
-			error : function() {
-				alert('실패');
-			}
-		});
+		if(content1 == ""){
+			alert("내용을 입력해주세요");	
+		}
+		else{
+			$.ajax({
+				type : 'post',
+				url : 'commentWrite.do',
+				data : 'boardNo='+${board.boardNo}+'&nick1='+ nick1 +'&content1='+ content1 +'&id_index='+'${id_index}',
+				dataType : 'json',
+				success :  function () {
+					$('#content1').val(' ');
+					getCommentList();
+				},
+				error : function() {
+					alert('실패');
+				}
+			});
+		}
 	});
 		
 });
