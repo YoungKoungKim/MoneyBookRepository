@@ -93,7 +93,7 @@ function getCommentList() {
 						var commentNo = $(this).attr('name');
 						$.ajax({
 							type : 'post',
-							url : 'commentRecommend.do',
+							url : 'secondBoardRecommend.do',
 							data : 'commentNo='+commentNo+"&boardNo="+${board.boardNo},
 							dataType : 'json',
 							success : function(data){
@@ -126,17 +126,22 @@ function getCommentList() {
 		var id_index = parseInt('${id_index}');
 		
 		$('#recommendbtn').on('click', function() {
-			$.ajax({
+				$.ajax({
 				type : 'post',
-				url : 'boardRecommend.do',
+				url : 'secondBoardRecommend.do',
 				data : 'boardNo='+${board.boardNo},
 				dataType : 'json',
 				success : function(data) {
 					if(data.code ==0){
-					$('#recommend').text(data.recommend);						
+						//추천 성공
+						$('#recommend').text(data.recommend);	
+						alert("추천하셨습니다.");
 					}else if(data.code ==1){
-						$('#recommend').text(data.recommend);						
-						alert("회원만 가능합니다.");
+						//로그인해
+						alert("로그인해주세요.");
+					}else if(data.code==3){
+						//이미 추천해썽
+						alert("이미 추천한 게시글입니다.");
 					}
 				}, 
 				error : function(data){

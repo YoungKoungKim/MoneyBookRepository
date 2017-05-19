@@ -26,11 +26,10 @@ public class SecondBoardController {
 	private ISecondBoardService boardservice;
 	@Autowired
 	private IRecommendService recommendservice;
-	
+
 	@RequestMapping("secondBoardList.do")
 	public ModelAndView boardList(@RequestParam(defaultValue = "1") int page,
-								@RequestParam(defaultValue = "0") String category,
-								@RequestParam(defaultValue = "0") String content) {
+			@RequestParam(defaultValue = "0") String category, @RequestParam(defaultValue = "0") String content) {
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("boardBest", boardservice.bestView(3));
 		mav.addAllObjects(boardservice.getboardList(page, category, content));
@@ -39,7 +38,8 @@ public class SecondBoardController {
 	}
 
 	@RequestMapping("secondBoardDetailView.do")
-	public ModelAndView boardDetailView(HttpSession session, int boardNo) {// id_index 빼야됨
+	public ModelAndView boardDetailView(HttpSession session, int boardNo) {// id_index
+																			// 빼야됨
 		ModelAndView mav = new ModelAndView();
 		try {
 			int readCheck = (int) session.getAttribute("readCheck");
@@ -54,15 +54,16 @@ public class SecondBoardController {
 		}
 		mav.addAllObjects(boardservice.searchText(boardNo));
 		mav.setViewName("secondBoardDetailView");
-		
+
 		return mav;
 	}
 
 	@RequestMapping("secondBoardDetailList.do")
-	public @ResponseBody HashMap<String, Object>boardDetailList(int boardNo) {// id_index 빼야됨
+	public @ResponseBody HashMap<String, Object> boardDetailList(int boardNo) {// id_index
+																				// 빼야됨
 		return boardservice.searchText(boardNo);
 	}
-	
+
 	@RequestMapping("secondBoardBest.do")
 	public ModelAndView boardBest() {
 		ModelAndView mav = new ModelAndView();
@@ -82,7 +83,7 @@ public class SecondBoardController {
 
 	@RequestMapping("secondBoardRecommend.do")
 	public @ResponseBody HashMap<String, Object> boardRecommend(int boardNo, HttpSession session,
-													@RequestParam(defaultValue = "0") int commentNo) {
+			@RequestParam(defaultValue = "0") int commentNo) {
 		Board board = null;
 		HashMap<String, Object> params = new HashMap<>();
 		try {
@@ -94,13 +95,16 @@ public class SecondBoardController {
 					board = (Board) boardservice.searchText(boardNo).get("board");
 					params.put("code", 0);
 					params.put("recommend", board.getRecommend());
+				} else {
+					// 이미 추천을 했어
+					params.put("code", 3);
 				}
-			}else{
+			} else {
 				params.put("code", 1);
 				params.put("recommend", board.getRecommend());
 			}
 		} catch (NullPointerException e) {
-		
+
 		}
 
 		return params;
@@ -123,18 +127,18 @@ public class SecondBoardController {
 		boardservice.boardWrite(board);
 		return "redirect:secondBoardList.do";
 	}
-	
+
 	@RequestMapping("secondBoardWriteForm.do")
 	public String boardWrite() {
 		return "secondBoardWriteForm";
 	}
 
-	 @RequestMapping("secondBoardDelete.do")
-	 public String boardDelete(int boardNo){
-		 boardservice.boardDelete(boardNo);
-		 return "redirect:secondBoardList.do";
-	 }
-	
+	@RequestMapping("secondBoardDelete.do")
+	public String boardDelete(int boardNo) {
+		boardservice.boardDelete(boardNo);
+		return "redirect:secondBoardList.do";
+	}
+
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");

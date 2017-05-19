@@ -465,7 +465,7 @@ function getCommentList() {
 				</button>
 
 				<input class="myButton" type="button" value="목록"
-					onclick="location.href='boardList.do'">
+					onclick="location.href='boardList.do?page=${page}'">
 				<c:if test="${board.id_index eq id_index}">
 					<input class="myButton" type="button" value="수정"
 						onclick="location.href='boardUpdateForm.do?boardNo=${board.boardNo}'">

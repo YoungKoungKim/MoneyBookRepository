@@ -248,13 +248,15 @@ li {
 					<c:forEach var="best" items="${boardBest }">
 						<tr>
 							<td class="boardNo">Best</td>
-
+							<td>
+								[${best.ageType}]
+							</td>
 							<td class="title"><a
 								style="color: #FF6753; margin-right: 100px;"
-								href="boardDetailView.do?boardNo=${best.boardNo}">${best.title }
+								href="boardDetailView.do?boardNo=${best.boardNo}&page=${current}">${best.title }
 									<samp>[${best.commentNum}]</samp>
 							</a></td>
-
+								
 							<td class="nick"><img id="img1"
 								src="homeCss/assets/images/demo/name.png" alt="" />${best.nick }</td>
 
@@ -275,9 +277,11 @@ li {
 					<c:forEach var="board" items="${boardList }">
 						<tr>
 							<td class="boardNo">${board.boardNo }</td>
-
+							<td>
+								[${board.ageType}]
+							</td>
 							<td class="title"><a style="margin-right: 100px;"
-								href="boardDetailView.do?boardNo=${board.boardNo}">${board.title }
+								href="boardDetailView.do?boardNo=${board.boardNo}&page=${current}">${board.title }
 									<span>[${board.commentNum}]</span>
 							</a></td>
 
