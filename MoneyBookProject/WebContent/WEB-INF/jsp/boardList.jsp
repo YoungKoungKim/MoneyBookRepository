@@ -24,7 +24,7 @@
 }
 
 .nick {
-	width: 150px;
+	width: 160px;
 	text-align: left;
 }
 
