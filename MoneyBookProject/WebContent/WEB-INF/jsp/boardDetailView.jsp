@@ -73,7 +73,9 @@ function getCommentList() {
 						var content = $('#comment_'+commentNo).val();					
 						if(btnval == "수정"){
 						$('#comment_' + commentNo).removeAttr("readonly");	
+						 	alert('수정가능합니다');
 						 	$(this).attr('value','변경');
+						 	$('#comment_' + commentNo).focus();
 						}else if(btnval=="변경"){
 							$.ajax({
 								type : 'post',

@@ -94,7 +94,7 @@ a:visited {
 
 a:active {
 	color: #FF6753;
-	text-decoration: underline;
+	text-decoration: none;
 }
 
 .root {
@@ -124,7 +124,10 @@ a:active {
 	height: 100%;
 	clear: both;
 }
-
+.left a:active{
+	color: black;
+	text-decoration: none;
+}
 ul {
 	list-style: none;
 	padding-left: 0px;

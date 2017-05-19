@@ -52,7 +52,7 @@ html, body {
 #center {
 	display: inline-block; 
 	font-family : 'Ubuntu Condensed', sans-serif;
-	margin-left: 280px;
+	margin-left: 18%;
 	left: 20%;
 	right: 20%;
 	width: 60%;
@@ -64,7 +64,8 @@ html, body {
 	position: absolute;
    margin-top: 90px;
    width: 20%;
-   right: 80px;
+   left: 80%;
+   right: 5%;
    top: 70px
 }
 
