@@ -1,6 +1,6 @@
-function viewMyPage(id_index) {
+function viewMyPage() {
 	var date = dateToYYYYMMDD(new Date());
-	location.href = "viewMyPage.do?id_index=" + id_index + "&date=" + date;
+	location.href = "viewMyPage.do?date=" + date;
 }
 
 function dateToYYYYMMDD(date){

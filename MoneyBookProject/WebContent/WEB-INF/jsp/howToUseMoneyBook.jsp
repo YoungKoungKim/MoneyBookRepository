@@ -121,7 +121,7 @@
       <ol class="carousel-indicators">
         <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
         <li data-target="#carousel-example-generic" data-slide-to="1"></li>
-        <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+       <!--  <li data-target="#carousel-example-generic" data-slide-to="2"></li> -->
       </ol>
 
       <!-- Wrapper for slides -->
@@ -138,13 +138,13 @@
             <!-- <h2>Heading</h2> -->
           </div>
         </div>
-        <div class="item">
+        <!-- <div class="item">
         <div class="carousel-caption">
-            <!-- <h2>Heading</h2> -->
+            <h2>Heading</h2>
           </div>
           <img src="http://placehold.it/800x400" alt="...">
         </div>
-      </div>
+      </div> -->
 
       <!-- Controls -->
       <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">

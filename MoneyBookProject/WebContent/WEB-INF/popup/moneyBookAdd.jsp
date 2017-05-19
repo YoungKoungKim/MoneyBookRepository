@@ -90,7 +90,6 @@ function WriteYearOptions(YearsAhead)
 
 $(document).ready(function() {
 	
-	
 	$("#cancle_btn").click(function(){
 		window.close();	
 	});
@@ -108,11 +107,28 @@ $(document).ready(function() {
 				
 				var list_size = parseInt($('.add_line_btn').attr("id").replace("add_line_btn",""));
 				
+				//빈칸이면 넣어주기
 				for(var i=1; i <= list_size; i++){
 					if($('#category'+i).val()==""){
 						$('#category'+i).val(data.category).prop("selected", true);
 						$('#detail'+i).val(data.detail);
 						$('#price'+i).val(data.price);
+						
+						$('#category'+(i-1)).attr('style', 'background-color:#FFFFFF')
+						$('#category'+i).attr('style', 'background-color:#FFFFFF');
+						$('#category'+(i+1)).removeAttr('disabled');
+						$('#category'+(i+1)).attr('style', 'background-color:#FFEFD5');
+				
+						$('#price'+(i-1)).attr('style', 'background-color:#FFFFFF');
+						$('#price'+i).attr('style', 'background-color:#FFFFFF');
+						 $("#price"+(i+1)).attr("readonly",false);
+						 $("#price"+(i+1)).attr('style', 'background-color:#FFEFD5');
+
+						 
+						$('#detail'+(i-1)).attr('style', 'background-color:#FFFFFF');
+						$('#detail'+i).attr('style', 'background-color:#FFFFFF');
+						 $("#detail"+(i+1)).attr("readonly",false);
+						 $("#detail"+(i+1)).attr('style', 'background-color:#FFEFD5');
 						break;
 					}
 				}
@@ -121,13 +137,12 @@ $(document).ready(function() {
 	});
 	
 		$(document).on("click",".add_line_btn",function(){
-		//alert("버튼 눌렀다!!!!!!!!!!!!!!");
 		var addCount = parseInt($('.add_line_btn').attr("id").replace("add_line_btn",""))+parseInt(1);
 		$('.add_line_btn').remove();
 		
 		var tag =
  			"<tr>"
-			+"<td><select id='category"+addCount+"' name='category'>"
+			+"<td><select id='category"+addCount+"' name='category' disabled='disabled'>"
 			+"	<option value selected>카테고리 선택</option>"
 			+"	<option value='food'>식비</option>"
 			+"	<option value='traffic'>교통비</option>"
@@ -143,9 +158,9 @@ $(document).ready(function() {
 			+"	<option value='income'>수입</option>"
 			+"</select></td>" 
 			+"<td><input type='text' name='detail'" 
-			+"placeholder='사용내역을 입력하세요.' id='detail"+addCount+"'></td>"
-			+"<td><input type='text' name='price' "
-			+"id='price"+addCount+"' placeholder='가격을 입력하세요.'></td>"
+			+"placeholder='사용내역을 입력하세요.' id='detail"+addCount+"' readonly='readonly'></td>"
+			+"<td><input type='text' name='price' class='price' "
+			+"id='price"+addCount+"' placeholder='가격을 입력하세요.' readonly='readonly'></td>"
 			+"<td><a href = '#' target='' id='add_line_btn"+addCount+"'class='add_line_btn'>"
 			+"<i class='fa fa-plus-circle' aria-hidden='true' title='항목을 추가하고 싶으면 클릭하세요'></i></a>"
 			+"</td>"
@@ -153,6 +168,34 @@ $(document).ready(function() {
 			
 		$('#list_table').append(tag);
 	});
+	
+	$('.price').keyup(function() {
+		var i = parseInt($(this).attr("id").replace("price",""));
+	 	$('#category'+(i+1)).removeAttr('disabled'); 
+		$("#price"+(i+1)).attr("readonly",false);
+		$("#detail"+(i+1)).attr("readonly",false);
+	});
+	
+ 	 $('.price').blur(function() {
+		var i = parseInt($(this).attr("id").replace("price",""));
+		$("#detail"+i).attr('style', 'background-color:#FFFFFF'); 
+		$("#price"+i).attr('style', 'background-color:#FFFFFF'); 
+		$("#category"+i).attr('style', 'background-color:#FFFFFF'); 
+		
+	}); 
+	
+ 	 $(".category").focus(function() {
+			var i = parseInt($(this).attr("id").replace("category",""));
+			$("select:not(#category"+i+")").attr('style', 'background-color:#FFFFFF'); 
+			$("input[type=text]:not(#price"+i+")").attr('style', 'background-color:#FFFFFF'); 
+			$("input[type=text]:not(#detail"+i+")").attr('style', 'background-color:#FFFFFF'); 
+			
+			
+			$('#category'+i).attr('style', 'background-color:#FFEFD5');
+			$("#price"+i).attr('style', 'background-color:#FFEFD5');
+			$('#detail'+i).attr('style', 'background-color:#FFEFD5');
+			
+		});
 
    	$('#regist_btn').click(function (){
    		var list_size = parseInt($('.add_line_btn').attr("id").replace("add_line_btn",""));
@@ -168,30 +211,19 @@ $(document).ready(function() {
 		alert("모든 항목을 입력해주세요.");
 		return false;
 		
-	} else if(last_input >= 1){
-		for(var i =1; i <= last_input; i++){
-			if($('#category'+i).val() =="" && $('#price'+i).val() =="" && $('#detail'+i).val() =="")
- 			{
-
- 				for(var j =1; j < list_size; j++){
- 					$('#table_'+i).remove();
- 				}
- 			}else{
- 				
- 			 		if($('#category'+i).val() =="" || $('#price'+i).val() =="" || $('#detail'+i).val() ==""){
- 			 			alert("모든 항목을 입력해주세요.");
- 						return false;
- 					}else{
- 						if($.isNumeric($('#price'+i).val()) == false && $('#price'+i).val() !='' ){
- 							alert("금액은 숫자만 입력해주세요.");
- 							return false;
- 					}	
- 				}
- 			 	
- 			}
-		}
-	}
+	} 
  	
+  	for(var i= 1; i <= last_input; i++){
+ 		if($('#category'+i).val() =="" || $('#price'+i).val() =="" || $('#detail'+i).val() ==""){
+ 			alert("모든 항목을 입력해주세요.");
+			return false;
+		}else{
+			if($.isNumeric($('#price'+i).val()) == false && $('#price'+i).val() !='' ){
+				alert("금액은 숫자만 입력해주세요.");
+				return false;
+		}	
+	}
+ 	} 
 });  
 });
 </script>
@@ -276,6 +308,7 @@ div {
 	text-align: right;
 	margin-left: 5px;
 }
+
 </style>
 <title>가계부 등록</title>
 </head>
@@ -360,9 +393,8 @@ div {
 			<div id="list_div">
 				<input type="hidden" name="id_index" value="${param.id_index}">
 				<table id="list_table">
-					<c:forEach begin="1" end="5" varStatus="status">
-						<tr id="table_${status.index}">
-							<td><select id="category${status.index}" name="category">
+				<tr>
+							<td><select id="category1" name="category" class='category'>
 									<option value='' selected>카테고리 선택</option>
 									<option value="food">식비</option>
 									<option value="traffic">교통비</option>
@@ -378,9 +410,32 @@ div {
 									<option value="income">수입</option>
 							</select></td>
 							<td><input type="text" name="detail"
-								placeholder="사용내역을 입력하세요." id="detail${status.index}"></td>
-							<td><input type="text" name="price"
-								id="price${status.index}" placeholder="가격을 입력하세요."> <c:if
+								placeholder="사용내역을 입력하세요." id="detail1"></td>
+							<td><input type="text" name="price" class=price
+								id="price1" placeholder="가격을 입력하세요." > 
+							</td>
+						</tr>
+					<c:forEach begin="2" end="5" varStatus="status">
+						<tr>
+							<td><select id="category${status.index}" class='category' name="category" disabled="disabled">
+									<option value='' selected>카테고리 선택</option>
+									<option value="food">식비</option>
+									<option value="traffic">교통비</option>
+									<option value="commodity">생필품</option>
+									<option value="medical">의료</option>
+									<option value="beauty">미용</option>
+									<option value="education">교육</option>
+									<option value="phonefees">통신비</option>
+									<option value="saving">저축</option>
+									<option value="utilitybills">공과금</option>
+									<option value="culturallife">문화생활비</option>
+									<option value="otheritems">기타</option>
+									<option value="income">수입</option>
+							</select></td>
+							<td><input type="text" name="detail"
+								placeholder="사용내역을 입력하세요." id="detail${status.index}" readonly="readonly"></td>
+							<td><input type="text" name="price" class="price"
+								id="price${status.index}" placeholder="가격을 입력하세요." readonly="readonly"> <c:if
 									test="${status.last}">
 									<td><a href="#" target="" id="add_line_btn${status.index}"
 										class="add_line_btn"> <i class="fa fa-plus-circle fa-2x;"

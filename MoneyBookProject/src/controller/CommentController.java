@@ -24,8 +24,9 @@ public class CommentController {
 	private IRecommendService recommendService;
 	
 	@RequestMapping("commentWrite.do")
-	public @ResponseBody String commentWrite(int boardNo, @RequestParam("nick1")String nick, @RequestParam("content1")String content, int id_index ){
+	public @ResponseBody String commentWrite(int boardNo, @RequestParam("nick1")String nick, @RequestParam("content1")String content, HttpSession session ){
 		HashMap<String, Object> comment = new HashMap<>();
+		int id_index = (int) session.getAttribute("id_index");
 
 		comment.put(Comment.ID_INDEX, id_index);
 		comment.put(Comment.BOARDNO, boardNo);

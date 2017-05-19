@@ -142,6 +142,7 @@ function getCommentList() {
 						$('#left').append("<div class ='div_category'>"
 						+"<span>"
 						+"<i id='it' style='color: #ADD8E6;' class='fa fa-cutlery' aria-hidden='true'></i>"
+						+"</span><br><span>식비</span>"
 						+"</span><br><span> "+data.list[i].price +"원</span><br>"
 						+"<span>"+data.list[i].percent+"%</span></div>");
 						}//식비
@@ -150,6 +151,7 @@ function getCommentList() {
 						$('#left').append("<div class ='div_category'>"
 						+"<span>"
 						+"<i id='it'style='color: #FF6347;' class='fa fa-bus' aria-hidden='true'></i>"
+						+"</span><br><span>교통비</span>"
 						+"</span><br><span> "+data.list[i].price +"원</span><br>"
 						+"<span>"+data.list[i].percent+"%</span></div>");
 						}//교통비
@@ -158,6 +160,7 @@ function getCommentList() {
 						$('#left').append("<div class ='div_category'>"
 						+"<span>"
 						+"<i id ='it' style='color: #FFA500;' class='fa fa-shopping-cart' aria-hidden='true'></i>"
+						+"</span><br><span>생필품</span>"
 						+"</span><br><span> "+data.list[i].price +"원</span><br>"
 						+"<span>"+data.list[i].percent+"%</span></div>");
 						}//생필품
@@ -166,6 +169,7 @@ function getCommentList() {
 						$('#left').append("<div class ='div_category'>"
 						+"<span>"
 						+"<i id='it' style='color: #FFB6C1; 'class='fa fa-bath' aria-hidden='true'></i>"
+						+"</span><br><span>미용</span>"
 						+"</span><br><span> "+data.list[i].price +"원</span><br>"
 						+"<span>"+data.list[i].percent+"%</span></div>");
 						}//미용
@@ -174,6 +178,7 @@ function getCommentList() {
 						$('#left').append("<div class ='div_category'>"
 						+"<span>"
 						+"<i id='it'style='color: #6A5ACD;'class='fa fa-medkit' aria-hidden='true'></i></td>"
+						+"</span><br><span>의료</span>"
 						+"</span><br><span> "+data.list[i].price +"원</span><br>"
 						+"<span>"+data.list[i].percent+"%</span></div>");
 						}//의료
@@ -182,6 +187,7 @@ function getCommentList() {
 						$('#left').append("<div class ='div_category'>"
 						+"<span>"
 						+"<i id='it' style='color: #DDA0DD;'class='fa fa-book' aria-hidden='true'></i>"
+						+"</span><br><span>교육</span>"
 						+"</span><br><span> "+data.list[i].price +"원</span><br>"
 						+"<span>"+data.list[i].percent+"%</span></div>");
 						}//교육
@@ -190,6 +196,7 @@ function getCommentList() {
 						$('#left').append("<div class ='div_category'>"
 						+"<span>"
 						+"<i id='it' style='color: #1E90FF;' class='fa fa-mobile' aria-hidden='true'></i>"
+						+"</span><br><span>통신비</span>"
 						+"</span><br><span> "+data.list[i].price +"원</span><br>"
 						+"<span>"+data.list[i].percent+"%</span></div>");
 						}//통신비
@@ -198,6 +205,7 @@ function getCommentList() {
 						$('#left').append("<div class ='div_category'>"
 						+"<span>"
 						+"<i id='it' style='color: #DAA520;' class='fa fa-database' aria-hidden='true'></i>"
+						+"</span><br><span>저축</span>"
 						+"</span><br><span> "+data.list[i].price +"원</span><br>"
 						+"<span>"+data.list[i].percent+"%</span></div>");
 						}//저축
@@ -206,6 +214,7 @@ function getCommentList() {
 						$('#left').append("<div class ='div_category'>"
 						+"<span>"
 						+"<i id='it'style='color: #708090;'class='fa fa-plug' aria-hidden='true'></i>"
+						+"</span><br><span>공과금</span>"
 						+"</span><br><span> "+data.list[i].price +"원</span><br>"
 						+"<span>"+data.list[i].percent+"%</span></div>");
 						}//공과금
@@ -214,6 +223,7 @@ function getCommentList() {
 						$('#left').append("<div class ='div_category'>"
 						+"<span>"
 						+"<i id='it' style='color: #3CB371;' class='fa fa-film' aria-hidden='true'></i>"
+						+"</span><br><span>문화생활비</span>"
 						+"</span><br><span> "+data.list[i].price +"원</span><br>"
 						+"<span>"+data.list[i].percent+"%</span></div>");
 						}//문화생활비
@@ -222,6 +232,7 @@ function getCommentList() {
 						$('#left').append("<div class ='div_category'>"
 						+"<span>"
 						+"<i id='it' style='color: #FA8072;' class='fa fa-minus-circle' aria-hidden='true'></i>"
+						+"</span><br><span>기타</span>"
 						+"</span><br><span> "+data.list[i].price +"원</span><br>"
 						+"<span>"+data.list[i].percent+"%</span></div>");
 						}//기타
@@ -230,8 +241,9 @@ function getCommentList() {
 						$('#left').append("<div class ='div_category'>"
 						+"<span>"
 						+"<i id='it' style='color: #9ACD32;'class='fa fa-krw' aria-hidden='true'></i>"
+						+"</span><br><span>수입</span>"
 						+"</span><br><span> "+data.list[i].price +"원</span><br>"
-						+"<span>"+data.list[i].percent+"%</span></div>");
+						+"</div>");
 						}//수입
 						
 					}
@@ -315,6 +327,7 @@ function getCommentList() {
 <style type="text/css">
 #it {
 	font-size: 70px;
+	padding: 10px 0px 0px 10px;
 }
 
 .root {
@@ -329,6 +342,7 @@ function getCommentList() {
 	height: 100%;
 	text-align: center;
 	border-bottom: dashed #CCE2D8;
+	padding: 10px 0px 0px 5px;
 }
 
 .left {
@@ -351,6 +365,7 @@ function getCommentList() {
 	width: 170px;
 	height: 150px;
 	display: inline-block;
+	text-align: center;
 }
 
 .bottom {
@@ -409,7 +424,7 @@ function getCommentList() {
 
 				<table>
 					<tr>
-						<td style="width: 300px; font-size: 30px;" align="center">${board.title}</td>
+						<td style="width: auto; font-size: 30px;" align="center">${board.title}</td>
 				</table>
 			</center>
 			<div align="right">

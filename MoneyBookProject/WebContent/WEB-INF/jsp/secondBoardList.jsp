@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -11,42 +11,47 @@
 	integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
 	crossorigin="anonymous"></script>
 <style type="text/css">
-.boardNo{
+.boardNo {
 	width: 50px;
 	text-align: center;
 }
-.title{
+
+.title {
 	width: 300px;
 	text-align: left;
-	
 }
-.nick{
+
+.nick {
 	width: 150px;
 	text-align: left;
 }
-.date{
+
+.date {
 	width: 150px;
 	text-align: center;
 }
-.recommend{
+
+.recommend {
 	width: 70px;
 	text-align: center;
 }
-.ViewNo{
+
+.ViewNo {
 	width: 70px;
 	text-align: center;
 }
-.tablelist{
+
+.tablelist {
 	border-bottom: 1px solid #CCE2D8;
 	background-color: #EAF2EE;
 	display: inline-block;
 }
 
-.right td{
- border-bottom: 1px solid #CCE2D8; 
- background-color: ##EAF2EE; 
- font-size: 15px;
- padding: 8px 5px;
+.right td {
+	border-bottom: 1px solid #CCE2D8;
+	background-color: ##EAF2EE;
+	font-size: 15px;
+	padding: 8px 5px;
 }
 
 select {
@@ -54,8 +59,9 @@ select {
 	padding: .3em .3em; /* 여백으로 높이 설정 */
 	margin-right: 10px;
 	font-family: inherit; /* 폰트 상속 */
-	background: url(https://farm1.staticflickr.com/379/19928272501_4ef877c265_t.jpg)
-				no-repeat 95% 50%; /* 네이티브 화살표 대체 */
+	background:
+		url(https://farm1.staticflickr.com/379/19928272501_4ef877c265_t.jpg)
+		no-repeat 95% 50%; /* 네이티브 화살표 대체 */
 	border: 1px solid #999;
 	border-radius: 0px; /* iOS 둥근모서리 제거 */
 	-webkit-appearance: none; /* 네이티브 외형 감추기 */
@@ -97,7 +103,7 @@ a:hover {
 	font-size: 15px;
 	border-right: solid #CCE2D8;
 	text-align: center;
-	display:inline-block; 
+	display: inline-block;
 }
 
 .right {
@@ -153,6 +159,11 @@ li {
 	position: relative;
 	top: 1px;
 }
+
+.boardType {
+	margin: 5px 0px 5px 0px;
+	font-size: 28px;
+}
 </style>
 <script type="text/javascript">
 	// html dom 이 다 로딩된 후 실행된다.
@@ -163,11 +174,11 @@ li {
 			// a 옆의 태그중 ul 태그에 hide 클래스 태그를 넣던지 빼던지 한다.
 			$(this).next("ul").toggleClass("hide");
 		});
-		
-		$("#backback").click(function(){
+
+		$("#backback").click(function() {
 			alert("로그인을 해주세요");
 		});
-		
+
 	});
 </script>
 </head>
@@ -176,14 +187,15 @@ li {
 	<div class="root">
 		<div class="left">
 			<div>
-				<br> &nbsp;&nbsp;&nbsp; <a class="myButton" href="boardList.do">전체게시판</a>
-				<br> &nbsp;&nbsp;&nbsp; <a class="myButton" href="secondBoardList.do">아무말대잔치</a>
+				<br> &nbsp;&nbsp;&nbsp; <a class="myButton" href="boardList.do">공유게시판</a>
+				<br> &nbsp;&nbsp;&nbsp; <a class="myButton"
+					href="secondBoardList.do" style="background-color: #91D4B5">자유게시판</a>
 			</div>
 		</div>
 
 		<div class="right">
-
 			<div align="right" style="margin-bottom: 20px;">
+				<div class="col-md-12 boardType" align="left">자유 게시판</div>
 				<form action="secondBoardList.do">
 					<table>
 						<tr align="center">
@@ -201,49 +213,52 @@ li {
 				<table class="tablelist">
 					<c:forEach var="best" items="${boardBest}">
 						<tr>
-							<td class="boardNo" >best</td>
-							<td class="title">
-								<a style="color: red; margin-right: 100px;"
-									href="secondBoardDetailView.do?boardNo=${best.boardNo}">${best.title}
-										<samp>[${best.commentNum}]</samp></a></td>
+							<td class="boardNo">best</td>
+							<td class="title"><a
+								style="color: #FF6753; margin-right: 100px;"
+								href="secondBoardDetailView.do?boardNo=${best.boardNo}">${best.title}
+									<samp>[${best.commentNum}]</samp>
+							</a></td>
 
 							<td class="nick"><img id="img1"
 								src="homeCss/assets/images/demo/name.png" alt="" />${best.nick }</td>
 
-							<td class="Date"><img id="img1" src="homeCss/assets/images/demo/date.png"
-								alt="" /> <fmt:formatDate value="${best.date }" pattern="yyyy-MM-dd" /></td>
+							<td class="Date"><img id="img1"
+								src="homeCss/assets/images/demo/date.png" alt="" /> <fmt:formatDate
+									value="${best.date }" pattern="yyyy-MM-dd" /></td>
 
-							<td class="recommend"><img id="img1" src="homeCss/assets/images/demo/recommend.png" 
-								alt="" />${best.recommend }</td>
-							
-							<td class="ViewNo"><img id="img1" src="homeCss/assets/images/demo/view.png"
-								alt="" />${best.viewNo }</td>
+							<td class="recommend"><img id="img1"
+								src="homeCss/assets/images/demo/recommend.png" alt="" />${best.recommend }</td>
+
+							<td class="ViewNo"><img id="img1"
+								src="homeCss/assets/images/demo/view.png" alt="" />${best.viewNo }</td>
 						</tr>
 					</c:forEach>
 				</table>
 			</div>
 			<div>
-				<table class="tablelist" >
+				<table class="tablelist">
 					<c:forEach var="board" items="${boardList }">
 						<tr>
-							<td class="boardNo" >${board.boardNo }</td>
+							<td class="boardNo">${board.boardNo }</td>
 
-							<td class="title" ><a style="margin-right: 100px;"
+							<td class="title"><a style="margin-right: 100px;"
 								href="secondBoardDetailView.do?boardNo=${board.boardNo}">${board.title }
-									<span>[${board.commentNum}]</span></a></td>
+									<span>[${board.commentNum}]</span>
+							</a></td>
 
 							<td class="nick"><img id="img1"
 								src="homeCss/assets/images/demo/name.png" alt="" />${board.nick }</td>
 
-							<td class="Date"><img id="img1" src="homeCss/assets/images/demo/date.png"
-								alt="" /> <fmt:formatDate value="${board.date }"
-									pattern="yyyy-MM-dd" /></td>
-									
-							<td class="recommend"><img id="img1" src="homeCss/assets/images/demo/recommend.png" 
-								alt="" />${board.recommend }</td>
-								
-							<td class="ViewNo"><img id="img1" src="homeCss/assets/images/demo/view.png"
-								alt="" />${board.viewNo }</td>
+							<td class="Date"><img id="img1"
+								src="homeCss/assets/images/demo/date.png" alt="" /> <fmt:formatDate
+									value="${board.date }" pattern="yyyy-MM-dd" /></td>
+
+							<td class="recommend"><img id="img1"
+								src="homeCss/assets/images/demo/recommend.png" alt="" />${board.recommend }</td>
+
+							<td class="ViewNo"><img id="img1"
+								src="homeCss/assets/images/demo/view.png" alt="" />${board.viewNo }</td>
 						</tr>
 					</c:forEach>
 				</table>
@@ -256,25 +271,23 @@ li {
 							</c:if> <c:forEach begin="${start }" end="${end }" var="i">
 								<c:choose>
 									<c:when test="${i == current }">
-											[${i }]
+											<span style="color: red;">[${i }]</span>
 										</c:when>
 									<c:otherwise>
-										<a href="secondBoardList.do?page=${i }&content=${content}&category=${category}">[${i }]</a>
+										<a
+											href="secondBoardList.do?page=${i }&content=${content}&category=${category}">[${i }]</a>
 									</c:otherwise>
 								</c:choose>
 							</c:forEach> <c:if test="${end != last }">
 								<a href="secondBoardList.do?page=${end+1 }">[다음]</a>
-							</c:if>
-						</td>
+							</c:if></td>
 						<c:choose>
 							<c:when test="${id_index != null }">
-								<td>
-									<input type="button" value="글쓰기" onclick="location.href='secondBoardWriteForm.do'">
-								</td>
+								<td><input type="button" value="글쓰기"
+									onclick="location.href='secondBoardWriteForm.do'"></td>
 							</c:when>
 							<c:when test="${id_index == null }">
-								<td>
-									<input type="button" value="글쓰기" id="backback">
+								<td><input type="button" value="글쓰기" id="backback">
 								</td>
 							</c:when>
 						</c:choose>
@@ -284,6 +297,6 @@ li {
 			<br>
 		</div>
 	</div>
-	
+
 </body>
 </html>

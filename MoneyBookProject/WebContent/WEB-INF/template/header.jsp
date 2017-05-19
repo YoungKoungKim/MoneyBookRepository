@@ -137,7 +137,7 @@
                         <!-- 공유게시판 -->
                         <a href="boardList.do" title="공유게시판">BulletinBoard</a>
                         <!-- 가계부 -->
-                        <a href="#" onclick="viewMyPage(${id_index})" title="가계부">MyMoneyBook</a>
+                        <a href="#" onclick="viewMyPage()" title="가계부">MyMoneyBook</a>
                         <!-- 가계부 -->
                         <a href="myInfo.do" title="회원 정보" id="MyInfoLink">Account</a>
                         <!-- 로그인 -->
