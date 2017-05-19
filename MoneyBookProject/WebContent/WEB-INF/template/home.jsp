@@ -57,7 +57,7 @@ html, body {
 }
 #container #content {
 	height: 100%;
-	min-height: 800px;
+	min-height: 900px;
 	font-family: NanumBarunpenR;
 }
 #footer {

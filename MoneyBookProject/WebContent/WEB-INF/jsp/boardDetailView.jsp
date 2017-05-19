@@ -427,7 +427,7 @@ function getCommentList() {
 						<td style="width: auto; font-size: 30px;" align="center">${board.title}</td>
 				</table>
 			</center>
-			<div align="right">
+			<div align="right" style="padding: 0px 10px 10px 0px;">
 				<table>
 					<tr>
 						<td style="width: 100px;" align="right" colspan="4"><fmt:formatDate

@@ -249,7 +249,7 @@ li {
 						<tr>
 							<td class="boardNo">Best</td>
 							<td>
-								[${best.ageType}]
+								<span>[${best.ageType}]대</span>
 							</td>
 							<td class="title"><a
 								style="color: #FF6753; margin-right: 100px;"
@@ -278,7 +278,7 @@ li {
 						<tr>
 							<td class="boardNo">${board.boardNo }</td>
 							<td>
-								[${board.ageType}]
+								<span>[${board.ageType}]대</span>
 							</td>
 							<td class="title"><a style="margin-right: 100px;"
 								href="boardDetailView.do?boardNo=${board.boardNo}&page=${current}">${board.title }
