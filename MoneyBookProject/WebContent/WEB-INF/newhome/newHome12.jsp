@@ -61,7 +61,6 @@
 			Kakao.Auth.logout();
 
 			setTimeout(function() {
-				alert("로그아웃 중");
 				location.href = "logout.do";
 			}, 1500);
 		});
