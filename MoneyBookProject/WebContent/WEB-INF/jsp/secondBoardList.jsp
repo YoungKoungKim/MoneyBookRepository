@@ -214,9 +214,9 @@ li {
 			</div>
 			<div>
 				<table class="tablelist">
-					<c:forEach var="Best" items="${boardBest}">
+					<c:forEach var="best" items="${boardBest}">
 						<tr>
-							<td class="boardNo">best</td>
+							<td class="boardNo">Best</td>
 							<td class="title"><a
 								style="color: #FF6753; margin-right: 100px;"
 								href="secondBoardDetailView.do?boardNo=${best.boardNo}">${best.title}

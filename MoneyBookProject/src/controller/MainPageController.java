@@ -19,7 +19,7 @@ public class MainPageController {
 	public String maxrecommend(){
 		int result = boardservice.bestView(1).get(0).getBoardNo();
 		System.out.println(result);
-		return "redirect:boardDetailView.do?boardNo="+result;
+		return "redirect:boardDetailView.do?boardNo="+result+"&page=1";
 	}
 
 	@RequestMapping("home.do")
