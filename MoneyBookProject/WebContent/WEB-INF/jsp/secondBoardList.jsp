@@ -188,6 +188,9 @@ li {
 		<div class="left">
 			<div>
 				<br> &nbsp;&nbsp;&nbsp; <a class="myButton" href="boardList.do">공유게시판</a>
+			
+			</div>
+			<div>
 				<br> &nbsp;&nbsp;&nbsp; <a class="myButton"
 					href="secondBoardList.do" style="background-color: #91D4B5">자유게시판</a>
 			</div>
