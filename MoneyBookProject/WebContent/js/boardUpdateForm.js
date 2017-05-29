@@ -130,8 +130,15 @@ function addextraList(){
 		}
 	});
 }
-function formCheck() {
-	
+function removeTag( html ) {
+    return html.replace(/(<([^>]+)>)/gi, "");
+}
+
+function doRemoveTag(age1) {
+
+	 var title =  removeTag(age1);
+	 $("[name=title]").val(title);
+
 }
 	$(document).ready(function() {
 		 addextraList();
@@ -139,14 +146,12 @@ function formCheck() {
 		 $("#formsubmitBtn").on("click", function() {
 			var content1 = $('#summernote').summernote('code');
 			var title = $('#title1').val();
-		 	var result = content1.replace(/\s+$/, '');
 			var result2 = title.replace(/\s+$/, '');
 			if(result2 == ""){
 				  alert("제목을 입력해주세요");
-				  }	else if(result == ""){
-					  alert("내용을 입력해주세요");
-				  } else {
-					  $('textarea[name="content"]').html(content1);
+				  }	else {
+					  doRemoveTag(title);	
+					 $('textarea[name="content"]').val(content1);
 					  $("#formsubmit").submit();
 				  }
 			 

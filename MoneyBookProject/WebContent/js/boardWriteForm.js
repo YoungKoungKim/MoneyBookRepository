@@ -131,6 +131,16 @@ function addextraList(){
 	});
 }
 
+function removeTag( html ) {
+    return html.replace(/(<([^>]+)>)/gi, "");
+}
+
+function doRemoveTag(age1, age2) {
+
+	 var title =  removeTag(age1);
+	 $("[name=title]").val(title);
+
+}
 
 
 	$(document).ready(function() {
@@ -150,23 +160,23 @@ function addextraList(){
 		$("#nowDate").text("날짜 : " + today); //날짜 표시
 
 		$('#back').on('click', function () {
-			location.href="viewMyPage.do?id_index=${id_index}&date=${date}";
+			var date=$('#date2').val();
+			location.href="viewMyPage.do?date="+date;
 		});
 		
 		$("#formsubmitBtn").on("click", function() {
 			var content1 = $('#summernote').summernote('code');
 			var title = $('#title1').val();
-		 	var result = content1.replace(/\s+$/, '');
 			var result2 = title.replace(/\s+$/, '');
+			
 			if(result2 == ""){
 				  alert("제목을 입력해주세요");
-				  }	else if(result == ""){
 					  alert("내용을 입력해주세요");
-				  } else {
-					  $('textarea[name="content"]').html(content1);
+			} else {
+					  doRemoveTag(title);
+					 $('textarea[name="content"]').val(content1);
 					  $("#formsubmit").submit();
 				  }
-			 
 		 });
 		
 		  $('#summernote').summernote({

@@ -2,6 +2,12 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%> 
+<%
+    // 줄바꿈 
+    pageContext.setAttribute("br", "<br/>");
+    pageContext.setAttribute("cn", "\n");
+%> 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -92,7 +98,8 @@
 					</tr>
 					<tr>
 						<td><textarea style="resize: none;" rows="2" cols="80"
-								id="content1" name="content1" placeholder="내용을 입력하세요"></textarea></td>
+								id="content1" name="content1" placeholder="내용을 입력하세요">
+								</textarea></td>
 						<td><input class="myButton" type="button" value="등록"
 							id="commentbut"></td>
 					</tr>
