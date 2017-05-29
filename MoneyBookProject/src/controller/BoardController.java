@@ -42,7 +42,7 @@ public class BoardController {
 	}
 
 	@RequestMapping("boardDetailView.do")
-	public ModelAndView boardDetailView(HttpSession session, int boardNo, int page) {// id_index 빼야됨
+	public ModelAndView boardDetailView(HttpSession session, int boardNo, @RequestParam(defaultValue="1")int page) {// id_index 빼야됨
 		ModelAndView mav = new ModelAndView();
 		try {
 			session.setAttribute("page", page);
