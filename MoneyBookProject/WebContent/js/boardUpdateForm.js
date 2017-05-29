@@ -137,7 +137,7 @@ function formCheck() {
 		 addextraList();
 		
 		 $("#formsubmitBtn").on("click", function() {
-			var content1 = $('#textContent').val(); 
+			var content1 = $('#summernote').summernote('code');
 			var title = $('#title1').val();
 		 	var result = content1.replace(/\s+$/, '');
 			var result2 = title.replace(/\s+$/, '');
@@ -146,10 +146,13 @@ function formCheck() {
 				  }	else if(result == ""){
 					  alert("내용을 입력해주세요");
 				  } else {
+					  $('textarea[name="content"]').html(content1);
 					  $("#formsubmit").submit();
 				  }
 			 
 		 });
 		 
-		 		 
+		  $('#summernote').summernote({
+			  height: 300
+		  });		 
 	});

@@ -164,7 +164,6 @@ function addextraList(){
 					  alert("내용을 입력해주세요");
 				  } else {
 					  $('textarea[name="content"]').html(content1);
-// 					  $('#textarea').text(content1);
 					  $("#formsubmit").submit();
 				  }
 			 
