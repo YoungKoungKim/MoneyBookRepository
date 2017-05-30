@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -688,6 +690,8 @@ var view = {
 		});
 		
 		$('#btn_update').click(function() {
+			
+			
 			var mod_category = $('#category').val();
 			var mod_detail = $('#edt_detail').val();
 			var mod_price = $('#edt_price').val();
@@ -698,6 +702,8 @@ var view = {
 				alert('사용 내용을 입력하세요.');
 			} else if (!$.isNumeric(mod_price)) {
 				alert('가격은 숫자만 입력 가능합니다.');
+			}else if(  mod_price <0){
+				alert('가격은 정수만 입력 가능합니다.');
 			} else if (!dateFormat.test(date)) {
 				alert('날짜 형식이 다릅니다.');
 			} else {

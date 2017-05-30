@@ -33,8 +33,9 @@ $(document).ready(function() {
 	
 	$(document).on("click",".update_btn", function(){
 		var id_index = $(this).attr('id').replace("update_btn", "");
-		var price =$('#price_val'+id_index).val();
-		$('#price'+id_index).html("<input type='text' value='"+price
+		var price =addComma($('#price_val'+id_index).val());
+		
+		$('#price'+id_index).html("<input type='text' class ='price_update' value='"+price
 				+"'id='price_update"+id_index+"'>");
 		
  		/* $('#update_btn'+id_index).val("확인"); */
@@ -52,12 +53,12 @@ $(document).ready(function() {
 			url : 'bookmarkUpdate.do',
 			data : "id_index="+${param.id_index}+
 			"&bookmarkNo="+$('#bookmarkNo'+id_index).val()+
-			"&price="+$('#price_update'+id_index).val(),
+			"&price="+$('#price_update'+id_index).val().replace(/,/gi ,""),
 			dataType : 'json',
 			type: 'post',
 			success : function(data){
 				alert(data.msg);
-				$('#price'+id_index).text(result); 
+				$('#price'+id_index).text("￦"+result); 
 				$('#confirm_btn'+id_index).attr({
 				id : 'update_btn'+id_index,
 				class : 'update_btn'
@@ -66,7 +67,24 @@ $(document).ready(function() {
 				
 			}
 		});
-	})
+	});
+	
+	
+	$(document).on("keyup",".regist_price",function(){
+		var id_index = $(this).attr('id').replace("regist_price", "");
+		var result = addComma($('#regist_price'+id_index).val());
+		$('#regist_price'+id_index).val(result);
+
+	});
+	
+	$(document).on("keyup",".price_update",function(){
+		var id_index = $(this).attr('id').replace("price_update", "");
+		var result = addComma($('#price_update'+id_index).val());
+		$('#price_update'+id_index).val(result);
+
+	});
+	
+	
 	
 	
 //천 단위마다 콤마 추가하기	
@@ -101,17 +119,22 @@ function addComma(value) {
   }
 
   // 마지막으로 루프를 돌고 남아 있을 입력값(value)을 최종 결과 앞에 추가
-  result = "￦"+num + result;
+   result = num + result; 
 
   // 최종값 리턴
   return result;
+
 }
 
 // 숫자 유무 판단
 function isNumber(checkValue) {
-  checkValue = '' + checkValue;
-  
-  if (isNaN(checkValue) || checkValue == "") {
+	checkValue = '' + checkValue;
+	
+	if(checkValue.length >=4) {
+	checkValue= checkValue.replace(/,/gi ,""); 
+	}
+	
+  if (isNaN(checkValue) /* || checkValue == "" */) {
     alert('금액은 숫자만 입력해 주세요.');
     return;
   }
@@ -136,6 +159,10 @@ function isNumber(checkValue) {
 
 	$(document).on("click",".add_line_btn",function(){
 	var addCount = parseInt($('.add_line_btn').attr("id").replace("add_line_btn",""))+parseInt(1);
+	
+	if(addCount > 6){
+		alert("북마크는 최대 6개까지 가능합니다.");
+	}else{
 	$('.add_line_btn').remove();
 	
 	var tag =
@@ -157,18 +184,17 @@ function isNumber(checkValue) {
 		+"</select></td>" 
 		+"<td><input type='text' name='detail'" 
 		+"placeholder='사용내역을 입력하세요.' id='regist_detail"+addCount+"'></td>"
-		+"<td><input type='text' name='price' "
+		+"<td><input type='text' class='regist_price' name='price' "
 		+"id='regist_price"+addCount+"' placeholder='가격을 입력하세요.'></td>"
 		+"<td><a href = '#' target=''id='add_line_btn"+addCount+"'class='add_line_btn'>"
 		+"<i class='fa fa-plus-circle' aria-hidden='true' title='항목을 추가하고 싶으면 클릭하세요'></i></a>"
 		+"</td>"
 		+"</tr>" ;
 	$('#list_table').append(tag);
+	}
 });
 	
 	$('#book_mark_regist_btn').click(function (){
-		
-		
    		var list_size = parseInt($('.add_line_btn').attr("id").replace("add_line_btn",""));
    		var last_input = 0;
  	for(var i =1; i <= list_size; i++){
@@ -187,16 +213,20 @@ function isNumber(checkValue) {
  			alert("모든 항목을 입력해주세요.");
 			return false;
 		}else{
-			if($.isNumeric($('#regist_price'+i).val()) == false && $('#regist_price'+i).val() !='' ){
+			if($.isNumeric($('#regist_price'+i).val().replace(/,/gi ,"")) == false && $('#regist_price'+i).val() !='' ){
 				alert("금액은 숫자만 입력해주세요.");
 				return false;
+		}else if($('#regist_price'+i).val() <0){
+			alert("금액은 정수만 입력해주세요.");
+			return false;
+		}else{
+			$('#regist_price'+i).val($('#regist_price'+i).val().replace(/,/gi ,"")); 
 		}	
 	}
  	} 
-  	
-  	
-  	
 }); 
+	
+	
 });
 </script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -439,8 +469,9 @@ div {
 							</select></td>
 							<td><input type="text" name="detail"
 								placeholder="내용을 입력하세요." id="regist_detail${status.index}"></td>
-							<td><input type="text" name="price"
-								id="regist_price${status.index}" placeholder="가격을 입력하세요.">
+							<td><input type="text" name="price" class="regist_price"
+								id="regist_price${status.index}" placeholder="가격을 입력하세요."
+								>
 								<c:if test="${status.last}">
 									<td><a href="#" target="" id="add_line_btn${status.index}"
 										class="add_line_btn"> <i class="fa fa-plus-circle"
