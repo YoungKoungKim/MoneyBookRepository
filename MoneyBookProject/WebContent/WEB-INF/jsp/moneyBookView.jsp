@@ -583,7 +583,7 @@ var view = {
 					$("#datepicker").datepicker("setDate", data.mbDate);
 					$('#category').val(data.moneyBook.category);
 					$('#edt_detail').val(data.moneyBook.detail);
-					$('#edt_price').val(data.moneyBook.price);
+					$('#edt_price').val(addComma(data.moneyBook.price));
 					modifyMoneyBookNo = data.moneyBook.moneyBookNo;
 					
 				},
@@ -593,11 +593,7 @@ var view = {
 
 			});
 		});
-/* 	if('${param.succ}' == "sucess"){
-			opener.parent.location.reload();
-			window.close();
-	}  */
-		
+
 		$('#detailTable thead').hide();
 		var today = new Date();
 		$('#calendar').fullCalendar({
@@ -633,7 +629,7 @@ var view = {
 								if (data.expense[i].title != 0) {
 									events.push({
 										/* 지출 */
-										title : data.expense[i].title,
+										title : addComma(data.expense[i].title),
 										start : data.expense[i].start,
 										textColor : "#FA8072"
 									});
@@ -648,7 +644,7 @@ var view = {
 								if (data.expense[i].title != 0) {
 									events.push({
 										/* 지출 */
-										title : data.expense[i].title,
+										title : addComma(data.expense[i].title),
 										start : data.expense[i].start,
 										textColor : "#FA8072"
 									});
@@ -705,7 +701,7 @@ var view = {
 												+ "data-target='#layerpop' data-toggle='modal'>"
 												+ "<td>" + convertCategory(data[i].category) + "</td>"
 												+ "<td>" + data[i].detail + "</td>"
-												+ "<td class='price'>" + data[i].price + "</td>"
+												+ "<td class='price'>" + addComma(data[i].price) + "</td>"
 												+ "</tr>"
 										$('#detailTable').append(td);
 									})
@@ -744,6 +740,14 @@ var view = {
 			});
 		});
 		
+		
+		$(document).on("keyup","#edt_price",function(){
+			var result = addComma($('#edt_price').val());
+			$('#edt_price').val(result);
+
+		});
+		
+		
 		$('#btn_update').click(function() {
 			
 			
@@ -753,6 +757,8 @@ var view = {
 			var date = $('#datepicker').val();
 			var dateFormat = /^(19[7-9][0-9]|20\d{2})-(0[0-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/;
 
+			mod_price = $('#edt_price').val().replace(/,/gi ,""); 
+			
 			if (mod_detail == "" || mod_price == "") {
 				alert('사용 내용을 입력하세요.');
 			} else if (!$.isNumeric(mod_price)) {
@@ -762,6 +768,7 @@ var view = {
 			} else if (!dateFormat.test(date)) {
 				alert('날짜 형식이 다릅니다.');
 			} else {
+				
 				$.ajax({
 					type : 'post',
 					url : 'moneyBookUpdate.do',
@@ -785,7 +792,6 @@ var view = {
 					}
 				});
 			}
-			
 		});
 		
 		$(document).on('click', '#boardWriteBtn', function() {
