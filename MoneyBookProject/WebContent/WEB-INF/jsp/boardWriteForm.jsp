@@ -5,6 +5,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+
+
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet"
@@ -56,9 +58,7 @@
 						</select>
 						</td>
 						<td>
-						제목 
-							&nbsp;
-							 <input style="width: 400px" type="text" id="title1" name="title" placeholder="제목을 입력하세요">
+						제목  <input style="width: 400px" type="text" id="title1" name="title" placeholder="제목을 입력하세요">
 						</td>
 						<td>
 							<span id="nowDate"></span>
@@ -75,7 +75,7 @@
 					
 			</div>
 			<div class="bottom">
-				  <div id="summernote">내용을입력하세요</div>
+				  <div id="summernote"><p>내용을입력하세요</p></div>
 				 <textarea rows="" cols="" style="display:none" id="textarea" name="content"></textarea>
 			
 			<div align="center">

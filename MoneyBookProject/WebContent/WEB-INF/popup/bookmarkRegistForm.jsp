@@ -84,9 +84,6 @@ $(document).ready(function() {
 
 	});
 	
-	
-	
-	
 //천 단위마다 콤마 추가하기	
 function addComma(value) {
   var num = isNumber(value);
