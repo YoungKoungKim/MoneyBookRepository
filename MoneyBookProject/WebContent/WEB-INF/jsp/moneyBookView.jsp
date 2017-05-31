@@ -480,7 +480,7 @@ var controller = {
 var view = {
 		  render: function () {
 		    // render current total
-		    var screenText = view.sciNotationFormat(controller.getScreenVal());
+		    var screenText = addComma(view.sciNotationFormat(controller.getScreenVal()));
 		    $('#screen').text(screenText);
 		    view.highlightOperator();
 		    
