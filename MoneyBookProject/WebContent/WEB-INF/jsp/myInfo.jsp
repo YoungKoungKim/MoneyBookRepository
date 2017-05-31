@@ -6,7 +6,6 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>회원정보</title>
-
 <style type="text/css">
 #myInfoContainer {
 	margin-top: 30px;
@@ -89,17 +88,7 @@
 								<h3>가입 경로 :</h3>
 							</div>
 							<div class="col-md-8" style="text-align: left;">
-								<h3>
-									<c:choose>
-										<c:when
-											test="${member.pwd eq '4a7d1ed414474e4033ac29ccb8653d9b'}">카카오 아이디
-											<input type="hidden" id="user_Type" value="kakao">
-										</c:when>
-										<c:otherwise>일반 아이디
-											<input type="hidden" id="user_Type" value="nomal">
-										</c:otherwise>
-									</c:choose>
-								</h3>
+								<h3>${userType }아이디</h3>
 							</div>
 						</div>
 
@@ -131,8 +120,7 @@
 						<h2>비밀번호 수정</h2>
 
 						<c:choose>
-							<c:when
-								test="${member.pwd eq '4a7d1ed414474e4033ac29ccb8653d9b'}">
+							<c:when test="${userType eq '카카오'}">
 								<div class="col-md-12">
 									<h2>
 										카카오 아이디는 비밀번호를 <br> 수정할 수 없습니다.
@@ -154,7 +142,8 @@
 									<div class="input-group">
 										<span class="input-group-addon inputLabel">새 비밀번호</span> <input
 											id="inform_NewPwd" type="password" class="form-control"
-											placeholder="6~20자 영문 대 소문자, 숫자는 필수입니다." style="width: 345px;">
+											placeholder="6~20자 영문 대 소문자, 숫자는 필수입니다."
+											style="width: 345px;">
 									</div>
 								</div>
 
@@ -181,13 +170,11 @@
 						<h2>탈퇴</h2>
 
 						<div class="col-md-12">
-							<h2>
-								탈퇴 하면 작성한 글은 모두 삭제됩니다.
-							</h2>
+							<h2>탈퇴 하면 작성한 글은 모두 삭제됩니다.</h2>
 						</div>
 
 
-						<c:if test="${member.pwd ne '4a7d1ed414474e4033ac29ccb8653d9b'}">
+						<c:if test="${userType ne '카카오'}">
 							<div class="col-md-12" style="margin-top: 20px;">
 								<div class="input-group">
 									<span class="input-group-addon inputLabel">비밀번호</span> <input
@@ -211,6 +198,7 @@
 			</c:otherwise>
 		</c:choose>
 	</center>
+	<input type="hidden" value="${userType }" id="user_Type">
 	<input type="hidden" value="${member.nick }" id="inform_NickName">
 	<input type="hidden" value="false" id="inform_NickTest">
 	<input type="hidden" value="false" id="inform_NewPwdTest">

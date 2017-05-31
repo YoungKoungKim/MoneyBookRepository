@@ -94,6 +94,29 @@
 	font-size: 18px;
 	color: black;
 }
+
+.wrap-loading { /*화면 전체를 어둡게 합니다.*/
+	position: fixed;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	background: rgba(0, 0, 0, 0.2); /*not in ie */
+	filter: progid:DXImageTransform.Microsoft.Gradient(startColorstr='#20000000',
+		endColorstr='#20000000'); /* ie */
+}
+
+.wrap-loading div { /*로딩 이미지*/
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	margin-left: -21px;
+	margin-top: -21px;
+}
+
+.display-none { /*감추기*/
+	display: none;
+}
 </style>
 </head>
 <body>
@@ -156,13 +179,20 @@
 				<div class="modal-body" style="border: 2px solid #91D4B5;">
 					<center>
 						<h1 style="color: black;">회 원 가 입</h1>
+						<div class="wrap-loading display-none">
+
+							<div>
+								<img src="jpg/loading.gif" />
+							</div>
+
+						</div>
 						<table>
 							<tr align="center">
 								<td style="color: black;">아이디</td>
 								<td width="320px;"><input type="text" id="join_Id"
 									class="form-control" placeholder="이메일을 입력하세요."></td>
-								<td><button id="join_MailSendBtn" class="btn" style="margin: 0px 0px 0px 5px;">인증메일
-										보내기</button></td>
+								<td><button id="join_MailSendBtn" class="btn"
+										style="margin: 0px 0px 0px 5px;">인증메일 보내기</button></td>
 							</tr>
 							<tr>
 								<td></td>
@@ -172,9 +202,12 @@
 							<tr align="center">
 								<td style="color: black;">이메일 인증</td>
 								<td><input type="text" id="join_IdAuthInput"
-									class="form-control" placeholder="인증번호를 입력해주세요."></td>
-								<td><button id="join_IdAuthBtn" class="btn" style="margin: 0px;">이메일
-										인증</button></td>
+									class="form-control" placeholder="인증번호를 입력해주세요."
+									onkeydown='return onlyNumber(event)'
+									onkeyup='removeChar(event)' style='ime-mode: disabled;'
+									maxlength="5"></td>
+								<td><button id="join_IdAuthBtn" class="btn"
+										style="margin: 0px;">이메일 인증</button></td>
 							</tr>
 							<tr>
 								<td></td>
@@ -219,6 +252,7 @@
 							</tr>
 						</table>
 						<input type="hidden" value="false" id="join_IdTest"> <input
+							type="hidden" value="false" id="join_SendMailTest"> <input
 							type="hidden" value="false" id="join_IdAuthTest"> <input
 							type="hidden" value="false" id="join_NickTest"> <input
 							type="hidden" value="false" id="join_PwdTest"> <input
@@ -249,18 +283,26 @@
 							</tr>
 							<tr align="center">
 								<td style="color: black;">비밀번호&nbsp;</td>
-								<td><input type="password" id="login_Pwd"
+								<td colspan="2"><input type="password" id="login_Pwd"
 									class="form-control" placeholder="비밀번호를 입력해주세요."></td>
 							</tr>
 							<tr>
 								<td></td>
 								<td><span id="login_PwdCheck" style="color: red;"></span><br></td>
 							</tr>
-							<tr align="center">
-								<td colspan="2"><input type="button" value="로그인"
-									class="btn" id="login_SubmitBtn">
-									&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" value="취소"
-									class="btn" data-dismiss="modal"></td>
+							<tr>
+								<td align="right" colspan="2">
+									<div class="col-md-8">
+										<input type="button" value="로그인" class="btn"
+											id="login_SubmitBtn"> &nbsp;&nbsp;&nbsp;&nbsp;<input
+											type="button" value="취소" class="btn" data-dismiss="modal">
+									</div>
+									<div class="col-md-4">
+										<button class="btn" data-toggle="modal"
+											data-target="#foundPwdModal" data-backdrop="static">비밀번호
+											찾기</button>
+									</div>
+								</td>
 							</tr>
 							<tr>
 								<td colspan="2" align="center"><br> <a
@@ -271,6 +313,23 @@
 						</table>
 					</center>
 				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- 	비밀번호 찾기 모달 -->
+	<div class="modal fade" id="foundPwdModal" aria-hidden="true"
+		style="z-index: 2222;">
+		<div class="modal-dialog" style="z-index: 2222;">
+			<div class="modal-content" style="z-index: 2222;">
+				<div class="modal-body" id="noneMemberModal-content"
+					style="z-index: 2222;">
+					<div align="center" style="z-index: 2222;">
+						<h3>비밀번호 찾기</h3>
+						<button class="btn" data-dismiss="modal">취소</button>
+					</div>
+				</div>
+
 			</div>
 		</div>
 	</div>
@@ -298,6 +357,25 @@
 	</div>
 
 	<script type='text/javascript'>
+		function onlyNumber(event) {
+			event = event || window.event;
+			var keyID = (event.which) ? event.which : event.keyCode;
+			if ((keyID >= 48 && keyID <= 57) || (keyID >= 96 && keyID <= 105)
+					|| keyID == 8 || keyID == 46 || keyID == 37 || keyID == 39)
+				return;
+			else
+				return false;
+		}
+
+		function removeChar(event) {
+			event = event || window.event;
+			var keyID = (event.which) ? event.which : event.keyCode;
+			if (keyID == 8 || keyID == 46 || keyID == 37 || keyID == 39)
+				return;
+			else
+				event.target.value = event.target.value.replace(/[^0-9]/g, "");
+		}
+
 		//<![CDATA[
 		// 사용할 앱의 JavaScript 키를 설정해 주세요.
 		Kakao.init('9712483447f19279ea7f16e2db8de389');
