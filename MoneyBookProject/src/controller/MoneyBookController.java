@@ -90,7 +90,6 @@ public class MoneyBookController {
 		int num = bookMarkService.checkbookNo(id_index);
 		String[] category_arr = category.split(",");
 		
-		System.out.println(category_arr.length);
 		num= num + category_arr.length;
 		if (num > 6) {
 			mav.addObject("msg", "북마크는 6개 이상 등록할 수 없습니다.");
@@ -314,7 +313,6 @@ public class MoneyBookController {
 			int day) {
 		int id_index = (int) session.getAttribute("id_index");
 
-		System.out.println("가계부 등록 요청에 왔다");
 		ModelAndView mav = new ModelAndView();
 		int resultCount = 0;
 
@@ -325,7 +323,6 @@ public class MoneyBookController {
 		Date date = new Date();
 		String date2 = null;
 		for (int i = 0; i < category_arr.length; i++) {
-			System.out.println(detail_arr[i]);
 			
 			date.setYear(year - 1900);
 			date.setMonth(month - 1);
