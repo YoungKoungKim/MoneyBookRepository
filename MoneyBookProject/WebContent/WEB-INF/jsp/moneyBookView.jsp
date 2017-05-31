@@ -52,8 +52,8 @@ html, body {
 }
 
 #center {
-	display: inline-block; 
-	font-family : 'Ubuntu Condensed', sans-serif;
+	display: inline-block;
+	font-family: 'Ubuntu Condensed', sans-serif;
 	margin-left: 18%;
 	left: 20%;
 	right: 20%;
@@ -64,11 +64,11 @@ html, body {
 
 #right {
 	position: absolute;
-   margin-top: 90px;
-   width: 20%;
-   left: 80%;
-   right: 5%;
-   top: 70px
+	margin-top: 90px;
+	width: 20%;
+	left: 80%;
+	right: 5%;
+	top: 70px
 }
 
 #calendar {
@@ -991,7 +991,8 @@ var view = {
 
 	<div id="right">
 		<button class="btn moneyBookBtn" id="moneyBookWriteBtn">등록</button>
-		<button class="btn moneyBookBtn" id="boardWriteBtn" data-target="#boardWriteFormError" data-toggle="modal">공유</button>
+		<button class="btn moneyBookBtn" id="boardWriteBtn"
+			data-target="#boardWriteFormError" data-toggle="modal">공유</button>
 
 		<div id="calculator">
 			<div class="clearfix" id="wrapper">
@@ -1093,15 +1094,13 @@ var view = {
 			</div>
 		</div>
 	</div>
-	
+
 	<div class="modal fade" id="boardWriteFormError">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div id="borderLine">
 					<!-- body -->
-					<div class="modal-body">
-						공유할 데이터가 없습니다. 가계부를 등록해주세요!
-					</div>
+					<div class="modal-body">공유할 데이터가 없습니다. 가계부를 등록해주세요!</div>
 					<!-- Footer -->
 					<div class="modal-footer">
 						<button name="cancel" class="modal_btn btn" id="btn_cancel"
