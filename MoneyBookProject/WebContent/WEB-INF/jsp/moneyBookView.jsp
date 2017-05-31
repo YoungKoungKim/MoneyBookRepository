@@ -602,8 +602,8 @@ var view = {
 		var today = new Date();
 		$('#calendar').fullCalendar({
 			header : {
-				left : 'prev,next today',
-				center : 'title',
+				left : 'today',
+				center : 'prevYear,prev title next,nextYear',
 				right : 'month'
 			},
  			defaultDate : today,
@@ -789,7 +789,9 @@ var view = {
 		});
 		
 		$(document).on('click', '#boardWriteBtn', function() {
-			location.href = "boardWriteForm.do?date=" + boardWriteDate;
+			if ($('#monthIncome').text() != "0" || $('#monthExpense').text() != "0") {
+				location.href = "boardWriteForm.do?date=" + boardWriteDate;
+			}
 		});
 		
 		$(document).on('click', '#moneyBookWriteBtn', function() {
@@ -983,7 +985,7 @@ var view = {
 
 	<div id="right">
 		<button class="btn moneyBookBtn" id="moneyBookWriteBtn">등록</button>
-		<button class="btn moneyBookBtn" id="boardWriteBtn">공유</button>
+		<button class="btn moneyBookBtn" id="boardWriteBtn" data-target="#boardWriteFormError" data-toggle="modal">공유</button>
 
 		<div id="calculator">
 			<div class="clearfix" id="wrapper">
@@ -1080,6 +1082,24 @@ var view = {
 						<button name="delete" class="modal_btn btn" id="btn_delete">삭제</button>
 						<button name="cancel" class="modal_btn btn" id="btn_cancel"
 							data-dismiss="modal">취소</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="modal fade" id="boardWriteFormError">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div id="borderLine">
+					<!-- body -->
+					<div class="modal-body">
+						공유할 데이터가 없습니다. 가계부를 등록해주세요!
+					</div>
+					<!-- Footer -->
+					<div class="modal-footer">
+						<button name="cancel" class="modal_btn btn" id="btn_cancel"
+							data-dismiss="modal">확인</button>
 					</div>
 				</div>
 			</div>
