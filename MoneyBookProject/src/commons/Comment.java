@@ -8,5 +8,6 @@ public class Comment {
 	public static String DATE = "date";
 	public static String CONTENT="content";
 	public static String RECOMMEND ="recommend";
-	
+	public static String LV="lv";
+	public static String DEPTH="depth";
 }

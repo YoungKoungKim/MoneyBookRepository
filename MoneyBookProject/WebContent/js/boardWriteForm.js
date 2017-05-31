@@ -141,7 +141,20 @@ function doRemoveTag(age1, age2) {
 	 $("[name=title]").val(title);
 
 }
+$('#summernote').summernote({
+	  callbacks: {
+	    onImageUpload: function(files) {
+	      // upload image to server and create imgNode...
+	      $summernote.summernote('insertNode', imgNode);
+	    }
+	  }
+	});
 
+	// summernote.image.upload
+	$('#summernote').on('summernote.image.upload', function(we, files) {
+	  // upload image to server and create imgNode...
+	  $summernote.summernote('insertNode', imgNode);
+	});
 
 	$(document).ready(function() {
 		
@@ -171,7 +184,6 @@ function doRemoveTag(age1, age2) {
 			
 			if(result2 == ""){
 				  alert("제목을 입력해주세요");
-					  alert("내용을 입력해주세요");
 			} else {
 					  doRemoveTag(title);
 					 $('textarea[name="content"]').val(content1);
@@ -180,6 +192,23 @@ function doRemoveTag(age1, age2) {
 		 });
 		
 		  $('#summernote').summernote({
-			  height: 300
-		  });
+		        height: "200px",
+		        callbacks: {
+		          onImageUpload: function(files) {
+		            var $editor = $(this);
+		            var data = new FormData();
+		            data.append('fileup', files[0]);
+		            $.ajax({
+		              url: '/image/upload',
+		              method: 'POST',
+		              data: data,
+		              processData: false,
+		              contentType: false,
+		              success: function(url) {
+		                $editor.summernote('insertImage', url);
+		              }
+		            });
+		          }
+		        }
+		      });
 	});

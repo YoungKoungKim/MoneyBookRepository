@@ -74,8 +74,8 @@
 			</div>
 
 			<div class="right">
-				<div id="summernote">${board.content}</div>
-				 <textarea rows="" cols="" style="display:none" id="textarea" name="content"></textarea>
+<%-- 				<div id="summernote">${board.content}</div> --%>
+				 <textarea rows="" cols="" style="display:none" id="summernote" name="content">${board.content}</textarea>
 				
 			</div>
 

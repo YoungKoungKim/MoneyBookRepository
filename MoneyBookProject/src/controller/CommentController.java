@@ -32,6 +32,7 @@ public class CommentController {
 		comment.put(Comment.BOARDNO, boardNo);
 		comment.put(Comment.NICK, nick);
 		comment.put(Comment.CONTENT, content);
+		
 		 commentservice.commentWrite(comment);
 		 return "true";
 	}
@@ -50,6 +51,7 @@ public class CommentController {
 		commentservice.commentDelete(commentNo);
 		return "true";
 	}
+	
 	
 	@RequestMapping("commentRecommend.do")
 	public @ResponseBody HashMap<String, Object> commentRecommend(int commentNo, HttpSession session, int boardNo){

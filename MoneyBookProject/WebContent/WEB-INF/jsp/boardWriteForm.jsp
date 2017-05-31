@@ -75,8 +75,8 @@
 					
 			</div>
 			<div class="bottom">
-				  <div id="summernote"><p>내용을입력하세요</p></div>
-				 <textarea rows="" cols="" style="display:none" id="textarea" name="content"></textarea>
+<!-- 				  <div id="summernote"><p>내용을입력하세요</p></div> -->
+				 <textarea rows="" cols="" style="display:none" id="summernote" name="content"></textarea>
 			
 			<div align="center">
 				<span><input type="button" class="myButton" value="확인" id="formsubmitBtn"></span>

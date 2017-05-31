@@ -22,4 +22,6 @@ public interface ICommentDao {
 	public boolean deleteBoardComment(int boardNo);
 	
 	public int updateRecommend(int commentNo);
+	
+	public int commentCount(int boardNo);
 }
