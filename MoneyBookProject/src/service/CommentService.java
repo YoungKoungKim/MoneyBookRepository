@@ -20,6 +20,7 @@ public class CommentService implements ICommentService {
 
 	@Override
 	public boolean commentWrite(HashMap<String, Object> params) {
+		params.put(Comment.LV, 0);
 		return dao.insertComment(params);
 	}
 

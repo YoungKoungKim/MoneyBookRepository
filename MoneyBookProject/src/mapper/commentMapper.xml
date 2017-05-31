@@ -6,12 +6,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<insert id="insertComment" parameterType="java.util.HashMap">
 		insert into comment
 		values (0, #{boardNo}, #{id_index},
-		#{nick},sysdate(),#{content},0)
+		#{nick},sysdate(),#{content},0,#{lv},#{depth})
 	</insert>
 
 	<update id="updateComment" parameterType="java.util.HashMap">
 		update comment set
-		date=sysdate(), content = #{content} where commentNo =
+		date=sysdate(), content = #{content}, lv = #{lv}, depth = #{depth} where commentNo =
 		#{commentNo}
 	</update>
 
@@ -46,4 +46,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<update id="updateRecommend" parameterType="int">
 		update comment set recommend = recommend+1 where commentNo = #{commentNo}
 	</update>
+	
+	<select id="commentCount">
+		select count
+	</select>
+	
 </mapper>

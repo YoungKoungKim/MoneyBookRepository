@@ -1,4 +1,3 @@
-//*********************************로그인***************************************
 $(document)
     .ready(
         function() {
@@ -7,6 +6,7 @@ $(document)
             var phoneChk = /^(01[016789]{1}|070|02|0[3-9]{1}[0-9]{1})-[0-9]{3,4}-[0-9]{4}$/;
             var nickPattern = /^[\w\Wㄱ-ㅎㅏ-ㅣ가-힣]{2,12}$/;
 
+//*********************************로그인***************************************
             $("#login_SubmitBtn")
                 .on(
                     "click",
@@ -91,6 +91,70 @@ $(document)
                         $("#join_IdTest").val("false");
                     }
                 });
+            
+            $("#join_MailSendBtn").on("click", function() {
+            	if($("#join_IdAuthTest").val() != "true") {
+            		if($("#join_IdTest").val() == "true") {
+            			$("#join_SendMailTest").val("false");
+            				$.ajax({
+            				url: "userAuth.do",
+                        	type: "post",
+                        	data: "id=" +
+                            	$("#join_Id").val(),
+                            dataType: "json",
+                        	success: function(data) {
+                        		if(data == 1) {
+                        			$("#join_SendMailTest").val("true");
+                        			alert("인증메일이 발송되었습니다.");
+                        		} else if (data == -1) {
+                        			alert("인증메일 발송 실패");
+                        		}
+                        	},beforeSend:function(){
+                        		$('.wrap-loading').removeClass('display-none');
+                        	}
+                        	,complete:function(){
+                            	$('.wrap-loading').addClass('display-none');
+                        	}
+                        	, error: function() {
+                        		alert("전송 실패");
+            				}
+            			});
+            		} else {
+            			$("#join_Id").focus();
+            		}
+            	}
+            });
+            
+            $("#join_IdAuthBtn").on("click", function() {
+            	if($("#join_IdAuthTest").val() != "true") {
+            		if($("#join_SendMailTest").val() == "true") {
+            			$.ajax({
+                        	url: "idAuth.do",
+                        	type: "post",
+                        	data: "authNo=" +
+                            	$("#join_IdAuthInput").val(),
+                            dataType: "json",
+                        	success: function(data) {
+                        		if(data) {
+                        			$("#join_IdAuthCheck").text("인증 성공");
+                        			$("#join_IdAuthTest").val("true");
+                        			$("#join_Id").attr("readonly","readonly")
+                        			$("#join_IdAuthInput").attr("readonly","readonly");
+                        			alert("인증 성공");
+                        		} else {
+                        			$("#join_IdAuthInput").focus();
+                    				$("#join_IdAuthCheck").text("인증번호가 틀렸습니다.");
+                        		}
+                        	}, 
+                        	error : function() {
+                        		alert("전송 실패");
+                        	}
+            			});
+            		} else {
+            			alert("인증메일을 보내주세요.");
+            		}
+            	}
+            });
 
             $("#join_Nick")
                 .on(
@@ -197,19 +261,17 @@ $(document)
                     function() {
                         if ($("#join_IdTest").val() != "true") {
                             $("#join_Id").focus();
-                            return;
+                        } else if ($("#join_IdAuthTest").val() != "true") {
+                        	$("#join_IdAuthInput").focus();
+                        	$("#join_IdAuthCheck").text("인증을 받아주세요.");
                         } else if ($("#join_NickTest").val() != "true") {
                             $("#join_Nick").focus();
-                            return;
                         } else if ($("#join_PwdTest").val() != "true") {
                             $("#join_Pwd").focus();
-                            return;
                         } else if ($("#join_PwdOkTest").val() != "true") {
                             $("#join_PwdOk").focus();
-                            return;
                         } else {
-                            $
-                                .ajax({
+                            $.ajax({
                                     url: "joinSuccess.do",
                                     type: "post",
                                     data: "id=" +
@@ -225,11 +287,22 @@ $(document)
                                     dataType: "json",
                                     success: function(data) {
                                         if (data == 2001) {
-                                            alert("가입하셨습니다.")
+                                            alert("가입하셨습니다.");
                                             location
                                                 .reload();
                                         } else if (data == 2002) {
                                             alert("가입 실패, 다시 시도해주세요.");
+                                        } else if (data == 2003) {
+                                        	alert("비밀번호를 다른 비밀번호로 입력해주세요. (해시값 변환 오류)");
+                                        } else if (data == 2004) {
+                                        	$("#join_IdAuthCheck").text("");
+                                        	$("#join_SendMailTest").val("false");
+                                			$("#join_IdAuthTest").val("false");
+                                			$("#join_Id").attr("readonly","")
+                                			$("#join_IdAuthInput").attr("readonly","");
+                                        	alert("이미 있는 아이디입니다.");
+                                        } else if (data == 2005) {
+                                        	alert("이미 있는 닉네임입니다.");
                                         }
                                     },
                                     error: function(e) {
@@ -368,9 +441,11 @@ $(document)
                         success: function(data) {
                             if (data == 4101) {
                                 alert("닉네임이 수정되었습니다.");
-                                location.href = "myInfo.do";
+                                location.reload();
                             } else if (data == 4103) {
                                 alert("db 수정 실패");
+                            } else if (data == 4104) {
+                            	alert("이미 있는 닉네임입니다.");
                             }
                         },
                         error: function(request, status, error) {
@@ -440,22 +515,18 @@ $(document)
             // -------------------------------------
 
             $("#user_DeleteBtn").on("click", function() {
-            	if($("#user_Type").val() == "kakao") {
+            	if($("#user_Type").val() == "카카오") {
             		if (confirm("정말 삭제하시겠습니까??") == true) {
-            			
             			$.ajax({
             				url : "kakaoDelete.do",
             				data : "token=" + Kakao.Auth.getAccessToken(),
             				type : "post",
-            				dataType: "json",
-            				 success: function(data) {
-            					 if(data == "success") {
-            						 alert("삭제되었습니다.");
-            						 location.href = "userDelete.do";
-            					 }
+            				 success: function() {
+            					alert("삭제되었습니다.");
+            					location.href = "userDelete.do";
                              },
                              error: function(request, status, error) {
-                            	 alert("카카오 연동 해제 실패");
+                            	 alert("카카오 연동 해제 실패 : " + error);
                              }
             			});
                 	} else {

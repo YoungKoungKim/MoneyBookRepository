@@ -9,23 +9,27 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import service.KakaoService;
+
 @Controller
 public class MailController {
+	private int authNo;
 
 	@RequestMapping(method = RequestMethod.POST, value = "userAuth.do")
-	public @ResponseBody int userAuth() {
+	public @ResponseBody int userAuth(String id) {
 		int code = (int) (Math.random() * 90000) + 10000;
 
 		// 이건 보내는 메일에 표시하는 이메일인 듯
 		String from_email = "KinukTest@gmail.com";
 		// 보낼 이메일 (받아온 아이디)
-		String to_email = "kijkangg@naver.com";
+		String to_email = id;
 		String mail_subtitle = "가계이득 인증메일";
 		// html형식으로 보내서 태그들 먹네요
 		String mail_content = "<h1>인증번호 : " + code + "</h1>";
@@ -53,7 +57,7 @@ public class MailController {
 		try {
 			// 발신자, 수신자, 참조자, 제목, 본문 내용 등을 설정한다
 			msg.setFrom(new InternetAddress(from_email, "가계이득"));
-			msg.addRecipient(Message.RecipientType.TO, new InternetAddress(to_email, "닉네임쓰면 괜찮을 듯"));
+			msg.addRecipient(Message.RecipientType.TO, new InternetAddress(to_email, to_email));
 			// 여러명 발송인 듯
 			/*
 			 * msg.addRecipient(Message.RecipientType.TO, new
@@ -66,13 +70,25 @@ public class MailController {
 
 			// 메일을 발신한다
 			Transport.send(msg);
-
-			return code;
+			
+			authNo = code;
+			
+			return 1;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
 		return -1;
+	}
+	
+	@RequestMapping(method = RequestMethod.POST, value = "idAuth.do")
+	public @ResponseBody boolean idAuth(int authNo) {
+		if(this.authNo == authNo) {
+			this.authNo = 0;
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	static class MyAuthenticator extends Authenticator {

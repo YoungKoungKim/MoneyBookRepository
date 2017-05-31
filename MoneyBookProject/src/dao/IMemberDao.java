@@ -6,6 +6,9 @@ public interface IMemberDao {
 	// 회원가입
 	public int insertMember(Member member);
 
+	// 카카오 회원 정보 가입
+	public int kakaoMember(Member member);
+	
 	// 닉네임 수정
 	public int nickUpdate(Member member);
 

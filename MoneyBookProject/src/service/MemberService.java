@@ -94,14 +94,24 @@ public class MemberService implements IMemberService {
 		if (userPwd == null) {
 			return 2003;
 		} else {
-			member.setPwd(userPwd);
+			try {
+				memberDao.selectIdIndex(member.getId());
+				
+				return 2004;
+			} catch (BindingException e) {
+				if (memberDao.selectNick(member.getNick()) == null) {
+					member.setPwd(userPwd);
 
-			int result = memberDao.insertMember(member);
+					int result = memberDao.insertMember(member);
 
-			if (result > 0)
-				return 2001;
-			else
-				return 2002;
+					if (result > 0)
+						return 2001;
+					else
+						return 2002;
+				} else {
+					return 2005;
+				}
+			}
 		}
 	}
 
@@ -133,15 +143,21 @@ public class MemberService implements IMemberService {
 
 		member.setId_index(id_index);
 		member.setNick(nick);
-
-		int result = memberDao.nickUpdate(member);
-
-		if (result > 0) {
-			// 성공
-			result = 4101;
+		
+		int result;
+		
+		if(memberDao.selectNick(nick) != null) {
+			result = 4104;
 		} else {
-			// db수정 실패
-			result = 4103;
+			result = memberDao.nickUpdate(member);
+			
+			if (result > 0) {
+				// 성공
+				result = 4101;
+			} else {
+				// db수정 실패
+				result = 4103;
+			}
 		}
 
 		return result;
@@ -197,6 +213,23 @@ public class MemberService implements IMemberService {
 		} catch (BindingException e) {
 			return null;
 		}
+	}
+	
+	@Override
+	public Member kakaoLogin(String id) {
+		int id_index = memberDao.selectIdIndex(id);
+		
+		return memberDao.selectOneMember(id_index);
+	}
+	
+	@Override
+	public void kakaoJoin(String id, String nick) {
+		Member member = new Member();
+		
+		member.setId(id);
+		member.setNick(nick);
+		
+		memberDao.kakaoMember(member);
 	}
 
 	@Override

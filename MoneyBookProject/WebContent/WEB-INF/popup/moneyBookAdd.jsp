@@ -71,7 +71,7 @@ function SetToToday(Which)
 		  MonthObject = eval("document.Form1." + Which + "Month");
 		  YearObject = eval("document.Form1." + Which + "Year");
 		
-		  YearObject[0+5].selected = true;
+		  YearObject[NowYear-2012].selected = true;
 		  MonthObject[NowMonth].selected = true;
 		
 		  ChangeOptionDays(Which);
@@ -84,7 +84,7 @@ function SetToToday(Which)
 		  MonthObject = eval("document.Form1.FirstSelectMonth");
 		  YearObject = eval("document.Form1.FirstSelectYear");
 		  
-		  YearObject[0+5].selected = true;
+		  YearObject[Number(todayList[0])-2012].selected = true;
 		  MonthObject[Number(todayList[1])-1].selected = true;
 		
 		  ChangeOptionDays('FirstSelect');
