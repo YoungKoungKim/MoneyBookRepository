@@ -35,4 +35,7 @@ public interface IMemberService {
 	
 	//회원 삭제
 	public void userDelete(int id_index);
+	
+	// 비밀번호 찾기
+	public int foundPwd(String id, String pwd);
 }
