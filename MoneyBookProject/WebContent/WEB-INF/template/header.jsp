@@ -20,6 +20,8 @@
 		$("#header_Logout").on("click", function() {
 			Kakao.Auth.logout();
 
+			$('#logout-wrap-loading').removeClass('display-none');
+
 			setTimeout(function() {
 				location.href = "logout.do";
 			}, 1500);
@@ -46,13 +48,6 @@
 /************* Common *************/
 @import url(http://fonts.googleapis.com/earlyaccess/hanna.css);
 
-@font-face {
-	font-family: 'NanumGothic';
-	src: url(font/NanumBarunGothic_0.ttf) format('truetype');
-	font-family: 'koverwatch';
-	src: url(font/koverwatch.ttf) format('truetype');
-}
-
 .modal-content {
 	height: auto;
 }
@@ -60,12 +55,13 @@
 .modal-body {
 	margin: 10px;
 	height: auto;
-	font-family: NanumGothic;
+	font-family: Hanna;
+	font-size: 18px;
 }
 
 #login_Label {
 	color: #91D4B5;
-	font-family: koverwatch;
+	font-family: Hanna;
 }
 
 .btn {
@@ -96,14 +92,15 @@
 }
 
 .wrap-loading { /*화면 전체를 어둡게 합니다.*/
-	position: fixed;
+	z-index: 5000; position : fixed;
 	left: 0;
 	right: 0;
 	top: 0;
 	bottom: 0;
 	background: rgba(0, 0, 0, 0.2); /*not in ie */
 	filter: progid:DXImageTransform.Microsoft.Gradient(startColorstr='#20000000',
-		endColorstr='#20000000'); /* ie */
+		endColorstr='#20000000');
+	position: fixed; /* ie */
 }
 
 .wrap-loading div { /*로딩 이미지*/
@@ -117,7 +114,13 @@
 .display-none { /*감추기*/
 	display: none;
 }
+
+.spanDiv {
+	height: 25px;
+	color: red;
+}
 </style>
+
 </head>
 <body>
 	<c:choose>
@@ -179,7 +182,7 @@
 				<div class="modal-body" style="border: 2px solid #91D4B5;">
 					<center>
 						<h1 style="color: black;">회 원 가 입</h1>
-						<div class="wrap-loading display-none">
+						<div class="wrap-loading display-none" id="wrap-loading">
 
 							<div>
 								<img src="jpg/loading.gif" />
@@ -317,7 +320,7 @@
 		</div>
 	</div>
 
-	<!-- 	비밀번호 찾기 모달 -->
+	<!-- 비밀번호 찾기 모달 -->
 	<div class="modal fade" id="foundPwdModal" aria-hidden="true"
 		style="z-index: 2222;">
 		<div class="modal-dialog" style="z-index: 2222;">
@@ -326,7 +329,77 @@
 					style="z-index: 2222;">
 					<div align="center" style="z-index: 2222;">
 						<h3>비밀번호 찾기</h3>
+						
+						<div class="wrap-loading display-none" id="found-wrap-loading">
+
+							<div>
+								<img src="jpg/loading.gif" />
+							</div>
+
+						</div>
+
+						<div class="row">
+							<div class="col-md-3">이메일 인증</div>
+							<div class="col-md-6">
+								<input type="text" id="found_Id" class="form-control"
+									placeholder="이메일을 입력하세요.">
+							</div>
+							<div class="col-md-3">
+								<button id="found_MailSendBtn" class="btn"
+									style="margin: 0px 0px 0px 5px;">인증메일 전송</button>
+							</div>
+						</div>
+
+						<div class="row spanDiv" id="found_IdCheck"></div>
+
+						<div class="row">
+							<div class="col-md-3">인증번호</div>
+							<div class="col-md-6">
+								<input type="text" id="found_IdAuthInput" class="form-control"
+									placeholder="인증번호를 입력해주세요."
+									onkeydown='return onlyNumber(event)'
+									onkeyup='removeChar(event)' style='ime-mode: disabled;'
+									maxlength="5">
+							</div>
+							<div class="col-md-3">
+								<button id="found_IdAuthBtn" class="btn" style="margin: 0px;">이메일
+									인증</button>
+							</div>
+						</div>
+
+						<div class="row spanDiv" id="found_IdAuthCheck"></div>
+
+						<div class="row">
+							<div class="col-md-3">새 비밀번호</div>
+							<div class="col-md-6">
+								<input type="password" id="found_Pwd" class="form-control"
+									placeholder="새 비밀번호를 입력해주세요." readonly="readonly">
+							</div>
+							<div class="col-md-3"></div>
+						</div>
+
+						<div class="row spanDiv" id="found_PwdCheck"></div>
+
+						<div class="row">
+							<div class="col-md-3">비밀번호 확인</div>
+							<div class="col-md-6">
+								<input type="password" id="found_PwdOk" class="form-control"
+									placeholder="비밀번호를 다시 입력해주세요." readonly="readonly">
+							</div>
+							<div class="col-md-3"></div>
+						</div>
+
+						<div class="row spanDiv" id="found_PwdOkCheck"></div>
+
+						<button class="btn" id="found_SubmitBtn">확인</button>
+
 						<button class="btn" data-dismiss="modal">취소</button>
+
+						<input type="hidden" value="false" id="found_IdTest"> <input
+							type="hidden" value="false" id="found_SendMailTest"> <input
+							type="hidden" value="false" id="found_IdAuthTest"><input
+							type="hidden" value="false" id="found_PwdTest"> <input
+							type="hidden" value="false" id="found_PwdOkTest">
 					</div>
 				</div>
 
@@ -354,6 +427,14 @@
 
 			</div>
 		</div>
+	</div>
+
+	<div class="wrap-loading display-none" id="logout-wrap-loading">
+
+		<div>
+			<img src="jpg/loading.gif" />
+		</div>
+
 	</div>
 
 	<script type='text/javascript'>
