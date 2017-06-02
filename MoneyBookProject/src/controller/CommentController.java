@@ -32,11 +32,24 @@ public class CommentController {
 		comment.put(Comment.BOARDNO, boardNo);
 		comment.put(Comment.NICK, nick);
 		comment.put(Comment.CONTENT, content);
-		
 		 commentservice.commentWrite(comment);
 		 return "true";
 	}
-	
+	@RequestMapping("commentreplyWrite.do")
+	public @ResponseBody String commentreplyWrite(int boardNo, @RequestParam("nick1")String nick,
+			@RequestParam("content1")String content, HttpSession session, 
+			int commendNo){
+		HashMap<String, Object> comment = new HashMap<>();
+		int id_index = (int) session.getAttribute("id_index");
+
+		comment.put(Comment.ID_INDEX, id_index);
+		comment.put(Comment.BOARDNO, boardNo);
+		comment.put(Comment.NICK, nick);
+		comment.put(Comment.CONTENT, content);
+		comment.put(Comment.LV, commendNo);
+		 commentservice.commentreplyWrite(comment);
+		 return "true";
+	}
 	@RequestMapping("commentUpdate.do")
 	public @ResponseBody String commentUpdate(String content, int commentNo){
 		HashMap<String, Object> comment = new HashMap<>();

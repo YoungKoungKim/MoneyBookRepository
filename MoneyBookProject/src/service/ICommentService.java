@@ -6,6 +6,8 @@ import java.util.List;
 public interface ICommentService {
 	public boolean commentWrite(HashMap<String, Object> params);
 
+	public boolean commentreplyWrite(HashMap<String, Object> params);
+
 	public boolean commentDelete(int commentNo);
 
 	public boolean commentUpdate(HashMap<String, Object> params);
