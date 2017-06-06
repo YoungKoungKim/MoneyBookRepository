@@ -427,8 +427,6 @@ $(document)
                     }
                 });
 
-            // 버튼을 2개로 나눠서 닉네임 따로 해야 함 true 체크
-
             // 닉네임 수정
             $("#nick_UpdateBtn").on("click", function() {
                 if ($("#inform_NickTest").val() != "true") {
