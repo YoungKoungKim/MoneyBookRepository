@@ -279,7 +279,7 @@ public class MemberService implements IMemberService {
 			int id_index = memberDao.selectIdIndex(id);
 			
 			member.setId_index(id_index);
-			member.setPwd(pwd);
+			member.setPwd(changePwd(pwd));
 			
 			int result = memberDao.pwdUpdate(member);
 			
