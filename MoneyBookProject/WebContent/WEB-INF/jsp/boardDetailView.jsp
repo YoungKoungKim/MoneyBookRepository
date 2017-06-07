@@ -53,7 +53,7 @@ function getCommentList() {
 							
 							+"<tr><td><div style='display: none' id='re_" + data[comment].commentNo +"'>"
 							+"<input type='hidden' value='${nick}' readonly='readonly' id='nick1' name='nick1'>"
-							+"<textarea style='resize: none;' rows='2' cols='80' id='reply_content"+data[comment].commentNo+"'  placeholder='내용을 입력하세요'></textarea>"
+							+"<textarea style='resize: none; ' rows='2' cols='80' id='reply_content"+data[comment].commentNo+"'  placeholder='내용을 입력하세요'></textarea>"
 							+"<input class='reply' type='button' value='등록' id='"+data[comment].commentNo+"@' name='reply_"+data[comment].commentNo+"'>"
 							+"</div></td></tr>"
 							);					
@@ -61,7 +61,7 @@ function getCommentList() {
 						$("#commentTable").html($("#commentTable").html() + 
 						"<tr>	<td>" + data[comment].nick + 
 						"&nbsp;&nbsp;&nbsp;" + time +"&nbsp;&nbsp;&nbsp; <span id='rec_" + data[comment].commentNo + "'>추천:"+ data[comment].recommend+"</span>"
-						+"</td></tr><tr><td> <textarea class='comment' style='resize: none; border:0;' rows='2' cols='100' readonly='readonly'> "+ data[comment].content + "</textarea>"
+						+"</td></tr><tr><td> <textarea class='comment' style='resize: none; border:0;  background-color: #f0f8ff;' rows='2' cols='100' readonly='readonly'> "+ data[comment].content + "</textarea>"
 						+"<a class='recommendcomment' id='" + data[comment].commentNo + "@' name ='" + data[comment].commentNo + "'>추천</a> "
 						+"<a class='recomment' id='" + data[comment].commentNo + "@' name ='" + data[comment].commentNo + "' >답글</a> </td></tr>"
 						
