@@ -25,10 +25,8 @@ public class MailController {
 	@Autowired
 	private IMemberService memberService;
 	
-	private int authNo;
-
 	@RequestMapping(method = RequestMethod.POST, value = "userAuth.do")
-	public @ResponseBody int userAuth(String id) {
+	public @ResponseBody int userAuth(HttpSession httpSession, String id) {
 		int code = (int) (Math.random() * 90000) + 10000;
 
 		// 이건 보내는 메일에 표시하는 이메일인 듯
@@ -76,7 +74,7 @@ public class MailController {
 			// 메일을 발신한다
 			Transport.send(msg);
 			
-			authNo = code;
+			httpSession.setAttribute("code", code);
 			
 			return 1;
 		} catch (Exception e) {
@@ -87,7 +85,7 @@ public class MailController {
 	}
 	
 	@RequestMapping(method = RequestMethod.POST, value = "pwdFoundAuth.do")
-	public @ResponseBody int pwdFoundAuth(String id) {
+	public @ResponseBody int pwdFoundAuth(HttpSession httpSession, String id) {
 		int result = memberService.idCheck(id);
 		
 		if (result == 1001) {
@@ -138,7 +136,7 @@ public class MailController {
 				// 메일을 발신한다
 				Transport.send(msg);
 				
-				authNo = code;
+				httpSession.setAttribute("code", code);
 				
 				return 1;
 			} catch (Exception e) {
@@ -151,10 +149,14 @@ public class MailController {
 	}
 	
 	@RequestMapping(method = RequestMethod.POST, value = "idAuth.do")
-	public @ResponseBody boolean idAuth(int authNo) {
-		if(this.authNo == authNo) {
-			this.authNo = 0;
-			return true;
+	public @ResponseBody boolean idAuth(HttpSession session, int authNo) {
+		if(session.getAttribute("code") != null) {
+			if((int) session.getAttribute("code") == authNo) {
+				session.setAttribute("code", null);
+				return true;
+			} else {
+				return false;
+			}
 		} else {
 			return false;
 		}
