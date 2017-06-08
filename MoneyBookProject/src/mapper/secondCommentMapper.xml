@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.ISecondCommentDao">
+	<insert id="insertComment" parameterType="java.util.HashMap">
+		insert into secondcomment
+		values (0, #{boardNo}, #{id_index},
+		#{nick},sysdate(),#{content},0,#{lv},#{depth})
+	</insert>
+
+	<update id="updateComment" parameterType="java.util.HashMap">
+		update secondcomment set
+		date=sysdate(), content = #{content}, lv = #{lv}, depth = #{depth} where commentNo =
+		#{commentNo}
+	</update>
+
+	<delete id="deleteComment" parameterType="java.util.HashMap">
+		delete from secondcomment
+		where commentNo = #{commentNo}
+	</delete>
+
+	<select id="selectWriterIndex" parameterType="String"
+		resultType="int">
+		select distinct id_index from secondcomment where nick = #{nick}
+	</select>
+
+	<select id="selectCommentLoc" parameterType="int" resultType="int">
+		select boardNo from secondcomment where commentNo = #{commentNo};
+	</select>
+
+	<select id="selectBoardComment" parameterType="int"
+		resultType="java.util.HashMap">
+		select * from secondcomment WHERE boardNo = #{boardNo} order by depth
+	</select>
+
+	<select id="selectOneComment" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		select * from secondcomment WHERE commentNo = #{commentNo} and boardNo =
+		#{boardNo}
+	</select>
+	
+	<delete id="deleteBoardComment" parameterType="int">
+		delete from secondcomment where boardNo = #{boardNo}
+	</delete>
+	
+	<update id="updateRecommend" parameterType="int">
+		update secondcomment set recommend = recommend+1 where commentNo = #{commentNo}
+	</update>
+	
+	<select id="commentCount" parameterType="int" resultType="int">
+		select count(*) from secondcomment where boardNo = #{boardNo}
+	</select>
+	
+	<update id="updatereplyComment" parameterType="int">
+		 update secondcomment set depth = depth+1 where depth > #{depth};
+	</update>
+</mapper>

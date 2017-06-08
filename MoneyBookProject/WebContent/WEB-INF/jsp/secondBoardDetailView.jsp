@@ -14,7 +14,7 @@
 function getCommentList() {
 	var id_index = parseInt('${id_index}');
 	$.ajax({
-		url : "getCommentList.do",
+		url : "getSecondCommentList.do",
 		type : "get",
 		data : "boardNo=" + ${board.boardNo},
 		dataType : "json",
@@ -49,7 +49,7 @@ function getCommentList() {
 						if(idno == commentNo) {
 						$.ajax({
 							type : 'post',
-							url : 'commentDelete.do',
+							url : 'secondCommentDelete.do',
 							data : 'commentNo='+commentNo,
 							dataType : 'json',
 							success : function(data){
@@ -73,7 +73,7 @@ function getCommentList() {
 						}else if(btnval=="변경"){
 							$.ajax({
 								type : 'post',
-								url : 'commentUpdate.do',
+								url : 'secondCommentUpdate.do',
 								data : 'commentNo='+commentNo +"&content="+content,
 								dataType : 'json',
 								success : function(data){
@@ -111,7 +111,6 @@ function getCommentList() {
 						       }
 							});
 					});
-					
 				},
 				error : function() {
 					alert("실패");
@@ -159,7 +158,7 @@ function getCommentList() {
 		else{
 			$.ajax({
 				type : 'post',
-				url : 'commentWrite.do',
+				url : 'secondCommentWrite.do',
 				data : 'boardNo='+${board.boardNo}+'&nick1='+ nick1 +'&content1='+ content1 +'&id_index='+'${id_index}',
 				dataType : 'json',
 				success :  function () {
