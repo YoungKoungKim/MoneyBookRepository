@@ -28,21 +28,37 @@ function getCommentList() {
 					{
 
 					$("#commentTable").html($("#commentTable").html() + "<tr>	<td>" + data[comment].nick + "&nbsp;&nbsp;&nbsp;" + time +"&nbsp;&nbsp;&nbsp; 추천:"+ data[comment].recommend
-					+ "</td></tr><tr><td> <textarea class='comment' style='resize: none;' id='comment_"+data[comment].commentNo+"' rows='2' cols='100' readonly='readonly'> "+ data[comment].content + "</textarea>"
-							+"<input class='delete' id='"+data[comment].commentNo+"@' name='"+data[comment].commentNo+"' type='button' value='삭제'>"
-							+"<input class='update' type='button' id='"+data[comment].commentNo+"@' name='"+data[comment].commentNo+"' value='수정'></td> </tr>"
-							);
+					+ "</td></tr><tr><td> <textarea class='comment' style='resize: none;' id='comment_"+data[comment].commentNo+"'rows='2' cols='100' readonly='readonly'>"+data[comment].content+"</textarea>"
+							
+						+"<a class='delete' id='"+data[comment].commentNo+"@' name='"+data[comment].commentNo+"'>삭제</a>"
+						+"<a class='update' id='"+data[comment].commentNo+"@' name='"+data[comment].commentNo+"'>수정</a>"
+// 						+"<a class='recomment' id='"+data[comment].commentNo+"@' name='"+data[comment].commentNo+"'>답글</a>
+						+"</td></tr>"
+						
+						+"<tr><td><div style='display: none' id='re_" + data[comment].commentNo +"'>"
+						+"<input type='hidden' value='${nick}' readonly='readonly' id='nick1' name='nick1'>"
+						+"<textarea style='resize: none; ' rows='2' cols='80' id='reply_content"+data[comment].commentNo+"'placeholder='내용을 입력하세요'></textarea>"
+						+"<input class='reply' type='button' value='등록' id='"+data[comment].commentNo+"@' name='reply_"+data[comment].commentNo+"'>"
+						+"</div></td></tr>"
+						);
 					
 					}else {
 						$("#commentTable").html($("#commentTable").html() + 
-						"<tr>	<td>" + data[comment].nick + 
-						"&nbsp;&nbsp;&nbsp;" + time +"&nbsp;&nbsp;&nbsp; 추천:"+ data[comment].recommend
-						+"</td></tr><tr><td> <textarea class='comment' style='resize: none;' rows='2' cols='100' readonly='readonly'> "+ data[comment].content + "</textarea>"
-						+"<input class='recommendcomment' type='button' id='" + data[comment].commentNo + "@' name ='" + data[comment].commentNo + "' value='추천'> </td></tr>"
-						);						
+								"<tr>	<td>" + data[comment].nick + 
+								"&nbsp;&nbsp;&nbsp;" + time +"&nbsp;&nbsp;&nbsp; <span id='rec_" + data[comment].commentNo + "'>추천:"+ data[comment].recommend+"</span>"
+								+"</td></tr><tr><td> <textarea class='comment' style='resize: none; border:0;  background-color: #f0f8ff;' rows='2' cols='100' readonly='readonly'> "+ data[comment].content + "</textarea>"
+								+"<a class='recommendcomment' id='" + data[comment].commentNo + "@' name ='" + data[comment].commentNo + "'>추천</a> "
+								+"<a class='recomment' id='" + data[comment].commentNo + "@' name ='" + data[comment].commentNo + "' >답글</a> </td></tr>"
+								
+								+"<tr><td><div style='display: none' id='re_" + data[comment].commentNo +"'>"
+								+"<input type='hidden' value='${nick}' readonly='readonly' id='nick1' name='nick1'>"
+								+"<textarea style='resize: none;' rows='2' cols='80' id='reply_content"+data[comment].commentNo+"'  placeholder='내용을 입력하세요'></textarea>"
+								+"<input class='reply' type='button' value='등록' id='"+data[comment].commentNo+"@' name='reply_"+data[comment].commentNo+"'>"
+								+"</div></td></tr>"
+						);				
 					}	
 					
-					}
+			}//for문 End
 					$('.delete').on('click',function(){
 						var idno = $(this).attr('id').split('@')[0];
 						var commentNo = $(this).attr('name');
@@ -61,16 +77,18 @@ function getCommentList() {
 						       }
 						});
 						}
-					});
+					});//delete End
 					
 					$('.update').on('click', function(){
-						var btnval =$(this).val();
+						var atext = $(this).text();
 						var commentNo = $(this).attr('name');
 						var content = $('#comment_'+commentNo).val();					
-						if(btnval == "수정"){
+						if(atext == "수정"){
 						$('#comment_' + commentNo).removeAttr("readonly");	
-						 	$(this).attr('value','변경');
-						}else if(btnval=="변경"){
+						 	alert('수정가능합니다');
+							$(this).text("변경");
+						 	$('#comment_' + commentNo).focus();
+						}else if(atext=="변경"){
 							$.ajax({
 								type : 'post',
 								url : 'secondCommentUpdate.do',
@@ -85,8 +103,7 @@ function getCommentList() {
 							       }
 							});
 						}
-						
-					});
+					});//update End
 					
 					$('.recommendcomment').on('click',function(){
 						var idno = $(this).attr('id').split('@')[0];
@@ -110,7 +127,27 @@ function getCommentList() {
 						      
 						       }
 							});
-					});
+					});//recommendcomment End
+					
+					$('.reply').on('click',function(){
+						var boardNo = $("#boardNo").val();
+						var nick1 = $('#nick1').val();
+						var commendNo = $(this).attr('id').split('@')[0];
+						var content1 = $("#reply_content"+commendNo).val();
+						$.ajax({
+							type : 'post',
+							url : 'secondCommentreplyWrite.do',
+							data : 'boardNo='+boardNo+'&nick1='+ nick1 +'&content1='+ content1+'&commendNo='+commendNo,
+							dataType : 'json',
+							success : function(data){
+								getCommentList();
+								alert("등록완료");
+							},
+							error:function(){
+						      
+						       }
+						});
+					});// reply End
 				},
 				error : function() {
 					alert("실패");
@@ -170,7 +207,7 @@ function getCommentList() {
 				}
 			});
 		}
-	});
+	});//commentbut
 		
 });
 </script>

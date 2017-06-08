@@ -51,7 +51,17 @@ public class SecondCommentService implements ISecondCommentService{
 	@Override
 	public boolean commentUpdate(HashMap<String, Object> params) {
 		// TODO Auto-generated method stub
-		return dao.updateComment(params);
+		int commentno = (int) params.get("commentNo");
+		String content = (String) params.get("content");
+		int boardno = dao.selectCommentLoc(commentno);
+		params.put("boardNo", boardno);
+		
+		HashMap<String, Object> tmp = dao.selectOneComment(params);
+		tmp.put("commentNo", commentno);
+		tmp.put("boardNo", boardno);
+		tmp.put("content", content);
+		
+		return dao.updateComment(tmp);
 	}
 
 	@Override

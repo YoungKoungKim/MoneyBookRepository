@@ -26,4 +26,5 @@ public interface ISecondCommentDao {
 	public int commentCount(int boardNo);
 	
 	public boolean updatereplyComment(int depth);
+	
 }
