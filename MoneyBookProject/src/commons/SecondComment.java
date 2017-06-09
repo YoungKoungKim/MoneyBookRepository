@@ -1,6 +1,6 @@
 package commons;
 
-public class Comment {
+public class SecondComment {
 	public static String COMMENTNO = "commentNo";
 	public static String BOARDNO = "boardNo";
 	public static String ID_INDEX = "id_index";

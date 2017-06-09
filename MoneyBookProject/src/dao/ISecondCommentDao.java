@@ -3,7 +3,7 @@ package dao;
 import java.util.HashMap;
 import java.util.List;
 
-public interface ICommentDao {
+public interface ISecondCommentDao {
 	public boolean insertComment(HashMap<String, Object> params);
 
 	public boolean updateComment(HashMap<String, Object> params);
@@ -26,4 +26,5 @@ public interface ICommentDao {
 	public int commentCount(int boardNo);
 	
 	public boolean updatereplyComment(int depth);
+	
 }

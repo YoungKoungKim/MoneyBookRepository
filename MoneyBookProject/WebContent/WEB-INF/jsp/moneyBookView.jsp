@@ -52,8 +52,8 @@ html, body {
 }
 
 #center {
-	display: inline-block; 
-	font-family : 'Ubuntu Condensed', sans-serif;
+	display: inline-block;
+	font-family: 'Ubuntu Condensed', sans-serif;
 	margin-left: 18%;
 	left: 20%;
 	right: 20%;
@@ -64,11 +64,11 @@ html, body {
 
 #right {
 	position: absolute;
-   margin-top: 90px;
-   width: 20%;
-   left: 80%;
-   right: 5%;
-   top: 70px
+	margin-top: 90px;
+	width: 20%;
+	left: 80%;
+	right: 5%;
+	top: 70px
 }
 
 #calendar {
@@ -608,7 +608,7 @@ var controller = {
 var view = {
 		  render: function () {
 		    // render current total
-		    var screenText = view.sciNotationFormat(controller.getScreenVal());
+		    var screenText = addComma(view.sciNotationFormat(controller.getScreenVal()));
 		    $('#screen').text(screenText);
 		    view.highlightOperator();
 		    
@@ -712,7 +712,7 @@ var view = {
 					$("#datepicker").datepicker("setDate", data.mbDate);
 					$('#category').val(data.moneyBook.category);
 					$('#edt_detail').val(data.moneyBook.detail);
-					$('#edt_price').val(data.moneyBook.price);
+					$('#edt_price').val(addComma(data.moneyBook.price));
 					modifyMoneyBookNo = data.moneyBook.moneyBookNo;
 					
 				},
@@ -722,6 +722,7 @@ var view = {
 
 			});
 		});
+<<<<<<< HEAD
 /* 	if('${param.succ}' == "sucess"){
 			opener.parent.location.reload();
 			window.close();
@@ -760,12 +761,42 @@ var view = {
 								textColor : "#1ABC9C"
 							});
 							if (data.expense[i].title != 0) {
+=======
+
+		$('#detailTable thead').hide();
+		var today = new Date();
+		$('#calendar').fullCalendar({
+			header : {
+				left : 'today',
+				center : 'prevYear,prev title next,nextYear',
+				right : 'month'
+			},
+ 			defaultDate : today,
+			navLinks : false, // can click day/week names to navigate views
+			weekNumberCalculation : 'ISO',
+			editable : false,
+			eventLimit : true, // allow "more" link when too many events
+			events : function(start, end, timezone, callback) {
+				var nowDate = $('#calendar').fullCalendar('getDate');
+				boardWriteDate = nowDate.format('YYYY-MM-DD');
+				
+				$.ajax({
+					type : 'post',
+					url : 'moneyBookView.do',
+					dataType : 'json',
+					data : 'id_index=' + ${id_index} + '&date=' + nowDate.format('YYYY-MM-DD'),
+					success : function(data) {
+						var events = [];
+						for (var i = 0; i < data.lastDay; i++) {
+							if (data.income[i].title != 0) {
+>>>>>>> branch 'master' of https://github.com/YoungKoungKim/MoneyBookRepository.git
 								events.push({
 									/* 지출 */
 									title : data.expense[i].title,
 									start : data.expense[i].start,
 									textColor : "#FA8072"
 								});
+<<<<<<< HEAD
 							}
 						} else {
 							events.push({
@@ -824,7 +855,18 @@ var view = {
 											+"<img src='jpg/no_data.png'"+
 											"></center>";
 								$('#detailTable tbody').append(img);
+=======
+								if (data.expense[i].title != 0) {
+									events.push({
+										/* 지출 */
+										title : addComma(data.expense[i].title),
+										start : data.expense[i].start,
+										textColor : "#FA8072"
+									});
+								}
+>>>>>>> branch 'master' of https://github.com/YoungKoungKim/MoneyBookRepository.git
 							} else {
+<<<<<<< HEAD
 								$('#detailTable thead').show();
 								$(data).each(function(i) {
 									var td = "<tr"
@@ -838,6 +880,22 @@ var view = {
 											+ "</tr>"
 									$('#detailTable').append(td);
 								})
+=======
+								events.push({
+									/* 수입 */
+									title : "",
+									start : data.income[i].start,
+									textColor : "#FFFFFF"
+								});
+								if (data.expense[i].title != 0) {
+									events.push({
+										/* 지출 */
+										title : addComma(data.expense[i].title),
+										start : data.expense[i].start,
+										textColor : "#FA8072"
+									});
+								}
+>>>>>>> branch 'master' of https://github.com/YoungKoungKim/MoneyBookRepository.git
 							}
 							
 						},
@@ -847,7 +905,60 @@ var view = {
 					});
 			} else {
 				
+<<<<<<< HEAD
 			}
+=======
+				if (date.format().substring(0, 7) == current.format('YYYY-MM-DD').substring(0,7)) {
+					$('.fc-day').css('background-color', '#ffffff');
+					if (date.format() == now) {
+						$(this).css('background-color', '#91D4B5');
+						$(this).css('opacity', '0');
+						$('.fc-today').css('background-color', '#91D4B5');
+						$('.fc-today').css('opacity', '0.4');
+					} else {
+						$('.fc-today').css('background-color', '#DCDCDC');
+						$('.fc-today').css('opacity', '1');
+						$(this).css('background-color', '#91D4B5');
+						$(this).css('opacity', '0.4');
+					}
+						
+						$.ajax({
+							type : 'post',
+							url : 'moneyBookDetailView.do',
+							dataType : 'json',
+							data : 'id_index=' + ${id_index} + '&date=' + date.format(),
+							success : function(data) {
+								if (data.length == 0) {
+									$('#detailTable thead').hide();
+									var img = "<center><br><br>"
+												+"<img src='jpg/no_data.png'"+
+												"></center>";
+									$('#detailTable tbody').append(img);
+								} else {
+									$('#detailTable thead').show();
+									$(data).each(function(i) {
+										var td = "<tr"
+												+ " class='detailOne' "
+												+ " id='" + data[i].moneyBookNo + "'"
+												+ " name='" + date.format() + "'"
+												+ "data-target='#layerpop' data-toggle='modal'>"
+												+ "<td>" + convertCategory(data[i].category) + "</td>"
+												+ "<td>" + data[i].detail + "</td>"
+												+ "<td class='price'>" + addComma(data[i].price) + "</td>"
+												+ "</tr>"
+										$('#detailTable').append(td);
+									})
+								}
+								
+							},
+							error : function() {
+								alert('error');
+							}
+						});
+				} else {
+					
+				}
+>>>>>>> branch 'master' of https://github.com/YoungKoungKim/MoneyBookRepository.git
 
 	    }
 	});
@@ -874,6 +985,14 @@ var view = {
 			});
 		});
 		
+		
+		$(document).on("keyup","#edt_price",function(){
+			var result = addComma($('#edt_price').val());
+			$('#edt_price').val(result);
+
+		});
+		
+		
 		$('#btn_update').click(function() {
 			
 			
@@ -883,6 +1002,8 @@ var view = {
 			var date = $('#datepicker').val();
 			var dateFormat = /^(19[7-9][0-9]|20\d{2})-(0[0-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/;
 
+			mod_price = $('#edt_price').val().replace(/,/gi ,""); 
+			
 			if (mod_detail == "" || mod_price == "") {
 				alert('사용 내용을 입력하세요.');
 			} else if (!$.isNumeric(mod_price)) {
@@ -892,6 +1013,7 @@ var view = {
 			} else if (!dateFormat.test(date)) {
 				alert('날짜 형식이 다릅니다.');
 			} else {
+				
 				$.ajax({
 					type : 'post',
 					url : 'moneyBookUpdate.do',
@@ -915,7 +1037,6 @@ var view = {
 					}
 				});
 			}
-			
 		});
 		
 		$(document).on('click', '#boardWriteBtn', function() {
@@ -1115,7 +1236,8 @@ var view = {
 
 	<div id="right">
 		<button class="btn moneyBookBtn" id="moneyBookWriteBtn">등록</button>
-		<button class="btn moneyBookBtn" id="boardWriteBtn" data-target="#boardWriteFormError" data-toggle="modal">공유</button>
+		<button class="btn moneyBookBtn" id="boardWriteBtn"
+			data-target="#boardWriteFormError" data-toggle="modal">공유</button>
 
 		<div id="calculator">
 			<div class="clearfix" id="wrapper">
@@ -1217,15 +1339,13 @@ var view = {
 			</div>
 		</div>
 	</div>
-	
+
 	<div class="modal fade" id="boardWriteFormError">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div id="borderLine">
 					<!-- body -->
-					<div class="modal-body">
-						공유할 데이터가 없습니다. 가계부를 등록해주세요!
-					</div>
+					<div class="modal-body">공유할 데이터가 없습니다. 가계부를 등록해주세요!</div>
 					<!-- Footer -->
 					<div class="modal-footer">
 						<button name="cancel" class="modal_btn btn" id="btn_cancel"

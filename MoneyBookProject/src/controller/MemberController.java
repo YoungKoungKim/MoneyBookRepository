@@ -1,14 +1,5 @@
 package controller;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.net.ssl.HttpsURLConnection;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -170,5 +161,10 @@ public class MemberController {
 		kakaoService.setAccessToken(token);
 
 		kakaoService.unlink();
+	}
+	
+	@RequestMapping(method = RequestMethod.POST, name = "foundPwd.do")
+	public @ResponseBody int foundPwd(String id, String pwd) {
+		return memberService.foundPwd(id, pwd);
 	}
 }

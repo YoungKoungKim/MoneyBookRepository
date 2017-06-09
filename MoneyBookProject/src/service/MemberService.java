@@ -7,6 +7,9 @@ import java.util.List;
 import org.apache.ibatis.binding.BindingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import dao.IBoardDao;
 import dao.IBookMarkDao;
@@ -96,7 +99,7 @@ public class MemberService implements IMemberService {
 		} else {
 			try {
 				memberDao.selectIdIndex(member.getId());
-				
+
 				return 2004;
 			} catch (BindingException e) {
 				if (memberDao.selectNick(member.getNick()) == null) {
@@ -143,14 +146,14 @@ public class MemberService implements IMemberService {
 
 		member.setId_index(id_index);
 		member.setNick(nick);
-		
+
 		int result;
-		
-		if(memberDao.selectNick(nick) != null) {
+
+		if (memberDao.selectNick(nick) != null) {
 			result = 4104;
 		} else {
 			result = memberDao.nickUpdate(member);
-			
+
 			if (result > 0) {
 				// 성공
 				result = 4101;
@@ -214,21 +217,21 @@ public class MemberService implements IMemberService {
 			return null;
 		}
 	}
-	
+
 	@Override
 	public Member kakaoLogin(String id) {
 		int id_index = memberDao.selectIdIndex(id);
-		
+
 		return memberDao.selectOneMember(id_index);
 	}
-	
+
 	@Override
 	public void kakaoJoin(String id, String nick) {
 		Member member = new Member();
-		
+
 		member.setId(id);
 		member.setNick(nick);
-		
+
 		memberDao.kakaoMember(member);
 	}
 
@@ -256,6 +259,7 @@ public class MemberService implements IMemberService {
 		moneybookDao.dropMoneyBook(id_index);
 		// 북마크 전부 삭제
 		bookmarkDao.dropBookmark(id_index);
+
 		for (int i = 0; i < boardNoList.size(); i++) {
 			// 자기 게시글에 달린 댓글들 삭제
 			commentDao.deleteBoardComment(boardNoList.get(i));
@@ -266,4 +270,27 @@ public class MemberService implements IMemberService {
 		// 회원 정보 삭제
 		memberDao.deleteMember(id_index);
 	}
+	
+	@Override
+	public int foundPwd(String id, String pwd) {
+		Member member = new Member();
+
+		try {
+			int id_index = memberDao.selectIdIndex(id);
+			
+			member.setId_index(id_index);
+			member.setPwd(changePwd(pwd));
+			
+			int result = memberDao.pwdUpdate(member);
+			
+			if(result > 0) {
+				return 7001;
+			} else {
+				return 7002;
+			}
+		} catch (BindingException e) {
+			return 7003;
+		}
+	}
+	
 }

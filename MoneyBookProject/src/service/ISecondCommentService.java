@@ -3,7 +3,7 @@ package service;
 import java.util.HashMap;
 import java.util.List;
 
-public interface ICommentService {
+public interface ISecondCommentService {
 	public boolean commentWrite(HashMap<String, Object> params);
 
 	public boolean commentreplyWrite(HashMap<String, Object> params);
@@ -18,5 +18,5 @@ public interface ICommentService {
 	
 	public void commentRecommend(int commentNo);
 	
-	public HashMap<String, Object> searchOne(int commentNo, int boardNo);
+	public HashMap<String, Object> searchOne(int commentNo, int boardNo); 
 }

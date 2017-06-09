@@ -1,122 +1,60 @@
-function getCommentList() {
-	var id_index = parseInt('${id_index}');
-	var boardNo = $("#boardNo").val();
-	$.ajax({
-		url : "getCommentList.do",
-		type : "get",
-		data : "boardNo=" + boardNo,
-		dataType : "json",
-		success : function(data) {
-			$("#commentTable").html("");
-			for(var comment in data) {
-				var date = new Date(data[comment].date);
-				var time = date.getFullYear() + "." + (date.getMonth() + 1) + "." + date.getDate() + " " + date.getHours() + ":" + date.getMinutes();
-					
-					if(id_index == data[comment].id_index)
-					{
 
-					$("#commentTable").html($("#commentTable").html() + "<tr>	<td>" + data[comment].nick + "&nbsp;&nbsp;&nbsp;" + time +"&nbsp;&nbsp;&nbsp; <span id='rec_" + data[comment].commentNo + "'>추천:"+ data[comment].recommend+"</span>"
-					+ "</td></tr><tr><td> <textarea class='comment' style='resize: none;' id='comment_"+data[comment].commentNo+"' rows='2' cols='100' readonly='readonly'> "+ data[comment].content + " ${fn:replace(board.content, cn, br)}</textarea>"
-							+"<input class='delete' id='"+data[comment].commentNo+"@' name='"+data[comment].commentNo+"' type='button' value='삭제'>"
-							+"<input class='update' type='button' id='"+data[comment].commentNo+"@' name='"+data[comment].commentNo+"' value='수정'></td> </tr>"
-							);
-					
-					}else {
-						$("#commentTable").html($("#commentTable").html() + 
-						"<tr>	<td>" + data[comment].nick + 
-						"&nbsp;&nbsp;&nbsp;" + time +"&nbsp;&nbsp;&nbsp; <span id='rec_" + data[comment].commentNo + "'>추천:"+ data[comment].recommend+"</span>"
-						+"</td></tr><tr><td> <textarea class='comment' style='resize: none;' rows='2' cols='100' readonly='readonly'> "+ data[comment].content + "</textarea>"
-						+"<input class='recommendcomment' type='button' id='" + data[comment].commentNo + "@' name ='" + data[comment].commentNo + "' value='추천'> </td></tr>"
-						);						
-					}	
-					
-					}
-					$('.delete').on('click',function(){
-						var idno = $(this).attr('id').split('@')[0];
-						var commentNo = $(this).attr('name');
-						if(idno == commentNo) {
-						$.ajax({
-							type : 'post',
-							url : 'commentDelete.do',
-							data : 'commentNo='+commentNo,
-							dataType : 'json',
-							success : function(data){
-								getCommentList();
-								alert("삭제완료");
-							},
-							error:function(){
-						      
-						       }
-						});
-						}
-					});
-					
-					$('.update').on('click', function(){
-// 						var idno = $(this).attr('id').split('@')[0];
-						var btnval =$(this).val();
-						var commentNo = $(this).attr('name');
-						var content = $('#comment_'+commentNo).val();					
-						if(btnval == "수정"){
-						$('#comment_' + commentNo).removeAttr("readonly");	
-						 	alert('수정가능합니다');
-						 	$(this).attr('value','변경');
-						 	$('#comment_' + commentNo).focus();
-						}else if(btnval=="변경"){
-							$.ajax({
-								type : 'post',
-								url : 'commentUpdate.do',
-								data : 'commentNo='+commentNo +"&content="+content,
-								dataType : 'json',
-								success : function(data){
-									alert("수정완료");
-									getCommentList();
-								},
-								error:function(){
-							      
-							       }
-							});
-						}
-						
-					});
-					
-					$('.recommendcomment').on('click',function(){
-						var idno = $(this).attr('id').split('@')[0];
-						var commentNo = $(this).attr('name');
-						
-						$.ajax({
-							type : 'post',
-							url : 'commentRecommend.do',
-							data : 'commentNo='+commentNo+"&boardNo="+boardNo,
-							dataType : 'json',
-							success : function(data){
-								if(data.code ==0){
-									$('#rec_' + idno).text('추천 :'+data.recommend);
-									alert("추천되었습니다.");
-								}else if(data.code ==1){
-										$('#spanrecommend').text('추천 :'+data.recommend);						
-										alert("이미추천하셨습니다.");
-								}else if(data.code==3){
-									alert("로그인해주세여");
-								}
-							},
-							error:function(){
-						      
-						       }
-							});
-						
-					});
-					
-				},
-				error : function() {
-					alert("실패");
-				}
-			
-			});
+//천 단위마다 콤마 추가하기	
+function addComma(value) {
+  var num = isNumber(value);
+  if (!num) return;
 
-			}
-		
+  // 문자열 길이가 3과 같거나 작은 경우 입력 값을 그대로 리턴
+  if (num.length <= 3) {
+    return num;
+  }
+
+  // 3단어씩 자를 반복 횟수 구하기
+  var count = Math.floor((num.length - 1) / 3);
+
+  // 결과 값을 저정할 변수
+  var result = "";
+
+  // 문자 뒤쪽에서 3개를 자르며 콤마(,) 추가
+  for (var i = 0; i < count; i++) {
+
+    // 마지막 문자(length)위치 - 3 을 하여 마지막인덱스부터 세번째 문자열 인덱스값 구하기
+    var length = num.length;
+    var strCut = num.substr(length - 3, length);
+    // 반복문을 통해 value 값은 뒤에서 부터 세자리씩 값이 리턴됨.
+
+    // 입력값 뒷쪽에서 3개의 문자열을 잘라낸 나머지 값으로 입력값 갱신
+    num = num.slice(0, length - 3);
+
+    // 콤마(,) + 신규로 자른 문자열 + 기존 결과 값
+    result = "," + strCut + result;
+  }
+
+  // 마지막으로 루프를 돌고 남아 있을 입력값(value)을 최종 결과 앞에 추가
+   result = num + result; 
+
+  // 최종값 리턴
+  return result;
+
+}
+
+// 숫자 유무 판단
+function isNumber(checkValue) {
+	checkValue = '' + checkValue;
 	
-		function addextraList(){
+	if(checkValue.length >=4) {
+	checkValue= checkValue.replace(/,/gi ,""); 
+	}
+	
+  if (isNaN(checkValue) /* || checkValue == "" */) {
+    alert('금액은 숫자만 입력해 주세요.');
+    return;
+  }
+  return checkValue;
+}
+
+
+function addextraList(){
 			var boardNo = $("#boardNo").val();
 
 			$.ajax({
@@ -126,6 +64,8 @@ function getCommentList() {
 				dataType :  'json',
 				success :  function (data) {
 					for(var i in data.list) {
+						
+						data.list[i].price = addComma(data.list[i].price);
 						if(data.list[i].category == 'food'){
 						$('#left').append("<div class ='div_category'>"
 						+"<span>"
@@ -295,7 +235,7 @@ function getCommentList() {
 		$.ajax({
 			type : 'post',
 			url : 'commentWrite.do',
-			data : 'boardNo='+boardNo+'&nick1='+ nick1 +'&content1='+ content1 +'&id_index='+'${id_index}',
+			data : 'boardNo='+boardNo+'&nick1='+ nick1 +'&content1='+ content1,
 			dataType : 'json',
 			success :  function () {
 				$('#content1').val(' ');
