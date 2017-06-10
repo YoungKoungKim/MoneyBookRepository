@@ -1,4 +1,3 @@
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -11,6 +10,8 @@
 <script src="https://code.jquery.com/jquery-2.2.4.min.js"
 	integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
 	crossorigin="anonymous"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 
 <script type="text/javascript" src="js/memberJs.js"></script>
 <script type="text/javascript" src="js/headerScript.js"></script>
@@ -20,11 +21,14 @@
 	$(document).ready(function() {
 		$("#header_Logout").on("click", function() {
 			Kakao.Auth.logout();
+
 			$('#logout-wrap-loading').removeClass('display-none');
+
 			setTimeout(function() {
 				location.href = "logout.do";
 			}, 1500);
 		})
+
 	})
 </script>
 
@@ -45,19 +49,50 @@
 @CHARSET "UTF-8";
 /************* Common *************/
 @import url(http://fonts.googleapis.com/earlyaccess/hanna.css);
+
+@font-face {
+	font-family: 'Barrio', cursive;
+	font-family: 'Kumar One', cursive;
+	font-family: 'Pacifico', cursive;
+	font-family: 'NanumGothic';
+	src: url(font/NanumBarunGothic_0.ttf) format('truetype');
+	font-family: 'koverwatch';
+	src: url(font/koverwatch.ttf) format('truetype');
+}
+
+#header {
+	font-family: 'Amatic SC';
+	background-color: #649173;
+	padding-top: 25px;
+	height: 100px;
+}
+
+#header a {
+	font-size: 1.7em;
+	color: #FFF;
+	margin: 10px;
+}
+
+#header a:hover {
+	color: #DCDCDC;
+}
+
 .modal-content {
 	height: auto;
 }
+
 .modal-body {
 	margin: 10px;
 	height: auto;
 	font-family: Hanna;
 	font-size: 18px;
 }
+
 #login_Label {
 	color: #91D4B5;
 	font-family: Hanna;
 }
+
 .btn {
 	font-family: Hanna;
 	border-radius: 10px;
@@ -69,11 +104,13 @@
 	color: white;
 	border-radius: 10px;
 }
+
 .btn:hover {
 	background-color: grey;
 	color: #fff;
 	text-decoration: none
 }
+
 #noneMemberModal-content {
 	padding: 5px;
 	margin: 10px;
@@ -82,8 +119,10 @@
 	font-size: 18px;
 	color: black;
 }
+
 .wrap-loading { /*화면 전체를 어둡게 합니다.*/
-	z-index: 5000; position : fixed;
+	z-index: 5000;
+	position: fixed;
 	left: 0;
 	right: 0;
 	top: 0;
@@ -93,6 +132,7 @@
 		endColorstr='#20000000');
 	position: fixed; /* ie */
 }
+
 .wrap-loading div { /*로딩 이미지*/
 	position: fixed;
 	top: 50%;
@@ -100,9 +140,11 @@
 	margin-left: -21px;
 	margin-top: -21px;
 }
+
 .display-none { /*감추기*/
 	display: none;
 }
+
 .spanDiv {
 	height: 25px;
 	color: red;
@@ -317,7 +359,7 @@
 					style="z-index: 2222;">
 					<div align="center" style="z-index: 2222;">
 						<h3>비밀번호 찾기</h3>
-						
+
 						<div class="wrap-loading display-none" id="found-wrap-loading">
 
 							<div>
@@ -430,11 +472,12 @@
 			event = event || window.event;
 			var keyID = (event.which) ? event.which : event.keyCode;
 			if ((keyID >= 48 && keyID <= 57) || (keyID >= 96 && keyID <= 105)
-					|| keyID == 8 || keyID == 46 || keyID == 37 || keyID == 39)
+				|| keyID == 8 || keyID == 46 || keyID == 37 || keyID == 39)
 				return;
 			else
 				return false;
 		}
+	
 		function removeChar(event) {
 			event = event || window.event;
 			var keyID = (event.which) ? event.which : event.keyCode;
@@ -443,6 +486,7 @@
 			else
 				event.target.value = event.target.value.replace(/[^0-9]/g, "");
 		}
+	
 		//<![CDATA[
 		// 사용할 앱의 JavaScript 키를 설정해 주세요.
 		Kakao.init('9712483447f19279ea7f16e2db8de389');
@@ -457,7 +501,7 @@
 							url : "kakaoLogin.do",
 							type : "post",
 							data : "id=" + res.id + "&nick="
-									+ res.properties.nickname,
+								+ res.properties.nickname,
 							success : function() {
 								alert(res.properties.nickname + "님 환영합니다!!");
 								location.reload();
