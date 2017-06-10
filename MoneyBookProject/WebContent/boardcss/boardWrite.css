@@ -1,0 +1,89 @@
+@CHARSET "UTF-8";
+
+#it{
+	font-size: 70px;
+}
+.div_category{
+	width: 170px; 
+	height: 150px; 
+	display: inline-block;
+}
+.div_all{
+	font-size: 24px;
+}
+.root {
+margin: auto;
+	width: 800px;
+	background-color: #f0f8ff;
+	border: solid #CCE2D8;
+	margin-top: 50px;
+}
+
+.top {
+	width: 100%;
+	height: 100%;
+	border-bottom: dashed #CCE2D8;
+	padding: 20px 5px;
+}
+
+
+.left {
+	width: 100%;
+	padding: 40px 40px;
+	text-align: center;
+}
+
+.bottom {
+	width: 100%;
+	height: 100%;
+	clear: both;
+	padding: 30px 5px;
+}
+
+.category_td {
+	color: #000000;
+	font-size: 70px;
+	text-align: center;
+	width: 150px;
+	height: 100px;
+	/* margin-left: 5px; */
+}
+
+.categoryfont {
+	font-size: 20px;
+	text-align: center;
+}
+select {
+ width: 70px; /* 원하는 너비설정 */ 
+ padding: .3em .3em; /* 여백으로 높이 설정 */ 
+ margin-right : 10px;
+ font-family: inherit; /* 폰트 상속 */ 
+ background: url(https://farm1.staticflickr.com/379/19928272501_4ef877c265_t.jpg) no-repeat 95% 50%; /* 네이티브 화살표 대체 */ 
+ border: 1px solid #999; 
+ border-radius: 0px; /* iOS 둥근모서리 제거 */ 
+ -webkit-appearance: none; /* 네이티브 외형 감추기 */ 
+ -moz-appearance: none; 
+ appearance: none; 
+ }
+ .myButton {
+	background-color: #f0f8ff;
+	-moz-border-radius: 9px;
+	-webkit-border-radius: 9px;
+	border-radius: 9px;
+	display: inline-block;
+	cursor: pointer;
+	color: #000000;
+	font-family: Arial;
+	font-size: 15px;
+	padding: 6px 17px;
+	text-decoration: none;
+}
+
+.myButton:hover {
+	background-color: #91D4B5;
+}
+
+.myButton:active {
+	position: relative;
+	top: 1px;
+}

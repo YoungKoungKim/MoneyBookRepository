@@ -8,11 +8,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import dao.ICommentDao;
 import dao.IExtraBoardDao;
 import dao.IMemberDao;
 import dao.IRecommendDao;
 import dao.ISecondBoardDao;
+import dao.ISecondCommentDao;
 import model.Board;
 import model.ExtraBoard;
 import model.Member;
@@ -26,7 +26,7 @@ public class SecondBoardService implements ISecondBoardService {
 	@Autowired
 	private IMoneyBookService moneybookservice;
 	@Autowired
-	private ICommentDao cdao;
+	private ISecondCommentDao cdao;
 	@Autowired
 	private IRecommendDao rdao;
 

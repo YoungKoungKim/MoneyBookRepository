@@ -1,14 +1,5 @@
 package controller;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.net.ssl.HttpsURLConnection;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import model.Member;
 import service.IMemberService;
+import service.KakaoService;
 
 // ****************************** viewResolver를 쓴다는 가정하에 했습니다.  *************************
 //******************************* model의 키값은 일단 대충 제가 맘대로 했습니다. *************************
@@ -30,6 +22,8 @@ public class MemberController {
 
 	@Autowired
 	private IMemberService memberService;
+	@Autowired
+	private KakaoService kakaoService;
 
 	// join_Form
 	@RequestMapping("joinForm.do")
@@ -55,6 +49,7 @@ public class MemberController {
 	// ajax
 	@RequestMapping(method = RequestMethod.POST, value = "joinSuccess.do")
 	public @ResponseBody int joinSuccess(Member m) {
+
 		return memberService.joinSuccess(m);
 	}
 
@@ -100,15 +95,19 @@ public class MemberController {
 	public ModelAndView informUpdateForm(HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 
-		try {
+		if (session.getAttribute("id_index") != null) {
 			int id = (int) session.getAttribute("id_index");
 
 			Member member = memberService.memberInfo(id);
 
 			mav.addObject("member", member);
+			if(member.getPwd().equals("0000")) {
+				mav.addObject("userType", "카카오");
+			} else {
+				mav.addObject("userType", "일반");
+			}
 			mav.setViewName("myInfo");
-
-		} catch (NullPointerException e) {
+		} else {
 			mav.setViewName("redirect:home.do");
 		}
 
@@ -117,8 +116,13 @@ public class MemberController {
 
 	@RequestMapping(method = RequestMethod.POST, value = "nickUpdate.do")
 	public @ResponseBody int nickUpdate(HttpSession session, String nick) {
+		int result = memberService.nickUpdate((int) session.getAttribute("id_index"), nick);
 
-		return memberService.nickUpdate((int) session.getAttribute("id_index"), nick);
+		if (result == 4101) {
+			session.setAttribute("nick", nick);
+		}
+
+		return result;
 	}
 
 	@RequestMapping(method = RequestMethod.POST, value = "pwdUpdate.do")
@@ -141,16 +145,10 @@ public class MemberController {
 		int result = memberService.idCheck(id);
 
 		if (result == 1002) {
-			Member member = new Member();
-
-			member.setId(id);
-			member.setNick(nick);
-			member.setPwd("0000");
-
-			memberService.joinSuccess(member);
+			memberService.kakaoJoin(id, nick);
 		}
 
-		Member member = memberService.login(id, "0000");
+		Member member = memberService.kakaoLogin(id);
 
 		session.setAttribute("id_index", member.getId_index());
 		session.setAttribute("nick", member.getNick());
@@ -158,131 +156,15 @@ public class MemberController {
 
 	// 카카오 연동 해제
 	@RequestMapping("kakaoDelete.do")
-	public @ResponseBody String kakaoDelete(String token) {
-		setAccessToken(token);
+	public @ResponseBody void kakaoDelete(String token) {
+		kakaoService.setAdminKey("3765d093aa949271d59828b3c1954189");
+		kakaoService.setAccessToken(token);
 
-		unlink();
-		
-		return "success";
+		kakaoService.unlink();
 	}
-
-	public String unlink() {
-		return request(HttpMethodType.POST, USER_UNLINK_PATH);
-	}
-
-	public enum HttpMethodType {
-		POST, GET, DELETE
-	}
-
-	private static final String API_SERVER_HOST = "https://kapi.kakao.com";
-
-	private static final String USER_UNLINK_PATH = "/v1/user/unlink";
-	private static final String USER_IDS_PATH = "/v1/user/ids";
-
-	private static final String PUSH_REGISTER_PATH = "/v1/push/register";
-	private static final String PUSH_TOKENS_PATH = "/v1/push/tokens";
-	private static final String PUSH_DEREGISTER_PATH = "/v1/push/deregister";
-	private static final String PUSH_SEND_PATH = "/v1/push/send";
-
-	private String accessToken;
-	private String adminKey = "9712483447f19279ea7f16e2db8de389";
-
-	public void setAccessToken(final String accessToken) {
-		this.accessToken = accessToken;
-	}
-
-	public void setAdminKey(final String adminKey) {
-		this.adminKey = adminKey;
-	}
-
-	private static final List<String> adminApiPaths = new ArrayList<String>();
-
-	static {
-		adminApiPaths.add(USER_IDS_PATH);
-		adminApiPaths.add(PUSH_REGISTER_PATH);
-		adminApiPaths.add(PUSH_TOKENS_PATH);
-		adminApiPaths.add(PUSH_DEREGISTER_PATH);
-		adminApiPaths.add(PUSH_SEND_PATH);
-	}
-
-	public String request(final HttpMethodType httpMethod, final String apiPath) {
-		return request(httpMethod, apiPath, null);
-	}
-
-	public String request(HttpMethodType httpMethod, final String apiPath, final String params) {
-
-		String requestUrl = API_SERVER_HOST + apiPath;
-		if (httpMethod == null) {
-			httpMethod = HttpMethodType.GET;
-		}
-		if (params != null && params.length() > 0
-				&& (httpMethod == HttpMethodType.GET || httpMethod == HttpMethodType.DELETE)) {
-			requestUrl += params;
-		}
-
-		HttpsURLConnection conn;
-		OutputStreamWriter writer = null;
-		BufferedReader reader = null;
-		InputStreamReader isr = null;
-
-		try {
-			final URL url = new URL(requestUrl);
-			conn = (HttpsURLConnection) url.openConnection();
-			conn.setRequestMethod(httpMethod.toString());
-
-			if (adminApiPaths.contains(apiPath)) {
-				conn.setRequestProperty("Authorization", "KakaoAK " + this.adminKey);
-			} else {
-				conn.setRequestProperty("Authorization", "Bearer " + this.accessToken);
-			}
-
-			conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-			conn.setRequestProperty("charset", "utf-8");
-
-			if (params != null && params.length() > 0 && httpMethod == HttpMethodType.POST) {
-				conn.setDoOutput(true);
-				writer = new OutputStreamWriter(conn.getOutputStream());
-				writer.write(params);
-				writer.flush();
-			}
-
-			final int responseCode = conn.getResponseCode();
-			System.out.println(String.format("\nSending '%s' request to URL : %s", httpMethod, requestUrl));
-			System.out.println("Response Code : " + responseCode);
-			if (responseCode == 200)
-				isr = new InputStreamReader(conn.getInputStream());
-			else
-				isr = new InputStreamReader(conn.getErrorStream());
-
-			reader = new BufferedReader(isr);
-			final StringBuffer buffer = new StringBuffer();
-			String line;
-			while ((line = reader.readLine()) != null) {
-				buffer.append(line);
-			}
-			System.out.println(buffer.toString());
-			return buffer.toString();
-
-		} catch (IOException e) {
-			e.printStackTrace();
-		} finally {
-			if (writer != null)
-				try {
-					writer.close();
-				} catch (Exception ignore) {
-				}
-			if (reader != null)
-				try {
-					reader.close();
-				} catch (Exception ignore) {
-				}
-			if (isr != null)
-				try {
-					isr.close();
-				} catch (Exception ignore) {
-				}
-		}
-
-		return null;
+	
+	@RequestMapping(method = RequestMethod.POST, name = "foundPwd.do")
+	public @ResponseBody int foundPwd(String id, String pwd) {
+		return memberService.foundPwd(id, pwd);
 	}
 }

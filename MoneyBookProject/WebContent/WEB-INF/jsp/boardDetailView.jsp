@@ -2,47 +2,75 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%> 
+<%
+    // 줄바꿈 
+    pageContext.setAttribute("br", "<br/>");
+    pageContext.setAttribute("cn", "\n");
+%> 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link href="boardcss/boardDetailView.css" rel="stylesheet" type="text/css">
+	
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 
 <script src="https://code.jquery.com/jquery-2.2.4.min.js"
 	integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
 	crossorigin="anonymous"></script>
+<script type="text/javascript" src="js/boardDetailView.js"></script>
 <script type="text/javascript">
+
 function getCommentList() {
-	var id_index = parseInt('${id_index}');
+//	var id_index = parseInt('${id_index}');
+ 	var id_index = $("#id_index").val();
+	var boardNo = $("#boardNo").val();
 	$.ajax({
 		url : "getCommentList.do",
 		type : "get",
-		data : "boardNo=" + ${board.boardNo},
+		data : "boardNo=" + boardNo,
 		dataType : "json",
 		success : function(data) {
 			$("#commentTable").html("");
 			for(var comment in data) {
 				var date = new Date(data[comment].date);
 				var time = date.getFullYear() + "." + (date.getMonth() + 1) + "." + date.getDate() + " " + date.getHours() + ":" + date.getMinutes();
-					
+				var msg = "";	
+					if(data[comment].lv != 0 ){
+						msg = "";
+					}
 					if(id_index == data[comment].id_index)
 					{
-
 					$("#commentTable").html($("#commentTable").html() + "<tr>	<td>" + data[comment].nick + "&nbsp;&nbsp;&nbsp;" + time +"&nbsp;&nbsp;&nbsp; <span id='rec_" + data[comment].commentNo + "'>추천:"+ data[comment].recommend+"</span>"
-					+ "</td></tr><tr><td> <textarea class='comment' style='resize: none;' id='comment_"+data[comment].commentNo+"' rows='2' cols='100' readonly='readonly'> "+ data[comment].content + "</textarea>"
-							+"<input class='delete' id='"+data[comment].commentNo+"@' name='"+data[comment].commentNo+"' type='button' value='삭제'>"
-							+"<input class='update' type='button' id='"+data[comment].commentNo+"@' name='"+data[comment].commentNo+"' value='수정'></td> </tr>"
-							);
-					
+					+ "</td></tr><tr><td> <textarea class='comment' style='resize: none; border:0;  background-color: #f0f8ff;' id='comment_"+data[comment].commentNo+"' rows='2' cols='100' readonly='readonly'>"+ data[comment].content + "</textarea>"
+							
+							+"<a class='delete' id='"+data[comment].commentNo+"@' name='"+data[comment].commentNo+"'>삭제</a>"
+							+"<a class='update' id='"+data[comment].commentNo+"@' name='"+data[comment].commentNo+"'>수정</a>"
+							+"<a class='recomment' id='"+data[comment].commentNo+"@' name='"+data[comment].commentNo+"'>답글</a></td></tr>"
+							
+							+"<tr><td><div style='display: none' id='re_" + data[comment].commentNo +"'>"
+							+"<input type='hidden' value='${nick}' readonly='readonly' id='nick1' name='nick1'>"
+							+"<textarea style='resize: none; ' rows='2' cols='80' id='reply_content"+data[comment].commentNo+"'  placeholder='내용을 입력하세요'></textarea>"
+							+"<input class='reply' type='button' value='등록' id='"+data[comment].commentNo+"@' name='reply_"+data[comment].commentNo+"'>"
+							+"</div></td></tr>"
+							);					
 					}else {
 						$("#commentTable").html($("#commentTable").html() + 
 						"<tr>	<td>" + data[comment].nick + 
 						"&nbsp;&nbsp;&nbsp;" + time +"&nbsp;&nbsp;&nbsp; <span id='rec_" + data[comment].commentNo + "'>추천:"+ data[comment].recommend+"</span>"
-						+"</td></tr><tr><td> <textarea class='comment' style='resize: none;' rows='2' cols='100' readonly='readonly'> "+ data[comment].content + "</textarea>"
-						+"<input class='recommendcomment' type='button' id='" + data[comment].commentNo + "@' name ='" + data[comment].commentNo + "' value='추천'> </td></tr>"
-						);						
+						+"</td></tr><tr><td> <textarea class='comment' style='resize: none; border:0;  background-color: #f0f8ff;' rows='2' cols='100' readonly='readonly'> "+ data[comment].content + "</textarea>"
+						+"<a class='recommendcomment' id='" + data[comment].commentNo + "@' name ='" + data[comment].commentNo + "'>추천</a> "
+						+"<a class='recomment' id='" + data[comment].commentNo + "@' name ='" + data[comment].commentNo + "' >답글</a> </td></tr>"
+						
+						+"<tr><td><div style='display: none' id='re_" + data[comment].commentNo +"'>"
+						+"<input type='hidden' value='${nick}' readonly='readonly' id='nick1' name='nick1'>"
+						+"<textarea style='resize: none;' rows='2' cols='80' id='reply_content"+data[comment].commentNo+"'  placeholder='내용을 입력하세요'></textarea>"
+						+"<input class='reply' type='button' value='등록' id='"+data[comment].commentNo+"@' name='reply_"+data[comment].commentNo+"'>"
+						+"</div></td></tr>"
+						);
 					}	
 					
 					}
@@ -68,15 +96,17 @@ function getCommentList() {
 					
 					$('.update').on('click', function(){
 // 						var idno = $(this).attr('id').split('@')[0];
-						var btnval =$(this).val();
+// 						var btnval =$(this).val();
+						var atext = $(this).text();
 						var commentNo = $(this).attr('name');
 						var content = $('#comment_'+commentNo).val();					
-						if(btnval == "수정"){
+						if(atext == "수정"){
 						$('#comment_' + commentNo).removeAttr("readonly");	
 						 	alert('수정가능합니다');
-						 	$(this).attr('value','변경');
+// 						 	$(this).attr('text','변경');
+							$(this).text("변경");
 						 	$('#comment_' + commentNo).focus();
-						}else if(btnval=="변경"){
+						}else if(atext=="변경"){
 							$.ajax({
 								type : 'post',
 								url : 'commentUpdate.do',
@@ -101,7 +131,7 @@ function getCommentList() {
 						$.ajax({
 							type : 'post',
 							url : 'commentRecommend.do',
-							data : 'commentNo='+commentNo+"&boardNo="+${board.boardNo},
+							data : 'commentNo='+commentNo+"&boardNo="+boardNo,
 							dataType : 'json',
 							success : function(data){
 								if(data.code ==0){
@@ -120,7 +150,46 @@ function getCommentList() {
 							});
 						
 					});
+					$('.recomment').on('click',function(){
+						var commentNo = $(this).attr('name');
+						var atext = $(this).text();
+					 	var id_index = $("#id_index").val();
+					 	if(id_index == ""){
+							alert("로그인해주세요");					 		
+					 	}else{
+					 		
+						if(atext =="답글"){
+						$(this).text('답글닫기');						
+						$("#re_" + commentNo).css("display","");
+						
+						}else if(atext == "답글닫기"){
+						$(this).text('답글');
+						$("#re_" + commentNo).css("display","none");
+						}
+					 	}
+						
+					});
 					
+					$('.reply').on('click',function(){
+					
+						var boardNo = $("#boardNo").val();
+						var nick1 = $('#nick1').val();
+						var commendNo = $(this).attr('id').split('@')[0];
+						var content1 = $("#reply_content"+commendNo).val();
+						$.ajax({
+							type : 'post',
+							url : 'commentreplyWrite.do',
+							data : 'boardNo='+boardNo+'&nick1='+ nick1 +'&content1='+ content1+'&commendNo='+commendNo,
+							dataType : 'json',
+							success : function(data){
+								getCommentList();
+								alert("등록완료");
+							},
+							error:function(){
+						      
+						       }
+						});
+					});
 				},
 				error : function() {
 					alert("실패");
@@ -129,294 +198,7 @@ function getCommentList() {
 			});
 
 			}
-		
-	
-		function addextraList(){
-			
-			$.ajax({
-				type : 'post',
-				url : 'boardDetailList.do',
-				data : 'boardNo='+${board.boardNo},
-				dataType :  'json',
-				success :  function (data) {
-					for(var i in data.list) {
-						if(data.list[i].category == 'food'){
-						$('#left').append("<div class ='div_category'>"
-						+"<span>"
-						+"<i id='it' style='color: #ADD8E6;' class='fa fa-cutlery' aria-hidden='true'></i>"
-						+"</span><br><span>식비</span>"
-						+"</span><br><span> "+data.list[i].price +"원</span><br>"
-						+"<span>"+data.list[i].percent+"%</span></div>");
-						}//식비
-						
-						else if(data.list[i].category == 'traffic'){
-						$('#left').append("<div class ='div_category'>"
-						+"<span>"
-						+"<i id='it'style='color: #FF6347;' class='fa fa-bus' aria-hidden='true'></i>"
-						+"</span><br><span>교통비</span>"
-						+"</span><br><span> "+data.list[i].price +"원</span><br>"
-						+"<span>"+data.list[i].percent+"%</span></div>");
-						}//교통비
-						
-						else if(data.list[i].category == 'commodity'){
-						$('#left').append("<div class ='div_category'>"
-						+"<span>"
-						+"<i id ='it' style='color: #FFA500;' class='fa fa-shopping-cart' aria-hidden='true'></i>"
-						+"</span><br><span>생필품</span>"
-						+"</span><br><span> "+data.list[i].price +"원</span><br>"
-						+"<span>"+data.list[i].percent+"%</span></div>");
-						}//생필품
-						
-						else if(data.list[i].category == 'beauty'){
-						$('#left').append("<div class ='div_category'>"
-						+"<span>"
-						+"<i id='it' style='color: #FFB6C1; 'class='fa fa-bath' aria-hidden='true'></i>"
-						+"</span><br><span>미용</span>"
-						+"</span><br><span> "+data.list[i].price +"원</span><br>"
-						+"<span>"+data.list[i].percent+"%</span></div>");
-						}//미용
-						
-						else if(data.list[i].category == 'medical'){
-						$('#left').append("<div class ='div_category'>"
-						+"<span>"
-						+"<i id='it'style='color: #6A5ACD;'class='fa fa-medkit' aria-hidden='true'></i></td>"
-						+"</span><br><span>의료</span>"
-						+"</span><br><span> "+data.list[i].price +"원</span><br>"
-						+"<span>"+data.list[i].percent+"%</span></div>");
-						}//의료
-						
-						else if(data.list[i].category == 'education'){
-						$('#left').append("<div class ='div_category'>"
-						+"<span>"
-						+"<i id='it' style='color: #DDA0DD;'class='fa fa-book' aria-hidden='true'></i>"
-						+"</span><br><span>교육</span>"
-						+"</span><br><span> "+data.list[i].price +"원</span><br>"
-						+"<span>"+data.list[i].percent+"%</span></div>");
-						}//교육
-						
-						else if(data.list[i].category == 'phonefees'){
-						$('#left').append("<div class ='div_category'>"
-						+"<span>"
-						+"<i id='it' style='color: #1E90FF;' class='fa fa-mobile' aria-hidden='true'></i>"
-						+"</span><br><span>통신비</span>"
-						+"</span><br><span> "+data.list[i].price +"원</span><br>"
-						+"<span>"+data.list[i].percent+"%</span></div>");
-						}//통신비
-						
-						else if(data.list[i].category == 'saving'){
-						$('#left').append("<div class ='div_category'>"
-						+"<span>"
-						+"<i id='it' style='color: #DAA520;' class='fa fa-database' aria-hidden='true'></i>"
-						+"</span><br><span>저축</span>"
-						+"</span><br><span> "+data.list[i].price +"원</span><br>"
-						+"<span>"+data.list[i].percent+"%</span></div>");
-						}//저축
-						
-						else if(data.list[i].category == 'utilitybills'){
-						$('#left').append("<div class ='div_category'>"
-						+"<span>"
-						+"<i id='it'style='color: #708090;'class='fa fa-plug' aria-hidden='true'></i>"
-						+"</span><br><span>공과금</span>"
-						+"</span><br><span> "+data.list[i].price +"원</span><br>"
-						+"<span>"+data.list[i].percent+"%</span></div>");
-						}//공과금
-						
-						else if(data.list[i].category == 'culturallife'){
-						$('#left').append("<div class ='div_category'>"
-						+"<span>"
-						+"<i id='it' style='color: #3CB371;' class='fa fa-film' aria-hidden='true'></i>"
-						+"</span><br><span>문화생활비</span>"
-						+"</span><br><span> "+data.list[i].price +"원</span><br>"
-						+"<span>"+data.list[i].percent+"%</span></div>");
-						}//문화생활비
-						
-						else if(data.list[i].category == 'otheritems'){
-						$('#left').append("<div class ='div_category'>"
-						+"<span>"
-						+"<i id='it' style='color: #FA8072;' class='fa fa-minus-circle' aria-hidden='true'></i>"
-						+"</span><br><span>기타</span>"
-						+"</span><br><span> "+data.list[i].price +"원</span><br>"
-						+"<span>"+data.list[i].percent+"%</span></div>");
-						}//기타
-						
-						else if(data.list[i].category == 'incomes'){
-						$('#left').append("<div class ='div_category'>"
-						+"<span>"
-						+"<i id='it' style='color: #9ACD32;'class='fa fa-krw' aria-hidden='true'></i>"
-						+"</span><br><span>수입</span>"
-						+"</span><br><span> "+data.list[i].price +"원</span><br>"
-						+"</div>");
-						}//수입
-						
-					}
-					for(var i in data.list) {
-						if(data.list[i].category =='expense'){
-						$('#left').append("<div class='div_all'><span> 총 지출 : "+data.list[i].price +"원</span> </div>");							
-						}else if(data.list[i].category =='income'){
-						$('#left').append("<div class='div_all'><span> 총 수입 : "+data.list[i].price +"원</span> </div>");							
-						}
-					}
-				},
-				error : function() {
-					alert('실패');
-				}
-			});
-		}
-		
-				
-		
-		
-	$(document).ready(function() {
-		
-		getCommentList();
-
-		addextraList();
-		
-		var id_index = parseInt('${id_index}');
-			
-		$('#recommendbtn').on('click', function() {
-
-			$.ajax({
-				type : 'post',
-				url : 'boardRecommend.do',
-				data : 'boardNo='+${board.boardNo},
-				dataType : 'json',
-				success : function(data) {
-					if(data.code ==0){
-						//추천 성공
-						$('#recommend').text(data.recommend);	
-						alert("추천하셨습니다.");
-					}else if(data.code ==1){
-						//로그인해
-						alert("로그인해주세요.");
-					}else if(data.code==3){
-						//이미 추천해썽
-						alert("이미 추천한 게시글입니다.");
-					}
-				}, 
-				error : function(data){
-				}
-			});
-		});
-	
-	
-	$('#commentbut').on('click', function() {
-		var content1 = $('#content1').val();
-		var nick1 = $('#nick1').val();
-		  var result = content1.replace(/\s+$/, '');
-		if(result){
-		$.ajax({
-			type : 'post',
-			url : 'commentWrite.do',
-			data : 'boardNo='+${board.boardNo}+'&nick1='+ nick1 +'&content1='+ content1 +'&id_index='+'${id_index}',
-			dataType : 'json',
-			success :  function () {
-				$('#content1').val(' ');
-				getCommentList();
-			},
-			error : function() {
-				alert('실패');
-			}
-		});
-	
-		}else{
-			alert("내용을 입력하세요!");
-		}
-	});
-		
-});
 </script>
-<style type="text/css">
-#it {
-	font-size: 70px;
-	padding: 10px 0px 0px 10px;
-}
-
-.root {
-	margin: auto;
-	width: 800px;
-	background-color: #f0f8ff;
-	border: solid #CCE2D8;
-}
-
-.top {
-	width: 100%;
-	height: 100%;
-	text-align: center;
-	border-bottom: dashed #CCE2D8;
-	padding: 10px 0px 0px 5px;
-}
-
-.left {
-	width: 100%;
-	padding: 40px 40px;
-	text-align: center;
-}
-
-.right {
-	margin: auto;
-	width: 100%;
-	text-align: left;
-	font-size: 20px;
-	border-top: solid #CCE2D8;
-	border-bottom: solid #CCE2D8;
-	padding: 20px 100px;
-}
-
-.div_category {
-	width: 170px;
-	height: 150px;
-	display: inline-block;
-	text-align: center;
-}
-
-.bottom {
-	width: 100%;
-	height: 100%;
-	clear: both;
-}
-
-.category_td {
-	color: #000000;
-	font-size: 70px;
-	text-align: center;
-	width: 150px;
-	height: 100px;
-	/* margin-left: 5px; */
-}
-
-.div_all {
-	font-size: 24px;
-}
-
-.categoryfont {
-	font-size: 20px;
-	text-align: center;
-}
-
-.myButton, .update, .delete, .recommendcomment {
-	background-color: #ffffff;
-	-moz-border-radius: 9px;
-	-webkit-border-radius: 9px;
-	border-radius: 9px;
-	display: inline-block;
-	cursor: pointer;
-	color: #000000;
-	font-family: Arial;
-	font-size: 15px;
-	padding: 6px 17px;
-	text-decoration: none;
-}
-
-.myButton, .update, .delete, .recommendcomment:hover {
-	background-color: #91D4B5;
-}
-
-.myButton, .update, .delete, .recommendcomment:active {
-	position: relative;
-	top: 1px;
-}
-</style>
 </head>
 <body>
 	<br>
@@ -455,7 +237,8 @@ function getCommentList() {
 
 		</div>
 
-		<div class="right">${board.content }</div>
+		<div class="right">
+${fn:replace(board.content, cn, br)}</div>
 
 		<div class="bottom">
 			<br>
@@ -492,8 +275,7 @@ function getCommentList() {
 
 					</tr>
 					<tr>
-						<td><textarea style="resize: none;" rows="2" cols="80"
-								id="content1" name="content1" placeholder="내용을 입력하세요"></textarea></td>
+						<td><textarea style="resize: none;" rows="2" cols="80" id="content1" name="content1" placeholder="내용을 입력하세요"></textarea></td>
 						<td><input class="myButton" type="button" value="등록"
 							id="commentbut"></td>
 					</tr>
@@ -506,6 +288,8 @@ function getCommentList() {
 		</div>
 
 	</div>
-
+	<input type="hidden" value="${board.boardNo}"  name="boardNo" id="boardNo">
+	<input type="hidden" value="${id_index}"  name="id_index" id="id_index">
+	
 </body>
 </html>

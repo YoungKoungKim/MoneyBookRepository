@@ -25,8 +25,17 @@ public interface IMemberService {
 	// 받는 건 아이디랑 비번
 	public Member login(String id, String pwd);
 	
+	// 카카오 로그인
+	public Member kakaoLogin(String id);
+	
+	// 카카오 정보가지고 가입
+	public void kakaoJoin(String id, String nick);
+	
 	public Member memberInfo(int id_index);
 	
 	//회원 삭제
 	public void userDelete(int id_index);
+	
+	// 비밀번호 찾기
+	public int foundPwd(String id, String pwd);
 }

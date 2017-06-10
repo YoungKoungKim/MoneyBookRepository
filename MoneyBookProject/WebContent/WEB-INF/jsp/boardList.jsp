@@ -7,184 +7,17 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+
+<link href="boardcss/boardList.css" rel="stylesheet" type="text/css">
+
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+
 <script src="https://code.jquery.com/jquery-2.2.4.min.js"
 	integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
 	crossorigin="anonymous"></script>
-<style type="text/css">
-.boardNo {
-	width: 50px;
-	text-align: center;
-}
 
-.title {
-	width: 300px;
-	text-align: left;
-}
-
-.nick {
-	width: 160px;
-	text-align: left;
-}
-
-.date {
-	width: 150px;
-	text-align: center;
-}
-
-.recommend {
-	width: 70px;
-	text-align: center;
-}
-
-.ViewNo {
-	width: 70px;
-	text-align: center;
-}
-
-.tablelist {
-	border-bottom: 1px solid #CCE2D8;
-	background-color: #EAF2EE;
-	display: inline-block;
-}
-
-.right td {
-	border-bottom: 1px solid #CCE2D8;
-	background-color: ##EAF2EE;
-	font-size: 15px;
-	padding: 8px 5px;
-}
-
-select {
-	width: 70px; /* 원하는 너비설정 */
-	padding: .3em .3em; /* 여백으로 높이 설정 */
-	margin-right: 10px;
-	font-family: inherit; /* 폰트 상속 */
-	background:
-		url(https://farm1.staticflickr.com/379/19928272501_4ef877c265_t.jpg)
-		no-repeat 95% 50%; /* 네이티브 화살표 대체 */
-	border: 1px solid #999;
-	border-radius: 0px; /* iOS 둥근모서리 제거 */
-	-webkit-appearance: none; /* 네이티브 외형 감추기 */
-	-moz-appearance: none;
-	appearance: none;
-}
-
-a {
-	text-decoration: none;
-	/* 	color: black; */
-	cursor: pointer;
-}
-
-a:hover {
-	color: black;
-	text-decoration: none;
-}
-
-a:link {
-	color: black;
-	text-decoration: none;
-}
-
-a:visited {
-	color: black;
-	text-decoration: none;
-}
-
-a:active {
-	color: #FF6753;
-	text-decoration: none;
-}
-
-.root {
-	margin: auto;
-	width: 1000px;
-	background-color: #f0f8ff;
-}
-
-.left {
-	height: auto;
-	width: 15%;
-	float: left;
-	font-size: 15px;
-	border-right: solid #CCE2D8;
-	text-align: center;
-	display: inline-block;
-}
-
-.right {
-	width: 80%;
-	display: inline-block;
-	margin-left: 30px;
-}
-
-.bottom {
-	width: 100%;
-	height: 100%;
-	clear: both;
-}
-.left a:active{
-	color: black;
-	text-decoration: none;
-}
-ul {
-	list-style: none;
-	padding-left: 0px;
-}
-
-li {
-	padding-left: 10px;
-}
-
-.menu .hide {
-	display: none;
-}
-
-#img1 {
-	height: 15px;
-	width: auto;
-	margin-right: 5px;
-}
-
-.myButton {
-	background-color: #f0f8ff;
-	-moz-border-radius: 9px;
-	-webkit-border-radius: 9px;
-	border-radius: 9px;
-	display: inline-block;
-	cursor: pointer;
-	color: #000000;
-	font-family: Arial;
-	font-size: 15px;
-	padding: 6px 17px;
-	text-decoration: none;
-}
-
-.myButton:hover {
-	background-color: #91D4B5;
-}
-
-.myButton:active {
-	position: relative;
-	top: 1px;
-}
-
-.boardType {
-	margin: 5px 0px 5px 0px;
-	font-size: 28px;
-}
-</style>
-<script type="text/javascript">
-	// html dom 이 다 로딩된 후 실행된다.
-	$(document).ready(function() {
-		// memu 클래스 바로 하위에 있는 a 태그를 클릭했을때
-		$(".menu>a").click(function() {
-			// 현재 클릭한 태그가 a 이기 때문에
-			// a 옆의 태그중 ul 태그에 hide 클래스 태그를 넣던지 빼던지 한다.
-			$(this).next("ul").toggleClass("hide");
-		});
-	});
+<script type="text/javascript" src="js/boardList.js">
 </script>
 
 </head>
@@ -306,9 +139,11 @@ li {
 			<div>
 				<table>
 					<tr align="center">
-						<td width="1250px" colspan="5"><c:if test="${start != 1 }">
+						<td width="1250px" colspan="5">
+						<c:if test="${start != 1 }">
 								<a href="boardList.do?page=${start-1 }">[이전]</a>
-							</c:if> <c:forEach begin="${start }" end="${end }" var="i">
+							</c:if> 
+							<c:forEach begin="${start }" end="${end }" var="i">
 								<c:choose>
 									<c:when test="${i == current }">
 											<span style="color: red;">[${i }]</span>

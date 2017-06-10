@@ -5,277 +5,39 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+
+
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+ 
+ <!-- 합쳐지고 최소화된 최신 CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+
+<!-- 부가적인 테마 -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+
+<!-- 합쳐지고 최소화된 최신 자바스크립트 -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+ 
+ 
+<link href="boardcss/boardWrite.css" rel="stylesheet" type="text/css">
+
+	
+
 <script src="https://code.jquery.com/jquery-2.2.4.min.js"
 	integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
 	crossorigin="anonymous"></script>
-<script type="text/javascript">
-
-function addextraList(){
 	
-	$.ajax({
-		type : "post",
-		url : "boardWriteList.do",
-		data : "date="+ $('#date2').val(),
-		dataType :  "json",
-		success :  function (data) {
-			for(var i in data.list) {
-				if(data.list[i].category == 'food'){
-					$('#left').append("<div class ='div_category'>"
-					+"<span>"
-					+"<i id='it' style='color: #ADD8E6;' class='fa fa-cutlery' aria-hidden='true'></i>"
-					+"</span><br><span>식비</span>"
-					+"</span><br><span> "+data.list[i].price +"원</span><br>"
-					+"<span>"+data.list[i].percent+"%</span></div>");
-					}//식비
-					
-					else if(data.list[i].category == 'traffic'){
-					$('#left').append("<div class ='div_category'>"
-					+"<span>"
-					+"<i id='it'style='color: #FF6347;' class='fa fa-bus' aria-hidden='true'></i>"
-					+"</span><br><span>교통비</span>"
-					+"</span><br><span> "+data.list[i].price +"원</span><br>"
-					+"<span>"+data.list[i].percent+"%</span></div>");
-					}//교통비
-					
-					else if(data.list[i].category == 'commodity'){
-					$('#left').append("<div class ='div_category'>"
-					+"<span>"
-					+"<i id ='it' style='color: #FFA500;' class='fa fa-shopping-cart' aria-hidden='true'></i>"
-					+"</span><br><span>생필품</span>"
-					+"</span><br><span> "+data.list[i].price +"원</span><br>"
-					+"<span>"+data.list[i].percent+"%</span></div>");
-					}//생필품
-					
-					else if(data.list[i].category == 'beauty'){
-					$('#left').append("<div class ='div_category'>"
-					+"<span>"
-					+"<i id='it' style='color: #FFB6C1; 'class='fa fa-bath' aria-hidden='true'></i>"
-					+"</span><br><span>미용</span>"
-					+"</span><br><span> "+data.list[i].price +"원</span><br>"
-					+"<span>"+data.list[i].percent+"%</span></div>");
-					}//미용
-					
-					else if(data.list[i].category == 'medical'){
-					$('#left').append("<div class ='div_category'>"
-					+"<span>"
-					+"<i id='it'style='color: #6A5ACD;'class='fa fa-medkit' aria-hidden='true'></i></td>"
-					+"</span><br><span>의료</span>"
-					+"</span><br><span> "+data.list[i].price +"원</span><br>"
-					+"<span>"+data.list[i].percent+"%</span></div>");
-					}//의료
-					
-					else if(data.list[i].category == 'education'){
-					$('#left').append("<div class ='div_category'>"
-					+"<span>"
-					+"<i id='it' style='color: #DDA0DD;'class='fa fa-book' aria-hidden='true'></i>"
-					+"</span><br><span>교육</span>"
-					+"</span><br><span> "+data.list[i].price +"원</span><br>"
-					+"<span>"+data.list[i].percent+"%</span></div>");
-					}//교육
-					
-					else if(data.list[i].category == 'phonefees'){
-					$('#left').append("<div class ='div_category'>"
-					+"<span>"
-					+"<i id='it' style='color: #1E90FF;' class='fa fa-mobile' aria-hidden='true'></i>"
-					+"</span><br><span>통신비</span>"
-					+"</span><br><span> "+data.list[i].price +"원</span><br>"
-					+"<span>"+data.list[i].percent+"%</span></div>");
-					}//통신비
-					
-					else if(data.list[i].category == 'saving'){
-					$('#left').append("<div class ='div_category'>"
-					+"<span>"
-					+"<i id='it' style='color: #DAA520;' class='fa fa-database' aria-hidden='true'></i>"
-					+"</span><br><span>저축</span>"
-					+"</span><br><span> "+data.list[i].price +"원</span><br>"
-					+"<span>"+data.list[i].percent+"%</span></div>");
-					}//저축
-					
-					else if(data.list[i].category == 'utilitybills'){
-					$('#left').append("<div class ='div_category'>"
-					+"<span>"
-					+"<i id='it'style='color: #708090;'class='fa fa-plug' aria-hidden='true'></i>"
-					+"</span><br><span>공과금</span>"
-					+"</span><br><span> "+data.list[i].price +"원</span><br>"
-					+"<span>"+data.list[i].percent+"%</span></div>");
-					}//공과금
-					
-					else if(data.list[i].category == 'culturallife'){
-					$('#left').append("<div class ='div_category'>"
-					+"<span>"
-					+"<i id='it' style='color: #3CB371;' class='fa fa-film' aria-hidden='true'></i>"
-					+"</span><br><span>문화생활비</span>"
-					+"</span><br><span> "+data.list[i].price +"원</span><br>"
-					+"<span>"+data.list[i].percent+"%</span></div>");
-					}//문화생활비
-					
-					else if(data.list[i].category == 'otheritems'){
-					$('#left').append("<div class ='div_category'>"
-					+"<span>"
-					+"<i id='it' style='color: #FA8072;' class='fa fa-minus-circle' aria-hidden='true'></i>"
-					+"</span><br><span>기타</span>"
-					+"</span><br><span> "+data.list[i].price +"원</span><br>"
-					+"<span>"+data.list[i].percent+"%</span></div>");
-					}//기타
-					
-					else if(data.list[i].category == 'incomes'){
-					$('#left').append("<div class ='div_category'>"
-					+"<span>"
-					+"<i id='it' style='color: #9ACD32;'class='fa fa-krw' aria-hidden='true'></i>"
-					+"</span><br><span>수입</span>"
-					+"</span><br><span> "+data.list[i].price +"원</span><br>"
-					+"</div>");
-					}//수입
-				
-			}
-			for(var i in data.list) {
-				if(data.list[i].category =='expense'){
-				$('#left').append("<div class='div_all'><span> 총 지출 : "+data.list[i].price +"원</span> </div>");							
-				}else if(data.list[i].category =='income'){
-				$('#left').append("<div class='div_all'><span> 총 수입 : "+data.list[i].price +"원</span> </div>");							
-				}
-			}
-		},
-		error : function() {
-			alert('실패');
-		}
-	});
-}
+<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.3/summernote.css" rel="stylesheet">	
+<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
 
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.js"></script> 
+  <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> 
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.3/summernote.js"></script>
 
-
-	$(document).ready(function() {
-		
-		addextraList();
-		var today = new Date();
-		var dd = today.getDate();
-		var mm = today.getMonth() + 1; //January is 0!
-		var yyyy = today.getFullYear();
-		if (dd < 10) {
-			dd = '0' + dd
-		}
-		if (mm < 10) {
-			mm = '0' + mm
-		}
-		today = yyyy + '-' + mm + '-' + dd;
-		$("#nowDate").text("날짜 : " + today); //날짜 표시
-
-		$('#back').on('click', function () {
-			location.href="viewMyPage.do?id_index=${id_index}&date=${date}";
-		});
-		
-		$("#formsubmitBtn").on("click", function() {
-			var content1 = $('#textContent').val(); 
-			var title = $('#title1').val();
-		 	var result = content1.replace(/\s+$/, '');
-			var result2 = title.replace(/\s+$/, '');
-			if(result2 == ""){
-				  alert("제목을 입력해주세요");
-				  }	else if(result == ""){
-					  alert("내용을 입력해주세요");
-				  } else {
-					  $("#formsubmit").submit();
-				  }
-			 
-		 });
-	});
-</script>
-<style type="text/css">
-#it{
-	font-size: 70px;
-}
-.div_category{
-	width: 170px; 
-	height: 150px; 
-	display: inline-block;
-}
-.div_all{
-	font-size: 24px;
-}
-.root {
-margin: auto;
-	width: 800px;
-	background-color: #f0f8ff;
-	border: solid #CCE2D8;
-	margin-top: 50px;
-}
-
-.top {
-	width: 100%;
-	height: 100%;
-	text-align: center;
-	border-bottom: dashed #CCE2D8;
-	padding: 20px 5px;
-}
-
-
-.left {
-	width: 100%;
-	padding: 40px 40px;
-	text-align: center;
-}
-
-.bottom {
-	width: 100%;
-	height: 100%;
-	clear: both;
-	text-align: center;
-	padding: 30px 5px;
-}
-
-.category_td {
-	color: #000000;
-	font-size: 70px;
-	text-align: center;
-	width: 150px;
-	height: 100px;
-	/* margin-left: 5px; */
-}
-
-.categoryfont {
-	font-size: 20px;
-	text-align: center;
-}
-select {
- width: 70px; /* 원하는 너비설정 */ 
- padding: .3em .3em; /* 여백으로 높이 설정 */ 
- margin-right : 10px;
- font-family: inherit; /* 폰트 상속 */ 
- background: url(https://farm1.staticflickr.com/379/19928272501_4ef877c265_t.jpg) no-repeat 95% 50%; /* 네이티브 화살표 대체 */ 
- border: 1px solid #999; 
- border-radius: 0px; /* iOS 둥근모서리 제거 */ 
- -webkit-appearance: none; /* 네이티브 외형 감추기 */ 
- -moz-appearance: none; 
- appearance: none; 
- }
- .myButton {
-	background-color: #f0f8ff;
-	-moz-border-radius: 9px;
-	-webkit-border-radius: 9px;
-	border-radius: 9px;
-	display: inline-block;
-	cursor: pointer;
-	color: #000000;
-	font-family: Arial;
-	font-size: 15px;
-	padding: 6px 17px;
-	text-decoration: none;
-}
-
-.myButton:hover {
-	background-color: #91D4B5;
-}
-
-.myButton:active {
-	position: relative;
-	top: 1px;
-}
-
-</style>
+<script type="text/javascript" src="js/boardWriteForm.js"></script>
 </head>
 
 <body>
@@ -296,9 +58,7 @@ select {
 						</select>
 						</td>
 						<td>
-						제목 
-							&nbsp;
-							 <input style="width: 400px" type="text" id="title1" name="title" placeholder="제목을 입력하세요">
+						제목  <input style="width: 400px" type="text" id="title1" name="title" placeholder="제목을 입력하세요">
 						</td>
 						<td>
 							<span id="nowDate"></span>
@@ -315,13 +75,15 @@ select {
 					
 			</div>
 			<div class="bottom">
-				<textarea style="resize: inherit;" rows="15" cols="110" name="content" id="textContent" placeholder="내용을 입력하세요"></textarea>
-			<br>
+<!-- 				  <div id="summernote"><p>내용을입력하세요</p></div> -->
+				 <textarea rows="" cols="" style="display:none" id="summernote" name="content"></textarea>
+			
+			<div align="center">
 				<span><input type="button" class="myButton" value="확인" id="formsubmitBtn"></span>
 				<span></span><input type="button" id="back" class="myButton" value="취소"></span>
 			</div>
+			</div>
 		</form>
-
 	</div>
 
 </body>

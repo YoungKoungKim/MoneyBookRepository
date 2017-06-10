@@ -7,6 +7,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		insert into member
 		values(0, #{id}, #{nick}, #{pwd})
 	</insert>
+	
+	<insert id="kakaoMember" parameterType="member">
+		insert into member
+		values(0, #{id}, #{nick}, "0000")
+	</insert>
+	
 	<update id="nickUpdate" parameterType="member">
 		update member set nick =
 		#{nick} where id_index = #{id_index}

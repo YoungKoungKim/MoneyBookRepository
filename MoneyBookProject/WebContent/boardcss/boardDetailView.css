@@ -1,0 +1,91 @@
+@CHARSET "UTF-8";
+
+#it {
+	font-size: 70px;
+	padding: 10px 0px 0px 10px;
+}
+
+.root {
+	margin: auto;
+	width: 800px;
+	background-color: #f0f8ff;
+	border: solid #CCE2D8;
+}
+
+.top {
+	width: 100%;
+	height: 100%;
+	text-align: center;
+	border-bottom: dashed #CCE2D8;
+	padding: 10px 0px 0px 5px;
+}
+
+.left {
+	width: 100%;
+	padding: 40px 40px;
+	text-align: center;
+}
+
+.right {
+	margin: auto;
+	width: 100%;
+	text-align: left;
+	font-size: 20px;
+	border-top: solid #CCE2D8;
+	border-bottom: solid #CCE2D8;
+	padding: 20px 100px;
+}
+
+.div_category {
+	width: 170px;
+	height: 150px;
+	display: inline-block;
+	text-align: center;
+}
+
+.bottom {
+	width: 100%;
+	height: 100%;
+	clear: both;
+}
+
+.category_td {
+	color: #000000;
+	font-size: 70px;
+	text-align: center;
+	width: 150px;
+	height: 100px;
+	/* margin-left: 5px; */
+}
+
+.div_all {
+	font-size: 24px;
+}
+
+.categoryfont {
+	font-size: 20px;
+	text-align: center;
+}
+
+.myButton {
+	background-color: #ffffff;
+	-moz-border-radius: 9px;
+	-webkit-border-radius: 9px;
+	border-radius: 9px;
+	display: inline-block;
+	cursor: pointer;
+	color: #000000;
+	font-family: Arial;
+	font-size: 15px;
+	padding: 6px 17px;
+	text-decoration: none;
+}
+
+.myButton {
+	background-color: #91D4B5;
+}
+
+.myButton{
+	position: relative;
+	top: 1px;
+}

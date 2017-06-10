@@ -9,12 +9,14 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import model.Board;
@@ -42,7 +44,7 @@ public class BoardController {
 	}
 
 	@RequestMapping("boardDetailView.do")
-	public ModelAndView boardDetailView(HttpSession session, int boardNo, int page) {// id_index 빼야됨
+	public ModelAndView boardDetailView(HttpSession session, int boardNo, @RequestParam(defaultValue="1")int page) {// id_index 빼야됨
 		ModelAndView mav = new ModelAndView();
 		try {
 			session.setAttribute("page", page);
@@ -130,12 +132,13 @@ public class BoardController {
 
 	@RequestMapping("boardWrite.do")
 	public String boardWrite(Board board, Date date2) {
-		System.out.println(date2);
+		System.out.println(board.getContent());
+
 		boardservice.boardWrite(board, date2);
 		return "redirect:boardList.do";
 	
 	}
-
+	
 	 @RequestMapping("boardDelete.do")
 	 public String boardDelete(int boardNo){
 		 boardservice.boardDelete(boardNo);

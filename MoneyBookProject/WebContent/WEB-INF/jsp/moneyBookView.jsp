@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -47,8 +49,8 @@ html, body {
 }
 
 #center {
-	display: inline-block; 
-	font-family : 'Ubuntu Condensed', sans-serif;
+	display: inline-block;
+	font-family: 'Ubuntu Condensed', sans-serif;
 	margin-left: 18%;
 	left: 20%;
 	right: 20%;
@@ -59,11 +61,11 @@ html, body {
 
 #right {
 	position: absolute;
-   margin-top: 90px;
-   width: 20%;
-   left: 80%;
-   right: 5%;
-   top: 70px
+	margin-top: 90px;
+	width: 20%;
+	left: 80%;
+	right: 5%;
+	top: 70px
 }
 
 #calendar {
@@ -251,6 +253,60 @@ main {
 </style>
 
 <script type="text/javascript">
+//천 단위마다 콤마 추가하기	
+function addComma(value) {
+  var num = isNumber(value);
+  if (!num) return;
+
+  // 문자열 길이가 3과 같거나 작은 경우 입력 값을 그대로 리턴
+  if (num.length <= 3) {
+    return num;
+  }
+
+  // 3단어씩 자를 반복 횟수 구하기
+  var count = Math.floor((num.length - 1) / 3);
+
+  // 결과 값을 저정할 변수
+  var result = "";
+
+  // 문자 뒤쪽에서 3개를 자르며 콤마(,) 추가
+  for (var i = 0; i < count; i++) {
+
+    // 마지막 문자(length)위치 - 3 을 하여 마지막인덱스부터 세번째 문자열 인덱스값 구하기
+    var length = num.length;
+    var strCut = num.substr(length - 3, length);
+    // 반복문을 통해 value 값은 뒤에서 부터 세자리씩 값이 리턴됨.
+
+    // 입력값 뒷쪽에서 3개의 문자열을 잘라낸 나머지 값으로 입력값 갱신
+    num = num.slice(0, length - 3);
+
+    // 콤마(,) + 신규로 자른 문자열 + 기존 결과 값
+    result = "," + strCut + result;
+  }
+
+  // 마지막으로 루프를 돌고 남아 있을 입력값(value)을 최종 결과 앞에 추가
+   result = num + result; 
+
+  // 최종값 리턴
+  return result;
+
+}
+
+// 숫자 유무 판단
+function isNumber(checkValue) {
+	checkValue = '' + checkValue;
+	
+	if(checkValue.length >=4) {
+	checkValue= checkValue.replace(/,/gi ,""); 
+	}
+	
+  if (isNaN(checkValue) /* || checkValue == "" */) {
+    alert('금액은 숫자만 입력해 주세요.');
+    return;
+  }
+  return checkValue;
+}
+
 var boardWriteDate;
 var clickDate;
 var modifyMoneyBookNo;
@@ -420,7 +476,7 @@ var controller = {
 var view = {
 		  render: function () {
 		    // render current total
-		    var screenText = view.sciNotationFormat(controller.getScreenVal());
+		    var screenText = addComma(view.sciNotationFormat(controller.getScreenVal()));
 		    $('#screen').text(screenText);
 		    view.highlightOperator();
 		    
@@ -498,7 +554,8 @@ var view = {
 				type: 'post',
 				success : function(data){
 					alert(data.msg);
-					location.reload();
+					$('#calendar').fullCalendar('gotoDate', new Date());
+					$('#calendar').fullCalendar('gotoDate', clickDate);
 				},
 				error : function(data) {
 					alert('에러');
@@ -523,7 +580,7 @@ var view = {
 					$("#datepicker").datepicker("setDate", data.mbDate);
 					$('#category').val(data.moneyBook.category);
 					$('#edt_detail').val(data.moneyBook.detail);
-					$('#edt_price').val(data.moneyBook.price);
+					$('#edt_price').val(addComma(data.moneyBook.price));
 					modifyMoneyBookNo = data.moneyBook.moneyBookNo;
 					
 				},
@@ -537,13 +594,12 @@ var view = {
 			opener.parent.location.reload();
 			window.close();
 	}  */
-		
 		$('#detailTable thead').hide();
 		var today = new Date();
 		$('#calendar').fullCalendar({
 			header : {
-				left : 'prev,next today',
-				center : 'title',
+				left : 'today',
+				center : 'prevYear,prev title next,nextYear',
 				right : 'month'
 			},
  			defaultDate : today,
@@ -581,7 +637,7 @@ var view = {
 							} else {
 								events.push({
 									/* 수입 */
-									title : "",
+									title : " ",
 									start : data.income[i].start,
 									textColor : "#FFFFFF"
 								});
@@ -593,22 +649,94 @@ var view = {
 										textColor : "#FA8072"
 									});
 								}
+						}
+						
+					}
+					callback(events);
+					
+					$('#monthIncome').text(data.monthIncome);
+					$('#monthExpense').text(data.monthExpense);
+				}
+			});
+		},
+		dayClick: function(date, jsEvent, view) {
+			$('#detailTable tbody').empty();
+			var current = $('#calendar').fullCalendar('getDate');
+			var now = dateToYYYYMMDD(today);
+			clickDate = date.format();
+			
+			if (date.format().substring(0, 7) == current.format('YYYY-MM-DD').substring(0,7)) {
+				$('.fc-day').css('background-color', '#ffffff');
+				if (date.format() == now) {
+					$(this).css('background-color', '#91D4B5');
+					$(this).css('opacity', '0');
+					$('.fc-today').css('background-color', '#91D4B5');
+					$('.fc-today').css('opacity', '0.4');
+				} else {
+					$('.fc-today').css('background-color', '#DCDCDC');
+					$('.fc-today').css('opacity', '1');
+					$(this).css('background-color', '#91D4B5');
+					$(this).css('opacity', '0.4');
+				}
+					
+					$.ajax({
+						type : 'post',
+						url : 'moneyBookDetailView.do',
+						dataType : 'json',
+						data : 'id_index=' + ${id_index} + '&date=' + date.format(),
+						success : function(data) {
+							if (data.length == 0) {
+								$('#detailTable thead').hide();
+								var img = "<center><br><br>"
+											+"<img src='jpg/no_data.png'"+
+											"></center>";
+								$('#detailTable tbody').append(img);
+								if (data.expense[i].title != 0) {
+									events.push({
+										/* 지출 */
+										title : addComma(data.expense[i].title),
+										start : data.expense[i].start,
+										textColor : "#FA8072"
+									});
+								}
+							} else {
+								$('#detailTable thead').show();
+								$(data).each(function(i) {
+									var td = "<tr"
+											+ " class='detailOne' "
+											+ " id='" + data[i].moneyBookNo + "'"
+											+ " name='" + date.format() + "'"
+											+ "data-target='#layerpop' data-toggle='modal'>"
+											+ "<td>" + convertCategory(data[i].category) + "</td>"
+											+ "<td>" + data[i].detail + "</td>"
+											+ "<td class='price'>" + data[i].price + "</td>"
+											+ "</tr>"
+									$('#detailTable').append(td);
+								})
+								events.push({
+									/* 수입 */
+									title : "",
+									start : data.income[i].start,
+									textColor : "#FFFFFF"
+								});
+								if (data.expense[i].title != 0) {
+									events.push({
+										/* 지출 */
+										title : addComma(data.expense[i].title),
+										start : data.expense[i].start,
+										textColor : "#FA8072"
+									});
+								}
 							}
 							
+						},
+						error : function() {
+							alert('error');
 						}
-						callback(events);
-						
-						$('#monthIncome').text(data.monthIncome);
-						$('#monthExpense').text(data.monthExpense);
-					}
-				});
-			},
-			dayClick: function(date, jsEvent, view) {
-				$('#detailTable tbody').empty();
-				var current = $('#calendar').fullCalendar('getDate');
-				var now = dateToYYYYMMDD(today);
-				clickDate = date.format();
+					});
+			} else {
 				
+			}
 				if (date.format().substring(0, 7) == current.format('YYYY-MM-DD').substring(0,7)) {
 					$('.fc-day').css('background-color', '#ffffff');
 					if (date.format() == now) {
@@ -645,7 +773,7 @@ var view = {
 												+ "data-target='#layerpop' data-toggle='modal'>"
 												+ "<td>" + convertCategory(data[i].category) + "</td>"
 												+ "<td>" + data[i].detail + "</td>"
-												+ "<td class='price'>" + data[i].price + "</td>"
+												+ "<td class='price'>" + addComma(data[i].price) + "</td>"
 												+ "</tr>"
 										$('#detailTable').append(td);
 									})
@@ -660,8 +788,8 @@ var view = {
 					
 				}
 
-		    }
-		});
+	    }
+	});
 		
 		$('#btn_delete').click(function() {
 			$.ajax({
@@ -673,7 +801,8 @@ var view = {
 				success : function(data) {
 					alert(data.msg);
 					if (data.result) {
-						location.reload();
+						$('#calendar').fullCalendar('gotoDate', new Date());
+						$('#calendar').fullCalendar('gotoDate', clickDate);
 					} else {
 						//창 냅두기
 					}
@@ -684,20 +813,35 @@ var view = {
 			});
 		});
 		
+		
+		$(document).on("keyup","#edt_price",function(){
+			var result = addComma($('#edt_price').val());
+			$('#edt_price').val(result);
+
+		});
+		
+		
 		$('#btn_update').click(function() {
+			
+			
 			var mod_category = $('#category').val();
 			var mod_detail = $('#edt_detail').val();
 			var mod_price = $('#edt_price').val();
 			var date = $('#datepicker').val();
 			var dateFormat = /^(19[7-9][0-9]|20\d{2})-(0[0-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/;
 
+			mod_price = $('#edt_price').val().replace(/,/gi ,""); 
+			
 			if (mod_detail == "" || mod_price == "") {
 				alert('사용 내용을 입력하세요.');
 			} else if (!$.isNumeric(mod_price)) {
 				alert('가격은 숫자만 입력 가능합니다.');
+			} else if(  mod_price <0){
+				alert('가격은 정수만 입력 가능합니다.');
 			} else if (!dateFormat.test(date)) {
 				alert('날짜 형식이 다릅니다.');
 			} else {
+				
 				$.ajax({
 					type : 'post',
 					url : 'moneyBookUpdate.do',
@@ -711,7 +855,7 @@ var view = {
 					success : function(data) {
 						alert(data.msg);
 						if (data.result) {
-							location.reload();
+							location.href="viewMyPage.do?id_index=" + ${id_index} + "&date=" + clickDate;
 						} else {
 							//창 냅두기
 						}
@@ -721,11 +865,12 @@ var view = {
 					}
 				});
 			}
-			
 		});
 		
 		$(document).on('click', '#boardWriteBtn', function() {
-			location.href = "boardWriteForm.do?date=" + boardWriteDate;
+			if ($('#monthIncome').text() != "0" || $('#monthExpense').text() != "0") {
+				location.href = "boardWriteForm.do?date=" + boardWriteDate;
+			}
 		});
 		
 		$(document).on('click', '#moneyBookWriteBtn', function() {
@@ -919,7 +1064,8 @@ var view = {
 
 	<div id="right">
 		<button class="btn moneyBookBtn" id="moneyBookWriteBtn">등록</button>
-		<button class="btn moneyBookBtn" id="boardWriteBtn">공유</button>
+		<button class="btn moneyBookBtn" id="boardWriteBtn"
+			data-target="#boardWriteFormError" data-toggle="modal">공유</button>
 
 		<div id="calculator">
 			<div class="clearfix" id="wrapper">
@@ -1013,9 +1159,26 @@ var view = {
 					<!-- Footer -->
 					<div class="modal-footer">
 						<button name="update" class="modal_btn btn" id="btn_update">수정</button>
-						<button name="delete" class="modal_btn btn" id="btn_delete">삭제</button>
+						<button name="delete" class="modal_btn btn" id="btn_delete"
+							data-dismiss="modal">삭제</button>
 						<button name="cancel" class="modal_btn btn" id="btn_cancel"
 							data-dismiss="modal">취소</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="boardWriteFormError">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div id="borderLine">
+					<!-- body -->
+					<div class="modal-body">공유할 데이터가 없습니다. 가계부를 등록해주세요!</div>
+					<!-- Footer -->
+					<div class="modal-footer">
+						<button name="cancel" class="modal_btn btn" id="btn_cancel"
+							data-dismiss="modal">확인</button>
 					</div>
 				</div>
 			</div>

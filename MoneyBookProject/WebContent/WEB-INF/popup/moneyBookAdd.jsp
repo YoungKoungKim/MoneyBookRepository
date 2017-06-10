@@ -71,7 +71,7 @@ function SetToToday(Which)
 		  MonthObject = eval("document.Form1." + Which + "Month");
 		  YearObject = eval("document.Form1." + Which + "Year");
 		
-		  YearObject[0+5].selected = true;
+		  YearObject[NowYear-2012].selected = true;
 		  MonthObject[NowMonth].selected = true;
 		
 		  ChangeOptionDays(Which);
@@ -84,7 +84,7 @@ function SetToToday(Which)
 		  MonthObject = eval("document.Form1.FirstSelectMonth");
 		  YearObject = eval("document.Form1.FirstSelectYear");
 		  
-		  YearObject[0+5].selected = true;
+		  YearObject[Number(todayList[0])-2012].selected = true;
 		  MonthObject[Number(todayList[1])-1].selected = true;
 		
 		  ChangeOptionDays('FirstSelect');
@@ -105,7 +105,73 @@ function WriteYearOptions(YearsAhead)
   return line;
 }
 
+
+//천 단위마다 콤마 추가하기	
+function addComma(value) {
+  var num = isNumber(value);
+  if (!num) return;
+
+  // 문자열 길이가 3과 같거나 작은 경우 입력 값을 그대로 리턴
+  if (num.length <= 3) {
+    return num;
+  }
+
+  // 3단어씩 자를 반복 횟수 구하기
+  var count = Math.floor((num.length - 1) / 3);
+
+  // 결과 값을 저정할 변수
+  var result = "";
+
+  // 문자 뒤쪽에서 3개를 자르며 콤마(,) 추가
+  for (var i = 0; i < count; i++) {
+
+    // 마지막 문자(length)위치 - 3 을 하여 마지막인덱스부터 세번째 문자열 인덱스값 구하기
+    var length = num.length;
+    var strCut = num.substr(length - 3, length);
+    // 반복문을 통해 value 값은 뒤에서 부터 세자리씩 값이 리턴됨.
+
+    // 입력값 뒷쪽에서 3개의 문자열을 잘라낸 나머지 값으로 입력값 갱신
+    num = num.slice(0, length - 3);
+
+    // 콤마(,) + 신규로 자른 문자열 + 기존 결과 값
+    result = "," + strCut + result;
+  }
+
+  // 마지막으로 루프를 돌고 남아 있을 입력값(value)을 최종 결과 앞에 추가
+   result = num + result; 
+
+  // 최종값 리턴
+  return result;
+
+}
+
+// 숫자 유무 판단
+function isNumber(checkValue) {
+	checkValue = '' + checkValue;
+	
+	if(checkValue.length >=4) {
+	checkValue= checkValue.replace(/,/gi ,""); 
+	}
+	
+  if (isNaN(checkValue) /* || checkValue == "" */) {
+    alert('금액은 정수만 입력해 주세요.');
+    return;
+  }
+  return checkValue;
+}
+
+
+
 $(document).ready(function() {
+	
+	$(document).on("keyup",".price",function(){
+		var id_index = $(this).attr('id').replace("price", "");
+		var result = addComma($('#price'+id_index).val());
+		$('#price'+id_index).val(result);
+
+	});
+	
+
 	
 	$("#cancle_btn").click(function(){
 		window.close();	
@@ -129,7 +195,8 @@ $(document).ready(function() {
 					if($('#category'+i).val()==""){
 						$('#category'+i).val(data.category).prop("selected", true);
 						$('#detail'+i).val(data.detail);
-						$('#price'+i).val(data.price);
+						var bm_price = addComma(data.price);
+						$('#price'+i).val(bm_price);
 						
 						$('#category'+(i-1)).attr('style', 'background-color:#FFFFFF')
 						$('#category'+i).attr('style', 'background-color:#FFFFFF');
@@ -235,9 +302,11 @@ $(document).ready(function() {
  			alert("모든 항목을 입력해주세요.");
 			return false;
 		}else{
-			if($.isNumeric($('#price'+i).val()) == false && $('#price'+i).val() !='' ){
+			if($.isNumeric($('#price'+i).val().replace(/,/gi ,"")) == false && $('#price'+i).val() !='' ){
 				alert("금액은 숫자만 입력해주세요.");
 				return false;
+		}else{
+			$('#price'+i).val($('#price'+i).val().replace(/,/gi ,"")); 
 		}	
 	}
  	} 
