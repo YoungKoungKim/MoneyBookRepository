@@ -10,28 +10,33 @@
 <meta name="description" content="" />
 <meta name="author" content="" />
 <title>Insert title here</title>
-<!-- BOOTSTRAP CORE CSS -->
-<link href="assets/css/bootstrap.css" rel="stylesheet" />
-<!-- ION ICONS STYLES -->
-<link href="assets/css/ionicons.css" rel="stylesheet" />
-<!-- CUSTOM CSS -->
-<link href="assets/css/style.css" rel="stylesheet" />
 <!-- IE10 viewport hack  -->
 <script src="assets/js/ie-10-view-port.js"></script>
+<link href="http://fonts.googleapis.com/earlyaccess/nanumgothic.css"
+   rel="stylesheet">
+<link
+   href="homeCss/blur-color-variation/assets/css/font-awesome.min.css"
+   rel="stylesheet">
+
+<link rel="stylesheet"
+   href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<link rel="stylesheet"
+   href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 
 <script src="https://code.jquery.com/jquery-2.2.4.min.js"
    integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
    crossorigin="anonymous"></script>
    
 <script type="text/javascript">
-	$(window).resize(function() {
-		$('#container').css('height','100%');
-	});
+$(document).ready(function() {
+	$('#content').css('min-height', $(window).height()-200);
+});
 </script>
 
 <style type="text/css">
 @import url('http://fonts.googleapis.com/css?family=Lato');
 @import url('https://fonts.googleapis.com/css?family=Amatic+SC');
+@import url(http://fonts.googleapis.com/css?family=Pacifico);
 @font-face {
 	font-family: 'NanumGothic';
 	src: url(font/NanumBarunGothic_0.ttf) format('truetype');
@@ -46,11 +51,10 @@ html, body {
 	padding: 0; */
 }
 #header {
-	background-color: #91D4B5;
-	color: #fff;
-	padding-top: 15px;
-	padding-bottom: 10px;
+	font-family: 'Amatic SC';
+	height: 100px;
 }
+
 #container {
 	background-color: white;
 	font-family: NanumBarunpenR;
@@ -62,8 +66,10 @@ html, body {
 }
 #footer {
 	margin-top : 50px;
+	padding-top : 15px;
+	background-color: #649173;
 	width : 100%;
-    height : auto;
+	height: 50px;
 }
 </style>
 <title>Insert title here</title>

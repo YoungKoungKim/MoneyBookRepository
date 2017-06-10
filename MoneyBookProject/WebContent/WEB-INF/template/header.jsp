@@ -10,7 +10,8 @@
 <script src="https://code.jquery.com/jquery-2.2.4.min.js"
    integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
    crossorigin="anonymous"></script>
-
+<script
+   src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="js/memberJs.js"></script>
 <script type="text/javascript" src="js/headerScript.js"></script>
 <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
@@ -28,29 +29,36 @@
    })
 </script>
 
-<link href="http://fonts.googleapis.com/earlyaccess/nanumgothic.css"
-   rel="stylesheet">
-<link
-   href="homeCss/blur-color-variation/assets/css/font-awesome.min.css"
-   rel="stylesheet">
-
-<link rel="stylesheet"
-   href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-<link rel="stylesheet"
-   href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
-<script
-   src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-
 <style type="text/css">
 @CHARSET "UTF-8";
 /************* Common *************/
 @import url(http://fonts.googleapis.com/earlyaccess/hanna.css);
 
 @font-face {
-   font-family: 'NanumGothic';
+	font-family: 'Barrio', cursive;
+	font-family: 'Kumar One', cursive;
+	font-family: 'Pacifico', cursive;
+	font-family: 'NanumGothic';
    src: url(font/NanumBarunGothic_0.ttf) format('truetype');
    font-family: 'koverwatch';
    src: url(font/koverwatch.ttf) format('truetype');
+}
+
+#header {
+	font-family: 'Amatic SC';
+	background-color: #649173;
+	padding-top: 25px;
+	height: 100px;
+}
+
+#header a {
+	font-size : 1.7em;
+	color:#FFF;
+	margin: 10px;
+}
+
+#header a:hover {
+	color: #DCDCDC;
 }
 
 .modal-content {
@@ -95,6 +103,7 @@
    font-size: 18px;
    color: black;
 }
+
 </style>
 </head>
 <body>
@@ -104,20 +113,20 @@
             <div class="container">
                <div class="row">
                   <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 logo-wrapper">
-                     <a href="home.do"><img src="assets/img/logo1.jpg" alt="" /></a>
+                     <a href="home.do" id="mainTitle">MoneyBook</a>
                   </div>
                   <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-right">
                      <div class="menu-links scroll-me">
                         <!-- 공유게시판 -->
-                        <a href="boardList.do" title="공유게시판">BulletinBoard</a>
+                        <a class="menu" href="boardList.do" title="공유게시판">BulletinBoard</a>
                         <!-- 가계부 -->
-                        <a data-toggle="modal" data-target="#noneMember"
+                        <a class="menu" data-toggle="modal" data-target="#noneMember"
                            data-backdrop="static" href="#noneMember" title="가계부">MyMoneyBook</a>
                         <!-- 로그인 -->
-                        <a data-toggle="modal" data-target="#loginModal"
+                        <a class="menu" data-toggle="modal" data-target="#loginModal"
                            data-backdrop="static" href="#loginForm" title="로그인">Login</a>
                         <!-- 회원가입 -->
-                        <a data-toggle="modal" data-target="#joinModal"
+                        <a class="menu" data-toggle="modal" data-target="#joinModal"
                            data-backdrop="static" href="#joinForm" title="회원가입">Join</a>
                      </div>
                   </div>
@@ -130,18 +139,18 @@
             <div class="container">
                <div class="row">
                   <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 logo-wrapper">
-                     <a href="home.do"><img src="assets/img/logo1.jpg" alt="" /></a>
+                     <a href="home.do">MoneyBook</a>
                   </div>
                   <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-right">
                      <div class="menu-links scroll-me">
                         <!-- 공유게시판 -->
-                        <a href="boardList.do" title="공유게시판">BulletinBoard</a>
+                        <a class="menu" href="boardList.do" title="공유게시판">BulletinBoard</a>
                         <!-- 가계부 -->
-                        <a href="#" onclick="viewMyPage()" title="가계부">MyMoneyBook</a>
+                        <a class="menu" href="#" onclick="viewMyPage()" title="가계부">MyMoneyBook</a>
                         <!-- 가계부 -->
-                        <a href="myInfo.do" title="회원 정보" id="MyInfoLink">Account</a>
+                        <a class="menu" href="myInfo.do" title="회원 정보" id="MyInfoLink">MyInfomation</a>
                         <!-- 로그인 -->
-                        <a href="#" title="로그아웃" id="header_Logout">Logout</a>
+                        <a class="menu" href="#" title="로그아웃" id="header_Logout">Logout</a>
                      </div>
                   </div>
                </div>
