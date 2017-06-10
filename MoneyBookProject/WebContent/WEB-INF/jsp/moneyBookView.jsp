@@ -11,9 +11,6 @@
 <link href="./fullcalendar-3.3.1/fullcalendar.css" rel="stylesheet" />
 <link href="./fullcalendar-3.3.1/fullcalendar.print.css"
 	rel="stylesheet" media="print" />
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-
 
 <link rel="stylesheet"
 	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -310,7 +307,6 @@ function isNumber(checkValue) {
   return checkValue;
 }
 
-
 var boardWriteDate;
 var clickDate;
 var modifyMoneyBookNo;
@@ -558,7 +554,8 @@ var view = {
 				type: 'post',
 				success : function(data){
 					alert(data.msg);
-					location.reload();
+					$('#calendar').fullCalendar('gotoDate', new Date());
+					$('#calendar').fullCalendar('gotoDate', clickDate);
 				},
 				error : function(data) {
 					alert('에러');
@@ -593,7 +590,10 @@ var view = {
 
 			});
 		});
-
+/* 	if('${param.succ}' == "sucess"){
+			opener.parent.location.reload();
+			window.close();
+	}  */
 		$('#detailTable thead').hide();
 		var today = new Date();
 		$('#calendar').fullCalendar({
@@ -629,12 +629,90 @@ var view = {
 								if (data.expense[i].title != 0) {
 									events.push({
 										/* 지출 */
+										title : data.expense[i].title,
+										start : data.expense[i].start,
+										textColor : "#FA8072"
+									});
+								}
+							} else {
+								events.push({
+									/* 수입 */
+									title : " ",
+									start : data.income[i].start,
+									textColor : "#FFFFFF"
+								});
+								if (data.expense[i].title != 0) {
+									events.push({
+										/* 지출 */
+										title : data.expense[i].title,
+										start : data.expense[i].start,
+										textColor : "#FA8072"
+									});
+								}
+						}
+						
+					}
+					callback(events);
+					
+					$('#monthIncome').text(data.monthIncome);
+					$('#monthExpense').text(data.monthExpense);
+				}
+			});
+		},
+		dayClick: function(date, jsEvent, view) {
+			$('#detailTable tbody').empty();
+			var current = $('#calendar').fullCalendar('getDate');
+			var now = dateToYYYYMMDD(today);
+			clickDate = date.format();
+			
+			if (date.format().substring(0, 7) == current.format('YYYY-MM-DD').substring(0,7)) {
+				$('.fc-day').css('background-color', '#ffffff');
+				if (date.format() == now) {
+					$(this).css('background-color', '#91D4B5');
+					$(this).css('opacity', '0');
+					$('.fc-today').css('background-color', '#91D4B5');
+					$('.fc-today').css('opacity', '0.4');
+				} else {
+					$('.fc-today').css('background-color', '#DCDCDC');
+					$('.fc-today').css('opacity', '1');
+					$(this).css('background-color', '#91D4B5');
+					$(this).css('opacity', '0.4');
+				}
+					
+					$.ajax({
+						type : 'post',
+						url : 'moneyBookDetailView.do',
+						dataType : 'json',
+						data : 'id_index=' + ${id_index} + '&date=' + date.format(),
+						success : function(data) {
+							if (data.length == 0) {
+								$('#detailTable thead').hide();
+								var img = "<center><br><br>"
+											+"<img src='jpg/no_data.png'"+
+											"></center>";
+								$('#detailTable tbody').append(img);
+								if (data.expense[i].title != 0) {
+									events.push({
+										/* 지출 */
 										title : addComma(data.expense[i].title),
 										start : data.expense[i].start,
 										textColor : "#FA8072"
 									});
 								}
 							} else {
+								$('#detailTable thead').show();
+								$(data).each(function(i) {
+									var td = "<tr"
+											+ " class='detailOne' "
+											+ " id='" + data[i].moneyBookNo + "'"
+											+ " name='" + date.format() + "'"
+											+ "data-target='#layerpop' data-toggle='modal'>"
+											+ "<td>" + convertCategory(data[i].category) + "</td>"
+											+ "<td>" + data[i].detail + "</td>"
+											+ "<td class='price'>" + data[i].price + "</td>"
+											+ "</tr>"
+									$('#detailTable').append(td);
+								})
 								events.push({
 									/* 수입 */
 									title : "",
@@ -651,20 +729,14 @@ var view = {
 								}
 							}
 							
+						},
+						error : function() {
+							alert('error');
 						}
-						callback(events);
-						
-						$('#monthIncome').text(data.monthIncome);
-						$('#monthExpense').text(data.monthExpense);
-					}
-				});
-			},
-			dayClick: function(date, jsEvent, view) {
-				$('#detailTable tbody').empty();
-				var current = $('#calendar').fullCalendar('getDate');
-				var now = dateToYYYYMMDD(today);
-				clickDate = date.format();
+					});
+			} else {
 				
+			}
 				if (date.format().substring(0, 7) == current.format('YYYY-MM-DD').substring(0,7)) {
 					$('.fc-day').css('background-color', '#ffffff');
 					if (date.format() == now) {
@@ -716,8 +788,8 @@ var view = {
 					
 				}
 
-		    }
-		});
+	    }
+	});
 		
 		$('#btn_delete').click(function() {
 			$.ajax({
@@ -729,7 +801,8 @@ var view = {
 				success : function(data) {
 					alert(data.msg);
 					if (data.result) {
-						location.reload();
+						$('#calendar').fullCalendar('gotoDate', new Date());
+						$('#calendar').fullCalendar('gotoDate', clickDate);
 					} else {
 						//창 냅두기
 					}
@@ -763,7 +836,7 @@ var view = {
 				alert('사용 내용을 입력하세요.');
 			} else if (!$.isNumeric(mod_price)) {
 				alert('가격은 숫자만 입력 가능합니다.');
-			}else if(  mod_price <0){
+			} else if(  mod_price <0){
 				alert('가격은 정수만 입력 가능합니다.');
 			} else if (!dateFormat.test(date)) {
 				alert('날짜 형식이 다릅니다.');
@@ -782,7 +855,7 @@ var view = {
 					success : function(data) {
 						alert(data.msg);
 						if (data.result) {
-							location.reload();
+							location.href="viewMyPage.do?id_index=" + ${id_index} + "&date=" + clickDate;
 						} else {
 							//창 냅두기
 						}
@@ -1086,7 +1159,8 @@ var view = {
 					<!-- Footer -->
 					<div class="modal-footer">
 						<button name="update" class="modal_btn btn" id="btn_update">수정</button>
-						<button name="delete" class="modal_btn btn" id="btn_delete">삭제</button>
+						<button name="delete" class="modal_btn btn" id="btn_delete"
+							data-dismiss="modal">삭제</button>
 						<button name="cancel" class="modal_btn btn" id="btn_cancel"
 							data-dismiss="modal">취소</button>
 					</div>
