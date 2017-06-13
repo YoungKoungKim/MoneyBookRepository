@@ -11,6 +11,9 @@
 <link href="./fullcalendar-3.3.1/fullcalendar.css" rel="stylesheet" />
 <link href="./fullcalendar-3.3.1/fullcalendar.print.css"
 	rel="stylesheet" media="print" />
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
 
 <link rel="stylesheet"
 	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -78,8 +81,8 @@ html, body {
 	border-collapse: collapse;
 	border-spacing: 0;
 	font-size: 1.1em;
-	/* 	margin-left: #calendar.margin;
-	margin-right: px; */
+	/*    margin-left: #calendar.margin;
+   margin-right: px; */
 }
 
 .fc-event, .fc-event:hover, .ui-widget .fc-event {
@@ -253,7 +256,7 @@ main {
 </style>
 
 <script type="text/javascript">
-//천 단위마다 콤마 추가하기	
+//천 단위마다 콤마 추가하기   
 function addComma(value) {
   var num = isNumber(value);
   if (!num) return;
@@ -294,12 +297,12 @@ function addComma(value) {
 
 // 숫자 유무 판단
 function isNumber(checkValue) {
-	checkValue = '' + checkValue;
-	
-	if(checkValue.length >=4) {
-	checkValue= checkValue.replace(/,/gi ,""); 
-	}
-	
+   checkValue = '' + checkValue;
+   
+   if(checkValue.length >=4) {
+   checkValue= checkValue.replace(/,/gi ,""); 
+   }
+   
   if (isNaN(checkValue) /* || checkValue == "" */) {
     alert('금액은 숫자만 입력해 주세요.');
     return;
@@ -307,9 +310,132 @@ function isNumber(checkValue) {
   return checkValue;
 }
 
+
 var boardWriteDate;
 var clickDate;
 var modifyMoneyBookNo;
+
+function drawCalendar() {
+	$('#detailTable thead').hide();
+    var today = new Date();
+    $('#calendar').fullCalendar({
+       header : {
+          left : 'today',
+          center : 'prevYear,prev title next,nextYear',
+          right : 'month'
+       },
+        defaultDate : today,
+       navLinks : false, // can click day/week names to navigate views
+       weekNumberCalculation : 'ISO',
+       editable : false,
+       eventLimit : true, // allow "more" link when too many events
+       displayEventTime : false,
+       events : function(start, end, timezone, callback) {
+          var nowDate = $('#calendar').fullCalendar('getDate');
+          boardWriteDate = nowDate.format('YYYY-MM-DD');
+          
+          $.ajax({
+             type : 'post',
+             url : 'moneyBookView.do',
+             dataType : 'json',
+             data : 'id_index=' + ${id_index} + '&date=' + nowDate.format('YYYY-MM-DD'),
+             success : function(data) {
+                var events = [];
+                for (var i = 0; i < data.lastDay; i++) {
+                   if (data.income[i].title != 0) {
+                      events.push({
+                         /* 수입 */
+                         title : addComma(data.income[i].title),
+                         start : data.income[i].start,
+                         textColor : "#1ABC9C"
+                      });
+					} else {
+						 events.push({
+	                           /* 수입 */
+	                           title : "",
+	                           start : data.income[i].start,
+	                           textColor : "#FFFFFF"
+	                     });
+					}
+                   
+                   if (data.expense[i].title != 0) {
+                       events.push({
+                          /* 지출 */
+                          title : addComma(data.expense[i].title),
+                          start : data.expense[i].start+"T23:59:59",
+                          textColor : "#FA8072"
+                       });
+                    }
+                   
+                   
+                }
+                callback(events);
+                
+                $('#monthIncome').text(addComma(data.monthIncome) +"원");
+                $('#monthExpense').text(addComma(data.monthExpense)+"원");
+             }
+          });
+       },
+       dayClick: function(date, jsEvent, view) {
+          $('#detailTable tbody').empty();
+          var current = $('#calendar').fullCalendar('getDate');
+          var now = dateToYYYYMMDD(today);
+          clickDate = date.format();
+          
+          if (date.format().substring(0, 7) == current.format('YYYY-MM-DD').substring(0,7)) {
+             $('.fc-day').css('background-color', '#ffffff');
+             if (date.format() == now) {
+                $(this).css('background-color', '#91D4B5');
+                $(this).css('opacity', '0');
+                $('.fc-today').css('background-color', '#91D4B5');
+                $('.fc-today').css('opacity', '0.4');
+             } else {
+                $('.fc-today').css('background-color', '#DCDCDC');
+                $('.fc-today').css('opacity', '1');
+                $(this).css('background-color', '#91D4B5');
+                $(this).css('opacity', '0.4');
+             }
+                
+                $.ajax({
+                   type : 'post',
+                   url : 'moneyBookDetailView.do',
+                   dataType : 'json',
+                   data : 'id_index=' + ${id_index} + '&date=' + date.format(),
+                   success : function(data) {
+                      if (data.length == 0) {
+                         $('#detailTable thead').hide();
+                         var img = "<center><br><br>"
+                                  +"<img src='jpg/no_data.png'"+
+                                  "></center>";
+                         $('#detailTable tbody').append(img);
+                      } else {
+                         $('#detailTable thead').show();
+                         $(data).each(function(i) {
+                            var td = "<tr"
+                                  + " class='detailOne' "
+                                  + " id='" + data[i].moneyBookNo + "'"
+                                  + " name='" + date.format() + "'"
+                                  + "data-target='#layerpop' data-toggle='modal'>"
+                                  + "<td>" + convertCategory(data[i].category) + "</td>"
+                                  + "<td>" + data[i].detail + "</td>"
+                                  + "<td class='price'>" + addComma(data[i].price) + "</td>"
+                                  + "</tr>"
+                            $('#detailTable').append(td);
+                         })
+                      }
+                      
+                   },
+                   error : function() {
+                      alert('error');
+                   }
+                });
+          } else {
+             
+          }
+
+        }
+    });
+}
 
 $('#detail').css('margin', $('calendar').attr('margin'));
 
@@ -321,17 +447,17 @@ jQuery.fn.center = function () {
 }
 
 function moneyBookRegist(id_index, date){
-	var popUrl = "moneyBookWriteForm.do?id_index=" + id_index + "&date=" + date;	//팝업창에 출력될 페이지 URL
-	var popOption = "top=200, left=300, width=600, height=500, resizable=no, scrollbars=no, status=no";    //팝업창 옵션(optoin)
-	window.open(popUrl,"가계부입력",popOption);
+   var popUrl = "moneyBookWriteForm.do?id_index=" + id_index + "&date=" + date;   //팝업창에 출력될 페이지 URL
+   var popOption = "top=200, left=300, width=600, height=500, resizable=no, scrollbars=no, status=no";    //팝업창 옵션(optoin)
+   window.open(popUrl,"가계부입력",popOption);
 }
 
 function bookmarkRegist(id_index){
-	var popUrl = "bookmarkRegistForm.do?id_index=" + id_index;	//팝업창에 출력될 페이지 URL
-	var popOption = "top=200, left=300, width=600, height=450, resizable=no, scrollbars=no, status=no";    //팝업창 옵션(optoin)
-	window.open(popUrl,"즐겨찾기등록",popOption);
+   var popUrl = "bookmarkRegistForm.do?id_index=" + id_index;   //팝업창에 출력될 페이지 URL
+   var popOption = "top=200, left=300, width=600, height=450, resizable=no, scrollbars=no, status=no";    //팝업창 옵션(optoin)
+   window.open(popUrl,"즐겨찾기등록",popOption);
 }
-	
+   
 function dateToYYYYMMDD(date){
     function pad(num) {
         num = num + '';
@@ -341,556 +467,356 @@ function dateToYYYYMMDD(date){
 }
 
 function convertCategory(word) {
-	var category = {
-		food : "식비",
-		traffic : "교통비",
-		commodity : "생필품",
-		beauty : "미용",
-		medical : "의료",
-		education : "교육",
-		phonefees : "통신비",
-		saving : "저축",
-		utilitybills : "공과금",
-		culturallife : "문화생활",
-		otheritems : "기타",
-		income : "수입"
-	}
-	return category[word];
+   var category = {
+      food : "식비",
+      traffic : "교통비",
+      commodity : "생필품",
+      beauty : "미용",
+      medical : "의료",
+      education : "교육",
+      phonefees : "통신비",
+      saving : "저축",
+      utilitybills : "공과금",
+      culturallife : "문화생활",
+      otheritems : "기타",
+      income : "수입"
+   }
+   return category[word];
 }
 
 var data = {
-		  entry: [],
-		  entries: [],
-		  currOperator: '',
-		  addToEntry: function (val) {
-		    this.entry.push(val);
-		  },
-		  clearAll: function () {
-		    this.entry = [];
-		    this.entries = [];
-		  },
-		  clearEntry: function () {
-		    this.entry = [];
-		  },
-		  backspaceEntry: function () {
-		    this.entry.pop();
-		  },
-		  toggleNegative: function () {
-		    if (this.entry[0] !== '-') {
-		      this.entry.unshift('-');
-		    } else if (this.entry[0] === '-') {
-		      this.entry.shift();
-		    }
-		  },
-		  insertDecimal: function () {
-		    if(this.entry.indexOf('.') === -1 && this.entry.length < 1) {
-		      this.entry.push('0', '.');
-		    } else if (this.entry.indexOf('.') === -1) {
-		      this.entry.push('.');
-		    }
-		  },
-		  calculate: function (operator) {
-		    // reset chain of operations if "=" is pressed with no operator afterwords
-		    if (this.currOperator === "=" && this.entry.length > 0) {
-		      this.entries = [];
-		    } 
-		    
-		    // if current entry isn't blank, add to entries
-		    if (this.entry.length > 0 ) {
-		      this.entries.push(this.entry.join(''));
-		    }
+        entry: [],
+        entries: [],
+        currOperator: '',
+        addToEntry: function (val) {
+          this.entry.push(val);
+        },
+        clearAll: function () {
+          this.entry = [];
+          this.entries = [];
+        },
+        clearEntry: function () {
+          this.entry = [];
+        },
+        backspaceEntry: function () {
+          this.entry.pop();
+        },
+        toggleNegative: function () {
+          if (this.entry[0] !== '-') {
+            this.entry.unshift('-');
+          } else if (this.entry[0] === '-') {
+            this.entry.shift();
+          }
+        },
+        insertDecimal: function () {
+          if(this.entry.indexOf('.') === -1 && this.entry.length < 1) {
+            this.entry.push('0', '.');
+          } else if (this.entry.indexOf('.') === -1) {
+            this.entry.push('.');
+          }
+        },
+        calculate: function (operator) {
+          // reset chain of operations if "=" is pressed with no operator afterwords
+          if (this.currOperator === "=" && this.entry.length > 0) {
+            this.entries = [];
+          } 
+          
+          // if current entry isn't blank, add to entries
+          if (this.entry.length > 0 ) {
+            this.entries.push(this.entry.join(''));
+          }
 
-		    // perform operation for every two entries
-		    if (this.entries.length >= 2) {
-		      this.entries.splice(1, 0, this.currOperator);
-		      var total = eval(this.entries.join(' '));
-		      this.entries = [total];
-		      this.currOperator = '=';
-		    } 
-		    
-		    if (operator) {
-		      this.currOperator = operator;
-		    }   
-		    this.clearEntry();
-		  }
-		}
+          // perform operation for every two entries
+          if (this.entries.length >= 2) {
+            this.entries.splice(1, 0, this.currOperator);
+            var total = eval(this.entries.join(' '));
+            this.entries = [total];
+            this.currOperator = '=';
+          } 
+          
+          if (operator) {
+            this.currOperator = operator;
+          }   
+          this.clearEntry();
+        }
+      }
 
 var controller = {
-		  init: function () {
-		    view.render();
-		    $('#calculator button').click(function () {
-		            
-		      var button = $(this).text();
-		      if (!isNaN(parseInt(button))) {
-		        button = parseInt(button);
-		      } 
-		      
-		      if (button === "=") {
-		        data.calculate('=');
-		      } else if (button === "+/-") {
-		        data.toggleNegative();
-		      } else if (button === "AC") {
-		        data.clearAll();
-		      } else if (button === 'C') {
-		        data.clearEntry();
-		      } else if (button === ' ') {
-		        data.backspaceEntry();
-		      } else if (button === "+") {
-		        data.calculate('+');
-		      } else if (button === "-") {
-		        data.calculate('-');
-		      } else if (button === "×") {
-		        data.calculate('*');
-		      } else if (button === "÷") {
-		        data.calculate('/');
-		      } else if (button === ".") {
-		        data.insertDecimal();
-		      } else {
-		        data.addToEntry(button);
-		      }
-		        
-		      view.render();
-		    });
-		  },
-		  // get display number for screen  -- returns entry if not currently blank, returns previous entry if not 
-		  getScreenVal: function () {
-		    if (data.entry.length > 0) {
-		      view.isEntryBlank = false;
-		      return data.entry.join(''); 
-		    } else if (data.entry.length === 0 && data.entries[0]) {
-		      view.isEntryBlank = true;
-		      return data.entries[0];
-		    } else {
-		      view.isEntryBlank = true;
-		      return 0;
-		    }
-		  },
-		  getCurrentOperator: function () {
-		    // return operator only when screen entry is blank
-		    if (data.currOperator && data.entries.length >= 1 && data.entry.length < 1) {
-		      return data.currOperator;
-		    } 
-		  }
-		}
+        init: function () {
+          view.render();
+          $('#calculator button').click(function () {
+                  
+            var button = $(this).text();
+            if (!isNaN(parseInt(button))) {
+              button = parseInt(button);
+            } 
+            
+            if (button === "=") {
+              data.calculate('=');
+            } else if (button === "+/-") {
+              data.toggleNegative();
+            } else if (button === "AC") {
+              data.clearAll();
+            } else if (button === 'C') {
+              data.clearEntry();
+            } else if (button === ' ') {
+              data.backspaceEntry();
+            } else if (button === "+") {
+              data.calculate('+');
+            } else if (button === "-") {
+              data.calculate('-');
+            } else if (button === "×") {
+              data.calculate('*');
+            } else if (button === "÷") {
+              data.calculate('/');
+            } else if (button === ".") {
+              data.insertDecimal();
+            } else {
+              data.addToEntry(button);
+            }
+              
+            view.render();
+          });
+        },
+        // get display number for screen  -- returns entry if not currently blank, returns previous entry if not 
+        getScreenVal: function () {
+          if (data.entry.length > 0) {
+            view.isEntryBlank = false;
+            return data.entry.join(''); 
+          } else if (data.entry.length === 0 && data.entries[0]) {
+            view.isEntryBlank = true;
+            return data.entries[0];
+          } else {
+            view.isEntryBlank = true;
+            return 0;
+          }
+        },
+        getCurrentOperator: function () {
+          // return operator only when screen entry is blank
+          if (data.currOperator && data.entries.length >= 1 && data.entry.length < 1) {
+            return data.currOperator;
+          } 
+        }
+      }
 
 var view = {
-		  render: function () {
-		    // render current total
-		    var screenText = addComma(view.sciNotationFormat(controller.getScreenVal()));
-		    $('#screen').text(screenText);
-		    view.highlightOperator();
-		    
-		    
-		    // switch between AC and C if entry on screen / dim backspace when no entry
-		    if (view.isEntryBlank) {
-		      $('#clear').text('AC');
-		      $('#back').addClass('dimmed');
-		    } else {
-		      $('#clear').text('C');
-		      $('#back').removeClass('dimmed');
-		    }
-		  },
-		  // highlight current operator (+, -, *, /)
-		  highlightOperator: function (target) {
-		    var op = controller.getCurrentOperator();
-		    $('.darker').removeClass('active');
-		    if (op === '+') {
-		      $('#add').addClass('active');
-		    } else if (op === '-') {
-		      $('#subtract').addClass('active');
-		    } else if (op === '*') {
-		      $('#multiply').addClass('active');
-		    } else if (op === '/') {
-		      $('#divide').addClass('active');
-		    }
-		  },
-		  isEntryBlank: true,
-		  sciNotationFormat: function (num) {
+        render: function () {
+          // render current total
+          var screenText = addComma(view.sciNotationFormat(controller.getScreenVal()));
+          $('#screen').text(screenText);
+          view.highlightOperator();
+          
+          
+          // switch between AC and C if entry on screen / dim backspace when no entry
+          if (view.isEntryBlank) {
+            $('#clear').text('AC');
+            $('#back').addClass('dimmed');
+          } else {
+            $('#clear').text('C');
+            $('#back').removeClass('dimmed');
+          }
+        },
+        // highlight current operator (+, -, *, /)
+        highlightOperator: function (target) {
+          var op = controller.getCurrentOperator();
+          $('.darker').removeClass('active');
+          if (op === '+') {
+            $('#add').addClass('active');
+          } else if (op === '-') {
+            $('#subtract').addClass('active');
+          } else if (op === '*') {
+            $('#multiply').addClass('active');
+          } else if (op === '/') {
+            $('#divide').addClass('active');
+          }
+        },
+        isEntryBlank: true,
+        sciNotationFormat: function (num) {
 
-		    if (typeof num === 'string') {
-		      var numLength = num.length;
-		      num = parseInt(num);
-		    } else if (typeof num === 'number') {
-		      var numLength = num.toString().length;
-		    }
-		    
-		    if (numLength >= 11) {
-		    	var cipher = num.toString().split('.');
-		    	if (cipher[1] == undefined) {
-		    		return num.toExponential(4);
-		    	} else if (cipher[1].length > 0) {
-		    		var effectiveNum = cipher[1].substr(0, 2);
-		    		var resultNum = cipher[0] + "." + effectiveNum;
-		    		return resultNum;
-		    	} else {
-		    		return num.toExponential(4);
-		    	}
-		    } else {
-		      return num;
-		    }   
-		  }
-		}
+          if (typeof num === 'string') {
+            var numLength = num.length;
+            num = parseInt(num);
+          } else if (typeof num === 'number') {
+            var numLength = num.toString().length;
+          }
+          
+          if (numLength >= 11) {
+             var cipher = num.toString().split('.');
+             if (cipher[1] == undefined) {
+                return num.toExponential(4);
+             } else if (cipher[1].length > 0) {
+                var effectiveNum = cipher[1].substr(0, 2);
+                var resultNum = cipher[0] + "." + effectiveNum;
+                return resultNum;
+             } else {
+                return num.toExponential(4);
+             }
+          } else {
+            return num;
+          }   
+        }
+      }
 
 
-	$(document).ready(function() {
-		controller.init();
-		
-		$(document).on("click",".bookmark_btn", function(){
-			var id_index = $(this).attr('id').replace("bookmark_btn", "");
- 			//alert("눌림");
-			
-			if(clickDate == undefined){
-				clickDate = boardWriteDate;
-			}
+   $(document).ready(function() {
+      controller.init();
+      drawCalendar();
+      
+      $(document).on("click",".bookmark_btn", function(){
+         var id_index = $(this).attr('id').replace("bookmark_btn", "");
+          //alert("눌림");
+         
+         if(clickDate == undefined){
+            clickDate = boardWriteDate;
+         }
 
-			$.ajax({
-				url : 'addBookMarkAtMoneybook.do',
-				data : "id_index="+${id_index}+
-				"&category="+$('#category_val'+id_index).val()+
-				"&detail="+$('#detail_val'+id_index).val()+
-				"&price="+$('#price_val'+id_index).val()+
-				"&date="+clickDate,
-				dataType : 'json',
-				type: 'post',
-				success : function(data){
-					alert(data.msg);
-					$('#calendar').fullCalendar('gotoDate', new Date());
-					$('#calendar').fullCalendar('gotoDate', clickDate);
-				},
-				error : function(data) {
-					alert('에러');
-					alert(data.msg);
-				}
-			}); 
-		})
-		
-		
-		$(document).on('click', '.detailOne', function() {
-			$("#datepicker").datepicker();
-			$("#datepicker").datepicker("option", "dateFormat", "yy-mm-dd");
-			
-			$.ajax({
-				type : 'post',
-				url : 'moneyBookUpdateForm.do',
-				dataType : 'json',
-				data : 'id_index=${id_index}'
-						+ "&date=" + $(this).attr('name')
-						+ "&moneyBookNo=" + $(this).attr('id'),
-				success : function(data) {
-					$("#datepicker").datepicker("setDate", data.mbDate);
-					$('#category').val(data.moneyBook.category);
-					$('#edt_detail').val(data.moneyBook.detail);
-					$('#edt_price').val(addComma(data.moneyBook.price));
-					modifyMoneyBookNo = data.moneyBook.moneyBookNo;
-					
-				},
-				error : function() {
-					alert("모달에러");
-				}
+         $.ajax({
+            url : 'addBookMarkAtMoneybook.do',
+            data : "id_index="+${id_index}+
+            "&category="+$('#category_val'+id_index).val()+
+            "&detail="+$('#detail_val'+id_index).val()+
+            "&price="+$('#price_val'+id_index).val()+
+            "&date="+clickDate,
+            dataType : 'json',
+            type: 'post',
+            success : function(data){
+               alert(data.msg);
+               $('#calendar').fullCalendar('gotoDate', new Date());
+               $('#calendar').fullCalendar('gotoDate', clickDate);
+            },
+            error : function(data) {
+               alert('에러');
+               alert(data.msg);
+            }
+         }); 
+      })
+      
+      
+      $(document).on('click', '.detailOne', function() {
+         $("#datepicker").datepicker();
+         $("#datepicker").datepicker("option", "dateFormat", "yy-mm-dd");
+         
+         $.ajax({
+            type : 'post',
+            url : 'moneyBookUpdateForm.do',
+            dataType : 'json',
+            data : 'id_index=${id_index}'
+                  + "&date=" + $(this).attr('name')
+                  + "&moneyBookNo=" + $(this).attr('id'),
+            success : function(data) {
+               $("#datepicker").datepicker("setDate", data.mbDate);
+               $('#category').val(data.moneyBook.category);
+               $('#edt_detail').val(data.moneyBook.detail);
+               $('#edt_price').val(addComma(data.moneyBook.price));
+               modifyMoneyBookNo = data.moneyBook.moneyBookNo;
+               
+            },
+            error : function() {
+               alert("모달에러");
+            }
 
-			});
-		});
-/* 	if('${param.succ}' == "sucess"){
-			opener.parent.location.reload();
-			window.close();
-	}  */
-		$('#detailTable thead').hide();
-		var today = new Date();
-		$('#calendar').fullCalendar({
-			header : {
-				left : 'today',
-				center : 'prevYear,prev title next,nextYear',
-				right : 'month'
-			},
- 			defaultDate : today,
-			navLinks : false, // can click day/week names to navigate views
-			weekNumberCalculation : 'ISO',
-			editable : false,
-			eventLimit : true, // allow "more" link when too many events
-			events : function(start, end, timezone, callback) {
-				var nowDate = $('#calendar').fullCalendar('getDate');
-				boardWriteDate = nowDate.format('YYYY-MM-DD');
-				
-				$.ajax({
-					type : 'post',
-					url : 'moneyBookView.do',
-					dataType : 'json',
-					data : 'id_index=' + ${id_index} + '&date=' + nowDate.format('YYYY-MM-DD'),
-					success : function(data) {
-						var events = [];
-						for (var i = 0; i < data.lastDay; i++) {
-							if (data.income[i].title != 0) {
-								events.push({
-									/* 수입 */
-									title : data.income[i].title,
-									start : data.income[i].start,
-									textColor : "#1ABC9C"
-								});
-								if (data.expense[i].title != 0) {
-									events.push({
-										/* 지출 */
-										title : data.expense[i].title,
-										start : data.expense[i].start,
-										textColor : "#FA8072"
-									});
-								}
-							} else {
-								events.push({
-									/* 수입 */
-									title : " ",
-									start : data.income[i].start,
-									textColor : "#FFFFFF"
-								});
-								if (data.expense[i].title != 0) {
-									events.push({
-										/* 지출 */
-										title : data.expense[i].title,
-										start : data.expense[i].start,
-										textColor : "#FA8072"
-									});
-								}
-						}
-						
-					}
-					callback(events);
-					
-					$('#monthIncome').text(data.monthIncome);
-					$('#monthExpense').text(data.monthExpense);
-				}
-			});
-		},
-		dayClick: function(date, jsEvent, view) {
-			$('#detailTable tbody').empty();
-			var current = $('#calendar').fullCalendar('getDate');
-			var now = dateToYYYYMMDD(today);
-			clickDate = date.format();
-			
-			if (date.format().substring(0, 7) == current.format('YYYY-MM-DD').substring(0,7)) {
-				$('.fc-day').css('background-color', '#ffffff');
-				if (date.format() == now) {
-					$(this).css('background-color', '#91D4B5');
-					$(this).css('opacity', '0');
-					$('.fc-today').css('background-color', '#91D4B5');
-					$('.fc-today').css('opacity', '0.4');
-				} else {
-					$('.fc-today').css('background-color', '#DCDCDC');
-					$('.fc-today').css('opacity', '1');
-					$(this).css('background-color', '#91D4B5');
-					$(this).css('opacity', '0.4');
-				}
-					
-					$.ajax({
-						type : 'post',
-						url : 'moneyBookDetailView.do',
-						dataType : 'json',
-						data : 'id_index=' + ${id_index} + '&date=' + date.format(),
-						success : function(data) {
-							if (data.length == 0) {
-								$('#detailTable thead').hide();
-								var img = "<center><br><br>"
-											+"<img src='jpg/no_data.png'"+
-											"></center>";
-								$('#detailTable tbody').append(img);
-								if (data.expense[i].title != 0) {
-									events.push({
-										/* 지출 */
-										title : addComma(data.expense[i].title),
-										start : data.expense[i].start,
-										textColor : "#FA8072"
-									});
-								}
-							} else {
-								$('#detailTable thead').show();
-								$(data).each(function(i) {
-									var td = "<tr"
-											+ " class='detailOne' "
-											+ " id='" + data[i].moneyBookNo + "'"
-											+ " name='" + date.format() + "'"
-											+ "data-target='#layerpop' data-toggle='modal'>"
-											+ "<td>" + convertCategory(data[i].category) + "</td>"
-											+ "<td>" + data[i].detail + "</td>"
-											+ "<td class='price'>" + data[i].price + "</td>"
-											+ "</tr>"
-									$('#detailTable').append(td);
-								})
-								events.push({
-									/* 수입 */
-									title : "",
-									start : data.income[i].start,
-									textColor : "#FFFFFF"
-								});
-								if (data.expense[i].title != 0) {
-									events.push({
-										/* 지출 */
-										title : addComma(data.expense[i].title),
-										start : data.expense[i].start,
-										textColor : "#FA8072"
-									});
-								}
-							}
-							
-						},
-						error : function() {
-							alert('error');
-						}
-					});
-			} else {
-				
-			}
-				if (date.format().substring(0, 7) == current.format('YYYY-MM-DD').substring(0,7)) {
-					$('.fc-day').css('background-color', '#ffffff');
-					if (date.format() == now) {
-						$(this).css('background-color', '#91D4B5');
-						$(this).css('opacity', '0');
-						$('.fc-today').css('background-color', '#91D4B5');
-						$('.fc-today').css('opacity', '0.4');
-					} else {
-						$('.fc-today').css('background-color', '#DCDCDC');
-						$('.fc-today').css('opacity', '1');
-						$(this).css('background-color', '#91D4B5');
-						$(this).css('opacity', '0.4');
-					}
-						
-						$.ajax({
-							type : 'post',
-							url : 'moneyBookDetailView.do',
-							dataType : 'json',
-							data : 'id_index=' + ${id_index} + '&date=' + date.format(),
-							success : function(data) {
-								if (data.length == 0) {
-									$('#detailTable thead').hide();
-									var img = "<center><br><br>"
-												+"<img src='jpg/no_data.png'"+
-												"></center>";
-									$('#detailTable tbody').append(img);
-								} else {
-									$('#detailTable thead').show();
-									$(data).each(function(i) {
-										var td = "<tr"
-												+ " class='detailOne' "
-												+ " id='" + data[i].moneyBookNo + "'"
-												+ " name='" + date.format() + "'"
-												+ "data-target='#layerpop' data-toggle='modal'>"
-												+ "<td>" + convertCategory(data[i].category) + "</td>"
-												+ "<td>" + data[i].detail + "</td>"
-												+ "<td class='price'>" + addComma(data[i].price) + "</td>"
-												+ "</tr>"
-										$('#detailTable').append(td);
-									})
-								}
-								
-							},
-							error : function() {
-								alert('error');
-							}
-						});
-				} else {
-					
-				}
+         });
+      });
 
-	    }
-	});
-		
-		$('#btn_delete').click(function() {
-			$.ajax({
-				type : 'post',
-				url : 'moneyBookDelete.do',
-				dataType : 'json',
-				data : 'id_index=${id_index}&moneyBookNo='
-						+ modifyMoneyBookNo,
-				success : function(data) {
-					alert(data.msg);
-					if (data.result) {
-						$('#calendar').fullCalendar('gotoDate', new Date());
-						$('#calendar').fullCalendar('gotoDate', clickDate);
-					} else {
-						//창 냅두기
-					}
-				},
-				error : function() {
-					alert('error');
-				}
-			});
-		});
-		
-		
-		$(document).on("keyup","#edt_price",function(){
-			var result = addComma($('#edt_price').val());
-			$('#edt_price').val(result);
+      
+      
+      $('#btn_delete').click(function() {
+         $.ajax({
+            type : 'post',
+            url : 'moneyBookDelete.do',
+            dataType : 'json',
+            data : 'id_index=${id_index}&moneyBookNo='
+                  + modifyMoneyBookNo,
+            success : function(data) {
+               alert(data.msg);
+               if (data.result) {
+                  location.reload();
+               } else {
+                  //창 냅두기
+               }
+            },
+            error : function() {
+               alert('error');
+            }
+         });
+      });
+      
+      
+      $(document).on("keyup","#edt_price",function(){
+         var result = addComma($('#edt_price').val());
+         $('#edt_price').val(result);
 
-		});
-		
-		
-		$('#btn_update').click(function() {
-			
-			
-			var mod_category = $('#category').val();
-			var mod_detail = $('#edt_detail').val();
-			var mod_price = $('#edt_price').val();
-			var date = $('#datepicker').val();
-			var dateFormat = /^(19[7-9][0-9]|20\d{2})-(0[0-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/;
+      });
+      
+      
+      $('#btn_update').click(function() {
+         var mod_category = $('#category').val();
+         var mod_detail = $('#edt_detail').val();
+         var mod_price = $('#edt_price').val();
+         var date = $('#datepicker').val();
+         var dateFormat = /^(19[7-9][0-9]|20\d{2})-(0[0-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/;
 
-			mod_price = $('#edt_price').val().replace(/,/gi ,""); 
-			
-			if (mod_detail == "" || mod_price == "") {
-				alert('사용 내용을 입력하세요.');
-			} else if (!$.isNumeric(mod_price)) {
-				alert('가격은 숫자만 입력 가능합니다.');
-			} else if(  mod_price <0){
-				alert('가격은 정수만 입력 가능합니다.');
-			} else if (!dateFormat.test(date)) {
-				alert('날짜 형식이 다릅니다.');
-			} else {
-				
-				$.ajax({
-					type : 'post',
-					url : 'moneyBookUpdate.do',
-					dataType : 'json',
-					data : 'id_index=${id_index}'
-							+ '&moneyBookNo=' + modifyMoneyBookNo
-							+ '&category=' + mod_category
-							+ '&detail=' + mod_detail
-							+ '&price=' + mod_price
-							+ '&date=' + date,
-					success : function(data) {
-						alert(data.msg);
-						if (data.result) {
-							location.href="viewMyPage.do?id_index=" + ${id_index} + "&date=" + clickDate;
-						} else {
-							//창 냅두기
-						}
-					},
-					error : function() {
-						alert('error');
-					}
-				});
-			}
-		});
-		
-		$(document).on('click', '#boardWriteBtn', function() {
-			if ($('#monthIncome').text() != "0" || $('#monthExpense').text() != "0") {
-				location.href = "boardWriteForm.do?date=" + boardWriteDate;
-			}
-		});
-		
-		$(document).on('click', '#moneyBookWriteBtn', function() {
-			moneyBookRegist(${id_index}, clickDate);
-		});
-		
-		// 왼쪽 버튼을 클릭하였을 경우
+         mod_price = $('#edt_price').val().replace(/,/gi ,""); 
+         
+         if (mod_detail == "" || mod_price == "") {
+            alert('사용 내용을 입력하세요.');
+         } else if (!$.isNumeric(mod_price)) {
+            alert('가격은 숫자만 입력 가능합니다.');
+         }else if(  mod_price <0){
+            alert('가격은 정수만 입력 가능합니다.');
+         } else if (!dateFormat.test(date)) {
+            alert('날짜 형식이 다릅니다.');
+         } else {
+            
+            $.ajax({
+               type : 'post',
+               url : 'moneyBookUpdate.do',
+               dataType : 'json',
+               data : 'id_index=${id_index}'
+                     + '&moneyBookNo=' + modifyMoneyBookNo
+                     + '&category=' + mod_category
+                     + '&detail=' + mod_detail
+                     + '&price=' + mod_price
+                     + '&date=' + date,
+               success : function(data) {
+                  alert(data.msg);
+                  if (data.result) {
+                     location.reload();
+                  } else {
+                     //창 냅두기
+                  }
+               },
+               error : function() {
+                  alert('error');
+               }
+            });
+         }
+      });
+      
+      $(document).on('click', '#boardWriteBtn', function() {
+         if ($('#monthIncome').text() != "0" || $('#monthExpense').text() != "0") {
+            location.href = "boardWriteForm.do?date=" + boardWriteDate;
+         }
+      });
+      
+      $(document).on('click', '#moneyBookWriteBtn', function() {
+         moneyBookRegist(${id_index}, clickDate);
+      });
+      
+      // 왼쪽 버튼을 클릭하였을 경우
         $("button.fc-prev-button").click(function() {
-        	$('#detailTable thead').hide();
-        	$('#detailTable tbody').empty();
+           $('#detailTable thead').hide();
+           $('#detailTable tbody').empty();
         });
 
         // 오른쪽 버튼을 클릭하였을 경우
-       	$("button.fc-next-button").click(function() {
-       		$('#detailTable thead').hide();
-       		$('#detailTable tbody').empty();
+          $("button.fc-next-button").click(function() {
+             $('#detailTable thead').hide();
+             $('#detailTable tbody').empty();
         });
 
-	});
-	
+   });
+   
 </script>
 </head>
 <body>
@@ -1159,8 +1085,7 @@ var view = {
 					<!-- Footer -->
 					<div class="modal-footer">
 						<button name="update" class="modal_btn btn" id="btn_update">수정</button>
-						<button name="delete" class="modal_btn btn" id="btn_delete"
-							data-dismiss="modal">삭제</button>
+						<button name="delete" class="modal_btn btn" id="btn_delete">삭제</button>
 						<button name="cancel" class="modal_btn btn" id="btn_cancel"
 							data-dismiss="modal">취소</button>
 					</div>
