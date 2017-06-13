@@ -45,7 +45,7 @@ public class MainPageController {
 		return "template2";
 	}
 	
-	@RequestMapping(value="android.do", method=RequestMethod.GET)
+	@RequestMapping(value="and/android.do", method=RequestMethod.GET)
 	public @ResponseBody List<Repo> androidTest() {
 		System.out.println("안드로이드로 접근했습니다.");
 		List<Repo> list = new ArrayList<>();
