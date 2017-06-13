@@ -257,7 +257,41 @@ public class MoneyBookController {
 		mav.addAllObjects(moneyBookService.searchDate(date));
 		mav.setViewName("boardWriteForm");
 		return mav;
+	
 	}
+	
+	//통계
+	@RequestMapping("statistics.do") 
+	public ModelAndView statictics(HttpSession session,  Date date) {
+
+		ModelAndView mav = new ModelAndView();
+	    int id_index = (int) session.getAttribute("id_index");
+	    
+	    mav.addAllObjects(moneyBookService.totalAmountByCategory(id_index, date));
+		mav.addObject("monthAmount", moneyBookService.totalMonthAmount(id_index, date));
+		mav.addAllObjects(moneyBookService.searchDate(date));
+		mav.setViewName("empty/MoneybookStatistic");
+		return mav;
+		
+	}
+	
+/*	@RequestMapping("moneyBookWriteForm.do")
+	public ModelAndView moneyBookWriteForm(HttpSession session, @RequestParam(value="date", required=false)String date) {
+		System.out.println(date);
+		int id_index = (int) session.getAttribute("id_index");
+
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("bookMarkList", bookMarkService.bookMarkSearch(id_index));
+		
+		if (date.equals("undefined")) {
+			mav.addObject("date", "FirstSelect");
+		} else {
+			mav.addObject("date", date);
+		}
+		mav.setViewName("empty/moneyBookAdd");
+		return mav;
+	}*/
+	
 	
 	@RequestMapping("boardWriteList.do")
 	public @ResponseBody HashMap<String, Object> boardWriteList(HttpSession session, Date date) {
