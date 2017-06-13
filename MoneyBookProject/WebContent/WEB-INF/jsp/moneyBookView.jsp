@@ -77,19 +77,11 @@ html, body {
 }
 
 #detail {
-<<<<<<< HEAD
    box-sizing: border-box;
    border-collapse: collapse;
    border-spacing: 0;
    font-size: 1.1em;
    /*    margin-left: #calendar.margin;
-=======
-	box-sizing: border-box;
-	border-collapse: collapse;
-	border-spacing: 0;
-	font-size: 1.1em;
-	/*    margin-left: #calendar.margin;
->>>>>>> branch 'master' of https://github.com/YoungKoungKim/MoneyBookRepository.git
    margin-right: px; */
 }
 
@@ -324,7 +316,6 @@ var clickDate;
 var modifyMoneyBookNo;
 
 function drawCalendar() {
-<<<<<<< HEAD
    $('#detailTable thead').hide();
     var today = new Date();
     $('#calendar').fullCalendar({
@@ -366,49 +357,6 @@ function drawCalendar() {
                               textColor : "#FFFFFF"
                         });
                }
-=======
-	$('#detailTable thead').hide();
-    var today = new Date();
-    $('#calendar').fullCalendar({
-       header : {
-          left : 'today',
-          center : 'prevYear,prev title next,nextYear',
-          right : 'month'
-       },
-        defaultDate : today,
-       navLinks : false, // can click day/week names to navigate views
-       weekNumberCalculation : 'ISO',
-       editable : false,
-       eventLimit : true, // allow "more" link when too many events
-       displayEventTime : false,
-       events : function(start, end, timezone, callback) {
-          var nowDate = $('#calendar').fullCalendar('getDate');
-          boardWriteDate = nowDate.format('YYYY-MM-DD');
-          
-          $.ajax({
-             type : 'post',
-             url : 'moneyBookView.do',
-             dataType : 'json',
-             data : 'id_index=' + ${id_index} + '&date=' + nowDate.format('YYYY-MM-DD'),
-             success : function(data) {
-                var events = [];
-                for (var i = 0; i < data.lastDay; i++) {
-                   if (data.income[i].title != 0) {
-                      events.push({
-                         /* 수입 */
-                         title : addComma(data.income[i].title),
-                         start : data.income[i].start,
-                         textColor : "#1ABC9C"
-                      });
-					} else {
-						 events.push({
-	                           /* 수입 */
-	                           title : "",
-	                           start : data.income[i].start,
-	                           textColor : "#FFFFFF"
-	                     });
-					}
->>>>>>> branch 'master' of https://github.com/YoungKoungKim/MoneyBookRepository.git
                    
                    if (data.expense[i].title != 0) {
                        events.push({
@@ -508,21 +456,15 @@ function bookmarkRegist(id_index){
    var popUrl = "bookmarkRegistForm.do?id_index=" + id_index;   //팝업창에 출력될 페이지 URL
    var popOption = "top=200, left=300, width=600, height=450, resizable=no, scrollbars=no, status=no";    //팝업창 옵션(optoin)
    window.open(popUrl,"즐겨찾기등록",popOption);
-<<<<<<< HEAD
 }
 
 function moneyBookStatic(id_index, date){
 	   var popUrl = "statistics.do?id_index="+ id_index+"&date=" + date; ;   //팝업창에 출력될 페이지 URL
 	   var popOption = "top=200, left=300, width=600, height=450, resizable=no, scrollbars=no, status=no";    //팝업창 옵션(optoin)
 	   window.open(popUrl,"가계부 통계",popOption);
-=======
->>>>>>> branch 'master' of https://github.com/YoungKoungKim/MoneyBookRepository.git
 }
-<<<<<<< HEAD
 	
 	
-=======
->>>>>>> branch 'master' of https://github.com/YoungKoungKim/MoneyBookRepository.git
    
 function dateToYYYYMMDD(date){
     function pad(num) {
@@ -869,13 +811,10 @@ var view = {
          moneyBookRegist(${id_index}, clickDate);
       });
       
-<<<<<<< HEAD
       $(document).on('click', '#statisticsBtn', function() {
     	  moneyBookStatic(${id_index}, boardWriteDate);
        });
       
-=======
->>>>>>> branch 'master' of https://github.com/YoungKoungKim/MoneyBookRepository.git
       // 왼쪽 버튼을 클릭하였을 경우
         $("button.fc-prev-button").click(function() {
            $('#detailTable thead').hide();
