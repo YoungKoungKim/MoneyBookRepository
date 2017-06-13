@@ -344,7 +344,7 @@ body,
 		style="z-index: 2222;">
 		<div class="modal-dialog" style="z-index: 2222;">
 			<div class="modal-content" style="z-index: 2222;">
-				<div class="modal-body" z-index: 2222;">
+				<div class="modal-body" style="z-index: 2222;">
 					<center>
 						<h1 id="login_Label">로그인</h1>
 						<table>
