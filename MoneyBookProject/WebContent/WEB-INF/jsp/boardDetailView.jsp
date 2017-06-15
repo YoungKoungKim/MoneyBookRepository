@@ -16,7 +16,7 @@
 <link href="boardcss/boardDetailView.css" rel="stylesheet" type="text/css">
 	
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>공유게시판 - 글 상세보기</title>
 
 <script src="https://code.jquery.com/jquery-2.2.4.min.js"
 	integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
