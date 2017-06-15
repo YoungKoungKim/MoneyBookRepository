@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.ISecondRecommendDao">
+	<insert id="insertrecommend" parameterType="recommend">
+		insert into secondrecommend values(0,#{boardNo},#{id_index},#{commentNo})
+	</insert>
+
+	<select id="selectrecommend" parameterType="recommend" resultType="recommend">
+		select * from secondrecommend where boardNo = #{boardNo} and 
+		id_index = #{id_index} and commentNo = #{commentNo}
+	</select>
+	
+	<delete id="deleterecommend" parameterType="int">
+		delete from secondrecommend where boardNo = #{boardNo}
+	</delete>
+</mapper>

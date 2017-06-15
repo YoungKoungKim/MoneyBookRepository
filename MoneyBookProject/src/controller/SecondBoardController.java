@@ -19,13 +19,14 @@ import org.springframework.web.servlet.ModelAndView;
 import model.Board;
 import service.IRecommendService;
 import service.ISecondBoardService;
+import service.ISecondRecommendService;
 
 @Controller
 public class SecondBoardController {
 	@Autowired
 	private ISecondBoardService boardservice;
 	@Autowired
-	private IRecommendService recommendservice;
+	private ISecondRecommendService recommendService;
 
 	@RequestMapping("secondBoardList.do")
 	public ModelAndView boardList(@RequestParam(defaultValue = "1") int page,
@@ -89,9 +90,9 @@ public class SecondBoardController {
 		try {
 			if (session.getAttribute("id_index") != null) {
 				int id_index = (int) session.getAttribute("id_index");
-				if (recommendservice.Searchrecommend(boardNo, id_index, commentNo) == false) {
+				if (recommendService.Searchrecommend(boardNo, id_index, commentNo) == false) {
 					boardservice.boardRecommand(boardNo);
-					recommendservice.Writerecommend(boardNo, id_index, commentNo);
+					recommendService.Writerecommend(boardNo, id_index, commentNo);
 					board = (Board) boardservice.searchText(boardNo).get("board");
 					params.put("code", 0);
 					params.put("recommend", board.getRecommend());

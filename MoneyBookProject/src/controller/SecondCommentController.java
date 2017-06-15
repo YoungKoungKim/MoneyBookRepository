@@ -15,6 +15,7 @@ import commons.SecondComment;
 import service.ICommentService;
 import service.IRecommendService;
 import service.ISecondCommentService;
+import service.ISecondRecommendService;
 
 @Controller
 public class SecondCommentController {
@@ -22,7 +23,7 @@ public class SecondCommentController {
 	@Autowired
 	private ISecondCommentService commentservice;
 	@Autowired
-	private IRecommendService recommendService;
+	private ISecondRecommendService recommendService;
 	
 	@RequestMapping("secondCommentWrite.do")
 	public @ResponseBody String commentWrite(int boardNo, @RequestParam("nick1")String nick, 
