@@ -56,16 +56,17 @@
 	} //today()
 
 	$(document).ready(function() {
-		$("#header_Logout").on("click", function() {
-			alert("로그아웃 되었습니다");
-			Kakao.Auth.logout();
+      $("#header_Logout").on("click", function() {
+         Kakao.Auth.logout();
 
-			setTimeout(function() {
-				location.href = "logout.do";
-			}, 1500);
-		});
+         $('#logout-wrap-loading').removeClass('display-none');
 
-	}) //ready
+         setTimeout(function() {
+            location.href = "logout.do";
+         }, 1500);
+      })
+
+   }) //ready
 </script>
 <style type="text/css">
 @import url(http://fonts.googleapis.com/earlyaccess/hanna.css);
@@ -152,6 +153,40 @@ body,
   background:      -o-linear-gradient(90deg, #649173 10%, #DBD5A4 90%); /* Opera 11.10+ */
   background:         linear-gradient(90deg, #649173 10%, #DBD5A4 90%); /* W3C */
 }
+
+.modal-backdrop {
+	z-index: 0;
+}
+
+.wrap-loading { /*화면 전체를 어둡게 합니다.*/
+   z-index: 10000; position : fixed;
+   left: 0;
+   right: 0;
+   top: 0;
+   bottom: 0;
+   background: rgba(0, 0, 0, 0.2); /*not in ie */
+   filter: progid:DXImageTransform.Microsoft.Gradient(startColorstr='#20000000',
+      endColorstr='#20000000');
+   position: fixed; /* ie */
+}
+
+.wrap-loading div { /*로딩 이미지*/
+   position: fixed;
+   top: 50%;
+   left: 50%;
+   margin-left: -21px;
+   margin-top: -21px;
+}
+
+.display-none { /*감추기*/
+   display: none;
+}
+
+.spanDiv {
+   height: 25px;
+   color: red;
+}
+
 </style>
 </head>
 <body>
@@ -277,113 +312,236 @@ body,
 
 	<!-- JoinModal -->
 	<div class="modal fade" id="joinModal" tabindex="-1" role="dialog"
-		aria-labelledby="myModalLabel" aria-hidden="true"
-		style="z-index: 2222;">
-		<div class="modal-dialog" style="z-index: 2222;">
-			<div class="modal-content" style="z-index: 2222;">
-				<div class="modal-body" style="z-index: 2222;">
-					<center>
-						<h1 style="color: black;">회 원 가 입</h1>
-						<table>
-							<tr align="center">
-								<td style="color: black;">아이디</td>
-								<td width="320px;"><input type="text" id="join_Id"
-									class="form-control" placeholder="이메일을 입력하세요."></td>
-							</tr>
-							<tr>
-								<td></td>
-								<td><span id="join_IdCheck" style="color: red;"></span><br></td>
-							</tr>
-							<tr align="center">
-								<td style="color: black;">닉네임</td>
-								<td><input type="text" id="join_Nick" class="form-control"
-									placeholder="2~12자로 닉네임을 입력하세요."></td>
-							</tr>
-							<tr>
-								<td></td>
-								<td><span id="join_NickCheck" style="color: red;"></span><br></td>
-							</tr>
-							<tr align="center">
-								<td style="color: black;">비밀번호</td>
-								<td><input type="password" id="join_Pwd"
-									class="form-control" placeholder="6~20자 영문 대 소문자, 숫자는 필수입니다."></td>
-							</tr>
-							<tr>
-								<td></td>
-								<td><span id="join_PwdCheck" style="color: red;"></span><br></td>
-							</tr>
-							<tr align="center">
-								<td style="color: black;">비밀번호 확인&nbsp;</td>
-								<td><input type="password" id="join_PwdOk"
-									class="form-control" placeholder="다시 한번 입력해주세요."></td>
-							</tr>
-							<tr>
-								<td></td>
-								<td><span id="join_PwdOkCheck" style="color: red;"></span><br></td>
-							</tr>
-							<tr align="center">
-								<td colspan="2"><input type="button" value="확인"
-									class="btn btn-success" id="join_SubmitBtn">
-									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="button" value="취소"
-									class="btn btn-info" data-dismiss="modal"></td>
-							</tr>
-						</table>
-						<input type="hidden" value="false" id="join_IdTest"> <input
-							type="hidden" value="false" id="join_NickTest"> <input
-							type="hidden" value="false" id="join_PwdTest"> <input
-							type="hidden" value="false" id="join_PwdOkTest">
-					</center>
-				</div>
-			</div>
-		</div>
-	</div>
+      aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+         <div class="modal-content">
+            <div class="modal-body" style="border: 2px solid #91D4B5;">
+               <center>
+                  <h1 style="color: black;">회 원 가 입</h1>
+                  <div class="wrap-loading display-none" id="wrap-loading">
+
+                     <div>
+                        <img src="jpg/loading.gif" />
+                     </div>
+
+                  </div>
+                  <table>
+                     <tr align="center">
+                        <td style="color: black;">아이디</td>
+                        <td width="320px;"><input type="text" id="join_Id"
+                           class="form-control" placeholder="이메일을 입력하세요."></td>
+                        <td><button id="join_MailSendBtn" class="btn"
+                              style="margin: 0px 0px 0px 5px;">인증메일 보내기</button></td>
+                     </tr>
+                     <tr>
+                        <td></td>
+                        <td colspan="2"><span id="join_IdCheck" style="color: red;"></span><br></td>
+                     </tr>
+
+                     <tr align="center">
+                        <td style="color: black;">이메일 인증</td>
+                        <td><input type="text" id="join_IdAuthInput"
+                           class="form-control" placeholder="인증번호를 입력해주세요."
+                           onkeydown='return onlyNumber(event)'
+                           onkeyup='removeChar(event)' style='ime-mode: disabled;'
+                           maxlength="5"></td>
+                        <td><button id="join_IdAuthBtn" class="btn"
+                              style="margin: 0px;">이메일 인증</button></td>
+                     </tr>
+                     <tr>
+                        <td></td>
+                        <td colspan="2"><span id="join_IdAuthCheck"
+                           style="color: red;"></span><br></td>
+                     </tr>
+
+                     <tr align="center">
+                        <td style="color: black;">닉네임</td>
+                        <td colspan="2"><input type="text" id="join_Nick"
+                           class="form-control" placeholder="2~12자로 닉네임을 입력하세요."></td>
+                     </tr>
+                     <tr>
+                        <td></td>
+                        <td colspan="2"><span id="join_NickCheck"
+                           style="color: red;"></span><br></td>
+                     </tr>
+                     <tr align="center">
+                        <td style="color: black;">비밀번호</td>
+                        <td colspan="2"><input type="password" id="join_Pwd"
+                           class="form-control" placeholder="6~20자 영문 대 소문자, 숫자는 필수입니다."></td>
+                     </tr>
+                     <tr>
+                        <td></td>
+                        <td colspan="2"><span id="join_PwdCheck"
+                           style="color: red;"></span><br></td>
+                     </tr>
+                     <tr align="center">
+                        <td style="color: black;">비밀번호 확인&nbsp;</td>
+                        <td colspan="2"><input type="password" id="join_PwdOk"
+                           class="form-control" placeholder="다시 한번 입력해주세요."></td>
+                     </tr>
+                     <tr>
+                        <td></td>
+                        <td colspan="2"><span id="join_PwdOkCheck"
+                           style="color: red;"></span><br></td>
+                     </tr>
+                     <tr align="center">
+                        <td colspan="3"><input type="button" value="확인" class="btn"
+                           id="join_SubmitBtn"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input
+                           type="button" value="취소" class="btn" data-dismiss="modal"></td>
+                     </tr>
+                  </table>
+                  <input type="hidden" value="false" id="join_IdTest"> <input
+                     type="hidden" value="false" id="join_SendMailTest"> <input
+                     type="hidden" value="false" id="join_IdAuthTest"> <input
+                     type="hidden" value="false" id="join_NickTest"> <input
+                     type="hidden" value="false" id="join_PwdTest"> <input
+                     type="hidden" value="false" id="join_PwdOkTest">
+               </center>
+            </div>
+         </div>
+      </div>
+   </div>
 
 	<!-- LoginModal -->
 	<div class="modal fade" id="loginModal" tabindex="-1" role="dialog"
-		aria-labelledby="myModalLabel" aria-hidden="true"
-		style="z-index: 2222;">
-		<div class="modal-dialog" style="z-index: 2222;">
-			<div class="modal-content" style="z-index: 2222;">
-				<div class="modal-body" style="z-index: 2222;">
-					<center>
-						<h1 id="login_Label">로그인</h1>
-						<table>
-							<tr align="center">
-								<td style="color: black;">아이디</td>
-								<td width="305px;"><input type="text" id="login_Id"
-									class="form-control" placeholder="이메일을 입력하세요."></td>
-							</tr>
-							<tr>
-								<td></td>
-								<td><span id="login_IdCheck" style="color: red;"></span><br></td>
-							</tr>
-							<tr align="center">
-								<td style="color: black;">비밀번호&nbsp;</td>
-								<td><input type="password" id="login_Pwd"
-									class="form-control" placeholder="비밀번호를 입력해주세요."></td>
-							</tr>
-							<tr>
-								<td></td>
-								<td><span id="login_PwdCheck" style="color: red;"></span><br></td>
-							</tr>
-							<tr align="center">
-								<td colspan="2"><input type="button" value="로그인"
-									class="btn btn-success" id="login_SubmitBtn">
-									&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" value="취소"
-									class="btn btn-info" data-dismiss="modal"></td>
-							</tr>
-							<tr>
-								<td colspan="2" align="center"><br> <a
-									id="kakao-login-btn"></a> <a
-									href="http://developers.kakao.com/logout"></a>
-								<td>
-							</tr>
-						</table>
-					</center>
-				</div>
-			</div>
-		</div>
-	</div>
+      aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+         <div class="modal-content">
+            <div class="modal-body" style="border: 2px solid #91D4B5;">
+               <center>
+                  <h1 id="login_Label">로그인</h1>
+                  <table>
+                     <tr align="center">
+                        <td style="color: black;">아이디</td>
+                        <td width="305px;"><input type="text" id="login_Id"
+                           class="form-control" placeholder="이메일을 입력하세요."></td>
+                     </tr>
+                     <tr>
+                        <td></td>
+                        <td><span id="login_IdCheck" style="color: red;"></span><br></td>
+                     </tr>
+                     <tr align="center">
+                        <td style="color: black;">비밀번호&nbsp;</td>
+                        <td colspan="2"><input type="password" id="login_Pwd"
+                           class="form-control" placeholder="비밀번호를 입력해주세요."></td>
+                     </tr>
+                     <tr>
+                        <td></td>
+                        <td><span id="login_PwdCheck" style="color: red;"></span><br></td>
+                     </tr>
+                     <tr>
+                        <td align="right" colspan="2">
+                           <div class="col-md-8">
+                              <input type="button" value="로그인" class="btn"
+                                 id="login_SubmitBtn"> &nbsp;&nbsp;&nbsp;&nbsp;<input
+                                 type="button" value="취소" class="btn" data-dismiss="modal">
+                           </div>
+                           <div class="col-md-4">
+                              <button class="btn" data-toggle="modal"
+                                 data-target="#foundPwdModal" data-backdrop="static">비밀번호
+                                 찾기</button>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td colspan="2" align="center"><br> <a
+                           id="kakao-login-btn"></a> <a
+                           href="http://developers.kakao.com/logout"></a>
+                        <td>
+                     </tr>
+                  </table>
+               </center>
+            </div>
+         </div>
+      </div>
+   </div>
+   
+	<!-- find password -->
+    <div class="modal fade" id="foundPwdModal" aria-hidden="true"
+      style="z-index: 2222;">
+      <div class="modal-dialog" style="z-index: 2222;">
+         <div class="modal-content" style="z-index: 2222;">
+            <div class="modal-body" id="noneMemberModal-content"
+               style="z-index: 2222;">
+               <div align="center" style="z-index: 2222;">
+                  <h3>비밀번호 찾기</h3>
+                  
+                  <div class="wrap-loading display-none" id="found-wrap-loading">
+
+                     <div>
+                        <img src="jpg/loading.gif" />
+                     </div>
+
+                  </div>
+
+                  <div class="row">
+                     <div class="col-md-3">이메일 인증</div>
+                     <div class="col-md-6">
+                        <input type="text" id="found_Id" class="form-control"
+                           placeholder="이메일을 입력하세요.">
+                     </div>
+                     <div class="col-md-3">
+                        <button id="found_MailSendBtn" class="btn"
+                           style="margin: 0px 0px 0px 5px;">인증메일 전송</button>
+                     </div>
+                  </div>
+
+                  <div class="row spanDiv" id="found_IdCheck"></div>
+
+                  <div class="row">
+                     <div class="col-md-3">인증번호</div>
+                     <div class="col-md-6">
+                        <input type="text" id="found_IdAuthInput" class="form-control"
+                           placeholder="인증번호를 입력해주세요."
+                           onkeydown='return onlyNumber(event)'
+                           onkeyup='removeChar(event)' style='ime-mode: disabled;'
+                           maxlength="5">
+                     </div>
+                     <div class="col-md-3">
+                        <button id="found_IdAuthBtn" class="btn" style="margin: 0px;">이메일
+                           인증</button>
+                     </div>
+                  </div>
+
+                  <div class="row spanDiv" id="found_IdAuthCheck"></div>
+
+                  <div class="row">
+                     <div class="col-md-3">새 비밀번호</div>
+                     <div class="col-md-6">
+                        <input type="password" id="found_Pwd" class="form-control"
+                           placeholder="새 비밀번호를 입력해주세요." readonly="readonly">
+                     </div>
+                     <div class="col-md-3"></div>
+                  </div>
+
+                  <div class="row spanDiv" id="found_PwdCheck"></div>
+
+                  <div class="row">
+                     <div class="col-md-3">비밀번호 확인</div>
+                     <div class="col-md-6">
+                        <input type="password" id="found_PwdOk" class="form-control"
+                           placeholder="비밀번호를 다시 입력해주세요." readonly="readonly">
+                     </div>
+                     <div class="col-md-3"></div>
+                  </div>
+
+                  <div class="row spanDiv" id="found_PwdOkCheck"></div>
+
+                  <button class="btn" id="found_SubmitBtn">확인</button>
+
+                  <button class="btn" data-dismiss="modal">취소</button>
+
+                  <input type="hidden" value="false" id="found_IdTest"> <input
+                     type="hidden" value="false" id="found_SendMailTest"> <input
+                     type="hidden" value="false" id="found_IdAuthTest"><input
+                     type="hidden" value="false" id="found_PwdTest"> <input
+                     type="hidden" value="false" id="found_PwdOkTest">
+               </div>
+            </div>
+
+         </div>
+      </div>
+   </div>
 
 
 	<!-- Footer Section -->
@@ -417,6 +575,14 @@ body,
 			</div>
 		</div>
 	</div>
+	
+	<div class="wrap-loading display-none" id="logout-wrap-loading">
+
+      <div>
+         <img src="jpg/loading.gif" />
+      </div>
+
+   </div>
 
 	<script type='text/javascript'>
 		//<![CDATA[
