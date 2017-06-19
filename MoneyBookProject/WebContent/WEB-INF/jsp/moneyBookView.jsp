@@ -77,7 +77,6 @@ html, body {
 }
 
 #detail {
-<<<<<<< HEAD
 	box-sizing: border-box;
 	border-collapse: collapse;
 	border-spacing: 0;
@@ -161,11 +160,6 @@ html, body {
 	padding-right: 10px;
 	margin-bottom: 5px;
 	color: black;
-}
-
-#bookmark_list_div {
-	/* border: 1px solid #1abc9c; */
-	
 }
 
 svg {
@@ -530,8 +524,8 @@ function statistic(data){
               return d.startAngle + (d.endAngle - d.startAngle)/2;
           }
 
-      text
-              .transition().duration(1000)
+    
+          text.transition().duration(1000)
               .attrTween("transform", function(d) {
                   this._current = this._current || d;
                   var interpolate = d3.interpolate(this._current, d);
