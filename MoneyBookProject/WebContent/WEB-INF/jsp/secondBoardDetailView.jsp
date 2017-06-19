@@ -6,7 +6,8 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<link href="boardcss/boardDetailView.css" rel="stylesheet" type="text/css">
+<title>자유게시판 - 글 상세보기</title>
 <script src="https://code.jquery.com/jquery-2.2.4.min.js"
 	integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
 	crossorigin="anonymous"></script>
@@ -23,39 +24,43 @@ function getCommentList() {
 			for(var comment in data) {
 				var date = new Date(data[comment].date);
 				var time = date.getFullYear() + "." + (date.getMonth() + 1) + "." + date.getDate() + " " + date.getHours() + ":" + date.getMinutes();
-					
+				var msg = "";
+				var tdStyle = "";
+				var reDiv = "";
+					if(data[comment].lv != 0 ){
+						msg = "ㄴ";
+						tdStyle = " style='padding-left: 48px;'";
+						reDiv = "class='col-md-1' style='padding: 0; width: 10px;'";
+					}
 					if(id_index == data[comment].id_index)
 					{
-
-					$("#commentTable").html($("#commentTable").html() + "<tr>	<td>" + data[comment].nick + "&nbsp;&nbsp;&nbsp;" + time +"&nbsp;&nbsp;&nbsp; 추천:"+ data[comment].recommend
-					+ "</td></tr><tr><td> <textarea class='comment' style='resize: none;' id='comment_"+data[comment].commentNo+"'rows='2' cols='100' readonly='readonly'>"+data[comment].content+"</textarea>"
+					$("#commentTable").html($("#commentTable").html() + "<tr>	<td" + tdStyle + ">" + data[comment].nick + "&nbsp;&nbsp;&nbsp;" + time +"&nbsp;&nbsp;&nbsp; <span id='rec_" + data[comment].commentNo + "'>추천:"+ data[comment].recommend+"</span>"
+					+ "</td></tr><tr><td" + tdStyle + "><div " + reDiv + ">" + msg + "</div><div class='col-md-11' style='padding: 0;'><textarea class='comment' style='resize: none; border:0;  background-color: #f0f8ff;' id='comment_"+data[comment].commentNo+"' rows='2' cols='80' readonly='readonly'>"+ data[comment].content + "</textarea></div>"
 							
-						+"<a class='delete' id='"+data[comment].commentNo+"@' name='"+data[comment].commentNo+"'>삭제</a>"
-						+"<a class='update' id='"+data[comment].commentNo+"@' name='"+data[comment].commentNo+"'>수정</a>"
-// 						+"<a class='recomment' id='"+data[comment].commentNo+"@' name='"+data[comment].commentNo+"'>답글</a>
-						+"</td></tr>"
+							+"<div class='col-md-3'><a class='delete' id='"+data[comment].commentNo+"@' name='"+data[comment].commentNo+"'>삭제</a>"
+							+"<a class='update' id='"+data[comment].commentNo+"@' name='"+data[comment].commentNo+"'>수정</a>"
+							+"<a class='recomment' id='"+data[comment].commentNo+"@' name='"+data[comment].commentNo+"'>답글</a><div></td></tr>"
+							
+							+"<tr><td><div style='display: none' id='re_" + data[comment].commentNo +"'>"
+							+"<input type='hidden' value='${nick}' readonly='readonly' id='nick1' name='nick1'>"
+							+"<textarea style='resize: none; ' rows='2' cols='80' id='reply_content"+data[comment].commentNo+"'  placeholder='내용을 입력하세요'></textarea>"
+							+"<input class='reply' type='button' value='등록' id='"+data[comment].commentNo+"@' name='reply_"+data[comment].commentNo+"'>"
+							+"</div></td></tr>"
+							);
+					}else {
+						$("#commentTable").html($("#commentTable").html() + 
+						"<tr>	<td>" + data[comment].nick + 
+						"&nbsp;&nbsp;&nbsp;" + time +"&nbsp;&nbsp;&nbsp; <span id='rec_" + data[comment].commentNo + "'>추천:"+ data[comment].recommend+"</span>"
+						+"</td></tr><tr><td" + tdStyle + "><div " + reDiv + ">" + msg + "</div><div class='col-md-11' style='padding: 0;'><textarea class='comment' style='resize: none; border:0;  background-color: #f0f8ff;' id='comment_"+data[comment].commentNo+"' rows='2' cols='80' readonly='readonly'>"+ data[comment].content + "</textarea></div>"
+						+"<div class='col-md-3'><a class='recommendcomment' id='" + data[comment].commentNo + "@' name ='" + data[comment].commentNo + "'>추천</a> "
+						+"<a class='recomment' id='" + data[comment].commentNo + "@' name ='" + data[comment].commentNo + "' >답글</a><div></td></tr>"
 						
 						+"<tr><td><div style='display: none' id='re_" + data[comment].commentNo +"'>"
 						+"<input type='hidden' value='${nick}' readonly='readonly' id='nick1' name='nick1'>"
-						+"<textarea style='resize: none; ' rows='2' cols='80' id='reply_content"+data[comment].commentNo+"'placeholder='내용을 입력하세요'></textarea>"
+						+"<textarea style='resize: none;' rows='2' cols='80' id='reply_content"+data[comment].commentNo+"'  placeholder='내용을 입력하세요'></textarea>"
 						+"<input class='reply' type='button' value='등록' id='"+data[comment].commentNo+"@' name='reply_"+data[comment].commentNo+"'>"
 						+"</div></td></tr>"
-						);
-					
-					}else {
-						$("#commentTable").html($("#commentTable").html() + 
-								"<tr>	<td>" + data[comment].nick + 
-								"&nbsp;&nbsp;&nbsp;" + time +"&nbsp;&nbsp;&nbsp; <span id='rec_" + data[comment].commentNo + "'>추천:"+ data[comment].recommend+"</span>"
-								+"</td></tr><tr><td> <textarea class='comment' style='resize: none; border:0;  background-color: #f0f8ff;' rows='2' cols='100' readonly='readonly'> "+ data[comment].content + "</textarea>"
-								+"<a class='recommendcomment' id='" + data[comment].commentNo + "@' name ='" + data[comment].commentNo + "'>추천</a> "
-								+"<a class='recomment' id='" + data[comment].commentNo + "@' name ='" + data[comment].commentNo + "' >답글</a> </td></tr>"
-								
-								+"<tr><td><div style='display: none' id='re_" + data[comment].commentNo +"'>"
-								+"<input type='hidden' value='${nick}' readonly='readonly' id='nick1' name='nick1'>"
-								+"<textarea style='resize: none;' rows='2' cols='80' id='reply_content"+data[comment].commentNo+"'  placeholder='내용을 입력하세요'></textarea>"
-								+"<input class='reply' type='button' value='등록' id='"+data[comment].commentNo+"@' name='reply_"+data[comment].commentNo+"'>"
-								+"</div></td></tr>"
-						);				
+						);		
 					}	
 					
 			}//for문 End
@@ -128,6 +133,26 @@ function getCommentList() {
 						       }
 							});
 					});//recommendcomment End
+					
+					$('.recomment').on('click',function(){
+						var commentNo = $(this).attr('name');
+						var atext = $(this).text();
+					 	var id_index = $("#id_index").val();
+					 	if(id_index == ""){
+							alert("로그인해주세요");					 		
+					 	}else{
+					 		
+						if(atext =="답글"){
+						$(this).text('답글닫기');						
+						$("#re_" + commentNo).css("display","");
+						
+						}else if(atext == "답글닫기"){
+						$(this).text('답글');
+						$("#re_" + commentNo).css("display","none");
+						}
+					 	}
+						
+					});
 					
 					$('.reply').on('click',function(){
 						var boardNo = $("#boardNo").val();
@@ -211,87 +236,7 @@ function getCommentList() {
 		
 });
 </script>
-<style type="text/css">
-#it {
-	font-size: 70px;
-}
 
-.root {
-	margin: auto;
-	width: 800px;
-	background-color: #f0f8ff;
-	border: solid #CCE2D8;
-}
-
-.top {
-	width: 100%;
-	height: 100%;
-	text-align: center;
-	border-bottom: dashed #CCE2D8;
-}
-
-.right {
-	margin: auto;
-	width: 100%;
-	text-align: left;
-	font-size: 20px;
-	border-bottom: solid #CCE2D8;
-	padding: 20px 100px;
-}
-
-.div_category {
-	width: 170px;
-	height: 100px;
-	display: inline-block;
-}
-
-.bottom {
-	width: 100%;
-	height: 100%;
-	clear: both;
-}
-
-.category_td {
-	color: #000000;
-	font-size: 70px;
-	text-align: center;
-	width: 150px;
-	height: 100px;
-	/* margin-left: 5px; */
-}
-
-.div_all {
-	font-size: 24px;
-}
-
-.categoryfont {
-	font-size: 20px;
-	text-align: center;
-}
-
-.myButton, .update, .delete, .recommendcomment {
-	background-color: #ffffff;
-	-moz-border-radius: 9px;
-	-webkit-border-radius: 9px;
-	border-radius: 9px;
-	display: inline-block;
-	cursor: pointer;
-	color: #000000;
-	font-family: Arial;
-	font-size: 15px;
-	padding: 6px 17px;
-	text-decoration: none;
-}
-
-.myButton, .update, .delete, .recommendcomment:hover {
-	background-color: #91D4B5;
-}
-
-.myButton, .update, .delete, .recommendcomment:active {
-	position: relative;
-	top: 1px;
-}
-</style>
 </head>
 <body>
 	<br>
@@ -362,5 +307,6 @@ function getCommentList() {
 			</c:if>
 		</div>
 	</div>
+	<input type="hidden" value="${board.boardNo}"  name="boardNo" id="boardNo">
 </body>
 </html>

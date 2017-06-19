@@ -16,7 +16,7 @@
 <link href="boardcss/boardDetailView.css" rel="stylesheet" type="text/css">
 	
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>공유게시판 - 글 상세보기</title>
 
 <script src="https://code.jquery.com/jquery-2.2.4.min.js"
 	integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
@@ -38,32 +38,36 @@ function getCommentList() {
 			for(var comment in data) {
 				var date = new Date(data[comment].date);
 				var time = date.getFullYear() + "." + (date.getMonth() + 1) + "." + date.getDate() + " " + date.getHours() + ":" + date.getMinutes();
-				var msg = "";	
+				var msg = "";
+				var tdStyle = "";
+				var reDiv = "";
 					if(data[comment].lv != 0 ){
-						msg = "";
+						msg = "ㄴ";
+						tdStyle = " style='padding-left: 48px;'";
+						reDiv = "class='col-md-1' style='padding: 0; width: 10px;'";
 					}
 					if(id_index == data[comment].id_index)
 					{
-					$("#commentTable").html($("#commentTable").html() + "<tr>	<td>" + data[comment].nick + "&nbsp;&nbsp;&nbsp;" + time +"&nbsp;&nbsp;&nbsp; <span id='rec_" + data[comment].commentNo + "'>추천:"+ data[comment].recommend+"</span>"
-					+ "</td></tr><tr><td> <textarea class='comment' style='resize: none; border:0;  background-color: #f0f8ff;' id='comment_"+data[comment].commentNo+"' rows='2' cols='100' readonly='readonly'>"+ data[comment].content + "</textarea>"
+					$("#commentTable").html($("#commentTable").html() + "<tr>	<td" + tdStyle + ">" + data[comment].nick + "&nbsp;&nbsp;&nbsp;" + time +"&nbsp;&nbsp;&nbsp; <span id='rec_" + data[comment].commentNo + "'>추천:"+ data[comment].recommend+"</span>"
+					+ "</td></tr><tr><td" + tdStyle + "><div " + reDiv + ">" + msg + "</div><div class='col-md-11' style='padding: 0;'><textarea class='comment' style='resize: none; border:0;  background-color: #f0f8ff;' id='comment_"+data[comment].commentNo+"' rows='2' cols='80' readonly='readonly'>"+ data[comment].content + "</textarea></div>"
 							
-							+"<a class='delete' id='"+data[comment].commentNo+"@' name='"+data[comment].commentNo+"'>삭제</a>"
+							+"<div class='col-md-3'><a class='delete' id='"+data[comment].commentNo+"@' name='"+data[comment].commentNo+"'>삭제</a>"
 							+"<a class='update' id='"+data[comment].commentNo+"@' name='"+data[comment].commentNo+"'>수정</a>"
-							+"<a class='recomment' id='"+data[comment].commentNo+"@' name='"+data[comment].commentNo+"'>답글</a></td></tr>"
+							+"<a class='recomment' id='"+data[comment].commentNo+"@' name='"+data[comment].commentNo+"'>답글</a><div></td></tr>"
 							
 							+"<tr><td><div style='display: none' id='re_" + data[comment].commentNo +"'>"
 							+"<input type='hidden' value='${nick}' readonly='readonly' id='nick1' name='nick1'>"
 							+"<textarea style='resize: none; ' rows='2' cols='80' id='reply_content"+data[comment].commentNo+"'  placeholder='내용을 입력하세요'></textarea>"
 							+"<input class='reply' type='button' value='등록' id='"+data[comment].commentNo+"@' name='reply_"+data[comment].commentNo+"'>"
 							+"</div></td></tr>"
-							);					
+							);
 					}else {
 						$("#commentTable").html($("#commentTable").html() + 
 						"<tr>	<td>" + data[comment].nick + 
 						"&nbsp;&nbsp;&nbsp;" + time +"&nbsp;&nbsp;&nbsp; <span id='rec_" + data[comment].commentNo + "'>추천:"+ data[comment].recommend+"</span>"
-						+"</td></tr><tr><td> <textarea class='comment' style='resize: none; border:0;  background-color: #f0f8ff;' rows='2' cols='100' readonly='readonly'> "+ data[comment].content + "</textarea>"
-						+"<a class='recommendcomment' id='" + data[comment].commentNo + "@' name ='" + data[comment].commentNo + "'>추천</a> "
-						+"<a class='recomment' id='" + data[comment].commentNo + "@' name ='" + data[comment].commentNo + "' >답글</a> </td></tr>"
+						+"</td></tr><tr><td" + tdStyle + "><div " + reDiv + ">" + msg + "</div><div class='col-md-11' style='padding: 0;'><textarea class='comment' style='resize: none; border:0;  background-color: #f0f8ff;' id='comment_"+data[comment].commentNo+"' rows='2' cols='80' readonly='readonly'>"+ data[comment].content + "</textarea></div>"
+						+"<div class='col-md-3'><a class='recommendcomment' id='" + data[comment].commentNo + "@' name ='" + data[comment].commentNo + "'>추천</a> "
+						+"<a class='recomment' id='" + data[comment].commentNo + "@' name ='" + data[comment].commentNo + "' >답글</a><div></td></tr>"
 						
 						+"<tr><td><div style='display: none' id='re_" + data[comment].commentNo +"'>"
 						+"<input type='hidden' value='${nick}' readonly='readonly' id='nick1' name='nick1'>"

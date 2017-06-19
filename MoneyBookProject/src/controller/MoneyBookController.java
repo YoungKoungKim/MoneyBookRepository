@@ -253,7 +253,7 @@ public class MoneyBookController {
 	    int id_index = (int) session.getAttribute("id_index");
 	    
 	    mav.addAllObjects(moneyBookService.totalAmountByCategory(id_index, date));
-		mav.addObject("monthAmount", moneyBookService.totalMonthAmount(id_index, date));
+		mav.addAllObjects(moneyBookService.totalMonthAmount(id_index, date));
 		mav.addAllObjects(moneyBookService.searchDate(date));
 		mav.setViewName("boardWriteForm");
 		return mav;

@@ -77,11 +77,19 @@ html, body {
 }
 
 #detail {
+<<<<<<< HEAD
 	box-sizing: border-box;
 	border-collapse: collapse;
 	border-spacing: 0;
 	font-size: 1.1em;
 	/*    margin-left: #calendar.margin;
+=======
+   box-sizing: border-box;
+   border-collapse: collapse;
+   border-spacing: 0;
+   font-size: 1.1em;
+   /*    margin-left: #calendar.margin;
+>>>>>>> branch 'master' of https://github.com/YoungKoungKim/MoneyBookRepository.git
    margin-right: px; */
 }
 
@@ -737,6 +745,14 @@ function bookmarkRegist(id_index){
    window.open(popUrl,"즐겨찾기등록",popOption);
 }
 
+
+function moneyBookStatic(id_index, date){
+	   var popUrl = "statistics.do?id_index="+ id_index+"&date=" + date; ;   //팝업창에 출력될 페이지 URL
+	   var popOption = "top=200, left=300, width=600, height=450, resizable=no, scrollbars=no, status=no";    //팝업창 옵션(optoin)
+	   window.open(popUrl,"가계부 통계",popOption);
+}
+	
+   
 function dateToYYYYMMDD(date){
     function pad(num) {
         num = num + '';

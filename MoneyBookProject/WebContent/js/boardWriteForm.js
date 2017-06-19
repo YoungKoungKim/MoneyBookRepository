@@ -169,18 +169,13 @@ function addextraList(){
 					+"<span>"
 					+"<i id='it' style='color: #9ACD32;'class='fa fa-krw' aria-hidden='true'></i>"
 					+"</span><br><span>수입</span>"
-					+"</span><br><span> "+data.list[i].price +"원</span><br>"
+					+"</span><br><span>"+data.list[i].price +"원</span><br>"
 					+"</div>");
 					}//수입
 				
 			}
-			for(var i in data.list) {
-				if(data.list[i].category =='expense'){
-				$('#left').append("<div class='div_all'><span> 총 지출 : "+data.list[i].price +"원</span> </div>");							
-				}else if(data.list[i].category =='income'){
-				$('#left').append("<div class='div_all'><span> 총 수입 : "+data.list[i].price +"원</span> </div>");							
-				}
-			}
+			$('#left').append("<div class='div_all'><span> 총 지출 : "+data.expense +"원</span> </div>");							
+			$('#left').append("<div class='div_all'><span> 총 수입 : "+data.income +"원</span> </div>");							
 		},
 		error : function() {
 			alert('실패');
