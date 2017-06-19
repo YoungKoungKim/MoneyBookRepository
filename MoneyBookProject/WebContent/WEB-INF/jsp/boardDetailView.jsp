@@ -63,7 +63,7 @@ function getCommentList() {
 							);
 					}else {
 						$("#commentTable").html($("#commentTable").html() + 
-						"<tr>	<td>" + data[comment].nick + 
+						"<tr>	<td" + tdStyle + ">" + data[comment].nick + 
 						"&nbsp;&nbsp;&nbsp;" + time +"&nbsp;&nbsp;&nbsp; <span id='rec_" + data[comment].commentNo + "'>추천:"+ data[comment].recommend+"</span>"
 						+"</td></tr><tr><td" + tdStyle + "><div " + reDiv + ">" + msg + "</div><div class='col-md-11' style='padding: 0;'><textarea class='comment' style='resize: none; border:0;  background-color: #f0f8ff;' id='comment_"+data[comment].commentNo+"' rows='2' cols='80' readonly='readonly'>"+ data[comment].content + "</textarea></div>"
 						+"<div class='col-md-3'><a class='recommendcomment' id='" + data[comment].commentNo + "@' name ='" + data[comment].commentNo + "'>추천</a> "
