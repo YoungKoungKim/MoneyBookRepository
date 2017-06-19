@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-   pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 
@@ -10,259 +10,293 @@
 <title>캘린더 페이지</title>
 <link href="./fullcalendar-3.3.1/fullcalendar.css" rel="stylesheet" />
 <link href="./fullcalendar-3.3.1/fullcalendar.print.css"
-   rel="stylesheet" media="print" />
+	rel="stylesheet" media="print" />
 <link rel="stylesheet"
-   href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
 
 <link rel="stylesheet"
-   href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <!-- 웹폰트 -->
 <link
-   href="https://fonts.googleapis.com/css?family=Abel|Open+Sans+Condensed:300|Rationale|Ubuntu+Condensed"
-   rel="stylesheet">
+	href="https://fonts.googleapis.com/css?family=Abel|Open+Sans+Condensed:300|Rationale|Ubuntu+Condensed"
+	rel="stylesheet">
 <script type="text/javascript"
-   src="./fullcalendar-3.3.1/lib/moment.min.js"></script>
+	src="./fullcalendar-3.3.1/lib/moment.min.js"></script>
 <script type="text/javascript"
-   src="./fullcalendar-3.3.1/fullcalendar.js"></script>
+	src="./fullcalendar-3.3.1/fullcalendar.js"></script>
 
 <style type="text/css">
 @import url(https://fonts.googleapis.com/css?family=Arimo);
 
 @font-face {
-   font-family: 'NanumGothic';
-   src: url(font/NanumBarunGothic_0.ttf) format('truetype');
-   font-family: 'NanumBarunpenR';
-   src: url(font/NanumBarunpenR.ttf) foramt('truetype');
+	font-family: 'NanumGothic';
+	src: url(font/NanumBarunGothic_0.ttf) format('truetype');
+	font-family: 'NanumBarunpenR';
+	src: url(font/NanumBarunpenR.ttf) foramt('truetype');
 }
 
 html, body {
-   font-size: 14px;
-   height: auto;
+	font-size: 14px;
+	height: auto;
 }
 
 #left {
-   font-family: 'Ubuntu Condensed', sans-serif;
-   position: absolute;
-   margin-top: 50px;
-   left: 0;
-   width: 20%;
+	font-family: 'Ubuntu Condensed', sans-serif;
+	position: absolute;
+	margin-top: 50px;
+	left: 0;
+	width: 20%;
 }
 
 #center {
-   display: inline-block;
-   font-family: 'Ubuntu Condensed', sans-serif;
-   margin-left: 18%;
-   left: 20%;
-   right: 20%;
-   width: 60%;
-   height: 100%;
-   font-family: 'Ubuntu Condensed', sans-serif;
+	display: inline-block;
+	font-family: 'Ubuntu Condensed', sans-serif;
+	margin-left: 18%;
+	left: 20%;
+	right: 20%;
+	width: 60%;
+	height: 100%;
+	font-family: 'Ubuntu Condensed', sans-serif;
 }
 
 #right {
-   position: absolute;
-   margin-top: 90px;
-   width: 20%;
-   left: 80%;
-   right: 5%;
-   top: 70px
+	position: absolute;
+	margin-top: 90px;
+	width: 20%;
+	left: 80%;
+	right: 5%;
+	top: 70px
 }
 
 #calendar {
-   padding-top: 50px;
-   max-width: 700px;
+	padding-top: 50px;
+	max-width: 700px;
 }
 
 #detail {
-<<<<<<< HEAD
-   box-sizing: border-box;
-   border-collapse: collapse;
-   border-spacing: 0;
-   font-size: 1.1em;
-   /*    margin-left: #calendar.margin;
-=======
 	box-sizing: border-box;
 	border-collapse: collapse;
 	border-spacing: 0;
 	font-size: 1.1em;
 	/*    margin-left: #calendar.margin;
->>>>>>> branch 'master' of https://github.com/YoungKoungKim/MoneyBookRepository.git
    margin-right: px; */
 }
 
 .fc-event, .fc-event:hover, .ui-widget .fc-event {
-   color: #000; /* default TEXT color */
-   text-decoration: none; /* if <a> has an href */
+	color: #000; /* default TEXT color */
+	text-decoration: none; /* if <a> has an href */
 }
 
 .fc-day-number {
-   color: #A9A9A9;
+	color: #A9A9A9;
 }
 
 .detailOne:hover {
-   background-color: #91D4B5;
+	background-color: #91D4B5;
 }
 
 .btn {
-   border-radius: 10px;
-   background-color: #1abc9c;
-   padding: 10px 35px;
-   text-align: center;
-   color: white;
+	border-radius: 10px;
+	background-color: #1abc9c;
+	padding: 10px 35px;
+	text-align: center;
+	color: white;
 }
 
 .btn:hover {
-   background-color: grey;
-   color: #fff;
-   text-decoration: none;
+	background-color: grey;
+	color: #fff;
+	text-decoration: none;
 }
 
 .modal_btn {
-   margin-bottom: 0px;
+	margin-bottom: 0px;
 }
 
 .moneyBookBtn {
-   font-family: NanumBarunpenR;
-   font-style: normal;
-   background-color: #91D4B5;
-   border-radius: 2px;
-   margin: 20px auto;
+	font-family: NanumBarunpenR;
+	font-style: normal;
+	background-color: #91D4B5;
+	border-radius: 2px;
+	margin: 20px auto;
 }
 
 .moneyBookBtn:hover {
-   background-color: grey;
-   color: #fff;
-   text-decoration: none;
+	background-color: grey;
+	color: #fff;
+	text-decoration: none;
 }
 
 #borderLine {
-   padding: 5px;
-   margin: 10px;
-   border: 3px solid #1ABC9C;
+	padding: 5px;
+	margin: 10px;
+	border: 3px solid #1ABC9C;
 }
 
 .modal-body {
-   max-width: 450px;
+	max-width: 450px;
 }
 
 .bookmark_btn {
-   font-family: NanumBarunpenR;
-   font-style: normal;
-   background-color: #91D4B5;
-   border: 1px solid #1abc9c;
-   border-radius: 2px;
-   width: 70pt;
-   height: 30pt;
-   text-align: center;
-   padding-left: 10px;
-   padding-right: 10px;
-   margin-bottom: 5px;
-   color: black;
+	font-family: NanumBarunpenR;
+	font-style: normal;
+	background-color: #91D4B5;
+	border: 1px solid #1abc9c;
+	border-radius: 2px;
+	width: 70pt;
+	height: 30pt;
+	text-align: center;
+	padding-left: 10px;
+	padding-right: 10px;
+	margin-bottom: 5px;
+	color: black;
 }
 
 #bookmark_list_div {
-   /* border: 1px solid #1abc9c; */
-   
+	/* border: 1px solid #1abc9c; */
+	
+}
+
+svg {
+	width: 100%;
+	height: 500px;
+}
+
+path.slice {
+	stroke-width: 2px;
+}
+
+polyline {
+	opacity: .3;
+	stroke: black;
+	stroke-width: 2px;
+	fill: none;
+}
+
+text {
+	font: 12px sans-serif;
+}
+
+.arc text {
+	font-family: arial;
+	/* font-size: 2em; */
+	fill: #fff;
+}
+
+.toolTip {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    position: absolute;
+    display: none;
+    width: auto;
+    height: auto;
+    background: none repeat scroll 0 0 white;
+    border: 0 none;
+    border-radius: 8px 8px 8px 8px;
+    box-shadow: -3px 3px 15px #888888;
+    color: black;
+    font: 12px sans-serif;
+    padding: 5px;
+    text-align: center;
 }
 
 /* 계산기 Css  */
 .clearfix:after {
-   content: "";
-   display: block;
-   clear: both;
-   visibility: hidden;
-   font-size: 0;
-   height: 0;
+	content: "";
+	display: block;
+	clear: both;
+	visibility: hidden;
+	font-size: 0;
+	height: 0;
 }
 
 #calculator {
-   -webkit-box-sizing: border-box;
-   -moz-box-sizing: border-box;
-   box-sizing: border-box;
-   margin: 0;
-   padding: 0;
-   font-family: 'Arimo', sans-serif;
-   opacity: 0.85;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	font-family: 'Arimo', sans-serif;
+	opacity: 0.85;
 }
 
 #calculator, #calculator:before, #calculator:after {
-   -webkit-box-sizing: inherit;
-   -moz-box-sizing: inherit;
-   box-sizing: inherit;
+	-webkit-box-sizing: inherit;
+	-moz-box-sizing: inherit;
+	box-sizing: inherit;
 }
 
 #wrapper {
-   background: #1f1f1f;
-   width: 196px;
-   padding: 0 6px 6px;
-   border: 1px solid #141414;
-   border-radius: 5px;
+	background: #1f1f1f;
+	width: 196px;
+	padding: 0 6px 6px;
+	border: 1px solid #141414;
+	border-radius: 5px;
 }
 
 main {
-   padding: 0;
-   width: 180px;
-   margin: auto;
-   background: #141212;
+	padding: 0;
+	width: 180px;
+	margin: auto;
+	background: #141212;
 }
 
 #screen {
-   width: 180px;
-   background: white;
-   margin: 7px 0 2px 0;
-   padding: 5px 5px;
-   border-radius: 4px;
-   font-size: 2em;
-   text-align: right;
+	width: 180px;
+	background: white;
+	margin: 7px 0 2px 0;
+	padding: 5px 5px;
+	border-radius: 4px;
+	font-size: 2em;
+	text-align: right;
 }
 
 #calculator button {
-   color: #AAA;
-   float: left;
-   width: 45px;
-   font-size: 1.2em;
-   height: 45px;
-   outline: none;
-   background: #3e3e3e;
-   border: 1px solid #1f1f1f;
-   border-radius: 3px;
+	color: #AAA;
+	float: left;
+	width: 45px;
+	font-size: 1.2em;
+	height: 45px;
+	outline: none;
+	background: #3e3e3e;
+	border: 1px solid #1f1f1f;
+	border-radius: 3px;
 }
 
 #calculator button:hover {
-   background: #52615A;
+	background: #52615A;
 }
 
 #calculator button.blue {
-   background: #1ABC9C;
-   color: black;
+	background: #1ABC9C;
+	color: black;
 }
 
 #calculator button.darker {
-   color: #BBB;
-   background: #2b2b2b;
+	color: #BBB;
+	background: #2b2b2b;
 }
 
 #calculator button.active {
-   border: 3px solid #555;
+	border: 3px solid #555;
 }
 
 #calculator button.dimmed {
-   color: #555 !important;
+	color: #555 !important;
 }
 
 #calculator .btn-wide {
-   height: 45px !important;
-   width: 90px !important;
+	height: 45px !important;
+	width: 90px !important;
 }
 
 .price {
-   color: #FF6753;
+	color: #FF6753;
 }
 </style>
-
+<script src="//d3js.org/d3.v3.min.js"></script>
 <script type="text/javascript">
 //천 단위마다 콤마 추가하기   
 function addComma(value) {
@@ -318,13 +352,237 @@ function isNumber(checkValue) {
   return checkValue;
 }
 
+//통계 메소드
+function statistic(data){
+	  var category_list = [];
+      var price_list = [];
+      var percent_list = [];
+      
+      for ( var i in data) {
+         if(data[i].category != 'income'){
+            price_list.push(data[i].price);
+            category_list.push(data[i].category);
+            percent_list.push(data[i].percent);
+         }
+      }
+  var color = [];
+      for ( var i in category_list) {
+         if (category_list[i] == 'food') {
+         	category_list[i] = '식비';
+            	color.push("#ADD8E6");
+         } else if (category_list[i] == 'medical') {
+         	category_list[i] = '의료';
+            	color.push("#708090");
+         } else if (category_list[i] == 'traffic') {
+         	category_list[i] = '교통비';
+            color.push("#FF6347");
+         } else if (category_list[i] == 'commodity') {
+         	category_list[i] = '생필품';
+            color.push("#FFA500");
+         } else if (category_list[i] == 'beauty') {
+            category_list[i] = '미용';
+            color.push("#F08080");
+         } else if (category_list[i] == 'education') {
+         	category_list[i] = '교육';
+            	color.push("#DDA0DD");
+         } else if (category_list[i] == 'phonefees') {
+         	category_list[i] = '통신비';
+            	color.push("#1E90FF");
+         } else if (category_list[i] == 'saving') {
+         	category_list[i] = '저축';	
+            	color.push("#DAA520");
+         } else if (category_list[i] == 'utilitybills') {
+         	category_list[i] = '공과금';
+         	color.push("#6A5ACD");
+         } else if (category_list[i] == 'culturallife') {
+         	category_list[i] = '문화생활비';
+            	color.push("#3CB371");
+         } else if (category_list[i] == 'otheritems') {
+         	category_list[i] = '기타';
+            	color.push("#FA8072");
+         }  
+      } 
+      datasetTotal = []; 
+       for (var i in data) {
+     	  if(data[i].percent != 0){
+     		  
+     		  datasetTotal.push({label : category_list[i] , value :price_list[i],
+           		percent : percent_list[i]});
+     	  }
+         }   
+      
+      var svg = d3.select("#statistic_div")
+      .append("svg")
+      .append("g")
+
+      svg.append("g")
+         .attr("class", "slices");
+      svg.append("g")
+         .attr("class", "labelName");
+      svg.append("g")
+         .attr("class", "lines");
+
+       var width = 250,
+          height = 150,
+         radius = Math.min(width, height) / 2; 
+
+      var pie = d3.layout.pie()
+         .sort(null)
+         .value(function(d) {
+            return d.value;
+         });
+
+      var arc = d3.svg.arc()
+         .outerRadius(radius * 0.8)
+         .innerRadius(radius * 0.4);
+
+      var outerArc = d3.svg.arc()
+         .innerRadius(radius * 0.9)
+         .outerRadius(radius * 0.9);
+      
+      var div = d3.select("body").append("div").attr("class", "toolTip");
+
+      svg.attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+
+      var color = d3.scale.ordinal().range(color);
+
+
+	     change(datasetTotal, percent_list);
+	     
+      function change(data, percent_list) {
+    	  
+    	  /* ------- 퍼센트 추가 -------*/
+          
+			var arcs = svg.selectAll(".arc")
+			.data(pie(data))
+			.enter()
+			.append("g")
+			.attr("class", "arc"); 
+            
+			//arc에 text 삽입
+		 		arcs.append("text")
+				.attr("transform", function(d) {
+					return "translate(" + arc.centroid(d) + ")";
+				})
+				.attr("text-anchor", "middle")
+				.attr("text-size", "5px")
+				.text(function(d) {
+					return d.data.percent+"%";
+				});   
+
+         /* ------- PIE SLICES -------*/
+         var slice = svg.select(".slices").append("g").selectAll("path.slice")
+              .data(pie(data), function(d){ return d.data.label});
+
+          slice.enter()
+              .insert("path")
+              .style("fill", function(d) { return color(d.data.label); })
+              .attr("class", "slice");
+
+          slice
+              .transition().duration(1000)
+              .attrTween("d", function(d) {
+                  this._current = this._current || d;
+                  var interpolate = d3.interpolate(this._current, d);
+                  this._current = interpolate(0);
+                  return function(t) {
+                      return arc(interpolate(t));
+                  };
+              })
+              
+           slice
+	 			.on("mousemove", function(d){
+ 			div.style("left", d3.event.pageX+10+"px");
+ 			div.style("top", d3.event.pageY-25+"px");
+ 			div.style("display", "inline-block");
+ 			div.html((d.data.label)+"<br>"+addComma(d.data.value)+"원");
+				});
+			slice
+				.on("mouseout", function(d){
+ 			div.style("display", "none");
+				});
+
+          slice.exit()
+              .remove();
+      	
+
+          /* ------- TEXT LABELS -------*/
+
+          var text = svg.select(".labelName").selectAll("text")
+              .data(pie(data), function(d){ return d.data.label });
+
+          text.enter()
+              .append("text")
+              .attr("dy", ".35em")
+              .text(function(d) {
+                  return (d.data.label);
+              });
+
+          function midAngle(d){
+              return d.startAngle + (d.endAngle - d.startAngle)/2;
+          }
+
+      text
+              .transition().duration(1000)
+              .attrTween("transform", function(d) {
+                  this._current = this._current || d;
+                  var interpolate = d3.interpolate(this._current, d);
+                  this._current = interpolate(0);
+                  return function(t) {
+                      var d2 = interpolate(t);
+                      var pos = outerArc.centroid(d2);
+                      pos[0] = radius * (midAngle(d2) < Math.PI ? 1 : -1);
+                      return "translate("+ pos +")";
+                  };
+              })
+                .styleTween("text-anchor", function(d){
+                  this._current = this._current || d;
+                  var interpolate = d3.interpolate(this._current, d);
+                  this._current = interpolate(0);
+                  return function(t) {
+                      var d2 = interpolate(t);
+                      return midAngle(d2) < Math.PI ? "start":"end";
+                  };
+              })
+            .text(function(d) {
+                  return (d.data.label);
+              }); 
+
+
+          text.exit()
+              .remove(); 
+
+          /* ------- SLICE TO TEXT POLYLINES -------*/
+
+          var polyline = svg.select(".lines").selectAll("polyline")
+              .data(pie(data), function(d){ return d.data.label});
+
+          polyline.enter()
+              .append("polyline");
+
+          polyline.transition().duration(1000)
+              .attrTween("points", function(d){
+                  this._current = this._current || d;
+                  var interpolate = d3.interpolate(this._current, d);
+                  this._current = interpolate(0);
+                  return function(t) {
+                      var d2 = interpolate(t);
+                      var pos = outerArc.centroid(d2);
+                      pos[0] = radius * 0.95 * (midAngle(d2) < Math.PI ? 1 : -1);
+                      return [arc.centroid(d2), outerArc.centroid(d2), pos];
+                  };
+              });
+
+          polyline.exit()
+              .remove();
+      };
+}
 
 var boardWriteDate;
 var clickDate;
 var modifyMoneyBookNo;
 
 function drawCalendar() {
-<<<<<<< HEAD
    $('#detailTable thead').hide();
     var today = new Date();
     $('#calendar').fullCalendar({
@@ -366,49 +624,6 @@ function drawCalendar() {
                               textColor : "#FFFFFF"
                         });
                }
-=======
-	$('#detailTable thead').hide();
-    var today = new Date();
-    $('#calendar').fullCalendar({
-       header : {
-          left : 'today',
-          center : 'prevYear,prev title next,nextYear',
-          right : 'month'
-       },
-        defaultDate : today,
-       navLinks : false, // can click day/week names to navigate views
-       weekNumberCalculation : 'ISO',
-       editable : false,
-       eventLimit : true, // allow "more" link when too many events
-       displayEventTime : false,
-       events : function(start, end, timezone, callback) {
-          var nowDate = $('#calendar').fullCalendar('getDate');
-          boardWriteDate = nowDate.format('YYYY-MM-DD');
-          
-          $.ajax({
-             type : 'post',
-             url : 'moneyBookView.do',
-             dataType : 'json',
-             data : 'id_index=' + ${id_index} + '&date=' + nowDate.format('YYYY-MM-DD'),
-             success : function(data) {
-                var events = [];
-                for (var i = 0; i < data.lastDay; i++) {
-                   if (data.income[i].title != 0) {
-                      events.push({
-                         /* 수입 */
-                         title : addComma(data.income[i].title),
-                         start : data.income[i].start,
-                         textColor : "#1ABC9C"
-                      });
-					} else {
-						 events.push({
-	                           /* 수입 */
-	                           title : "",
-	                           start : data.income[i].start,
-	                           textColor : "#FFFFFF"
-	                     });
-					}
->>>>>>> branch 'master' of https://github.com/YoungKoungKim/MoneyBookRepository.git
                    
                    if (data.expense[i].title != 0) {
                        events.push({
@@ -418,15 +633,27 @@ function drawCalendar() {
                           textColor : "#FA8072"
                        });
                     }
-                   
-                   
                 }
                 callback(events);
-                
                 $('#monthIncome').text(addComma(data.monthIncome) +"원");
                 $('#monthExpense').text(addComma(data.monthExpense)+"원");
              }
           });
+          
+          //통계 ajax
+          $.ajax({
+              url : 'statistics.do',
+              data :'id_index=' + ${id_index} + '&date=' + nowDate.format('YYYY-MM-DD'),
+              dataType : 'json',
+              type : 'post',
+              success : function(data) {
+            	$('#statistic_div').empty();
+	        	statistic(data.list);
+              },
+              error : function() {
+                 alert('통계 에러');
+              }
+           });
        },
        dayClick: function(date, jsEvent, view) {
           $('#detailTable tbody').empty();
@@ -508,22 +735,8 @@ function bookmarkRegist(id_index){
    var popUrl = "bookmarkRegistForm.do?id_index=" + id_index;   //팝업창에 출력될 페이지 URL
    var popOption = "top=200, left=300, width=600, height=450, resizable=no, scrollbars=no, status=no";    //팝업창 옵션(optoin)
    window.open(popUrl,"즐겨찾기등록",popOption);
-<<<<<<< HEAD
 }
 
-function moneyBookStatic(id_index, date){
-	   var popUrl = "statistics.do?id_index="+ id_index+"&date=" + date; ;   //팝업창에 출력될 페이지 URL
-	   var popOption = "top=200, left=300, width=600, height=450, resizable=no, scrollbars=no, status=no";    //팝업창 옵션(optoin)
-	   window.open(popUrl,"가계부 통계",popOption);
-=======
->>>>>>> branch 'master' of https://github.com/YoungKoungKim/MoneyBookRepository.git
-}
-<<<<<<< HEAD
-	
-	
-=======
->>>>>>> branch 'master' of https://github.com/YoungKoungKim/MoneyBookRepository.git
-   
 function dateToYYYYMMDD(date){
     function pad(num) {
         num = num + '';
@@ -723,14 +936,12 @@ var view = {
         }
       }
 
-
    $(document).ready(function() {
       controller.init();
       drawCalendar();
       
       $(document).on("click",".bookmark_btn", function(){
          var id_index = $(this).attr('id').replace("bookmark_btn", "");
-          //alert("눌림");
          
          if(clickDate == undefined){
             clickDate = boardWriteDate;
@@ -783,8 +994,6 @@ var view = {
 
          });
       });
-
-      
       
       $('#btn_delete').click(function() {
          $.ajax({
@@ -869,13 +1078,10 @@ var view = {
          moneyBookRegist(${id_index}, clickDate);
       });
       
-<<<<<<< HEAD
       $(document).on('click', '#statisticsBtn', function() {
     	  moneyBookStatic(${id_index}, boardWriteDate);
        });
       
-=======
->>>>>>> branch 'master' of https://github.com/YoungKoungKim/MoneyBookRepository.git
       // 왼쪽 버튼을 클릭하였을 경우
         $("button.fc-prev-button").click(function() {
            $('#detailTable thead').hide();
@@ -893,297 +1099,296 @@ var view = {
 </script>
 </head>
 <body>
-   <div id="left">
-      <center>
-         <table>
-            <tr>
-               <td align="center"><h3>Total</h3></td>
-            </tr>
+	<div id="left">
+		<center>
+			<table>
+				<tr>
+					<td align="center"><h3>Total</h3></td>
+				</tr>
 
-            <tr>
-               <td>Income : <span id="monthIncome">${monthAmount.income }</span></td>
-            </tr>
+				<tr>
+					<td>Income : <span id="monthIncome">${monthAmount.income }</span></td>
+				</tr>
 
-            <tr>
-               <td>Expense : <span id="monthExpense">${monthAmount.expense }</span></td>
-            </tr>
-         </table>
-         <button class="btn moneyBookBtn"
-            onclick="bookmarkRegist(${param.id_index})">즐겨찾기 등록</button>
+				<tr>
+					<td>Expense : <span id="monthExpense">${monthAmount.expense }</span></td>
+				</tr>
+			</table>
+			<button class="btn moneyBookBtn"
+				onclick="bookmarkRegist(${param.id_index})">즐겨찾기 등록</button>
 
 
-         <div id="bookmark_list_div">
-            <h4>
-               <span style="font-family: NanumBarunpenR; font-weight: bold;">
-                  <i class="fa fa-bookmark" aria-hidden="true"></i> 즐겨찾기 목록
-               </span>
-            </h4>
-            <c:forEach var="bm" items="${bookMarkList}" varStatus="status">
-               <c:if test="${bm.category=='food'}">
-                  <button class="bookmark_btn" id="bookmark_btn${status.index}">
-                     <span style="color: #ADD8E6;"> <i class="fa fa-cutlery"
-                        aria-hidden="true"></i>
-                     </span> ${bm.detail}
-                  </button>
-               </c:if>
+			<div id="bookmark_list_div">
+				<h4>
+					<span style="font-family: NanumBarunpenR; font-weight: bold;">
+						<i class="fa fa-bookmark" aria-hidden="true"></i> 즐겨찾기 목록
+					</span>
+				</h4>
+				<c:forEach var="bm" items="${bookMarkList}" varStatus="status">
+					<c:if test="${bm.category=='food'}">
+						<button class="bookmark_btn" id="bookmark_btn${status.index}">
+							<span style="color: #ADD8E6;"> <i class="fa fa-cutlery"
+								aria-hidden="true"></i>
+							</span> ${bm.detail}
+						</button>
+					</c:if>
 
-               <c:if test="${bm.category=='education'}">
-                  <button class="bookmark_btn" id="bookmark_btn${status.index}">
-                     <span style="color: #DDA0DD;"> <i class="fa fa-book"
-                        aria-hidden="true"></i>
-                     </span> ${bm.detail}
-                  </button>
-               </c:if>
+					<c:if test="${bm.category=='education'}">
+						<button class="bookmark_btn" id="bookmark_btn${status.index}">
+							<span style="color: #DDA0DD;"> <i class="fa fa-book"
+								aria-hidden="true"></i>
+							</span> ${bm.detail}
+						</button>
+					</c:if>
 
-               <c:if test="${bm.category=='medical'}">
-                  <button class="bookmark_btn" id="bookmark_btn${status.index}">
-                     <span style="color: #708090;"> <i class="fa fa-medkit"
-                        aria-hidden="true"></i>
-                     </span> ${bm.detail}
-                  </button>
-               </c:if>
+					<c:if test="${bm.category=='medical'}">
+						<button class="bookmark_btn" id="bookmark_btn${status.index}">
+							<span style="color: #708090;"> <i class="fa fa-medkit"
+								aria-hidden="true"></i>
+							</span> ${bm.detail}
+						</button>
+					</c:if>
 
-               <c:if test="${bm.category=='traffic'}">
-                  <button class="bookmark_btn" id="bookmark_btn${status.index}">
-                     <span style="color: #FF6347;"> <i class="fa fa-bus"
-                        aria-hidden="true"></i>
-                     </span> ${bm.detail}
-                  </button>
-               </c:if>
+					<c:if test="${bm.category=='traffic'}">
+						<button class="bookmark_btn" id="bookmark_btn${status.index}">
+							<span style="color: #FF6347;"> <i class="fa fa-bus"
+								aria-hidden="true"></i>
+							</span> ${bm.detail}
+						</button>
+					</c:if>
 
-               <c:if test="${bm.category=='commodity'}">
-                  <button class="bookmark_btn" id="bookmark_btn${status.index}">
-                     <span style="color: #FFA500;"> <i
-                        class="fa fa-shopping-cart" aria-hidden="true"></i>
-                     </span> ${bm.detail}
-                  </button>
-               </c:if>
+					<c:if test="${bm.category=='commodity'}">
+						<button class="bookmark_btn" id="bookmark_btn${status.index}">
+							<span style="color: #FFA500;"> <i
+								class="fa fa-shopping-cart" aria-hidden="true"></i>
+							</span> ${bm.detail}
+						</button>
+					</c:if>
 
-               <c:if test="${bm.category=='beauty'}">
-                  <button class="bookmark_btn" id="bookmark_btn${status.index}">
-                     <span style="color: #F08080;"> <i class="fa fa-bath"
-                        aria-hidden="true"></i>
-                     </span> ${bm.detail}
-                  </button>
-               </c:if>
+					<c:if test="${bm.category=='beauty'}">
+						<button class="bookmark_btn" id="bookmark_btn${status.index}">
+							<span style="color: #F08080;"> <i class="fa fa-bath"
+								aria-hidden="true"></i>
+							</span> ${bm.detail}
+						</button>
+					</c:if>
 
-               <c:if test="${bm.category=='phonefees'}">
-                  <button class="bookmark_btn" id="bookmark_btn${status.index}">
-                     <span style="color: #1E90FF;"> <i class="fa fa-mobile"
-                        aria-hidden="true"></i>
-                     </span> ${bm.detail}
-                  </button>
-               </c:if>
+					<c:if test="${bm.category=='phonefees'}">
+						<button class="bookmark_btn" id="bookmark_btn${status.index}">
+							<span style="color: #1E90FF;"> <i class="fa fa-mobile"
+								aria-hidden="true"></i>
+							</span> ${bm.detail}
+						</button>
+					</c:if>
 
-               <c:if test="${bm.category=='saving'}">
-                  <button class="bookmark_btn" id="bookmark_btn${status.index}">
-                     <span style="color: #DAA520;"> <i class="fa fa-database"
-                        aria-hidden="true"></i>
-                     </span> ${bm.detail}
-                  </button>
-               </c:if>
+					<c:if test="${bm.category=='saving'}">
+						<button class="bookmark_btn" id="bookmark_btn${status.index}">
+							<span style="color: #DAA520;"> <i class="fa fa-database"
+								aria-hidden="true"></i>
+							</span> ${bm.detail}
+						</button>
+					</c:if>
 
-               <c:if test="${bm.category=='utilitybills'}">
-                  <button class="bookmark_btn" id="bookmark_btn${status.index}">
-                     <span style="color: #6A5ACD;"> <i class="fa fa-plug"
-                        aria-hidden="true"></i>
-                     </span> ${bm.detail}
-                  </button>
-               </c:if>
+					<c:if test="${bm.category=='utilitybills'}">
+						<button class="bookmark_btn" id="bookmark_btn${status.index}">
+							<span style="color: #6A5ACD;"> <i class="fa fa-plug"
+								aria-hidden="true"></i>
+							</span> ${bm.detail}
+						</button>
+					</c:if>
 
-               <c:if test="${bm.category=='culturallife'}">
-                  <button class="bookmark_btn" id="bookmark_btn${status.index}">
-                     <span style="color: #3CB371;"> <i class="fa fa-film"
-                        aria-hidden="true"></i>
-                     </span> ${bm.detail}
-                  </button>
-               </c:if>
+					<c:if test="${bm.category=='culturallife'}">
+						<button class="bookmark_btn" id="bookmark_btn${status.index}">
+							<span style="color: #3CB371;"> <i class="fa fa-film"
+								aria-hidden="true"></i>
+							</span> ${bm.detail}
+						</button>
+					</c:if>
 
-               <c:if test="${bm.category == 'otheritems'}">
-                  <button class="bookmark_btn" id="bookmark_btn${status.index}">
-                     <span style="color: #FA8072;"> <i
-                        class="fa fa-minus-circle" aria-hidden="true"></i>
-                     </span> ${bm.detail}
-                  </button>
-               </c:if>
+					<c:if test="${bm.category == 'otheritems'}">
+						<button class="bookmark_btn" id="bookmark_btn${status.index}">
+							<span style="color: #FA8072;"> <i
+								class="fa fa-minus-circle" aria-hidden="true"></i>
+							</span> ${bm.detail}
+						</button>
+					</c:if>
 
-               <c:if test="${bm.category=='income'}">
-                  <button class="bookmark_btn" id="bookmark_btn${status.index}">
-                     <span style="color: #9ACD32;"> <i class="fa fa-krw"
-                        aria-hidden="true"></i>
-                     </span> ${bm.detail}
-                  </button>
-               </c:if>
-               <input type="hidden" value="${bm.price}"
-                  id="price_val${status.index}">
+					<c:if test="${bm.category=='income'}">
+						<button class="bookmark_btn" id="bookmark_btn${status.index}">
+							<span style="color: #9ACD32;"> <i class="fa fa-krw"
+								aria-hidden="true"></i>
+							</span> ${bm.detail}
+						</button>
+					</c:if>
+					<input type="hidden" value="${bm.price}"
+						id="price_val${status.index}">
 
-               <input type="hidden" value="${bm.category}"
-                  id="category_val${status.index}">
+					<input type="hidden" value="${bm.category}"
+						id="category_val${status.index}">
 
-               <input type="hidden" value="${bm.detail}"
-                  id="detail_val${status.index}">
+					<input type="hidden" value="${bm.detail}"
+						id="detail_val${status.index}">
 
-               <c:if test="${status.index==1 or status.index==3}">
-                  <br>
+					<c:if test="${status.index==1 or status.index==3}">
+						<br>
 
-               </c:if>
-            </c:forEach>
-         </div>
-         
-         <button id="statisticsBtn">통계</button>
-      </center>
+					</c:if>
+				</c:forEach>
+			</div>
+			<div id="statistic_div"></div>
+		</center>
 
-   </div>
+	</div>
 
-   <div id="center">
-      <table align="center">
-         <tr>
-            <td><div id="calendar"></div></td>
-         </tr>
-         <tr>
-            <td><br></td>
-         </tr>
-         <tr>
-            <td>
-               <div id="detail">
-                  <table class="table" id="detailTable">
-                     <thead>
-                        <tr>
-                           <th>Category</th>
-                           <th>Detail</th>
-                           <th>Price</th>
-                        </tr>
-                     </thead>
-                     <tbody class="detailBody">
-                     </tbody>
-                  </table>
-               </div>
-            </td>
-         </tr>
-      </table>
-   </div>
+	<div id="center">
+		<table align="center">
+			<tr>
+				<td><div id="calendar"></div></td>
+			</tr>
+			<tr>
+				<td><br></td>
+			</tr>
+			<tr>
+				<td>
+					<div id="detail">
+						<table class="table" id="detailTable">
+							<thead>
+								<tr>
+									<th>Category</th>
+									<th>Detail</th>
+									<th>Price</th>
+								</tr>
+							</thead>
+							<tbody class="detailBody">
+							</tbody>
+						</table>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</div>
 
-   <div id="right">
-      <button class="btn moneyBookBtn" id="moneyBookWriteBtn">등록</button>
-      <button class="btn moneyBookBtn" id="boardWriteBtn"
-         data-target="#boardWriteFormError" data-toggle="modal">공유</button>
+	<div id="right">
+		<button class="btn moneyBookBtn" id="moneyBookWriteBtn">등록</button>
+		<button class="btn moneyBookBtn" id="boardWriteBtn"
+			data-target="#boardWriteFormError" data-toggle="modal">공유</button>
 
-      <div id="calculator">
-         <div class="clearfix" id="wrapper">
-            <main>
-            <div id="screen"></div>
-            <div class="cal_row">
-               <button class="darker ion-backspace" id="back"></button>
-               <button class="darker" id="clear">AC</button>
-               <button class="darker">+/-</button>
-               <button class="darker" id="divide">&divide;</button>
-            </div>
-            <div class="cal_row">
-               <button>7</button>
-               <button>8</button>
-               <button>9</button>
-               <button class="darker" id="multiply">&#215;</button>
-            </div>
-            <div class="cal_row">
-               <button>4</button>
-               <button>5</button>
-               <button>6</button>
-               <button class="darker" id="add">+</button>
-            </div>
-            <div class="cal_row">
-               <button>1</button>
-               <button>2</button>
-               <button>3</button>
-               <button class="darker" id="subtract">-</button>
-            </div>
-            <div class="cal_row">
-               <button class="btn-wide">0</button>
-               <button>.</button>
-               <button class="blue">=</button>
-            </div>
-            </main>
-         </div>
-      </div>
-   </div>
+		<div id="calculator">
+			<div class="clearfix" id="wrapper">
+				<main>
+				<div id="screen"></div>
+				<div class="cal_row">
+					<button class="darker ion-backspace" id="back"></button>
+					<button class="darker" id="clear">AC</button>
+					<button class="darker">+/-</button>
+					<button class="darker" id="divide">&divide;</button>
+				</div>
+				<div class="cal_row">
+					<button>7</button>
+					<button>8</button>
+					<button>9</button>
+					<button class="darker" id="multiply">&#215;</button>
+				</div>
+				<div class="cal_row">
+					<button>4</button>
+					<button>5</button>
+					<button>6</button>
+					<button class="darker" id="add">+</button>
+				</div>
+				<div class="cal_row">
+					<button>1</button>
+					<button>2</button>
+					<button>3</button>
+					<button class="darker" id="subtract">-</button>
+				</div>
+				<div class="cal_row">
+					<button class="btn-wide">0</button>
+					<button>.</button>
+					<button class="blue">=</button>
+				</div>
+				</main>
+			</div>
+		</div>
+	</div>
 
-   <div class="modal fade" id="layerpop">
-      <div class="modal-dialog">
-         <div class="modal-content">
-            <div id="borderLine">
-               <!-- body -->
-               <div class="modal-body">
-                  <div>
-                     <label class="control-label" for="datepicker">Date</label>
-                     <div>
-                        <input class="form-control" type="text" id="datepicker">
-                     </div>
-                  </div>
+	<div class="modal fade" id="layerpop">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div id="borderLine">
+					<!-- body -->
+					<div class="modal-body">
+						<div>
+							<label class="control-label" for="datepicker">Date</label>
+							<div>
+								<input class="form-control" type="text" id="datepicker">
+							</div>
+						</div>
 
-                  <!-- Select Basic -->
-                  <div>
-                     <label class="control-label" for="category">Category</label>
-                     <div>
-                        <select name="category" class="form-control" id="category">
-                           <option disabled="disabled">카테고리 선택</option>
-                           <option value="food">식비</option>
-                           <option value="traffic">교통비</option>
-                           <option value="commodity">생필품</option>
-                           <option value="beauty">미용</option>
-                           <option value="medical">의료</option>
-                           <option value="education">교육</option>
-                           <option value="phonefees">통신비</option>
-                           <option value="saving">저축</option>
-                           <option value="utilitybills">공과금</option>
-                           <option value="culturallife">문화생활</option>
-                           <option value="otheritems">기타</option>
-                           <option value="income">수입</option>
-                        </select>
-                     </div>
-                  </div>
+						<!-- Select Basic -->
+						<div>
+							<label class="control-label" for="category">Category</label>
+							<div>
+								<select name="category" class="form-control" id="category">
+									<option disabled="disabled">카테고리 선택</option>
+									<option value="food">식비</option>
+									<option value="traffic">교통비</option>
+									<option value="commodity">생필품</option>
+									<option value="beauty">미용</option>
+									<option value="medical">의료</option>
+									<option value="education">교육</option>
+									<option value="phonefees">통신비</option>
+									<option value="saving">저축</option>
+									<option value="utilitybills">공과금</option>
+									<option value="culturallife">문화생활</option>
+									<option value="otheritems">기타</option>
+									<option value="income">수입</option>
+								</select>
+							</div>
+						</div>
 
-                  <div>
-                     <label class="control-label" for="edt_detail">Detail</label>
-                     <div>
-                        <input name="edt_detail" class="form-control input-md"
-                           id="edt_detail" type="text">
-                     </div>
-                  </div>
+						<div>
+							<label class="control-label" for="edt_detail">Detail</label>
+							<div>
+								<input name="edt_detail" class="form-control input-md"
+									id="edt_detail" type="text">
+							</div>
+						</div>
 
-                  <div>
-                     <label class="control-label" for="edt_price">Price</label>
-                     <div>
-                        <input name="edt_price" class="form-control input-md"
-                           id="edt_price" type="text">
-                     </div>
-                  </div>
-               </div>
-               <!-- Footer -->
-               <div class="modal-footer">
-                  <button name="update" class="modal_btn btn" id="btn_update">수정</button>
-                  <button name="delete" class="modal_btn btn" id="btn_delete">삭제</button>
-                  <button name="cancel" class="modal_btn btn" id="btn_cancel"
-                     data-dismiss="modal">취소</button>
-               </div>
-            </div>
-         </div>
-      </div>
-   </div>
+						<div>
+							<label class="control-label" for="edt_price">Price</label>
+							<div>
+								<input name="edt_price" class="form-control input-md"
+									id="edt_price" type="text">
+							</div>
+						</div>
+					</div>
+					<!-- Footer -->
+					<div class="modal-footer">
+						<button name="update" class="modal_btn btn" id="btn_update">수정</button>
+						<button name="delete" class="modal_btn btn" id="btn_delete">삭제</button>
+						<button name="cancel" class="modal_btn btn" id="btn_cancel"
+							data-dismiss="modal">취소</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 
-   <div class="modal fade" id="boardWriteFormError">
-      <div class="modal-dialog">
-         <div class="modal-content">
-            <div id="borderLine">
-               <!-- body -->
-               <div class="modal-body">공유할 데이터가 없습니다. 가계부를 등록해주세요!</div>
-               <!-- Footer -->
-               <div class="modal-footer">
-                  <button name="cancel" class="modal_btn btn" id="btn_cancel"
-                     data-dismiss="modal">확인</button>
-               </div>
-            </div>
-         </div>
-      </div>
-   </div>
+	<div class="modal fade" id="boardWriteFormError">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div id="borderLine">
+					<!-- body -->
+					<div class="modal-body">공유할 데이터가 없습니다. 가계부를 등록해주세요!</div>
+					<!-- Footer -->
+					<div class="modal-footer">
+						<button name="cancel" class="modal_btn btn" id="btn_cancel"
+							data-dismiss="modal">확인</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 
 </body>
 </html>

@@ -3,6 +3,8 @@ package service;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -47,7 +49,7 @@ public class MoneyBookService implements IMoneyBookService {
 
 		return result;
 	}
-	
+
 	@Override
 	public HashMap<String, Object> totalAmountByCategory(int id_index, Date date) {
 		List<MoneyBook> list = getMonthContent(id_index, date);
@@ -65,9 +67,9 @@ public class MoneyBookService implements IMoneyBookService {
 		int culturallife = 0;// 문화생활비
 		int otheritems = 0;// 기타
 		int income = 0; // 수입
-		
+
 		int expense = (int) totalMonthAmount(id_index, date).get("expense");
-		
+
 		for (int i = 0; i < list.size(); i++) {
 			if (list.get(i).getCategory().trim().equals("food")) {
 				food += list.get(i).getPrice();
@@ -96,51 +98,50 @@ public class MoneyBookService implements IMoneyBookService {
 			}
 		}
 
-				
 		if (food != 0) {
 			params.put("food", food);
-			percent.put("foodPercent",  (int) (((double)food/(double)expense)*100));
-			}
+			percent.put("foodPercent", (int) (((double) food / (double) expense) * 100));
+		}
 		if (traffic != 0) {
 			params.put("traffic", traffic);
-			percent.put("trafficPercent",  (int) (((double)traffic/(double)expense)*100));
+			percent.put("trafficPercent", (int) (((double) traffic / (double) expense) * 100));
 
 		}
 		if (medical != 0) {
 			params.put("medical", medical);
-			percent.put("medicalPercent", (int) (((double)medical/(double)expense)*100));
+			percent.put("medicalPercent", (int) (((double) medical / (double) expense) * 100));
 		}
 		if (beauty != 0) {
 			params.put("beauty", beauty);
-			percent.put("beautyPercent",(int) (((double)beauty/(double)expense)*100));
+			percent.put("beautyPercent", (int) (((double) beauty / (double) expense) * 100));
 		}
 		if (commodity != 0) {
 			params.put("commodity", commodity);
-			percent.put("commodityPercent", (int) (((double)commodity/(double)expense)*100));
+			percent.put("commodityPercent", (int) (((double) commodity / (double) expense) * 100));
 		}
 		if (education != 0) {
 			params.put("education", education);
-			percent.put("educationPercent", (int) (((double)education/(double)expense)*100));
+			percent.put("educationPercent", (int) (((double) education / (double) expense) * 100));
 
 		}
 		if (phonefees != 0) {
 			params.put("phonefees", phonefees);
-			percent.put("phonefeesPercent", (int) (((double)phonefees/(double)expense)*100));
+			percent.put("phonefeesPercent", (int) (((double) phonefees / (double) expense) * 100));
 
 		}
 		if (saving != 0) {
 			params.put("saving", saving);
-			percent.put("savingPercent", (int) (((double)saving/(double)expense)*100));
+			percent.put("savingPercent", (int) (((double) saving / (double) expense) * 100));
 
 		}
 		if (utilitybills != 0) {
 			params.put("utilitybills", utilitybills);
-			percent.put("utilitybillsPercent", (int) (((double)utilitybills/(double)expense)*100));
+			percent.put("utilitybillsPercent", (int) (((double) utilitybills / (double) expense) * 100));
 
 		}
 		if (culturallife != 0) {
 			params.put("culturallife", culturallife);
-			percent.put("culturallifePercent", (int) (((double)culturallife/(double)expense)*100));
+			percent.put("culturallifePercent", (int) (((double) culturallife / (double) expense) * 100));
 
 		}
 		if (income != 0) {
@@ -149,22 +150,27 @@ public class MoneyBookService implements IMoneyBookService {
 		}
 		if (otheritems != 0) {
 			params.put("otheritems", otheritems);
-			percent.put("otheritemsPercent", (int) (((double)otheritems/(double)expense)*100));
+			percent.put("otheritemsPercent", (int) (((double) otheritems / (double) expense) * 100));
 
 		}
+
 		List<ExtraBoard> extraboard = new ArrayList<>();
-		for(String key : params.keySet()){
+		for (String key : params.keySet()) {
 			ExtraBoard exboard = new ExtraBoard();
 			exboard.setCategory(key);
-			exboard.setPrice((int)params.get(key));
-			for(String keys : percent.keySet()){
-				if((key+"Percent").trim().equals(keys)){
-					exboard.setPercent((int) percent.get(key+"Percent"));				
+			exboard.setPrice((int) params.get(key));
+			for (String keys : percent.keySet()) {
+				if ((key + "Percent").trim().equals(keys)) {
+					exboard.setPercent((int) percent.get(key + "Percent"));
 				}
+
 			}
 			extraboard.add(exboard);
 		}
-	
+
+		MiniComparator comp = new MiniComparator();
+		Collections.sort(extraboard, comp);
+
 		params.put("list", extraboard);
 		return params;
 	}
@@ -279,11 +285,11 @@ public class MoneyBookService implements IMoneyBookService {
 			return 4202; // 실패
 	}
 
-	//하루치 수입/지출을 한 달 분 다 가지고 오는 메소드
-	//ex ) 1일 수입,지출 2일 수입, 지출....31일 수입,지출
+	// 하루치 수입/지출을 한 달 분 다 가지고 오는 메소드
+	// ex ) 1일 수입,지출 2일 수입, 지출....31일 수입,지출
 	@Override
 	public List<String[]> oneMonthAmount(int id_index, Date date) {
-		//index 0:날짜 1:수입 2:지출
+		// index 0:날짜 1:수입 2:지출
 		List<String[]> monthAmountList = new ArrayList<>();
 		HashMap<String, Object> dateInfo = searchDate(date);
 		int lastDay = Integer.parseInt(dateInfo.get("endMonth").toString().substring(8, 10));
@@ -307,8 +313,27 @@ public class MoneyBookService implements IMoneyBookService {
 			arr[2] = String.valueOf(expense);
 			monthAmountList.add(arr);
 		}
-		
+
 		return monthAmountList;
 	}
+}
 
+// 정렬을 위한 클래스
+class MiniComparator implements Comparator<ExtraBoard> {
+
+	@Override
+	public int compare(ExtraBoard first, ExtraBoard second) {
+		// TODO Auto-generated method stub
+		int first_percent = first.getPercent();
+		int second_percent = second.getPercent();
+
+		// 내림차순 정렬
+		if (first_percent > second_percent) {
+			return -1;
+		} else if (first_percent < second_percent) {
+			return 1;
+		} else {
+			return 0;
+		}
+	}
 }

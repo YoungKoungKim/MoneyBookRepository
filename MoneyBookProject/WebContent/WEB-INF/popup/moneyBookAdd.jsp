@@ -10,7 +10,6 @@
 <link href="assets/css/style.css" rel="stylesheet" />
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-
 <link href="http://fonts.googleapis.com/earlyaccess/nanumgothic.css"
 	rel="stylesheet">
 <script src="https://code.jquery.com/jquery-2.2.4.min.js"
