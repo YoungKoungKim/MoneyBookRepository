@@ -153,12 +153,24 @@ function isNumber(checkValue) {
 			}
 		});
 	});
+	
+	$(document).on("click",".confirm_btn",function(){
+		var id_index = $(this).attr('id').replace("confirm_btn", "");
+	  	
+	 		if($('#confirm_btn'+id_index).val() =="" ){
+	 			alert("가격을 입력해주세요.");
+				return false;
+			}
+	 
+	});
+	
+	
 
 	$(document).on("click",".add_line_btn",function(){
 	var addCount = parseInt($('.add_line_btn').attr("id").replace("add_line_btn",""))+parseInt(1);
 	
 	if(addCount > 6){
-		alert("북마크는 최대 6개까지 가능합니다.");
+		alert("등록창은 최대 6개까지 가능합니다.");
 	}else{
 	$('.add_line_btn').remove();
 	
@@ -180,7 +192,7 @@ function isNumber(checkValue) {
 		+"	<option value='income'>수입</option>"
 		+"</select></td>" 
 		+"<td><input type='text' name='detail'" 
-		+"placeholder='사용내역을 입력하세요.' id='regist_detail"+addCount+"'></td>"
+		+"placeholder='내용을 입력하세요.' id='regist_detail"+addCount+"'></td>"
 		+"<td><input type='text' class='regist_price' name='price' "
 		+"id='regist_price"+addCount+"' placeholder='가격을 입력하세요.'></td>"
 		+"<td><a href = '#' target=''id='add_line_btn"+addCount+"'class='add_line_btn'>"
