@@ -19,7 +19,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<update id="updateMoneyBook" parameterType="moneyBook">
 		update moneybook set
 		category = #{category}, detail = #{detail}, price=#{price},
-		mb_date=#{date} where moneyBookNo = #{moneyBookNo} and
+		m_date=#{date} where moneyBookNo = #{moneyBookNo} and
 		id_index=#{id_index}
 	</update>
 
@@ -35,7 +35,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<select id="selectByDate" parameterType="java.util.HashMap"
 		resultType="moneyBook">
-		select * from moneybook where DATE(date)=#{date} and
+		select * from moneybook where DATE(m_date)=#{date} and
 		id_index=#{id_index}
 	</select>
 
