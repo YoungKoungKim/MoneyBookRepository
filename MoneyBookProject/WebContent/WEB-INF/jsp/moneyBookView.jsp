@@ -967,9 +967,9 @@ var view = {
             dataType : 'json',
             type: 'post',
             success : function(data){
-               alert(data.msg);
-               $('#calendar').fullCalendar('gotoDate', new Date());
-               $('#calendar').fullCalendar('gotoDate', clickDate);
+          		alert(data.msg);
+            	$('#calendar').fullCalendar('gotoDate', '2020-01-01');
+              	$('#calendar').fullCalendar('gotoDate', clickDate);
             },
             error : function(data) {
                alert('에러');
