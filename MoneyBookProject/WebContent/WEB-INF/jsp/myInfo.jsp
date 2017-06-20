@@ -85,7 +85,7 @@
 
 						<div style="padding: 5px; height: 20%;">
 							<div class="col-md-4" style="text-align: left;">
-								<h3>가입 경로 :</h3>
+								<h3>회원 유형 :</h3>
 							</div>
 							<div class="col-md-8" style="text-align: left;">
 								<h3>${userType }아이디</h3>
