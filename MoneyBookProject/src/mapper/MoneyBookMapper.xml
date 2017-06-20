@@ -19,7 +19,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<update id="updateMoneyBook" parameterType="moneyBook">
 		update moneybook set
 		category = #{category}, detail = #{detail}, price=#{price},
-		date=#{date} where moneyBookNo = #{moneyBookNo} and
+		mb_date=#{date} where moneyBookNo = #{moneyBookNo} and
 		id_index=#{id_index}
 	</update>
 

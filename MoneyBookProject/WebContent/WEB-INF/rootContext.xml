@@ -13,9 +13,9 @@
 	<bean class="org.springframework.jdbc.datasource.DriverManagerDataSource"
 		id="dataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
-		<property name="username" value="moneybook25"></property>
-		<property name="password" value="armyinuk2@"></property>
-		<property name="url" value="jdbc:mysql://moneybook25.cafe24.com/moneybook25"></property>
+		<property name="username" value="root"></property>
+		<property name="password" value="mysql"></property>
+		<property name="url" value="jdbc:mysql://localhost:3306/moneybook_db"></property>
 	</bean>
 
 	<bean class="org.mybatis.spring.SqlSessionFactoryBean" id="sqlSessionFactory">

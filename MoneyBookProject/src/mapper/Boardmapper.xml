@@ -16,7 +16,7 @@
 	<update id="updateBoard" parameterType="board">
 		update board set 
 		title = #{title}, content = #{content},
-		ageType = #{ageType}, date = sysdate(),
+		ageType = #{ageType}, b_date = #{date},
 		viewNo = #{viewNo}
 		where boardNo = #{boardNo} and id_index = #{id_index}
 	</update>

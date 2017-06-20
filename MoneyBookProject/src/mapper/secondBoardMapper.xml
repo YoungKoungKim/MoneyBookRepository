@@ -10,14 +10,13 @@
 	
 	<insert id="insertBoard" parameterType="board" useGeneratedKeys="true"
 		keyProperty="boardNo">
-		insert into secondboard
-		values(0,#{title},#{content},sysdate(),#{nick},#{id_index},0,0)
+		insert into secondboard values(0,#{title},#{content},sysdate(),#{nick},#{id_index},0,0)
 	</insert>
 
 	<update id="updateBoard" parameterType="board">
 		update secondboard set
 		title = #{title}, content = #{content},
-		date = sysdate(), viewNo =
+		sb_date = #{date}, viewNo =
 		#{viewNo}
 		where boardNo = #{boardNo} and id_index = #{id_index}
 	</update>
