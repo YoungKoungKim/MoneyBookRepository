@@ -11,7 +11,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<update id="updateComment" parameterType="java.util.HashMap">
 		update comment set
-		date=sysdate(), content = #{content}, lv = #{lv}, depth = #{depth} where commentNo =
+		c_date=sysdate(), content = #{content}, lv = #{lv}, depth = #{depth}
+		where commentNo =
 		#{commentNo}
 	</update>
 
@@ -31,27 +32,33 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<select id="selectBoardComment" parameterType="int"
 		resultType="java.util.HashMap">
-		select * from comment WHERE boardNo = #{boardNo} order by depth
+		select * from comment WHERE boardNo = #{boardNo} order by
+		depth
 	</select>
 
-	<select id="selectOneComment" parameterType="java.util.HashMap" resultType="java.util.HashMap">
-		select * from comment WHERE commentNo = #{commentNo} and boardNo =
+	<select id="selectOneComment" parameterType="java.util.HashMap"
+		resultType="java.util.HashMap">
+		select * from comment WHERE commentNo = #{commentNo} and
+		boardNo =
 		#{boardNo}
 	</select>
-	
+
 	<delete id="deleteBoardComment" parameterType="int">
-		delete from comment where boardNo = #{boardNo}
+		delete from
+		comment where boardNo = #{boardNo}
 	</delete>
-	
+
 	<update id="updateRecommend" parameterType="int">
-		update comment set recommend = recommend+1 where commentNo = #{commentNo}
+		update comment set
+		recommend = recommend+1 where commentNo = #{commentNo}
 	</update>
-	
+
 	<select id="commentCount" parameterType="int" resultType="int">
-		select count(*) from comment where boardNo = #{boardNo}
+		select
+		count(*) from comment where boardNo = #{boardNo}
 	</select>
-	
+
 	<update id="updatereplyComment" parameterType="int">
-		 update comment set depth = depth+1 where depth > #{depth};
+		update comment set depth = depth+1 where depth > #{depth};
 	</update>
 </mapper>
