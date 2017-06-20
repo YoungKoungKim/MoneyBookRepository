@@ -41,7 +41,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<select id="selectOneMonth" parameterType="java.util.HashMap"
 		resultType="moneyBook">
-		select * from moneybook where DATE(date) between
+		select * from moneybook where DATE(m_date) between
 		#{startMonth} and #{endMonth} and id_index =#{id_index}
 	</select>
 
