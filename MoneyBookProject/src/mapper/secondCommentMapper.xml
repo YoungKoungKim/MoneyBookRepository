@@ -11,7 +11,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<update id="updateComment" parameterType="java.util.HashMap">
 		update secondcomment set
-		date=sysdate(), content = #{content}, lv = #{lv}, depth = #{depth} where commentNo =
+		sc_date=sysdate(), content = #{content}, lv = #{lv}, depth = #{depth} where commentNo =
 		#{commentNo}
 	</update>
 

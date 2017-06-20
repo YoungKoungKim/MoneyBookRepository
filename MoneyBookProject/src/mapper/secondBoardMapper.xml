@@ -3,38 +3,49 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="dao.ISecondBoardDao">
-	<insert id="insertBoard" parameterType="board" useGeneratedKeys="true" keyProperty="boardNo">
+
+	<resultMap type="board" id="boardMap">
+		<result column="sb_date" property="date" />
+	</resultMap>
+	
+	<insert id="insertBoard" parameterType="board" useGeneratedKeys="true"
+		keyProperty="boardNo">
 		insert into secondboard values(0,#{title},#{content},sysdate(),#{nick},#{id_index},0,0)
 	</insert>
 
 	<update id="updateBoard" parameterType="board">
-		update secondboard set 
+		update secondboard set
 		title = #{title}, content = #{content},
-		date = sysdate(), viewNo = #{viewNo}
+		sb_date = #{date}, viewNo =
+		#{viewNo}
 		where boardNo = #{boardNo} and id_index = #{id_index}
 	</update>
 
 	<update id="updateRecommendBoard" parameterType="int">
-		update secondboard set
+		update
+		secondboard set
 		recommend =recommend +1
 		where boardNo = #{boardNo}
 	</update>
 
 	<delete id="deleteBoard" parameterType="int">
-		delete from secondboard where boardNo = #{boardNo}
+		delete from secondboard
+		where boardNo = #{boardNo}
 	</delete>
 
 	<select id="selectByNick" parameterType="String" resultType="board">
 		select * from secondboard where nick = #{nick}
-		order by boardNo desc limit #{skip}, #{count}
+		order by boardNo desc
+		limit #{skip}, #{count}
 	</select>
 
 	<select id="selectOneBoard" parameterType="int" resultType="board">
 		select * from secondboard where boardNo = #{boardNo}
 	</select>
 
-	<select id="selectByWhat" parameterType="java.util.HashMap" resultType="board">
-		select * from secondboard 
+	<select id="selectByWhat" parameterType="java.util.HashMap"
+		resultType="board">
+		select * from secondboard
 		<choose>
 			<when test="category eq 'title'">
 				where title like concat ("%", #{content}, "%")
@@ -47,12 +58,16 @@
 	</select>
 
 	<select id="selectBest" resultType="board" parameterType="int">
-		select *,(select count(*) from comment where comment.boardNo = secondboard.boardNo)as commentNum from secondboard order by recommend desc limit 0, #{count}
+		select
+		*,(select count(*) from comment where comment.boardNo =
+		secondboard.boardNo)as commentNum from secondboard order by recommend
+		desc limit 0, #{count}
 	</select>
 
 	<select id="selectboardLimit" parameterType="java.util.HashMap"
 		resultType="board">
-		select *,(select count(*) from comment where comment.boardNo =secondboard.boardNo)as commentNum from secondboard
+		select *,(select count(*) from comment where
+		comment.boardNo =secondboard.boardNo)as commentNum from secondboard
 		order by boardNo desc limit #{skip}, #{count}
 	</select>
 
@@ -65,13 +80,14 @@
 			where nick like concat("%", #{content} ,"%")
 		</if>
 	</select>
-	
+
 	<select id="selectBoardNo" parameterType="int" resultType="int">
 		select * from secondboard WHERE id_index = #{id_index}
 	</select>
-	
+
 	<delete id="deleteBoardById_index" parameterType="int">
-		delete from secondboard WHERE id_index = #{id_index}
+		delete from
+		secondboard WHERE id_index = #{id_index}
 	</delete>
 
 </mapper>
