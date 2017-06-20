@@ -228,7 +228,7 @@ li {
 
 							<td class="Date"><img id="img1"
 								src="homeCss/assets/images/demo/date.png" alt="" /> <fmt:formatDate
-									value="${best.date }" pattern="yyyy-MM-dd" /></td>
+									value="${best.sb_date }" pattern="yyyy-MM-dd" /></td>
 
 							<td class="recommend"><img id="img1"
 								src="homeCss/assets/images/demo/recommend.png" alt="" />${best.recommend }</td>
@@ -255,7 +255,7 @@ li {
 
 							<td class="Date"><img id="img1"
 								src="homeCss/assets/images/demo/date.png" alt="" /> <fmt:formatDate
-									value="${board.date }" pattern="yyyy-MM-dd" /></td>
+									value="${board.sb_date }" pattern="yyyy-MM-dd" /></td>
 
 							<td class="recommend"><img id="img1"
 								src="homeCss/assets/images/demo/recommend.png" alt="" />${board.recommend }</td>

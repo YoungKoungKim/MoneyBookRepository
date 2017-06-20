@@ -22,7 +22,7 @@ function getCommentList() {
 		success : function(data) {
 			$("#commentTable").html("");
 			for(var comment in data) {
-				var date = new Date(data[comment].date);
+				var date = new Date(data[comment].sc_date);
 				var time = date.getFullYear() + "." + (date.getMonth() + 1) + "." + date.getDate() + " " + date.getHours() + ":" + date.getMinutes();
 				var msg = "";
 				var tdStyle = "";
@@ -253,7 +253,7 @@ function getCommentList() {
 				<table>
 					<tr>
 						<td style="width: 100px;" align="right" colspan="4">
-							<fmt:formatDate value="${board.date}" pattern="yyyy-MM-dd" /></td>
+							<fmt:formatDate value="${board.sb_date}" pattern="yyyy-MM-dd" /></td>
 					</tr>
 					<tr>
 						<td style="width: 400px" align="right">${board.nick }</td>
