@@ -33,7 +33,6 @@ public class CommentService implements ICommentService {
 		 params.remove("commentNo");
 		 
 		 int depth =  (int) result.get("depth");
-		 System.out.println(depth);
 		 dao.updatereplyComment(depth);
 		params.put(Comment.DEPTH, depth+1);
 		return 	dao.insertComment(params);

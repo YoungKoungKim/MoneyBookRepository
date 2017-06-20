@@ -4,10 +4,6 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="dao.ISecondBoardDao">
 
-	<resultMap type="board" id="boardMap">
-		<result column="sb_date" property="date" />
-	</resultMap>
-	
 	<insert id="insertBoard" parameterType="board" useGeneratedKeys="true"
 		keyProperty="boardNo">
 		insert into secondboard values(0,#{title},#{content},sysdate(),#{nick},#{id_index},0,0)
@@ -16,7 +12,7 @@
 	<update id="updateBoard" parameterType="board">
 		update secondboard set
 		title = #{title}, content = #{content},
-		sb_date = #{date}, viewNo =
+		sb_date = #{sc_date}, viewNo =
 		#{viewNo}
 		where boardNo = #{boardNo} and id_index = #{id_index}
 	</update>

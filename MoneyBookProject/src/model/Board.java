@@ -6,20 +6,13 @@ public class Board {
 	private int boardNo;
 	private String title;
 	private String content;
-	private Date date;
+	private Date b_date;
 	private String ageType;
 	private String nick;
 	private int id_index;
 	private int viewNo;
 	private int recommend;
 	private int commentNum;
-	
-	public int getCommentNum() {
-		return commentNum;
-	}
-	public void setCommentNum(int commentNum) {
-		this.commentNum = commentNum;
-	}
 	public int getBoardNo() {
 		return boardNo;
 	}
@@ -38,12 +31,11 @@ public class Board {
 	public void setContent(String content) {
 		this.content = content;
 	}
-
-	public Date getDate() {
-		return date;
+	public Date getB_date() {
+		return b_date;
 	}
-	public void setDate(Date date) {
-		this.date = date;
+	public void setB_date(Date b_date) {
+		this.b_date = b_date;
 	}
 	public String getAgeType() {
 		return ageType;
@@ -75,12 +67,18 @@ public class Board {
 	public void setRecommend(int recommend) {
 		this.recommend = recommend;
 	}
-	
+	public int getCommentNum() {
+		return commentNum;
+	}
+	public void setCommentNum(int commentNum) {
+		this.commentNum = commentNum;
+	}
 	@Override
 	public String toString() {
-		return "Board [boardNo=" + boardNo + ", title=" + title + ", content=" + content + ", date=" + date + 
-				", ageType=" + ageType + ", nick=" + nick + ", id_index=" + id_index + ", viewNo="
-				+ viewNo + ", recommend=" + recommend + "]";
+		return "Board [boardNo=" + boardNo + ", title=" + title + ", content=" + content + ", b_date=" + b_date
+				+ ", ageType=" + ageType + ", nick=" + nick + ", id_index=" + id_index + ", viewNo=" + viewNo
+				+ ", recommend=" + recommend + ", commentNum=" + commentNum + "]";
 	}
+	
 	
 }
