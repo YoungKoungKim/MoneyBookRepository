@@ -14,7 +14,6 @@ public class LogInterceptor extends HandlerInterceptorAdapter {
 	protected Log log = LogFactory.getLog(LogInterceptor.class);
 
 	@Override
-
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 		log.info(" Request URI \t:  " + request.getRequestURI());
