@@ -115,6 +115,9 @@ public class BoardService implements IBoardService {
 
 	@Override
 	public List<Board> bestView(int count) {
+		if(bDao.selectBest(count).isEmpty()){
+			return null;
+		}
 		return bDao.selectBest(count);
 	}
 

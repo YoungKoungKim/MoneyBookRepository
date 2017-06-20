@@ -12,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.mysql.fabric.xmlrpc.base.Array;
 
+import model.Board;
 import model.Repo;
 import service.IBoardService;
 import service.IMoneyBookService;
@@ -25,9 +26,12 @@ public class MainPageController {
 	
 	@RequestMapping("homerecommend.do")
 	public String maxrecommend(){
-		int result = boardservice.bestView(1).get(0).getBoardNo();
-		System.out.println(result);
-		return "redirect:boardDetailView.do?boardNo="+result+"&page=1";
+		  List<Board> best= boardservice.bestView(1);
+		 if(best != null){
+			  int result= best.get(0).getBoardNo();
+			 return "redirect:boardDetailView.do?boardNo="+result+"&page=1";
+		 }
+		 return "redirect:boardList.do";
 	}
 
 	@RequestMapping("home.do")
