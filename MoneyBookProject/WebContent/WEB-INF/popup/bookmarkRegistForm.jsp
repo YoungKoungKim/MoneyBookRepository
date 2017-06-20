@@ -156,14 +156,12 @@ function isNumber(checkValue) {
 	
 	$(document).on("click",".confirm_btn",function(){
 		var id_index = $(this).attr('id').replace("confirm_btn", "");
-	  	
-	 		if($('#confirm_btn'+id_index).val() =="" ){
+	 		if($('#price_update'+id_index).val() =="" ){
 	 			alert("가격을 입력해주세요.");
 				return false;
 			}
 	 
 	});
-	
 	
 
 	$(document).on("click",".add_line_btn",function(){
