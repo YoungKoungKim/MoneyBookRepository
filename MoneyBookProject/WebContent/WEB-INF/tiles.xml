@@ -2,7 +2,7 @@
 <!DOCTYPE tiles-definitions PUBLIC
        "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
        "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
-       
+
 <tiles-definitions>
 	<definition name="tiles" template="/WEB-INF/template/home.jsp">
 		<put-attribute name="header" value="/WEB-INF/template/header.jsp"></put-attribute>
@@ -11,25 +11,26 @@
 	</definition>
 	<definition name="*.tiles" extends="tiles">
 		<put-attribute name="content" value="/WEB-INF/jsp/{1}.jsp"></put-attribute>
+		<put-attribute name="title" value="MoneyBookProject"/>
 	</definition>
 
 
-	<!--팝업창 적용 tiles  -->
-	
+	<!--팝업창 적용 tiles -->
+
 	<definition name="empty" template="/WEB-INF/template/empty.jsp">
-        <put-attribute name="content" value=""/>  
-    </definition>
+		<put-attribute name="content" value="" />
+	</definition>
 	<definition name="empty/*.*" extends="empty">
-          <put-attribute name="content" value="/WEB-INF/popup/{1}.jsp"></put-attribute>
-    </definition>
-    
-    <!--tiles  -->
-    <definition name="newhome" template="/WEB-INF/template/newHome.jsp">
-        <put-attribute name="content" value=""/>  
-    </definition>
+		<put-attribute name="content" value="/WEB-INF/popup/{1}.jsp"></put-attribute>
+	</definition>
+
+	<!--tiles -->
+	<definition name="newhome" template="/WEB-INF/template/newHome.jsp">
+		<put-attribute name="content" value="" />
+	</definition>
 	<definition name="newhome/*.*" extends="newhome">
-          <put-attribute name="content" value="/WEB-INF/newhome/{1}.jsp"></put-attribute>
-    </definition>
-    
-	
+		<put-attribute name="content" value="/WEB-INF/newhome/{1}.jsp"></put-attribute>
+	</definition>
+
+
 </tiles-definitions>

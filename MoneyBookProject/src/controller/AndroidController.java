@@ -53,9 +53,8 @@ public class AndroidController {
 	}
 	*/
 	@RequestMapping(value="android/moneybookList", method=RequestMethod.GET)
-	public @ResponseBody HashMap<String, Object> moneyBookView() {
+	public @ResponseBody HashMap<String, Object> moneyBookView(int id_index) {
 		System.out.println("moneyBookList");
-		int id_index = 1;
 		Date date = new Date();
 		List<String[]> amountList = new ArrayList<>();
 		amountList = moneyBookService.oneMonthAmount(id_index, date);

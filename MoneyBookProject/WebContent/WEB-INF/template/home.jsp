@@ -9,7 +9,7 @@
    content="width=device-width, initial-scale=1, maximum-scale=1" />
 <meta name="description" content="" />
 <meta name="author" content="" />
-<title>Insert title here</title>
+<title><tiles:insertAttribute name="title"></tiles:insertAttribute></title>
 <!-- BOOTSTRAP CORE CSS -->
 <link href="assets/css/bootstrap.css" rel="stylesheet" />
 <!-- ION ICONS STYLES -->
@@ -66,7 +66,6 @@ html, body {
     height : auto;
 }
 </style>
-<title>Insert title here</title>
 </head>
 <body>
    <div id="header">
