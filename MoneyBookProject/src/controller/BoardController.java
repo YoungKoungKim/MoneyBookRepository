@@ -122,18 +122,14 @@ public class BoardController {
 	public String boardUpdate(Board board) {
 		int result = boardservice.boardUpdate(board);
 		if (result == 4001) {
-			System.out.println("성공");
 			return "redirect:boardDetailView.do?boardNo=" + board.getBoardNo();
 		} else {
-			System.out.println("실패");
 			return "redirect:boardUpdateForm.do?boardNo=" + board.getBoardNo();
 		}
 	}
 
 	@RequestMapping("boardWrite.do")
 	public String boardWrite(Board board, Date date2) {
-		System.out.println(board.getContent());
-
 		boardservice.boardWrite(board, date2);
 		return "redirect:boardList.do";
 	
