@@ -7,6 +7,8 @@ public interface ISecondCommentDao {
 	public boolean insertComment(HashMap<String, Object> params);
 
 	public boolean updateComment(HashMap<String, Object> params);
+	
+	public boolean updateDeleteComment(HashMap<String, Object> params);
 
 	public boolean deleteComment(int commentNo);
 

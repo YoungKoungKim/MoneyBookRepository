@@ -12,7 +12,7 @@
 	<update id="updateBoard" parameterType="board">
 		update secondboard set
 		title = #{title}, content = #{content},
-		sb_date = #{sc_date}, viewNo =
+		sb_date = #{b_date}, viewNo =
 		#{viewNo}
 		where boardNo = #{boardNo} and id_index = #{id_index}
 	</update>
