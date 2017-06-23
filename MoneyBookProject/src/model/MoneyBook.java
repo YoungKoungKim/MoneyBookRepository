@@ -61,8 +61,8 @@ public class MoneyBook {
 	@Override
 	public String toString() {
 		return "MoneyBook [moneyBookNo=" + moneyBookNo + ", id_index=" + id_index + ", category=" + category
-				+ ", detail=" + detail + ", price=" + price + ", date=" + date + "]";
+				+ ", detail=" + detail + ", price=" + price + ", m_date=" + date + "]";
 	}
 	
-
+	
 }

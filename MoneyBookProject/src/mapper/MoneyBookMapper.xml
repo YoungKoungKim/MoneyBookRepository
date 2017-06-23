@@ -6,7 +6,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="dao.IMoneyBookDao">
 
 	<resultMap type="moneyBook" id="moneyBookMap">
-		<result column="m_date" property="date" />
+		<result column="m_date" property="date"/>
 	</resultMap>
 	
 	<!-- keyproperty에 들어가는 변수명도 moneyBook 이렇게 맨 앞글자 소문자??? -->
@@ -34,15 +34,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</delete>
 
 	<select id="selectByDate" parameterType="java.util.HashMap"
-		resultType="moneyBook">
+		resultMap="moneyBookMap">
 		select * from moneybook where DATE(m_date)=#{date} and
 		id_index=#{id_index}
 	</select>
 
 	<select id="selectOneMonth" parameterType="java.util.HashMap"
-		resultType="moneyBook">
-		select * from moneybook where DATE(date) between
+		resultMap="moneyBookMap">
+		select * from moneybook where DATE(m_date) between
 		#{startMonth} and #{endMonth} and id_index =#{id_index}
+	</select>
+	
+	<select id="selectByIdIndex" resultMap="moneyBookMap">
+		select * from moneybook where id_index = #{id_index}
 	</select>
 
 </mapper>

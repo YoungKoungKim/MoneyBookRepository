@@ -187,6 +187,9 @@ body,
    color: red;
 }
 
+.main-menu {
+	z-index: 0;
+}
 </style>
 </head>
 <body>

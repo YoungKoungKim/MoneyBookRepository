@@ -99,7 +99,6 @@ public class MemberService implements IMemberService {
 		} else {
 			try {
 				memberDao.selectIdIndex(member.getId());
-
 				return 2004;
 			} catch (BindingException e) {
 				if (memberDao.selectNick(member.getNick()) == null) {

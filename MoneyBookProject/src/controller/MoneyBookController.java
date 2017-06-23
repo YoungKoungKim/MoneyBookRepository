@@ -184,7 +184,6 @@ public class MoneyBookController {
 
 	@RequestMapping("moneyBookUpdate.do")
 	public @ResponseBody HashMap<String, Object> moneyBookUpdate(MoneyBook moneyBook) {
-		System.out.println(moneyBook.getDate());
 		HashMap<String, Object> response = new HashMap<>();
 		int result = moneyBookService.moneyBookUpdate(moneyBook);
 

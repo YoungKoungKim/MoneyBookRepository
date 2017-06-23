@@ -139,7 +139,7 @@
 					<table>
 						<tr>
 							<td style="width: 100px;" align="right" colspan="4">
-								<fmt:formatDate value="${board.date}" pattern="yyyy-MM-dd" /></td>
+								<fmt:formatDate value="${board.b_date}" pattern="yyyy-MM-dd" /></td>
 						</tr>
 						<tr>
 							<td style="width: 400px" align="right">${board.nick }</td>

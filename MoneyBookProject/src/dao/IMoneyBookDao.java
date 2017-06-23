@@ -15,5 +15,5 @@ public interface IMoneyBookDao {
 	int dropMoneyBook(int id_index);
 	List<MoneyBook> selectByDate(HashMap<String, Object> params);
 	List<MoneyBook> selectOneMonth(HashMap<String, Object> params);
-
+	List<MoneyBook> selectByIdIndex(int id_index);
 }

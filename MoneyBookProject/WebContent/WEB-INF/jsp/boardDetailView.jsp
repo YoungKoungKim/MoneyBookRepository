@@ -36,7 +36,7 @@ function getCommentList() {
 		success : function(data) {
 			$("#commentTable").html("");
 			for(var comment in data) {
-				var date = new Date(data[comment].date);
+				var date = new Date(data[comment].c_date);
 				var time = date.getFullYear() + "." + (date.getMonth() + 1) + "." + date.getDate() + " " + date.getHours() + ":" + date.getMinutes();
 				var msg = "";
 				var tdStyle = "";
@@ -51,8 +51,8 @@ function getCommentList() {
 					$("#commentTable").html($("#commentTable").html() + "<tr>	<td" + tdStyle + ">" + data[comment].nick + "&nbsp;&nbsp;&nbsp;" + time +"&nbsp;&nbsp;&nbsp; <span id='rec_" + data[comment].commentNo + "'>추천:"+ data[comment].recommend+"</span>"
 					+ "</td></tr><tr><td" + tdStyle + "><div " + reDiv + ">" + msg + "</div><div class='col-md-11' style='padding: 0;'><textarea class='comment' style='resize: none; border:0;  background-color: #f0f8ff;' id='comment_"+data[comment].commentNo+"' rows='2' cols='80' readonly='readonly'>"+ data[comment].content + "</textarea></div>"
 							
-							+"<div class='col-md-3'><a class='delete' id='"+data[comment].commentNo+"@' name='"+data[comment].commentNo+"'>삭제</a>"
-							+"<a class='update' id='"+data[comment].commentNo+"@' name='"+data[comment].commentNo+"'>수정</a>"
+							+"<div class='col-md-3' style='padding-left: 0'><a class='delete' id='"+data[comment].commentNo+"@' name='"+data[comment].commentNo+"'>삭제</a>"
+							+"<a class='update' id='"+data[comment].commentNo+"@' name='"+data[comment].commentNo+"' style='margin: 0 10px 0 10px'>수정</a>"
 							+"<a class='recomment' id='"+data[comment].commentNo+"@' name='"+data[comment].commentNo+"'>답글</a><div></td></tr>"
 							
 							+"<tr><td><div style='display: none' id='re_" + data[comment].commentNo +"'>"
@@ -66,7 +66,7 @@ function getCommentList() {
 						"<tr>	<td" + tdStyle + ">" + data[comment].nick + 
 						"&nbsp;&nbsp;&nbsp;" + time +"&nbsp;&nbsp;&nbsp; <span id='rec_" + data[comment].commentNo + "'>추천:"+ data[comment].recommend+"</span>"
 						+"</td></tr><tr><td" + tdStyle + "><div " + reDiv + ">" + msg + "</div><div class='col-md-11' style='padding: 0;'><textarea class='comment' style='resize: none; border:0;  background-color: #f0f8ff;' id='comment_"+data[comment].commentNo+"' rows='2' cols='80' readonly='readonly'>"+ data[comment].content + "</textarea></div>"
-						+"<div class='col-md-3'><a class='recommendcomment' id='" + data[comment].commentNo + "@' name ='" + data[comment].commentNo + "'>추천</a> "
+						+"<div class='col-md-3' style='padding-left: 0'><a class='recommendcomment' id='" + data[comment].commentNo + "@' name ='" + data[comment].commentNo + "'>추천</a> "
 						+"<a class='recomment' id='" + data[comment].commentNo + "@' name ='" + data[comment].commentNo + "' >답글</a><div></td></tr>"
 						
 						+"<tr><td><div style='display: none' id='re_" + data[comment].commentNo +"'>"
@@ -219,7 +219,7 @@ function getCommentList() {
 				<table>
 					<tr>
 						<td style="width: 100px;" align="right" colspan="4"><fmt:formatDate
-								value="${board.date}" pattern="yyyy-MM-dd" /></td>
+								value="${board.b_date}" pattern="yyyy-MM-dd" /></td>
 					</tr>
 					<tr>
 

@@ -21,27 +21,39 @@ public class CommentService implements ICommentService {
 	@Override
 	public boolean commentWrite(HashMap<String, Object> params) {
 		params.put(Comment.LV, 0);
-		 int count= dao.commentCount((int) params.get(Comment.BOARDNO));
+		int count = dao.commentCount((int) params.get(Comment.BOARDNO));
 		params.put(Comment.DEPTH, count + 1);
-		 return dao.insertComment(params);
+		return dao.insertComment(params);
 	}
-	
+
 	@Override
 	public boolean commentreplyWrite(HashMap<String, Object> params) {
-		params.put("commentNo",params.get("lv"));
-		 HashMap<String, Object> result= dao.selectOneComment(params); //부모꺼
-		 params.remove("commentNo");
-		 
-		 int depth =  (int) result.get("depth");
-		 System.out.println(depth);
-		 dao.updatereplyComment(depth);
-		params.put(Comment.DEPTH, depth+1);
-		return 	dao.insertComment(params);
+		params.put("commentNo", params.get("lv"));
+		HashMap<String, Object> result = dao.selectOneComment(params); // 부모꺼
+		params.remove("commentNo");
+
+		int depth = (int) result.get("depth");
+		dao.updatereplyComment(depth);
+		params.put(Comment.DEPTH, depth + 1);
+		return dao.insertComment(params);
 	}
-	
+
 	@Override
 	public boolean commentDelete(int commentNo) {
-		return dao.deleteComment(commentNo);
+		// TODO Auto-generated method stub
+		int boardNo = dao.selectCommentLoc(commentNo);
+
+		HashMap<String, Object> params = new HashMap<>();
+
+		params.put(Comment.COMMENTNO, commentNo);
+		params.put(Comment.ID_INDEX, -1);
+		params.put(Comment.CONTENT, "삭제된 댓글입니다.");
+
+		if (dao.updateDeleteComment(params)) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	@Override
@@ -70,18 +82,17 @@ public class CommentService implements ICommentService {
 	}
 
 	@Override
-	public void commentRecommend(int commentNo) {		 
-		 dao.updateRecommend(commentNo);
+	public void commentRecommend(int commentNo) {
+		dao.updateRecommend(commentNo);
 	}
 
 	@Override
 	public HashMap<String, Object> searchOne(int commentNo, int boardNo) {
 		HashMap<String, Object> params = new HashMap<>();
-		params.put(Comment.COMMENTNO,commentNo);
+		params.put(Comment.COMMENTNO, commentNo);
 		params.put(Comment.BOARDNO, boardNo);
-		return  dao.selectOneComment(params);
-		
+		return dao.selectOneComment(params);
+
 	}
 
-	
 }

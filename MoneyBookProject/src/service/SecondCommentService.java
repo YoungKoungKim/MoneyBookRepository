@@ -45,7 +45,19 @@ public class SecondCommentService implements ISecondCommentService{
 	@Override
 	public boolean commentDelete(int commentNo) {
 		// TODO Auto-generated method stub
-		return dao.deleteComment(commentNo);
+		int boardNo = dao.selectCommentLoc(commentNo);
+		
+		HashMap<String, Object> params = new HashMap<>();
+		
+		params.put(Comment.COMMENTNO, commentNo);
+		params.put(Comment.ID_INDEX, -1);
+		params.put(Comment.CONTENT, "삭제된 댓글입니다.");
+		
+		if(dao.updateDeleteComment(params)) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	@Override
