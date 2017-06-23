@@ -40,9 +40,10 @@ public class AndroidController {
 		if (member != null) {
 			result.put("result", "2101");
 			HashMap<String, Object> firstInfo = moneyBookService.startMoneyBook(id);
-			result.put("id_index", firstInfo.get("id_index"));
+			String id_indexStr = String.valueOf(firstInfo.get("id_index"));
+			System.out.println(id_indexStr);
+			result.put("id_index", id_indexStr);
 			result.put("moneybookList", firstInfo.get("mbList"));
-			System.out.println(firstInfo.get("mbList").toString());
 		} else {
 			result.put("result", "2102");
 		}

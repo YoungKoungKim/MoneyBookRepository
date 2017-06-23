@@ -15,9 +15,9 @@ public class test {
 		
 		Member m = new Member();
 		
-		m.setId("asdf@asdf.com");
-		m.setNick("asdf");
-		m.setPwd("aaAA11!!");
+		m.setId("asdf");
+		m.setNick("aaa");
+		m.setPwd("asdf");
 		
 		service.joinSuccess(m);
 	}
