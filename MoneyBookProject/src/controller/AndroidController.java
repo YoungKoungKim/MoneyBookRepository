@@ -1,5 +1,7 @@
 package controller;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -88,5 +90,36 @@ public class AndroidController {
 		System.out.println(date);
 		
 		return response;
+		
+		
+	}
+	
+	@RequestMapping(method = RequestMethod.GET, value = "android/moneybookAdd.do")
+	public @ResponseBody Integer moneybookAdd(int id_index, String date, String category, String content, int price) {
+		System.out.println("가계부 등록 요청");
+		System.out.println(date);
+		MoneyBook moneybook = new MoneyBook();
+		moneybook.setId_index(id_index);
+		Date mbDate = new Date();
+		
+		try {
+			mbDate = new SimpleDateFormat("yyyy-MM-dd").parse(date);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		moneybook.setDate(mbDate);
+		moneybook.setCategory(category);
+		moneybook.setDetail(content);
+		moneybook.setPrice(price);
+		System.out.println(moneybook);
+		
+		int result = moneyBookService.moneyBookRegist(moneybook);
+		
+		if(result == 3201) {
+			return 3201;
+		} else {
+			return 3202;
+		}
 	}
 }

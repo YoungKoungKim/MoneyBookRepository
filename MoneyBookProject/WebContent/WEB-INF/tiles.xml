@@ -8,6 +8,7 @@
 		<put-attribute name="header" value="/WEB-INF/template/header.jsp"></put-attribute>
 		<put-attribute name="footer" value="/WEB-INF/template/footer.jsp"></put-attribute>
 		<put-attribute name="content" value=""></put-attribute>
+			
 	</definition>
 	<definition name="*.tiles" extends="tiles">
 		<put-attribute name="content" value="/WEB-INF/jsp/{1}.jsp"></put-attribute>
