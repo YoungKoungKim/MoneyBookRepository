@@ -6,14 +6,15 @@
 
 	<insert id="insertBoard" parameterType="board" useGeneratedKeys="true"
 		keyProperty="boardNo">
-		insert into board values(0,#{title},#{content},sysdate(),#{ageType},#{nick},#{id_index},0,0)
+		insert into board
+		values(0,#{title},#{content},sysdate(),#{ageType},#{nick},#{id_index},0,0)
 	</insert>
 
 	<update id="updateBoard" parameterType="board">
-		update board set 
+		update board set
 		title = #{title}, content = #{content},
-		ageType = #{ageType}, b_date = #{b_date},
-		viewNo = #{viewNo}
+		b_date = sysdate(), viewNo =
+		#{viewNo}
 		where boardNo = #{boardNo} and id_index = #{id_index}
 	</update>
 
@@ -24,12 +25,14 @@
 	</update>
 
 	<delete id="deleteBoard" parameterType="int">
-		delete from board where boardNo = #{boardNo}
+		delete from board where
+		boardNo = #{boardNo}
 	</delete>
 
 	<select id="selectByNick" parameterType="String" resultType="board">
 		select * from board where nick = #{nick}
-		order by boardNo desc limit #{skip}, #{count}
+		order by boardNo desc limit
+		#{skip}, #{count}
 	</select>
 
 	<select id="selectOneBoard" parameterType="int" resultType="board">
@@ -38,7 +41,7 @@
 
 	<select id="selectByWhat" parameterType="java.util.HashMap"
 		resultType="board">
-		select * from board 
+		select * from board
 		<choose>
 			<when test="category eq 'title'">
 				where title like concat ("%", #{content}, "%")
@@ -55,12 +58,16 @@
 	</select>
 
 	<select id="selectBest" resultType="board" parameterType="int">
-		select *,(select count(*) from comment where comment.boardNo =board.boardNo)as commentNum from board order by recommend desc limit 0, #{count}
+		select
+		*,(select count(*) from comment where comment.boardNo
+		=board.boardNo)as commentNum from board order by recommend desc limit
+		0, #{count}
 	</select>
 
 	<select id="selectboardLimit" parameterType="java.util.HashMap"
 		resultType="board">
-		select *,(select count(*) from comment where comment.boardNo =board.boardNo)as commentNum from board
+		select *,(select count(*) from comment where comment.boardNo
+		=board.boardNo)as commentNum from board
 		<choose>
 			<when test="ageType == 40">
 				where ageType >= #{ageType}
@@ -89,12 +96,13 @@
 			where nick like concat("%", #{content} ,"%")
 		</if>
 	</select>
-	
+
 	<select id="selectBoardNo" parameterType="int" resultType="int">
 		select * from board WHERE id_index = #{id_index}
 	</select>
-	
+
 	<delete id="deleteBoardById_index" parameterType="int">
-		delete from board WHERE id_index = #{id_index}
+		delete from
+		board WHERE id_index = #{id_index}
 	</delete>
 </mapper>

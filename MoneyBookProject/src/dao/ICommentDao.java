@@ -8,6 +8,8 @@ public interface ICommentDao {
 
 	public boolean updateComment(HashMap<String, Object> params);
 
+	public boolean updateDeleteComment(HashMap<String, Object> params);
+
 	public boolean deleteComment(int commentNo);
 
 	public int selectWriterIndex(String nick);
@@ -18,12 +20,12 @@ public interface ICommentDao {
 
 	// 코멘트 번호랑 게시글 번호
 	public HashMap<String, Object> selectOneComment(HashMap<String, Object> params);
-	
+
 	public boolean deleteBoardComment(int boardNo);
-	
+
 	public int updateRecommend(int commentNo);
-	
+
 	public int commentCount(int boardNo);
-	
+
 	public boolean updatereplyComment(int depth);
 }

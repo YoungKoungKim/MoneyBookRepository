@@ -108,6 +108,9 @@
 
 }
 
+.modal-backdrop {
+	z-index: 0;
+}
     
 </style>
 <title>이용정보보기</title>
