@@ -12,12 +12,15 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import dao.IMemberDao;
 import dao.IMoneyBookDao;
 import model.ExtraBoard;
 import model.MoneyBook;
 
 @Component
 public class MoneyBookService implements IMoneyBookService {
+	@Autowired
+	IMemberDao memberDao;
 	@Autowired
 	IMoneyBookDao moneyBookDao;
 
@@ -315,6 +318,23 @@ public class MoneyBookService implements IMoneyBookService {
 		}
 
 		return monthAmountList;
+	}
+
+//	안드로이드 로그인시 쓸 service
+	@Override
+	public HashMap<String, Object> startMoneyBook(String id) {
+		HashMap<String, Object> result = new HashMap<>();
+		int id_index = memberDao.selectIdIndex(id);
+		List<MoneyBook> mbList = moneyBookDao.selectByIdIndex(id_index);
+		
+		/*for (MoneyBook m : mbList) {
+			SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-DD");
+			m.getM_date();
+		}*/
+		
+		result.put("id_index", id_index);
+		result.put("mbList", mbList);
+		return result;
 	}
 }
 

@@ -14,11 +14,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import dao.IMemberDao;
+import dao.IMoneyBookDao;
 import model.Member;
 import model.MoneyBook;
 import model.Repo;
 import service.IMemberService;
 import service.IMoneyBookService;
+import service.MoneyBookService;
 
 @Controller
 public class AndroidController {
@@ -29,15 +32,22 @@ public class AndroidController {
 	private IMemberService memberService;
 	
 	@RequestMapping(method = RequestMethod.POST, value = "android/login.do")
-	public @ResponseBody Integer loginSuccess(String id, String pwd) {
+	public @ResponseBody HashMap<String, Object> loginSuccess(String id, String pwd) {
+		HashMap<String, Object> result = new HashMap<>();
 		System.out.println("로그인 요청");
 		Member member = memberService.login(id, pwd);
 
 		if (member != null) {
-			return 2101;
+			result.put("result", "2101");
+			HashMap<String, Object> firstInfo = moneyBookService.startMoneyBook(id);
+			result.put("id_index", firstInfo.get("id_index"));
+			result.put("moneybookList", firstInfo.get("mbList"));
+			System.out.println(firstInfo.get("mbList").toString());
 		} else {
-			return 2102;
+			result.put("result", "2102");
 		}
+		
+		return result;
 	}
 	
 /*	@RequestMapping(value="android/android.do", method=RequestMethod.GET)
