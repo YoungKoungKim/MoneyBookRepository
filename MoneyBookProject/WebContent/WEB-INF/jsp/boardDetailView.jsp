@@ -145,7 +145,7 @@ function getCommentList() {
 										$('#spanrecommend').text('추천 :'+data.recommend);						
 										alert("이미추천하셨습니다.");
 								}else if(data.code==3){
-									alert("로그인해주세여");
+									alert("로그인해주세요.");
 								}
 							},
 							error:function(){

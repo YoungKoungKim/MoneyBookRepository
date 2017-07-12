@@ -41,6 +41,7 @@ public class SecondBoardService implements ISecondBoardService {
 
 	@Override
 	public int boardUpdate(Board board) {
+		board.setB_date(new Date());
 		int result = bDao.updateBoard(board);
 		if (result > 0)
 			return 4001;
