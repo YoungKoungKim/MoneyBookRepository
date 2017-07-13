@@ -308,10 +308,15 @@
                         </td>
                      </tr>
                      <tr>
-                        <td colspan="2" align="center"><br> <a
+                        <td colspan="2" align="center"><a
                            id="kakao-login-btn"></a> <a
                            href="http://developers.kakao.com/logout"></a>
                         <td>
+                     </tr>
+                     <tr>
+                        <td colspan="2" align="center" style="color: #888888;">
+                           <h4>크롬 외 브라우저에서 정상작동하지 않을 수 있습니다.</h4>
+                        </td>
                      </tr>
                   </table>
                </center>

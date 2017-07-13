@@ -10,7 +10,9 @@
 <script src="https://code.jquery.com/jquery-2.2.4.min.js"
 	integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
 	crossorigin="anonymous"></script>
-<style type="text/css">
+
+<link href="boardcss/boardList.css" rel="stylesheet" type="text/css">
+<!-- <style type="text/css">
 .boardNo {
 	width: 50px;
 	text-align: center;
@@ -164,7 +166,7 @@ li {
 	margin: 5px 0px 5px 0px;
 	font-size: 28px;
 }
-</style>
+</style> -->
 <script type="text/javascript">
 	// html dom 이 다 로딩된 후 실행된다.
 	$(document).ready(function() {
@@ -215,7 +217,7 @@ li {
 			<div>
 				<table class="tablelist">
 					<c:forEach var="best" items="${boardBest}">
-						<tr>
+						<tr class="board_list_tr">
 							<td class="boardNo">Best</td>
 							<td class="title"><a
 								style="color: #FF6753; margin-right: 100px;"
@@ -226,7 +228,7 @@ li {
 							<td class="nick"><img id="img1"
 								src="homeCss/assets/images/demo/name.png" alt="" />${best.nick }</td>
 
-							<td class="Date"><img id="img1"
+							<td class="date"><img id="img1"
 								src="homeCss/assets/images/demo/date.png" alt="" /> <fmt:formatDate
 									value="${best.b_date }" pattern="yyyy-MM-dd" /></td>
 
@@ -242,7 +244,7 @@ li {
 			<div>
 				<table class="tablelist">
 					<c:forEach var="board" items="${boardList }">
-						<tr>
+						<tr class="board_list_tr">
 							<td class="boardNo">${board.boardNo }</td>
 
 							<td class="title"><a style="margin-right: 100px;"
@@ -253,7 +255,7 @@ li {
 							<td class="nick"><img id="img1"
 								src="homeCss/assets/images/demo/name.png" alt="" />${board.nick }</td>
 
-							<td class="Date"><img id="img1"
+							<td class="date"><img id="img1"
 								src="homeCss/assets/images/demo/date.png" alt="" /> <fmt:formatDate
 									value="${board.b_date }" pattern="yyyy-MM-dd" /></td>
 
