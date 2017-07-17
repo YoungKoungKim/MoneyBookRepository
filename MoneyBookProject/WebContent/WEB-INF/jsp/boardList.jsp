@@ -99,7 +99,7 @@
 								<td class="boardNo">Best</td>
 								<td><span>[${best.ageType}대]</span></td>
 								<td class="mainTitle"><a style="color: #FF6753;"
-									href="secondBoardDetailView.do?boardNo=${best.boardNo}">${best.title}
+									href="boardDetailView.do?boardNo=${best.boardNo}">${best.title}
 										<samp>[${best.commentNum}]</samp>
 								</a></td>
 
@@ -122,7 +122,7 @@
 								<td class="boardNo">${board.boardNo }</td>
 								<td><span>[${board.ageType}대]</span></td>
 								<td class="mainTitle"><a
-									href="secondBoardDetailView.do?boardNo=${board.boardNo}">${board.title }
+									href="boardDetailView.do?boardNo=${board.boardNo}">${board.title }
 										<span>[${board.commentNum}]</span>
 								</a></td>
 

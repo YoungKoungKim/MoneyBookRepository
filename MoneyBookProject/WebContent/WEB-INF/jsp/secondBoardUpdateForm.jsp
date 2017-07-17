@@ -125,7 +125,18 @@
 }
 </style>
 <script type="text/javascript">
-
+$(document).ready(function() {
+	
+	$("#submitBtn").on("click", function(){
+		if($("#textarea1").text() == "" || $("#title1").val() == ""){
+			alert("내용을 입력해주세요");
+			return false;
+		} else if($("#title1").val().length > 50) {
+			alert("제목은 50자까지 가능합니다.")
+			return false;
+		}
+	});
+});
 </script>
 </head>
 <body>

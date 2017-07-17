@@ -150,11 +150,14 @@ function doRemoveTag(age1) {
 			if(result2 == ""){
 				  alert("제목을 입력해주세요");
 				  }	else {
-					  doRemoveTag(title);	
-					 $('textarea[name="content"]').val(content1);
-					  $("#formsubmit").submit();
+					  if(title.length > 50) {
+						  alert("제목은 50자까지 가능합니다.")
+					} else {
+						doRemoveTag(title);	
+						$('textarea[name="content"]').val(content1);
+						$("#formsubmit").submit();
+					}
 				  }
-			 
 		 });
 		 
 		  $('#summernote').summernote({
