@@ -190,7 +190,7 @@ li {
 		<div class="left">
 			<div>
 				<br> &nbsp;&nbsp;&nbsp; <a class="myButton" href="boardList.do">공유게시판</a>
-			
+
 			</div>
 			<div>
 				<br> &nbsp;&nbsp;&nbsp; <a class="myButton"
@@ -215,57 +215,64 @@ li {
 				</form>
 			</div>
 			<div>
-				<table class="tablelist">
-					<c:forEach var="best" items="${boardBest}">
-						<tr class="board_list_tr">
-							<td class="boardNo">Best</td>
-							<td class="title"><a
-								style="color: #FF6753; margin-right: 100px;"
-								href="secondBoardDetailView.do?boardNo=${best.boardNo}">${best.title}
-									<samp>[${best.commentNum}]</samp>
-							</a></td>
-
-							<td class="nick"><img id="img1"
-								src="homeCss/assets/images/demo/name.png" alt="" />${best.nick }</td>
-
-							<td class="date"><img id="img1"
-								src="homeCss/assets/images/demo/date.png" alt="" /> <fmt:formatDate
-									value="${best.b_date }" pattern="yyyy-MM-dd" /></td>
-
-							<td class="recommend"><img id="img1"
-								src="homeCss/assets/images/demo/recommend.png" alt="" />${best.recommend }</td>
-
-							<td class="ViewNo"><img id="img1"
-								src="homeCss/assets/images/demo/view.png" alt="" />${best.viewNo }</td>
+				<table class="table tablelist">
+					<thead style="background-color: #91D4B5;">
+						<tr>
+							<td class="boardNo">글번호</td>
+							<td class="title" style="text-align: center;">제목</td>
+							<td class="nick">작성자</td>
+							<td class="date">작성일</td>
+							<td class="recommend">추천</td>
+							<td class="viewNo">조회수</td>
 						</tr>
-					</c:forEach>
-				</table>
-			</div>
-			<div>
-				<table class="tablelist">
-					<c:forEach var="board" items="${boardList }">
-						<tr class="board_list_tr">
-							<td class="boardNo">${board.boardNo }</td>
+					</thead>
+					<tbody>
+						<c:forEach var="best" items="${boardBest}">
+							<tr class="board_list_tr">
+								<td class="boardNo">Best</td>
+								<td class="title"><a style="color: #FF6753;"
+									href="secondBoardDetailView.do?boardNo=${best.boardNo}">${best.title}
+										<samp>[${best.commentNum}]</samp>
+								</a></td>
 
-							<td class="title"><a style="margin-right: 100px;"
-								href="secondBoardDetailView.do?boardNo=${board.boardNo}">${board.title }
-									<span>[${board.commentNum}]</span>
-							</a></td>
+								<td class="nick"><img id="img1"
+									src="homeCss/assets/images/demo/name.png" alt="" />${best.nick }</td>
 
-							<td class="nick"><img id="img1"
-								src="homeCss/assets/images/demo/name.png" alt="" />${board.nick }</td>
+								<td class="date"><img id="img1"
+									src="homeCss/assets/images/demo/date.png" alt="" /> <fmt:formatDate
+										value="${best.b_date }" pattern="yyyy-MM-dd" /></td>
 
-							<td class="date"><img id="img1"
-								src="homeCss/assets/images/demo/date.png" alt="" /> <fmt:formatDate
-									value="${board.b_date }" pattern="yyyy-MM-dd" /></td>
+								<td class="recommend"><img id="img1"
+									src="homeCss/assets/images/demo/recommend.png" alt="" />${best.recommend }</td>
 
-							<td class="recommend"><img id="img1"
-								src="homeCss/assets/images/demo/recommend.png" alt="" />${board.recommend }</td>
+								<td class="viewNo"><img id="img1"
+									src="homeCss/assets/images/demo/view.png" alt="" />${best.viewNo }</td>
+							</tr>
+						</c:forEach>
+						<c:forEach var="board" items="${boardList }">
+							<tr class="board_list_tr">
+								<td class="boardNo">${board.boardNo }</td>
 
-							<td class="ViewNo"><img id="img1"
-								src="homeCss/assets/images/demo/view.png" alt="" />${board.viewNo }</td>
-						</tr>
-					</c:forEach>
+								<td class="title"><a
+									href="secondBoardDetailView.do?boardNo=${board.boardNo}">${board.title }
+										<span>[${board.commentNum}]</span>
+								</a></td>
+
+								<td class="nick"><img id="img1"
+									src="homeCss/assets/images/demo/name.png" alt="" />${board.nick }</td>
+
+								<td class="date"><img id="img1"
+									src="homeCss/assets/images/demo/date.png" alt="" /> <fmt:formatDate
+										value="${board.b_date }" pattern="yyyy-MM-dd" /></td>
+
+								<td class="recommend"><img id="img1"
+									src="homeCss/assets/images/demo/recommend.png" alt="" />${board.recommend }</td>
+
+								<td class="viewNo"><img id="img1"
+									src="homeCss/assets/images/demo/view.png" alt="" />${board.viewNo }</td>
+							</tr>
+						</c:forEach>
+					</tbody>
 				</table>
 			</div>
 			<div>
@@ -276,8 +283,8 @@ li {
 							</c:if> <c:forEach begin="${start }" end="${end }" var="i">
 								<c:choose>
 									<c:when test="${i == current }">
-											<span style="color: red;">[${i }]</span>
-										</c:when>
+										<span style="color: red;">[${i }]</span>
+									</c:when>
 									<c:otherwise>
 										<a
 											href="secondBoardList.do?page=${i }&content=${content}&category=${category}">[${i }]</a>
