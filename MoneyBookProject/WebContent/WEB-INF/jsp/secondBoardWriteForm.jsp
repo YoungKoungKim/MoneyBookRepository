@@ -30,6 +30,9 @@ $(document).ready(function() {
 		if($("#content1").val() == "" || $("#title").val() == ""){
 			alert("내용을 입력해주세요");
 			return false;
+		} else if($("#title").val().length > 50) {
+			  alert("제목은 50자까지 가능합니다.")
+			  return false;
 		}
 	});
 });

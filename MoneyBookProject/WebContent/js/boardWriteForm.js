@@ -237,10 +237,14 @@ $('#summernote').summernote({
 			if(result2 == ""){
 				  alert("제목을 입력해주세요");
 			} else {
-					  doRemoveTag(title);
+				if(title.length > 50) {
+					  alert("제목은 50자까지 가능합니다.")
+				} else {
+					 doRemoveTag(title);
 					 $('textarea[name="content"]').val(content1);
-					  $("#formsubmit").submit();
-				  }
+					 $("#formsubmit").submit();
+				}
+			}
 		 });
 		
 		  $('#summernote').summernote({

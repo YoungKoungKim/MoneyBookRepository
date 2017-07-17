@@ -38,7 +38,6 @@
 
 <script type="text/javascript" src="js/boardWriteForm.js"></script>
 </head>
-
 <body>
 	<div class="root">
 	
